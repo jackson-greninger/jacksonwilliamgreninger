@@ -1,0 +1,185 @@
+body{
+    /*background-color: black;
+	background-image: url(BG1.png);*/
+	background-color: #fff;
+	background-repeat: no-repeat;
+	background-position: right;
+	background-size: 100%;
+	font-family: "Palatino", "Times New Roman", serif;
+	line-height: 1.5;
+}
+
+@media(max-width: 1200px) {
+	body{
+		background-size:1200px;
+	}
+}
+
+p{
+	word-wrap: break-word;
+}
+
+div{
+	/*border: solid 1px black;*/
+}
+
+h3{
+	margin-bottom:5px;
+}
+
+#content{
+	position: absolute;
+	left:8%;
+	top: 50px;
+	text-align: center;
+	margin-bottom:50px;
+	padding-top:; 0;
+	padding-left: 2%;
+	padding-right: 2%;
+	padding-bottom: 5%;
+	min-height: 200px;
+	width: 80%;
+	background-color: rgba(255,255,255,0.9);
+	border-radius: 2px;
+}
+
+#name, #links{
+	margin-bottom: 10px;
+	margin-top:30px;
+	align-content: center;
+	text-align: center;
+	align-content: center;
+	border-radius: 2px;
+}
+
+.link{
+	display:inline-block;
+	padding-top:10px;
+	padding-bottom: 10px;
+	width: 100%;
+	margin:0px;
+	/*background-color: rgba(220,220,220,0.8);*/
+}
+
+.link:hover{
+	background-color: #eee;
+}
+
+a{
+	text-decoration: none;
+	color: #1ae;
+}
+
+a:hover{
+	text-decoration: underline;
+}
+
+a:visited{
+	text-decoration: none;
+	color: #1ae;
+}
+
+#head{
+	/*position:relative;*/
+	vertical-align: top;
+	display: inline-block;
+	padding:1%;
+	max-width:18%;
+	min-width: 150px;
+	font-weight: bold;
+	align-content: center;
+}
+
+#stuff{
+	/*position:relative;*/
+	min-height: 200px;
+	text-align:left;
+	vertical-align: top;
+	display: inline-block;
+	padding: 2%;
+	width:calc(88% - 150px);
+	border-left:#eee 1px solid;
+}
+
+
+#CV iframe{
+	width: 100%;
+	min-height: 600px;
+}
+
+.image{
+}
+
+.image img{
+	width:60%;
+	position:relative;
+	left:20%;
+
+}
+
+@media(max-width: 600px){
+	body{
+		background-size: fill;
+	}
+
+	#head{
+		display: block;
+		max-width:100%;
+	}
+	#stuff{
+		display: block;
+		width: 100%;
+		border-left:#eee 0px solid;
+		border-top: #eee 1px solid;
+	}
+
+	.link{
+		max-width: 23%;
+	}
+
+	.image img{
+		width:80%;
+		position:relative;
+		left:10%; 
+	}
+}
+
+
+#boxes{
+	width:100%;
+	height:100%;
+	padding:0;
+	/*text-align: center;*/
+}
+
+.box{
+	position:relative;
+	/*text-align: center;*/
+	display: block;
+	/*background-color: rgba(225, 225, 225, 0.5);*/
+	width: 90%;
+	/*padding:10px;*/
+	margin:5px;
+	overflow-wrap: break-word;
+	vertical-align:top;
+}
+
+.box a{
+	font-style: italic;
+	display: block;
+	text-align: center;
+}
+
+.box b{
+	display: block;
+	font-size: 10px;
+	margin-right: 10px;
+
+	border-top: #eee 1px solid;
+}
+
+.box p{
+	display: block;
+	text-align: right;
+	margin:0;
+}
