@@ -139,6 +139,10 @@ a:visited{
 		max-width: 23%;
 	}
 
+	#tab{
+		width: 100%;
+	}
+
 	.image img{
 		width:80%;
 		position:relative;
