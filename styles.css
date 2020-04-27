@@ -114,13 +114,17 @@ a:visited{
 	min-height: 600px;
 }
 
-.image{
-}
-
 .image img{
 	width:60%;
 	position:relative;
 	left:20%;
+
+}
+
+.small_image img{
+	width:20%;
+	position:relative;
+	left:40%;
 
 }
 
