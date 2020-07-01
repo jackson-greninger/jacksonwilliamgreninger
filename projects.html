@@ -10,6 +10,8 @@
 	
 	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://tikzjax.com/v1/fonts.css">
+	<script src="http://tikzjax.com/v1/tikzjax.js"></script>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
@@ -40,7 +42,7 @@
 				<li><a href="#three">A Graphical Representation of Formulas</a></li>
 			</list>
 
-			<h3 id="one">I. Characterizing Automata With Coequations</h3>
+			<h3 id="one">I. Regular Expressions via Coequations</h3>
 			<p>
 				[Under construction...]
 			</p>
@@ -56,17 +58,72 @@
 			<p>
 				Often, the first time you try to write a proof, you make some guesses that lead you down a blind alley. How nice would it be to be able to compute the probability that the path you’re taking goes nowehere? I'm not about to claim that this probability is always computable ahead of time. However, I think it's likely computable ad hoc, and in certain circumstances. 
 			</p>
+
 			<p>
-				Suppose we were to construct a machine that "randomly" constructs a derivation tree given a sequence of rules and a sequent in some logic. My main questions in this direction are as follows:
+				Suppose we were to construct a machine that, given a sequence of rules and a sequent in some logic, stochastically constructs a derivation tree. My main questions in this direction are...
 				<ol type="a"> 
-					<li><i>In which circumstances is the likelihood of a specific derivation having taken place computable?</i></li>
-					<li><i>How can we learn from these probabilities-that is, if we adjust the likelihood of some derivation steps, can we make proofs more likely to appear as derivations?</i></li>
+					<li>In which circumstances is the likelihood of a specific derivation having taken place computable?</li>
+					<li>Can we have such a machine learn from its failures? That is, if we adjust the probability distribution for the constructon at each derivation step, can we make proofs more likely to appear?</li>
 				</ol>
+				These questions are, of course, somewhat vague at the moment. But here is a setup in which they make sense: Let's define a <i>logic</i> \(\mathcal L\) to be a set of <i>sequents</i> \(S_{\mathcal L}\) and a set of <i>derivation rules</i> \(R_{\mathcal L}\). A member \(r \in R_{\mathcal L}\) is an \((n_r+1)\)-ary relation on \(S_{\mathcal L}\), and I will write
+				\begin{align*}
+					s_1 && \dots && s_{n_r}\\
+					\hline
+					&& s && (r)
+				\end{align*}
+				to mean\[
+					(s_1, \dots, s_{n_r}, s) \in r,
+				\]
+				and say that \((s_1, \dots, s_{n_r}, s)\) is an <i>instance of rule</i> \((r)\), as is usually done in proof theory. If \(n_r = 0\), then \((r)\) is said to be an <i>axiom</i>. The set \(\mathcal D_{\mathcal L}\) of <i>(abstract) derivation trees</i> of \(\mathcal L\) is constructed recursively as follows: For any sequent \(s\), the upwards-directed graph with a single node \(v^{(s)}\), labelled by \(s\), is an abstract derivation tree. Next, given any abstract derivation tree \(t\) and any of its leaf vertices \(v^{(s)}\), if \((s_1, \dots, s_r, s)\) is an instance of rule \((r)\),
+				the tree \(t'\), obtained by replacing \(v^{(s)}\) with the labelled tree 
+				<div class="medium_image"><img src="images/derivation_step.png" /></div>
+				is an abstract derivation tree. To denote that \(t'\) is obtained from \(t\) by applying the proof rule \((r)\) to one of its leaves, I will use \(t \xrightarrow{r} t'\), preempting the link to automata theory in next paragraph. An abstract derivation tree whose leaves are all labelled with axioms is called a <i>proof</i>.
+			</p>
+
+			<p>
+				There are, potentially, many different abstract derivation trees \(t'\) for which \(t \xrightarrow{r} t'\). For now, I will assume that these will be only finite in number, to avoid having to involve analysis later on. Anyway, the <i>abstract derivation machine</i> for \(\mathcal L\) is the function
+				\[
+					\delta_{\mathcal L}: D_{\mathcal L} \longrightarrow 2 \times \mathcal P(D_{\mathcal L})^{R_{\mathcal L}}
+				\]
+				that takes a tree \(t\) to the pair \((b, \delta_rt)\), where
+				\begin{align*}
+					b = 1 && \text{iff} && \text{every leaf of \(t\) is labelled with an axiom}
+				\end{align*}
+				and\[
+					\delta_rt = \{t' \mid t \xrightarrow{r} t'\}.
+				\]
+				The function \(\delta_{\mathcal L}\) is an example of a <a href="https://ncatlab.org/nlab/show/nondeterministic+automaton" target="_blank">nondeterministic automaton</a>.
+			</p>
+
+			<p>
+				Anyone familliar with the process will know that the jump from nondeterministic automata to probabilistic automata (see [1]) is not a large one: Instead of assigning a set of possible derivation steps to every tree and rule, we simply need to give a probability distribution to the possible derivation steps instead. This would yield a function of the form
+				\[
+					\delta_{\mathcal L}^\eta: D_{\mathcal L} \longrightarrow 2 \times \mathbb D_f(D_{\mathcal L})^{R_{\mathcal L}},
+				\]
+				(parameterized by a variable \(\eta\) that I will mention in a second) where \(\mathbb D_f(X)\) is the set of probability distributions on \(X\) with finite support. It remains to decide how \(\delta_{\mathcal L}\) should distribute probabilities. So far, all I have looked at is the uniform distribution: For any abstract derivation tree \(t\) and rule \(r\),
+				\[
+					\delta_r^{\text{Unif}}t(t') = \left\{\begin{array}{ll}
+						\frac{1}{|\delta_rt|} & \text{ if $t' \in \delta_rt$}\\
+						0 & \text{ otherwise}
+					\end{array}\right..
+				\]
+				Yes, \(\delta_r^{\text{Unif}}\) essentially writes proofs randomly. The purpose of \(\eta\) is probably clear at this point: \(\eta\) indexes the multitude of choices in distribution. I would like to know what happens when we make other well-defined choices in distribution, of course, and whether or not we can train a machine of this sort by varying \(\eta\) to optimise the likelihood of writing proofs.
+			</p>
+
+			<p>
+				This project is more or less for-fun, so I'm going to stop here and hope that somebody reading this might be interested in contributing. As a starting point, I have some questions about the first machine \(\delta_{\mathcal L}\) I'd particularly like to see worked out: 
+				<ol type="i">
+					<li>Pick your favourite propositional <a href="https://en.wikipedia.org/wiki/Substructural_logic" target="_blank">substructural logic</a>. What, syntactically, do <a href="https://en.wikipedia.org/wiki/Bisimulation" target="_blank">bisimilar</a> sequents have in common? Are there interesting logics for which bisimilarity is not simply given by sequences of proposition substitutions?</li>
+					<li>Extending i, what happens when we minimize (in the sense of [2])? What could this have to do with proof theory?</li>
+					<li>How is this approach similar to the ones taken in [3] and [4]?</li>
+				</ol>
+				Maybe these questions don't have interesting answers, but...maybe they do! In the words of Lenny Turteltaub, "What do [abstract derivation machines] know [about automated theorem proving]? Do they know things? Let's find out!"
 			</p>
 
 			<h4>References</h4>
 			<ol>
 				<li>Rabin, Michael O. "Probabilistic automata." Information and control 6.3 (1963): 230-245.</li>
+				<li>Bonchi, Filippo, et al. "Algebra-coalgebra duality in brzozowski's minimization algorithm." ACM Transactions on Computational Logic (TOCL) 15.1 (2014): 1-29.</li>
 				<li>Schubert, Aleksy, Wil Dekkers, and Henk Barendregt. "Automata theoretic account of proof search." (2015).</li>
 				<li>Zielenkiewicz, Maciej, and Aleksy Schubert. "Automata theory approach to predicate intuitionistic logic." International Symposium on Logic-Based Program Synthesis and Transformation. Springer, Cham, 2016.</li>
 			</ol>
