@@ -205,3 +205,10 @@ a:visited{
 	text-align: right;
 	margin:0;
 }
+
+.post {
+	margin-top: 20px;
+	padding-right: 10px;
+	border-top: 1px #eee solid;
+	border-right: 1px #eee solid;
+}

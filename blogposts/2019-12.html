@@ -1,0 +1,60 @@
+<i>2019-12</i>
+
+<b>
+	A Graphical Representation of Terms
+</b>
+
+<p>
+	This project is all about representing terms in an algebra with graphs, and characterizing the term-representing graphs using structural constraints. The current focus is on the formulas of a propositional logic built out of some number of parallel monoidal closed structures, especially <a href="https://en.wikipedia.org/wiki/Bunched_logic" target="_blank">bunched implication logic</a>. At the moment, a faithful graph-theoretic representation of the closed \(\{\wedge,*\}\)-fragment (which also includes) of propositional bunched implication logic <a href="https://drive.google.com/file/d/1gzJ6Jwmryi0url60grpA3E993U1jqqeH/view?usp=sharing" target="_blank">exists</a>, and the graphs it produces are characterized. The general case is still under construction, but looks promising.
+</p>
+
+<p>
+	It was first noticed in the 70s that a faithful representation of propositions in classical propostional logic could be represented with simple graphs whose vertices were labelled by propositions. This was later used in [1] to give a combinatorial account of classical propositional logic's proof theory, which was extended in [2] to full classical predicate logic and in [3] to several modal logics.
+</p>
+
+<p>
+	To give a flavour of the work involved, what follows is a brief account of the representation of classical propositional formulas that appears in [1]. Given a formula \(\varphi\) grammatically constructed from the rules
+	\[
+		A,B ::= p \in \mathbf{Prop} \mid \bar p \mid A \wedge B \mid A \vee B,
+	\]
+	the simple graph \([\![\varphi]\!]\) associated with \(\varphi\) is defined recursively as follows: For any literal \(a\),
+	\[
+		[\![a]\!] = (\{v^{(a)}\}, \emptyset)
+	\]
+	is the graph with a single vertex labelled "\(a\)". For any formulas \(A,B\),
+	\[
+		[\![A \vee B]\!] = [\![A]\!] \sqcup [\![B]\!]
+	\] 
+	is given by disjoint union, and 
+	\[
+		[\![A \wedge B]\!] = [\![A]\!] |\!| [\![B]\!] := [\![A]\!] \sqcup [\![B]\!] + \{v \frown w \mid v \in [\![A]\!], w \in [\![B]\!]\}
+	\]
+	is given by a disjoint union followed by fully connecting vertices between the two components (notice that \(|\!|\) and \(\sqcup\) are associative and commutative operations!). For example, \([\![q \wedge (\bar q \vee p)\wedge r]\!]\) is the following graph.
+</p>
+<p>
+	<div class="small_image">
+		<img src="images/cograph_example.png" />
+	</div>
+	Any graph constructed from a formula in this manner is called a <i>cograph</i>. This representation of classical propositional formulas is <i>faithful</i>, in the sense that no two inequivalent formulas construct the same graph (with labelling). Cographs are precisely the <i>\(N\)-free</i> graphs, where a graph is called <i>\(N\)-free</i> when no induced subgraph on four vertices has exactly three edges.
+</p>
+
+<p>
+	An interesting feature of this representation of graphs 
+</p>
+
+<p>
+	A slightly different graphical representation is used in [4] for the multiplicative fragment of intuitionistic propositional logic, where a combinatorial proof theory is also developed. In a talk I attended last year, given by Willem Heijltes and about [4], he mentioned that characterizing the graphs representing their formulas was a huge pain. While the ultimate aim of combinatorial proof theory is to...well...give a combinatorial account of proof theory, I think the faithful representation of formulas and the characterization of their graphs is itself an interesting and meaningful problem. At the very least, I hope that the project allows our friends in the combinatorial proof theory department to suffer just a little less.
+</p>
+
+<p>
+	This project is mostly for-fun, so it isn't worked on actively all the time. I encourage anyone interested to get in contact and contribute. More information on the combinatorial proofs program can be found <a href="http://boole.stanford.edu/~dominic/proofs-without-syntax/">here</a>.
+</p>
+
+<h4>References</h4>
+<ol type="1">
+	<li>Hughes, Dominic. “Proofs Without Syntax.” Annals of Mathematics 164.3 (2006): 1065–1076.</li>
+	<li>Hughes, Dominic JD. "First-order proofs without syntax." arXiv preprint arXiv:1906.11236 (2019).</li>
+	<li>Acclavio, Matteo, and Lutz Straßburger. "On Combinatorial proofs for modal logic." International Conference on Automated Reasoning with Analytic Tableaux and Related Methods. Springer, Cham, 2019.</li>
+	<li>Heijltjes, Willem B., Dominic JD Hughes, and Lutz StraBburger. "Intuitionistic proofs without syntax." 2019 34th Annual ACM/IEEE Symposium on Logic in Computer Science (LICS). IEEE, 2019.</li>
+</ol>
+</div>
