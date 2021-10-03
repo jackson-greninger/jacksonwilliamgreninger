@@ -102,7 +102,7 @@ a:visited{
 	margin-bottom: 20px;
 	padding-left: 220px;
 
-	background-image: url(images/self_temp.png); /*url(images/self.png);*/
+	background-image: url(images/self.png); /*url(images/self.png);*/
 	background-repeat: no-repeat;
 	background-size: 200px;
 }
