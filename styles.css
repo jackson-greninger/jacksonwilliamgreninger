@@ -261,18 +261,96 @@ a:visited{
 .abstract {
 	padding-top: 5px;
 	padding-bottom: 20px;
-	/*height: 14px;
-	overflow: hidden;
-	padding-left: 24px;*/
 }
-
-/*.abstract:hover {
-	height: fit-content;
-	padding-bottom: 20px;
-}
-*/
 
 .hoverreq{
 	font-size: 10px;
 	visibility: hidden;
+}
+
+/* COURSE PAGES */
+#cpnav {
+	position: fixed;
+	left:10px;
+	top: 50px;
+	width: 130px;
+	margin:0;
+	padding: 10px;
+	font-size: 15px;
+	text-align: left;
+	border: 1px solid #eee;
+}
+
+#cpnav #table_of_contents a {
+	background-color: white;
+	display: block;
+	border: 2px solid #1ae;
+	padding: 5px;
+	margin: 2px;
+}
+
+#grade_table{
+	align-self: center;
+	width:200px;
+}
+
+#grade_table tr .grade_col {
+	text-align: center;
+}
+
+#cpstuff{
+	position:absolute;
+	left: 150px;
+	top:0px;
+	min-height: 200px;
+	min-width: 300px;
+	text-align:justify;
+	vertical-align: top;
+	display: block;
+	padding: 20px;
+	width: calc(70% - 130px);
+}
+
+#cpstuff h1 {
+	text-align: left;
+}
+
+#cpschedule tr td{
+	vertical-align: top;
+	margin: 0;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	padding:10px;
+}
+
+#cpschedule tr .date {
+	text-align: right;
+	max-width: 100px;
+}
+
+@media only screen and (max-width: 500px) {
+	#cpnav{
+		position: fixed;
+		width: 100%;
+		min-width: 300px;
+		left: 0px;
+		top: 0px;
+		z-index: 10;
+		background-color: white;
+	}
+	#cpnav #table_of_contents a {
+		background-color: white;
+		display: inline-block;
+		border: 2px solid #1ae;
+		padding: 2px;
+	}
+	#cpstuff{
+		position:absolute;
+		left:0px;
+		top: 130px;
+		text-align: left;
+	}
+	td{
+		text-align: left;
+	}
 }
