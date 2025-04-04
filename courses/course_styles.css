@@ -1,0 +1,23 @@
+#head{
+	vertical-align: bottom;
+	display: block;
+	max-width: 98%;
+	min-width: 150px;
+	min-height: 150px;
+	font-weight: bold;
+	margin: 0px;
+	margin-bottom: 20px;
+	padding-left: 220px;
+}
+
+.coursetable {
+    border:#eee 1px solid;
+    margin: 10px;
+}
+
+.coursetable tr td {
+    border-top:#eee 1px solid;
+    border-left:#eee 1px solid;
+    padding: 2px;
+    padding-right: 10px;
+}
