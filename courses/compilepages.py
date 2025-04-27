@@ -22,16 +22,16 @@ if __name__ == "__main__" :
     footer_file.close()
 
     # Get pages directory
-    pages_folder = fsdecode(f'{course_folder}/pages/')
+    pages_folder = fsdecode(f'{course_folder}/pageconstruction/')
 
     # Create pages and spit them into local directory
     for page_file in listdir(pages_folder) :
         pagename = fsdecode(page_file)
-        file = open(f"{course_folder}/pages/{pagename}", "r")
+        file = open(f"{course_folder}/pageconstruction/{pagename}", "r")
         page = file.read()
         file.close()
 
-        out_file = f"{course_folder}/csci341_{pagename}"
+        out_file = f"{course_folder}/compiled/{course_folder}_{pagename}"
         create_page(header, footer, page, out_file)
 
 
