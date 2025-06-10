@@ -2,10 +2,10 @@
 
 <div id="contents">
 	<ul style="list-style-type: none;">
-		<li><a href="csci341_1_introduction.html">Introduction to Computational Problems</a></li>
-		<li><a href="csci341_1_introduction.html"><b>Part 1.</b> Memoryless State Machines</a>
+		<li><a href="csci341_introduction.html">Introduction to Computational Problems</a></li>
+		<li><a href="csci341_part1.html#contents"><b>Part 1.</b> Memoryless State Machines</a>
 			<ol>
-				<li><a href="csci341_1_introduction.html">Sokoban games, state diagrams, and winning</a></li>
+				<li><a href="csci341_part1.html#games">Sokoban games, state diagrams, and winning</a></li>
 				<!--
 					- Sokoban Games
 						• Legal moves as machine input
@@ -17,7 +17,8 @@
 						• Pergatory
 					- Lamps, unidirectional mazes, vending machines, combination locks, and legal identifiers in Python
 				-->
-				<li><a href="csci341_1_introduction.html">Describing the set of winning sequences</a>
+
+				<li><a href="csci341_part1.html#languages">Describing the set of winning sequences</a></li>
 				<!--
 					- Words from an alphabet
 					- The empty set, the empty word
@@ -28,25 +29,28 @@
 						• concatenation
 						• the Kleene star 	
 				-->
-				<li><a href="csci341_1_introduction.html">Deterministic automata</a>
+
+				<li><a href="csci341_part1.html#da">Deterministic automata</a></li>
 				<!--
 					- The power of abstraction
-					- The definition of deterministic automaton (DA)
+					- Deterministic transition systems
 						• X = State space
 						• A = Alphabet of "legal moves" or "actions"
 						• \delta : A x X -> X = Transition function
+					- Deterministic automata (DA)
+						• deterministic transition system
 						• \alpha : X -> 2 = Accept/reject function
 					- Drawing DAs
 						• Circles, double cicles, arrows, and labels
 						• Transition tables
 					- Basic examples:
 						• The empty automaton
-						• One-state and two-state automata
-					- Intuitive notion of word acceptance	
-					- Using a sink to simulate borkedness (pergatory)
+						• Parity recognition and modular arithmetic
+					- Intuitive notion of word acceptance by a "starting state"
+					- Using a sink to simulate borkedness (CJ's pergatory)
 				-->
-				</li>
-				<li><a href="csci341_1_introduction.html">Finite and infinite deterministic automata</a>
+
+				<li><a href="csci341_part1.html#dfa">Finite and infinite deterministic automata</a></li>
 				<!-- 
 					- Examples of Deterministic Finite Automata (DFAs)
 						• Example. The integers modulo 3, Z/3Z = {0, 1, 2}, with alphabet A = {(x + 1) % 3, (x + 2) % 3}
@@ -55,14 +59,27 @@
 						• Example. The integers Z, with the shift alphabet A = {-1, +1} and even numbers accepting
 							>> Language accepted by 0?
 						• Example. The deterministic automaton of all languages from an alphabet
+					- Reachability and local finiteness
 					- Languages as states
 						• The Brzozowski derivative
 						• Acceptance and the empty word property
 						• Languages accept themselves (so every language is accepted by some state in some deterministic automaton!)
+					- DFA languages
+				-->	
+
+				<li><a href="csci341_part1.html#combining1">Combining Automata I: Meets, Joins, and Complementation</a></li>
+				<!-- 
+					- Warming up: disjoint union
+					- Complementation
+					- The product construction for deterministic transition systems
+						• product-meet = intersection
+						• product-join = union
+					- An intuitive construction: Glueing? (feeds into nondeterminism!)
 				-->					
-				</li>
-				<li><a href="csci341_1_introduction.html">Introducing Nondeterminism</a>
+				
+				<li><a href="csci341_part1.html#nondeterminism">Introducing Nondeterminism</a></li>
 				<!--
+					- Making sense of glueing
 					- A function is a kind of relation
 					- Nondeterminism = moving from functions to relations
 						• Relations as functions X -> P(X)
@@ -75,47 +92,260 @@
 						• A = alphabet
 						• \delta : A x X -> P(X)
 						• \alpha : X -> 2
+					- NFA languages
 				-->
-				<li><a href="csci341_1_introduction.html">DFAs and NFAs</a>
+
+				<li><a href="csci341_part1.html#dfavsnfa">DFAs and NFAs</a></li>
 				<!-- 
-					- Transforming a DFA into an NFA
-					- NFAs are smaller in general
+					- Translating a DFA into an NFA
+						• Every DFA language is an NFA language
+					- But NFAs are smaller in general
 					- Overturning power with determinization
+						• Every NFA language is a DFA language
 				-->
-				<li><a href="csci341_1_introduction.html">Silent transitions &#129323;</a>
+
+				<li><a href="csci341_part1.html#silent">Silent transitions &#129323;</a></li>
 				<!--
-					- Skiping a beat
-					- Interpretation: there are unobservable transitions
-					- Killing epsilons with a dagger (the dagger construction)
+					- Skiping a beat: there are unobservable transitions
+					- Nondeterministic Finite Automata with silent transitions (NFA_{\e})
+						• X = state space
+						• A = alphabet
+						• \delta : (A u \epsilon) x X -> P(X)
+						• \alpha : X -> 2
+					- Every NFA is an NFA_{\e}
+					- Language accepted by a state in an NFA_{\e}
 				-->
+
+				<li><a href="csci341_part1.html#combining2">Killing epsilons with a dagger</a></li>
+				<!--
+					- The dagger construction
+					- Every NFA_{\e} language is an NFA language
+					- DFA languages = NFA languages = NFA_{\e} languages
+						• Call all of these *finite acceptor languages*, or FA languages
+				-->
+
+				<li><a href="csci341_part1.html#combining2">Combining Automata II: sequential composition and iteration</a></li>
+				<!--
+					- The tent construction
+						• Union
+					- The suspention construction (placing a state on either end)
+					- Using silent transitions to connect accepting states to starting states
+						• Sequential Composition
+						• Iteration			
+				-->
+
+				<li><a href="csci341_part1.html#pumping">The Pumping Lemma</a></li>
+				<!--
+					- Weakest version
+					- A little less weak
+					- Strongest version
+					- Examples of non-DFA languages
+						• a^nb^n
+						• Palindromes
+						• Adding up to 0
+						• Balanced brackets
+				-->
+				
 			</ol>
-		</li>
-		<li><a href="csci341_1_introduction.html"><b>Part 2.</b> Machines with Memory</a></li>
+		</li> <!-- ****** End of Part 1 -->
+
+
+
+		<li><a href="csci341_1_introduction.html"><b>Part 2.</b> Introduction to Formal Language Theory</a>
+		<ol>
+
+				<li><a href="csci341_1_introduction.html">Regular Expressions</a></li>
+				<!--
+					- Recursive definition of regular expressions
+					- Language semantics of regular expressions: regular languages
+					- Language equivalence of regular expressions
+						• Some useful (basic) identities
+						• The empty word property and Arden's rule
+				-->
+
+				<li><a href="csci341_1_introduction.html">Pick your weapon: Antimirov derivatives or Thompson's construction</a></li>
+				<!--
+					- Every regular expression denotes an NFA
+						• Antimirov's derivative construction: using regular expressions as states
+							>> Ant(r) is finite, with O(n) states
+							>> L(Ant(r), r) = L(r)
+						• Thompson's construction: recursively building an NFA_{\e}
+							>> Tho(r) is finite, also O(n) states
+							>> L(Tho(r), r) = L(r)
+					- Corollary: Every regular language is a FA language
+				-->
+
+				<li><a href="csci341_1_introduction.html">Kleene's Theorem, or Gaussian Elimination for NFAs</a></li>
+				<!--
+					- Left-affine systems of equations over an alphabet A
+						• Guardedness
+					- A language-based solution to a left-affine system
+					- Guarded left-affine systems have unique solutions
+						• Gaussian Elimination for left-affine systems
+						• Repeated use of Arden's rule and the "useful identities" from before
+					- Language acceptance and NFAs as guarded left-affine systems
+					- Corollary: every FA language is a regular language
+					- Kleene's Theorem: FA languages = Regular languages
+				-->
+
+				<li><a href="csci341_1_introduction.html">Beyond Regularity: Non-affine systems</a></li>
+				<!--
+					- Going from left-affine systems of equations to "polynomial" systems of equations goes beyond regular/FA languages
+						• a^nb^n
+						• Palindromes
+						• Adding up to 0
+						• Balanced brackets
+					- Solving polynomial systems by way of derivations
+				-->
+
+				<li><a href="csci341_1_introduction.html">Context-free Grammars</a></li>
+				<!--
+					- definition of a context-free grammar (CFG)
+						• N = nonterminal variables
+						• A = terminal constants
+						• \delta : N -> (A u N)* = derivation rules
+					- Complete derivations
+					- Context-free languages
+				-->
+
+				<li><a href="csci341_1_introduction.html">Designing Context-free Grammars</a></li>
+				<!--
+					
+				-->
+				
+				<li><a href="csci341_1_introduction.html">The Chomsky Hierarchy</a></li>
+				<!--
+					- 
+				-->
+
+			</ol>
+		</li> <!-- ****** End of Part 3 -->
+
+
+		<li><a href="csci341_1_introduction.html"><b>Part 3.</b> Machines with Memory</a>
 			<ol>
 				<li><a href="csci341_1_introduction.html">Solving Problems with Stacks</a></li>
 				<!--
-					- Adding up to 0
-					- Palindromes
-					- 
+					- Algorithms that use a stack to decide...
+						• a^nb^n
+						• Palindromes
+						• Adding up to 0
+						• Balanced brackets
 				-->
-				<li><a href="csci341_1_introduction.html">Pushdown Finite Automata</a></li>
+
+				<li><a href="csci341_1_introduction.html">Push-Down Automata</a></li>
+				<!--
+					- PDA = NFA_{\e} + Stack
+						• X = state space
+						• A = input alphabet
+						• S = stack alphabet
+						• \delta : ({\e} u A) x X -> P(({\e} u ↿S) x ({\e} u ⇃S) x X)
+						• Balanced brackets
+					- PDA languages
+					- PDAs are infinite NFA_{\e}s
+					- PDAs =/= DFA + Stack
+				-->
+
+				<li><a href="csci341_1_introduction.html">Designing Push-Down Automata</a></li>
 				<!--
 					- 
 				-->
+
+				<li><a href="csci341_1_introduction.html">CFGs from PDAs</a></li>
+				<!--
+					- Every Context-free language is PDA
+				-->
+
+				<li><a href="csci341_1_introduction.html">PDAs from CFGs</a></li>
+				<!--
+					- Every PDA language is Context-free
+					- PDA Languages = Context-free Languages
+				-->
+
+				<li><a href="csci341_1_introduction.html">Beyond the Stack: Tapes</a></li>
+				<!--
+					- The tape head
+					- Reading, writing, and moving
+					- Programming a tape head
+					- Solving problems with a tape head
+				-->
+
+				<li><a href="csci341_1_introduction.html">Turing Machines</a></li>
+				<!--
+					- Input string goes on a tape
+					- TM = DFA + Tape
+						• X = state space
+						• A = input alphabet
+						• T = tape alphabet
+						• \delta : ({\e} u A) x X -> ({\e, >, <} u {∨} x T) x (2 u X)
+					- The languages accepted and rejected by a TM
+					- Decidable languages
+				-->
+
+				<li><a href="csci341_1_introduction.html">Designing Turing Machines</a></li>
+				<!--
+					- 2s complement
+					- reversing text
+					- perfect squares
+					- Simulating a DFA
+					- Simulating a PDA
+				-->
+
+				<li><a href="csci341_1_introduction.html">Recognizable and co-Recognizable Languages</a></li>
+				<!--
+					- Halting states
+					- Enumerable languages
+				-->
+
+				<li><a href="csci341_1_introduction.html">Variants of Turing Machines</a></li>
+				<!--
+					- TM equivalents:
+						• Multi-tape TMs
+						• Nondeterministic TMs
+						• One-sided TMs
+						• An assembly-like language for tape heads
+						• WHILE programs and flow charts
+					- The Church-Turing Thesis
+						• Turing-hard = can simulate a TM
+						• Turing-complete = TM can simulate you
+					    • Thesis: Turing-hard = Turing-complete
+						• A mathematical definition of the word "algorithm"
+				-->
+
 			</ol>
-		<li><a href="csci341_1_introduction.html"><b>Part 3.</b> Formal Language Theory</a></li>
-		<li><a href="csci341_1_introduction.html"><b>Part 4.</b> (Un)Decidability</a></li>
-		<li><a href="csci341_1_introduction.html"><b>Part 5.</b> Complexity</a></li>
-		<li><a href="csci341_2_decision_problems.html">Section Decision Problems</a></li>
-		<li><a href="csci341_3_regular_languages.html">Regular Languages</a></li>
-		<li><a href="csci341_4_automata.html">Automata</a></li>
-		<li><a href="csci341_5_kleene_theorem.html">Kleene's Theorem</a></li>
-		<li><a href="csci341_6_irregular_languages.html">Irregular Languages</a></li>
-		<li><a href="csci341_7_context_free_languages.html">Context-Free Languages</a></li>
-		<li><a href="csci341_8_pushdown_automata.html">Nondeterministic Pushdown Automata</a></li>
-		<li><a href="csci341_9_computability.html">Computability</a></li>
-		<li><a href="csci341_10_turing_machines.html">Turing Machines</a></li>
-		<li><a href="csci341_11_undecidability.html">Undecidability</a></li>
-		<li><a href="csci341_12_complexity.html">Complexity</a></li>
-	</ul>
+		</li><!-- ****** End of Part 3 -->
+
+
+		<li><a href="csci341_1_introduction.html"><b>Part 4.</b> (Un)Decidability</a>
+		<ol>
+				<li><a href="csci341_1_introduction.html">Encodings and Universal Turing Machines</a></li>
+				<!--
+					- Turing machines as encodable objects
+					- Running a TM within a TM
+				-->
+
+				<li><a href="csci341_1_introduction.html">The Halting Problem</a></li>
+				<!--
+					- Turing's diagonalization argument
+					- Recognizable but not co-recognizable
+				-->
+
+				<li><a href="csci341_1_introduction.html">Reductions</a></li>
+				<!--
+					- Language inhabitation
+					- Language equivalence
+					- A language neither recognizable or co-recognizable
+				-->
+
+				<li><a href="csci341_1_introduction.html">Post's correspondence theorem</a></li>
+				<!--
+					- 
+				-->
+
+			</ol>
+		</li> <!-- ****** End of Part 4 -->
+
+		<li><a href="csci341_1_introduction.html">Concluding Remarks and Open Problems</a></li>
+
+	</ul> <!-- ***** End of Table of Contents -->
 </div>
