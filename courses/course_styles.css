@@ -30,3 +30,21 @@
 	padding-bottom: 15px;
 }
 }
+
+.figure {
+	font-style: italic;
+	font-size: small;
+	max-width: 80%;
+	text-align: center;
+	align-content: center;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.figure img {
+	display: block;
+	max-width: 80%;
+	max-height: 300px;
+	margin-left:auto;
+	margin-right:auto;
+}
