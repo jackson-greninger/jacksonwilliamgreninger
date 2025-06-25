@@ -23,7 +23,10 @@
 <p>
     One answer to the question of computation is that <i>computation is what computers do</i>.
     This is an unhelpful answer in general, because there are plenty of things that can perform computations that are not computers (for example, <i>you</i>).
-    And perhaps more importantly, this answer leaves us wondering what a <i>computer</i> is...
+    And perhaps more importantly, this answer leaves us wondering what a <i>computer</i> is.
+</p>
+<p>
+    An assumption that we will make going forward is that, whether or not there are entities out there that are not computers but still can do computations, we ultimately only care about the computations that computers do.
 </p>
 
 <h2>What is a computer?</h2>
@@ -40,7 +43,7 @@
     The original meaning of the term <i>computer</i> actually did <a href="https://en.wikipedia.org/wiki/Computer_(occupation)">refer to a person (typically women)</a>, who would perform calculations in a variety of different contexts. 
     But the computations preformed by computers like the abacus and stepped reckoner, and even for human computers as well, are of a specific and numerical form: numbers, the arcs of trajectories, etc.
     Your phone can do a whole lot more than that! 
-    Your phone is what is known as a <i>general purpose computer</i>, since the type of computations it performs can vary by need.
+    Your phone is what is known as a <i>general purpose computer</i>, since the type of computation it performs can vary widely by need.
 </p>
 <p>
     The first appearance of what resembles a general purpose computer was theorized and developed by <a href="https://en.wikipedia.org/wiki/Charles_Babbage">Charles Babbage</a> and <a href="https://en.wikipedia.org/wiki/Ada_Lovelace">Ada Lovelace</a> in the wake of the Industrial Revolution of England in the 19th century. 
@@ -53,9 +56,56 @@
     It's not hard to see where the inspiration for the Analytical Engine would have come from, putting it into historical perspective.
     The introduction of industrial machinery into the workforce in England was deeply impactful.
     They made factory owners tons of money: the machines could do many of the tedious jobs that their factory workers could do, and they didn't need benefits.
-    It would have been natural to ask if machines (maybe even just <i>one</i> machine) could replace all of their workers.
+    Heading into the the 19th century, it would have been natural to ask if machines (maybe even just <i>one kind</i> machine) could replace the entire labour force.
+</p>
+<div class="figure" id="thequestion">
+    <b>The question:</b> Given any well-defined task, is there a machine that can perform it?
+</div>
+<p>
+    Philosophers <a href="https://en.wikipedia.org/wiki/Bertrand_Russell" target="_blank">Bertrand Russell</a> and <a href="https://en.wikipedia.org/wiki/Alfred_North_Whitehead">Alfred Whitehead</a> were actually very convinced the answer was <i>yes</i>, and they wrote multiple books (collectively titled <a href="https://en.wikipedia.org/wiki/Principia_Mathematica" target="_blank">Principia Mathematica</a>) detailing how all mathematical problems in particular could be mechanized.
+</p>
+<div class="figure">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Principia_Mathematica_54-43.png" />
+    An excerpt from Principia Mathematica mechanizing a proof for "1 + 1 = 2".
+</div>
+<p>
+    But even after three tomes of calculations like the one above, their mechanical system for solving mathematical problems seemed to fall short of completely capturing mathematics in general.
+    Perhaps a bit of good news for the proletariat, in the 1930s logicians and mathematicians answered <a href="#thequestion">the question</a> as follows:
+</p>
+<div class="figure">
+    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.tenor.com%2F8-l3EmAMBvUAAAAe%2Fhell-no-steve-harvey.png&f=1&nofb=1&ipt=1ef903dced74375f8d51c8a477af07b7c83ee1c6ce815b9b0ca63a02b980d682" />
+</div>
+<p>
+    Obviously, there are many tasks that a computer cannot do. 
+    But coming up with a concrete example of such a task and proving it is indeed unmechanizable took great ingenuity.
+    And moreover, <i>proving</i> once and for all that this task cannot be mechanized, especially without a mechanical computer anywhere around, we needed a mathematical model of computers to study.
+</p>
+<p>
+    Several mathematical definitions of the word <i>computer</i> were proposed by <a href="https://en.wikipedia.org/wiki/Alan_Turing">Alan Turing</a>, <a href="https://en.wikipedia.org/wiki/Alonzo_Church">Alonzo Church</a>, <a href="https://en.wikipedia.org/wiki/John_von_Neumann">John von Neumann</a>, and several others. 
+    Modern computers are based on <a href="https://en.wikipedia.org/wiki/Von_Neumann_architecture" target="_blank">von Neumann's architecture for computing</a>, for practical reasons. 
+    But Turing and Church's abstract machines are a lot simpler, came first, and yet hold up very well to this day: we still cannot find a type of computer that can do things their machines cannot.
+    The perspective of theoreticians (the computer scientists who study theoretical aspects of computer science) has roughly settled on Turing's mathematical definition of computer, due to how intuitive it is relative to others.
 </p>
 
-    Thankfully, computer science was in good (mathematical) hands upon its birth in the early 20th century.
-    Several working definitions of the word "computer" were proposed by <a href="https://en.wikipedia.org/wiki/Alan_Turing">Alan Turing</a>, <a href="https://en.wikipedia.org/wiki/Alonzo_Church">Alonzo Church</a>, <a href="https://en.wikipedia.org/wiki/John_von_Neumann">John von Neumann</a>, and several others. 
+<h2>The theory of computation</h2>
+<p>
+    With the discovery of an accurate mathematical definition of computer came the start of a whole new scientific area, the theory of computation.
+    The theory of computation, or <i>theoretical computer science</i>, is the subject of this course and the research focus of many thousands of scientists around the world.
+    By now, theoretical computer science is too broad for any one course to touch on even its most important results, but we will do out best to see some of the most interesting bits.
+    The questions we are going to ask/answer in this course are...
 </p>
+<ol>
+    <li>What is a computation?</li>
+    <li>What is a computer?</li>
+    <li>What is the role of memory in computing?</li>
+    <li>What is the role of code in computing?</li>
+    <li>What can't a computer compute?</li>
+</ol>
+<p>
+    In the next few months, each of these questions will be phrased precisely and answered precisely using mathematical techniques like induction, the pidgeonhole principle, playing videogames, and drawing funky diagrams.
+    Alright, let's do this!
+</p>
+<div class="figure">
+    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.redd.it%2Fk2rx2y60sp491.jpg&f=1&nofb=1&ipt=f0d34c7721b8a3b110cba564b48944cefe82e58a66771058455fdf11fdc08648" />
+</div>
+
