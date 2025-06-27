@@ -78,3 +78,17 @@
 	/* border: 1px solid blue; */
 	background-color:rgb(164, 203, 255) ;
 }
+
+.hint {
+	color: rgba(0,0,0,0);
+	font-style: italic;
+	font-size: small;
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	border: 1px dashed red;
+}
+
+.hint:hover {
+	color:black;
+}
