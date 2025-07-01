@@ -54,10 +54,17 @@
 	margin:10px;
 	margin-left: auto;
 	margin-right: auto;
+	overflow: auto;
 	width: 90%;
 	padding:2%;
 	/* border: 1px solid blue; */
-	background-color: rgb(255, 242, 167);
+	background-color: rgba(255, 242, 167, 0.479);
+}
+
+.exercise::before {
+	color: rgb(88, 75, 0);
+	content: "Exercise. ";
+	font-weight: bold;
 }
 
 .problem {
@@ -67,8 +74,15 @@
 	width: 90%;
 	padding:2%;
 	/* border: 1px solid blue; */
-	background-color:rgb(255, 169, 169) ;
+	background-color:rgba(243, 112, 255, 0.295) ;
 }
+
+.problem::before {
+	color: rgb(101, 0, 110) ;
+	content: "Problem. ";
+	font-weight: bold;
+}
+
 .definition {
 	margin:10px;
 	margin-left: auto;
@@ -76,7 +90,13 @@
 	width: 90%;
 	padding:2%;
 	/* border: 1px solid blue; */
-	background-color:rgb(164, 203, 255) ;
+	background-color:rgba(164, 203, 255, 0.479) ;
+}
+
+.definition::before {
+	color: rgb(0, 46, 107);
+	content: "Definition. ";
+	font-weight: bold;
 }
 
 .hint {
@@ -86,9 +106,50 @@
 	width: 80%;
 	margin-left: auto;
 	margin-right: auto;
-	border: 1px dashed red;
+	border: 1px dashed rgb(101, 0, 110) ;
+}
+
+.hint::before {
+	color: rgb(56, 56, 56);
+	content: "Hint: ";
+	font-weight: bold;
 }
 
 .hint:hover {
 	color:black;
+}
+
+.figure table {
+	margin-left: auto;
+	margin-right: auto;
+	
+	margin-bottom: 10px;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+td {
+	min-width: 20px;
+	text-align: center;
+}
+
+.alignenv, .alignenv img, .alignenv td {
+	max-width: 50%;
+	min-width: 50px;
+}
+
+.alignenv {
+	display: block;
+	margin: 20px;
+	border: none;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.alignenv td, .alignenv th {
+  border: none;
+  padding: 5px;
 }
