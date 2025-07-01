@@ -55,7 +55,7 @@
 
 <!-- BEGINNING OF BODY -->
 <!--
-- The power of abstraction
+- Automata, Transition Tables, Accepting states
 - Deterministic transition systems
     • X = State space
     • A = Alphabet of "legal moves" or "actions"
@@ -107,15 +107,16 @@
     Recall that a <i>relation</i> is a set of tuples, which are immutable finite lists (just like in Python). 
     In the definition of <i>automaton</i>, the transition relation is a <i>trinary</i> relation, which means it consists of a set of triples \((x, a, y)\), immutable lists of length \(3\).
     Every automaton can be drawn visually using a state diagram, just the ones we drew in the previous section.
-    Recall this example from last time:
 </p>
 
-<div class="figure">
-    <img src="../imgs/reverseengineering.png" />
-    Abstract state diagram (A)
-</div>
+<div class="example">
+    <b>(Abstract State Diagram (A) again)</b>
+    Recall this example from last time:
+    <div class="figure">
+        <img src="../imgs/reverseengineering.svg" />
+        Abstract state diagram (A)
+    </div>
 
-<p>
     Abstract state diagram (A) is a visual depiction of the automaton \(\mathcal A = (Q, A, \delta, F)\), where 
     \[
         \begin{aligned}
@@ -132,7 +133,48 @@
         \end{aligned}
     \]
     Here, we have taken the final states of \(\mathcal A\) to be the <i>winning</i> states. 
+</div>
+
+<p>
+    Just like with understanding any mathematical definition, it is important to start by considering its most trivial examples.
 </p>
+
+<div class="example">
+    <b>(Empty)</b>
+    The <i>empty</i> automaton \(\mathcal A_\emptyset = (Q, A, \delta, F)\) has 
+    \[
+        Q = \delta = F = \emptyset
+    \]
+</div>
+
+<div class="example">
+    <b>(Sink)</b>
+    The <i>sink</i> automaton \(\mathcal A_\bullet = (Q, A, \delta, F)\) has 
+    \[
+        Q = \{\bullet\}
+        \qquad \delta = F = \emptyset
+    \]
+</div>
+
+<div class="example">
+    <b>(Diverging Loop)</b>
+    The <i>diverging loop</i> automaton \(\mathcal A_\bullet = (Q, A, \delta, F)\) has 
+    \[
+        Q = \{\bullet\}
+        \qquad \delta = \{(\bullet, a, \bullet) \mid a \in A\} 
+        \qquad F = \emptyset
+    \]
+</div>
+
+<div class="example">
+    <b>(All-Accepting)</b>
+    The <i>all-accepting</i> automaton \(\mathcal A_\bullet = (Q, A, \delta, F)\) has 
+    \[
+        Q = \{\bullet\}
+        \qquad \delta = \{(\bullet, a, \bullet) \mid a \in A\} 
+        \qquad F = Q
+    \]
+</div>
 
 <p>
     Just like before, an easy way to write down the transition relation of an automaton is using its <i>transition table</i>.
@@ -186,11 +228,72 @@
 </div>
 
 <p>
-    Transition tables allow us to go back and forth between 
-    For example, the 
+    Transition tables allow us to go back and forth between state diagrams and automata.
+</p>
+
+<div class="example">
+    <b>(Transition Table for State Diagram (A))</b>
+    We've already seen the transition table for diagram (A), but we left out the accepting states part before.
+    <div class="figure">
+        <table>
+            <tr>
+                <td>\(\textcolor{gray}{\rightarrow}\)</td>
+                <td>\(F\)</td>
+                <td>\(\Uparrow\)</td>
+                <td>\(\Rightarrow\)</td>
+                <td>\(\Downarrow\)</td>
+                <td>\(\Leftarrow\)</td>
+            </tr>
+            <tr>
+                <td>\(s_1\)</td>
+                <td>0</td>
+                <td></td>
+                <td>\(s_2\)</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>\(s_2\)</td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>\(s_3\)</td>
+                <td>\(s_4\)</td>
+            </tr>
+            <tr>
+                <td>\(s_3\)</td>
+                <td>1</td>
+                <td>\(s_2\)</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>\(s_4\)</td>
+                <td>1</td>
+                <td></td>
+                <td>\(s_2\)</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        The transition table for abstract state diagram (A).
+    </div>
+</div>
+
+<div class="exercise">
+    <b>(Trivial Tables)</b>
+    Draw transition tables for the empty, sink, diverging loop, and all-accepting automata.
+</div>
+
+<p>
+    One thing that we have not addressed at this point is that the definition of <i>automaton</i> that we have given above has a particular feature that games don't really have:
+    a state can have multiple outgoing transitions labelled with the same input letter.
+    When you encounter this kind of situation, you are going to have to write multiple state names into the corresponding item in the transition table. 
 </p>
 
 <div class="exercise">
+    <b>(Practice With Transition Tables)</b>
     Determine the state space \(Q\), the input alphabet \(A\), and the accepting states \(F\) of the automata below and write down their transition tables.
     <table class="alignenv">
         <tr>
@@ -207,6 +310,63 @@
         </tr>
     </table>
 </div>
+
+<!--Section-->
+<h2>Partial, Deterministic, and Nondeterministic Automata</h2>
+<p>
+    As we stated before, the puzzle game examples of automata have the property that each legal action transports you to at most one state.
+    This is a special property of automata that will come up often throughout the course.
+</p>
+
+<div class="definition">
+    <b>(Types of Automata)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton. 
+    <ul>
+        <li>
+            \(\mathcal A\) is called <i>deterministic</i> if for any state \(x \in Q\) and any input letter \(a \in A\), \(\delta(x, a)\) has one or fewer elements.
+            If \(\mathcal A\) is not deterministic, it is called <i>Nondeterministic</i>.
+        </li>
+        <li>
+            \(\mathcal A\) is called <i>total</i> if for any state \(x \in Q\) and any input letter \(a \in A\), \(\delta(x, a)\) has at least one element.
+            If \(\mathcal A\) is not total, we say that it is <i>partial</i>.
+        </li>
+    </ul>
+</div>
+
+<div class="exercise">
+    <b>(Differentiating Types)</b>
+    Fix an input alphabet \(A\).
+    Draw one of each of the following examples of automata \(\mathcal A = (Q, A, \delta, F)\):
+    <ol>
+        <li>\(\mathcal A\) is deterministic and total</li>
+        <li>\(\mathcal A\) is nondeterministic and total</li>
+        <li>\(\mathcal A\) is nondeterministic and partial</li>
+        <li>\(\mathcal A\) is deterministic and partial</li>
+    </ol>
+</div>
+
+<p>
+    Remember from your discrete math course that a <i>function</i> \(f \colon X \to Y\) between two sets \(X\) and \(Y\) is a binary relation \(f \subseteq X \times Y\) such that for any \(x \in X\), there is a unique (i.e., exactly one) \(y \in Y\) such that \((x, y) \in f\).
+    And notationally, if \(f\) is a function and \((x,y) \in f\), then you can write \(f(x) = y\).
+</p>
+
+<div class="problem">
+    <b>(Functional Determinism)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton.
+    Prove that \(\mathcal A\) is a deterministic and total if and only if \(\delta\) is a function \(\delta \colon Q \times A \to Q\).
+    <div class="hint">
+        Remember how to prove "\(A\) if and only if \(B\)" statements: first, assume that \(A\) is true, and then argue that \(B\) follows from \(A\) (this called the <i>forward direction</i>).
+        Second, assume that \(B\) is true, and then argue that \(A\) follows from \(B\) (this is called the <i>backwards diection</i>).
+    </div>
+    <div class="hint">
+        If it helps, let \(X = Q \times A\) and \(Y = Q\) and show that \(\delta \colon X \to Y\) is a function if and only if \(\mathcal A\) is deterministic and total.
+    </div>
+</div>
+
+<p color="red">
+    <b>Note.</b> Just to be clear: in the literature, "nondeterministic" means "not necessarily deterministic", so under this terminology, technically speaking every automaton is nondeterministic.
+    This is a reason, but that reason is beyond the scope of the course.
+</p>
 
 
 <!-- END OF BODY -->
