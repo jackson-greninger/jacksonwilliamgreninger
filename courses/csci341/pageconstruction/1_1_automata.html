@@ -45,6 +45,7 @@
     \[
         \delta(x, a) = \{y \in Q \mid x \xrightarrow{a}_\delta y\}
     \]
+    What this notation means is that a state \(y \in Q\) is in \(\delta(x, a)\) precisely when \(x \xrightarrow{a}_\delta y\).
 </div>
 
 <p>
@@ -118,6 +119,11 @@
         \qquad \delta = \{(\bullet, a, \bullet) \mid a \in A\} 
         \qquad F = Q
     \]
+</div>
+
+<div class="exercise">
+    <b>(Simple Diagrams)</b>
+    Draw state diagrams for the Empty, Sink, Diverging Loop, and All-Accepting automata.
 </div>
 
 <p>
@@ -239,20 +245,9 @@
 <div class="exercise">
     <b>(Practice With Transition Tables)</b>
     Determine the state space \(Q\), the input alphabet \(A\), and the accepting states \(F\) of the automata below and write down their transition tables.
-    <table class="alignenv">
-        <tr>
-            <td>\(\mathcal A_1\)</td>
-            <td><img src="../imgs/1_1_automaton1b.png" /></td>
-        </tr>
-        <tr>
-            <td>\(\mathcal A_2\)</td>
-            <td><img src="../imgs/1_1_automaton1.png" /></td>
-        </tr>
-        <tr>
-            <td>\(\mathcal A_3\)</td>
-            <td><img src="../imgs/1_1_automaton2.png" class="svgscale"/></td>
-        </tr>
-    </table>
+    <div class="figure">
+        <img src="../imgs/threeautomata.svg" />
+    </div>
 </div>
 
 <!--Section-->
@@ -262,19 +257,24 @@
     This is a special property of automata that will come up often throughout the course.
 </p>
 
-<div class="definition">
+<div class="definition" id="automaton_types">
     <b>(Types of Automata)</b>
     Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton. 
     <ul>
         <li>
             \(\mathcal A\) is called <i>deterministic</i> if for any state \(x \in Q\) and any input letter \(a \in A\), \(\delta(x, a)\) has one or fewer elements.
-            If \(\mathcal A\) is not deterministic, it is called <i>Nondeterministic</i>.
+            If \(\mathcal A\) is not deterministic, it is called <i>nondeterministic</i>.
         </li>
         <li>
             \(\mathcal A\) is called <i>total</i> if for any state \(x \in Q\) and any input letter \(a \in A\), \(\delta(x, a)\) has at least one element.
             If \(\mathcal A\) is not total, we say that it is <i>partial</i>.
         </li>
     </ul>
+</div>
+
+<div class="exercise">
+    <b>(Reflecting on Examples)</b>
+    Which of \(\mathcal A_1\), \(\mathcal A_2\), and \(\mathcal A_3\) in Practice with Transition Tables is deterministic? Are any of the three total?
 </div>
 
 <div class="exercise">
@@ -308,6 +308,8 @@
 </div>
 
 <p color="red">
-    <b>Note.</b> Just to be clear: in the literature, "nondeterministic" means "not necessarily deterministic", so under this terminology, technically speaking every automaton is nondeterministic.
-    This is a reason, but that reason is beyond the scope of the course.
+    <b>Note.</b> Just to be clear: in the literature, "nondeterministic" usually means "not necessarily deterministic". 
+    Technically speaking, with the usual definition of "nondeterministic", every automaton is nondeterministic.
+    There is a reason for this, but that reason is beyond the scope of the course.
+    For us, "nondeterministic" means that some state has more than one outgoing transition.
 </p>

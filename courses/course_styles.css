@@ -37,17 +37,21 @@
 	max-width: 80%;
 	text-align: center;
 	align-content: center;
+	margin: 20px;
 	margin-left:auto;
 	margin-right:auto;
+	border: 1px solid rgba(128, 128, 128, 0.494);
+	background-color: white;
 }
 
 .figure img {
 	display: block;
-	max-width: 80%;
-	max-height: 300px;
+	max-width: 95%;
+	max-height: 400px;
 	margin-left:auto;
 	margin-right:auto;
 	margin-bottom: 10px;
+	padding: 20px;
 }
 
 .exercise {
@@ -57,12 +61,13 @@
 	overflow: auto;
 	width: 90%;
 	padding:2%;
-	/* border: 1px solid blue; */
-	background-color: rgba(255, 242, 167, 0.479);
+	border: 1px solid gray;
+	
+	background-color:rgba(147, 255, 156, 0.15) ;
 }
 
 .exercise::before {
-	color: rgb(88, 75, 0);
+	color: rgb(0, 87, 61);
 	content: "Exercise. ";
 	font-weight: bold;
 }
@@ -73,12 +78,12 @@
 	margin-right: auto;
 	width: 90%;
 	padding:2%;
-	/* border: 1px solid blue; */
-	background-color:rgba(243, 112, 255, 0.295) ;
+	border: 1px solid gray;
+	background-color:rgba(253, 67, 67, 0.1) ;
 }
 
 .problem::before {
-	color: rgb(101, 0, 110) ;
+	color: rgb(157, 0, 0) ;
 	content: "Problem. ";
 	font-weight: bold;
 }
@@ -90,12 +95,28 @@
 	width: 90%;
 	padding:2%;
 	/* border: 1px solid blue; */
-	background-color:rgba(164, 203, 255, 0.479) ;
+	background-color:rgba(134, 187, 255, 0.15) ;
 }
 
 .definition::before {
 	color: rgb(0, 46, 107);
 	content: "Definition. ";
+	font-weight: bold;
+}
+
+.theorem {
+	margin:10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%;
+	padding:2%;
+	/* border: 1px solid blue; */
+	background-color:rgba(199, 128, 254, 0.15) ;
+}
+
+.theorem::before {
+	color: rgb(86, 0, 136);
+	content: "Theorem. ";
 	font-weight: bold;
 }
 
@@ -106,11 +127,11 @@
 	width: 90%;
 	padding:2%;
 	/* border: 1px solid blue; */
-	background-color:rgba(148, 255, 223, 0.3) ;
+	background-color:rgba(0, 0, 0, 0.05); ;
 }
 
 .example::before {
-	color: rgb(0, 87, 61);
+	color: rgb(0, 0, 0);
 	content: "Example. ";
 	font-weight: bold;
 }
@@ -136,11 +157,11 @@
 }
 
 .figure table {
+	margin: 10px;
 	margin-left: auto;
 	margin-right: auto;
-	
-	margin-bottom: 10px;
 }
+
 table, th, td {
   border: 1px solid black;
   border-collapse: collapse;

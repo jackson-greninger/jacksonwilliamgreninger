@@ -1,0 +1,307 @@
+<html>
+
+<head>
+	
+	<meta charset="UTF-8">
+	<meta name="author" content="Todd Schmid">
+	
+	<!-- Renders latex formulas -->
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+	<!-- Renders tikz figures mid page -->
+    <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+    <script src="https://tikzjax.com/v1/tikzjax.js"></script>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="../../../styles.css" />
+	<link rel="stylesheet" href="../../course_styles.css" />
+	<link rel="icon" href="../../../squidab.png" />
+	
+	<!-- * Customize for each course * -->
+	<title>CSCI 341 Theory of Computation</title>
+	<meta name="description" content="Course pages for CSCI 341.">
+	<meta name="keywords" content="bucknell,theory,computer,science,schmid,csci341">
+	<!-- ***************************** -->
+</head>
+
+<body>
+
+<div id="content">
+
+<!-- Header Section -->
+<div id="course_head" style="text-align: left;">
+	<h1 style="margin-bottom: 0; text-align: left;">CSCI 341 Theory of Computation</h1>
+	<i>Fall 2025, with <a href="../../../teaching.html">Schmid</a></i>
+	<div id="links">
+		<!-- * Customize for each course * -->
+		<a href="csci341_syllabus.html"><span class="link">Syllabus</span></a>
+		<a href="csci341_notes.html"><span class="link">Notes</span></a>
+		<a href="csci341_resources.html"><span class="link">Resources</span></a>
+
+		<!-- Make sure to update with correct gradescope link-->
+		<a href= 
+			"http://www.gradescope.com" 
+			target="_blank"><span class="link">Gradescope</span></a>
+		<!-- ***************************** -->
+	</div>
+</div>
+
+
+
+<div id="stuff">
+
+
+<!-- BEGINNING OF BODY -->
+<!--
+- Words from an alphabet
+- The empty set, the empty word
+- Languages from an alphabet
+- Describing the space of accepted moves 
+    • set comprehension
+    • union, intersection
+    • concatenation
+    • the Kleene star 	
+-->
+<h1>Languages Acccepted by Automata</h1>
+
+<p>
+    We arrived at the definition of automata by way of abstraction, letting go of the specifics of states of a Sokoban puzzle or the transitions corresponding to legal moves.
+    Here is that definition one more time:
+</p>
+
+<div class="definition" id="automaton">
+    <b>(Automaton)</b>
+    An <i>automaton</i> \(\mathcal A = (Q, A, \delta, F)\) consists of the following data:
+    <ul>
+        <li>A set \(Q\) of <i>states</i>, called the <i>state space</i></li>
+        <li>A set \(A\) of <i>input letters</i>, called the <i>input alphabet</i></li>
+        <li>A set \(\delta \subseteq Q \times A \times Q\) of <i>transitions</i>, called the <i>transition relation</i></li>
+        <li>A set \(F \subseteq Q\) of <i>final</i> (also called <i>accepting</i>) <i>states</i></li>
+    </ul>
+    Given states \(x_1,x_2 \in Q\) and an input letter \(a \in A\), we write \(x_1 \xrightarrow{a}_\delta x_2\) to mean that \((s_1, a, s_2) \in \delta\).
+    Furthermore, given \(x \in Q\) and in input letter \(a \in A\), we define the set of <i>outgoing \(a\)-transitions from state \(x\)</i> by
+    \[
+        \delta(x, a) = \{y \in Q \mid x \xrightarrow{a}_\delta y\}
+    \]
+</div>
+
+<p>
+    Today, we are going to return to the idea behind a <i>solution space</i>, which had to do with being able to move our puzzles into a "winning position".
+    The "winning positions" of automata are the <i>accepting states</i>, the \(x \in F\), and the legal moves are the transitions. 
+    So the "solution space" of an automaton is, so to speak, the sequences of input letters that transition whichever state you start from to an accepting state.
+    This is all modelled formally below:
+</p>
+
+<div class="definition">
+    <b>(Words)</b>
+    Fix a set \(A\) of input letters. 
+    A <i>word</i> (or <i>string</i>) <i>from \(A\)</i> is a finite sequence of input letters \(a_0\ a_1\ a_2\ \dots\ a_{n-1}\), where \(a_i \in A\) for all \(i < n\).
+    The number \(n\) in the word \(w = a_0\ a_1\ a_2\ \dots\ a_{n-1}\) is the <i>length</i> of \(w\) and written \(|w| = n\).
+    Taking \(n = 0\) in the above definition, we obtain the <i>empty word</i>, which is written \(\varepsilon\). 
+    The empty word is the unique word of length \(0\).
+    The set of all words from \(A\) is written with a superscripted star,
+    \[
+        A^* = \big\{a_0\ a_1\ a_2\ \dots\ a_{n-1} \mid \text{\(n \ge 0\) and \(a_i \in A\) for all \(i < n\)} \big\}
+    \]
+</div>
+
+<p>
+    Words (also called strings) are an abstraction from sequences of instructions/legal actions/moves/and so on.
+    For example, \(\Uparrow\ \Rightarrow\ \Rightarrow\ \Downarrow\) is a word from the familiar alphabet \(A = \{\Downarrow, \Leftarrow, \Uparrow, \Rightarrow\}\).
+    Given an automaton \(\mathcal A\) and a word \(w \in A^*\), each state of \(\mathcal A\) can be "run against \(w\)" by exploring all of the transitions obtained from the sequence of actions in \(w\).
+    In the context of automata theory, this is usually called <i>reading</i> the word.
+</p>
+
+<div class="definition">
+    <b>(Reading a Word)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton, and let \(w = a_0\ a_1\ a_2\ \dots\ a_{n-1}\) be a word from \(A\).
+    Given a state \(x \in Q\), \(x\) <i>reads \(w\) and stops at \(y\)</i> if there is a sequence of transitions 
+    \[
+        x \xrightarrow{a_0}_\delta x_1 \xrightarrow{a_1}_\delta x_2 \xrightarrow{a_2}_\delta x_3 \xrightarrow{a_3}_\delta \cdots \xrightarrow{a_{n-1}}_\delta y
+    \]
+    The set of all states such that \(x\) reads \(w\) and stops at \(y\) is denoted writing the word into \(\delta(x, \ \ )\) instead of a letter.
+    \[
+        \delta(x, w) = \big\{ y \in Q \mid \text{\(x\) reads \(w\) and stops at \(y\)} \big\}
+    \]
+</div>
+
+<p>
+    You want to imagine this as follows: write the word \(a_0\ a_1\ a_2\ \dots\ a_{n-1}\) from \(A\) on a strip of paper.
+    This strip of paper is called the <i>tape</i>. 
+    Put the head of your pencil above the first letter on the tape. 
+    This marker indicating the currently-active part of the tape is called the <i>tape head</i>.
+    Finally, place a marker on the state you are reading from, in this case \(x\).
+    This is called an <i>active state</i>.
+</p>
+
+<div class="figure">
+    <img src="../imgs/automatontape.svg" />
+</div>
+
+<p>
+    Now repeat the following until the tape head is over an empty part of the tape:
+    <ol>
+        <li>Read the letter under the tape head. Call it \(a_i\).</li>
+        <li>For each active state \(y\) (a state with a marker on it) with a transition \(y \xrightarrow{a_i} z\), remove the marker from \(y\) and place a marker on \(z\). Now \(z\) is active.</li>
+        <li>Move the tape head to the right and go back to 1.</li>
+    </ol>
+    See below for a visual:
+</p>
+
+<div class="example">
+    <b>(Reading a word)</b>
+    First, read \(a_0\). 
+    <div class="figure">
+        <img src="../imgs/read_a_word_1.svg" />
+    </div>
+    Since there is a transition \(s_1 \xrightarrow{a_0} s_2\), remove the marker from \(s_1\) and place a marker on \(s_2\).
+    Now move the tape head to the right and read \(a_1\).
+    <div class="figure">
+        <img src="../imgs/read_a_word_2.svg" />
+    </div>
+    Since there are transitions \(s_2 \xrightarrow{a_1} s_3\) and \(s_2 \xrightarrow{a_1} s_3'\), remove the marker from \(s_2\) and place markers on \(s_3\) and \(s_3'\).
+    Now move the tape head to the right and read \(a_2\).
+    <div class="figure">
+        <img src="../imgs/read_a_word_3.svg" />
+    </div>
+    Since there are transitions \(s_3 \xrightarrow{a_2} s_4\) and \(s_3' \xrightarrow{a_2} s_4\), remove the markers from \(s_3\) and \(s_3'\) and place a marker on \(s_4\).
+    Now move the tape head to the right...
+    <div class="figure">
+        <img src="../imgs/read_a_word_4.svg" />
+    </div>
+    ...and so on.
+</div>
+
+<div class="exercise">
+    <b>(Reading Examples)</b> 
+    Calculate the set \(\delta(x, w)\) where...
+    <ol>
+        <li>\(x = s_1\) in \(\mathcal A_1\) and \(w = a\)</li>
+        <li>\(x = s_1\) in \(\mathcal A_1\) and \(w = aa\)</li>
+        <li>\(x = x_0\) in \(\mathcal A_2\) and \(w = abd\)</li>
+        <li>\(x = x_0\) in \(\mathcal A_2\) and \(w = ad\)</li>
+        <li>\(x = x_1\) in \(\mathcal A_2\) and \(w = abd\)</li>
+        <li>\(x = x_0\) in \(\mathcal A_3\) and \(w = 01\)</li>
+        <li>\(x = x_1\) in \(\mathcal A_3\) and \(w = 01\)</li>
+        <li>\(x = x_0\) in \(\mathcal A_3\) and \(w = 1110\)</li>
+    </ol>
+    <div class="figure">
+        <img src="../imgs/threeautomata.svg" />
+    </div>
+</div>
+
+<div class="exercise">
+    <b>(The Best Tweet)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton and let \(x \in Q\).
+    What is \(\delta(x, \varepsilon)\)? (Remember that \(\varepsilon\) is the empty word.)
+</div>
+
+<p>
+    Given two words \(w\) and \(u\) from \(A\) (i.e., \(w,u \in A^*\)), we can always form the word \(w\ u\) by <i>concatenating</i> them (the idea is the same as for strings in Python or Java). 
+    More specifically, if \(w = a_0\ a_1\ \cdots\ a_{n-1}\) and \(u = b_0\ b_1\ \cdots\ b_{m-1}\), then 
+    \[
+        w\ u = a_0\ a_1\ \cdots\ a_{n-1}\ b_0\ b_1\ \cdots\ b_{m-1}
+    \]
+    In particular, given a letter \(a \in A\) and a word \(w \in A^*\), we append \(a\) to the beginning or end of \(w\): at the beginning we'd get \(a\ w\), and at the end we'd get \(w\ a\).
+</p>
+
+<div class="exercise">
+    If \(w = a_0\ a_1\ \cdots\ a_{n-1}\) and \(u = b_0\ b_1\ \cdots\ b_{m-1}\), then what is \(|w\ u|\) (i.e., the length of \(w\ u\))? 
+    If \(a \in A\), what is \(|w\ a|\)?
+</div>
+
+<div class="problem">
+    <b>(Repeated Derivatives)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton, let \(x \in Q\), and \(w \in A^*\) and \(a \in A\).
+    Prove the following identity:
+    \[
+        \delta(x, w\ a) = \{z \mid z \in \delta(y, a) \text{ and } y \in \delta(x, w)\}
+    \]
+    <div class="hint">
+        You are going to show two things: (1) that 
+        \[
+            \delta(x, w\ a) \subseteq \{z \mid z \in \delta(y, a) \text{ and } y \in \delta(x, w)\}
+        \]
+        and (2), that 
+        \[
+            \delta(x, w\ a) \supseteq \{z \mid z \in \delta(y, a) \text{ and } y \in \delta(x, w)\}
+        \]
+        The first inclusion, (1), is a matter of unfolding the definition.
+        For (2), let \(w = a_0\ a_1\ \cdots\ a_{n-1}\).
+        We know that \(z \in \delta(y, a)\) means that \(y \xrightarrow{a} z\).
+        Conclude by writing down the definition of \(y \in \delta(x, w)\).
+    </div>
+</div>
+
+<p>
+    It sounds a little silly to say out loud, but every word is composed of its letters. 
+    What is meaningful about this is the following statement: every word \(w \in A^*\) is either the empty word \(\varepsilon\) or is of the form \(w\ a\), where \(w \in A^*\) and \(a \in A\).
+    This fact can be used in <i>proofs by induction on words</i>, which is the content of the theorem below.
+</p>
+
+<div class="theorem">
+    <b>(Induction on Words)</b>
+    Let \(A\) be a set of input letters, and let \(L \subseteq A^*\) be a set of words from \(A\).
+    Suppose that the following two statements hold:
+    <ol>
+        <li>the empty word \(\varepsilon \in L\)</li>
+        <li>for any \(w \in L\) and any \(a \in A\), the word \(w\ a \in L\)</li>
+    </ol>
+    Then \(L = A^*\).
+</div>
+
+<p>
+    The first statement in the Induction on Words theorem is called the <i>Base Case</i> and the second statement is called the <i>Induction Step</i>.
+    The assumption that 
+    Induction on words is a powerful proof method in the theory of computation.
+</p>
+
+<div class="exercise">
+    <b>(Who's Missing?)</b>
+    Let \(A = \{0, 1\}\) and consider the following language:
+    \[
+        L = \{\varepsilon, 0, 1, 01, 10, 11, 00, 000, 001, 010, 100, 011, 101, 111, \dots\} \subseteq A^*
+    \]
+    Assume that all of the words in \(L\) not shown above are longer than three letter.
+    Find the shortest word \(w \in L\) and the letter \(a \in A\) such that \(w \in L\) but \(w\ a \notin L\).
+</div>
+
+<div class="problem">
+    <b>(Determinstic Extension)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be a <a href="../compiled/csci341_1_1_automata.html#automaton_types" target="_blank">total deterministic</a> automaton.
+    Let \(x \in Q\) and \(w \in A^*\).
+    Prove that \(\delta(x, w)\) has exactly one element <i>by induction on the length of \(w\).</i>
+    In other words, your proof should follow the structure below:
+    <ul>
+        <li>
+            <i>Base case:</i> In this case, \(|w| = 0\), since this is the smallest possible length. <br />
+            <b>Here is what you need to do:</b> 
+            Answer the question, "if \(|w| = 0\), then what is \(\delta(x, w)\)?", and give a reason for your answer.
+        </li>
+
+        <li>
+            <i>Induction step:</i> In this case, we need to establish that <i>if \(\delta(x, w)\) has exactly one element and \(a \in A\), then \(\delta(x, w\ a)\) has exactly one element.</i> <br />
+            <b>Here is what you need to do:</b> 
+            Using the induction hypothesis, we know that \(\delta(x, w) = \{y\}\) for some \(y \in Q\). 
+            Now compute \(\delta(x, w\ a)\).
+            <div class="hint">
+                Use the equation in the Repeated Derivatives problem.
+            </div>
+        </li>
+    </ul> 
+</div>
+
+
+
+<!-- END OF BODY -->
+    <div style="height: 50px;border-top: 1px solid rgb(131, 131, 131);margin-top: 50px; padding: 20px; text-align: right;">
+        <a href=""><span class="link">Top</span></a>
+    </div>
+</div>
+</div>
+</body>
+
+
+</html>
