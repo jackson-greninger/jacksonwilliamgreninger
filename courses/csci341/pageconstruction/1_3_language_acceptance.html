@@ -1,8 +1,157 @@
 <h1>Language Acceptance</h1>
 
 <p>
-    Today, we are going to return to the idea behind a <i>solution space</i>, which had to do with being able to move our puzzles into a "winning position".
-    The "winning positions" of automata are the <i>accepting states</i>, the \(x \in F\), and the legal moves are the transitions. 
-    So the "solution space" of an automaton is, so to speak, the sequences of input letters that transition whichever state you start from to an accepting state.
-    This is all modelled formally below:
+    Today, we are going to return to the idea behind a <i>solution space</i>, which consisted of all of the sequences of legal moves that brought our puzzles into a "winning configuration".
+    Just like how sequences of legal moves get abstracted to <i>words</i>, solution spaces are abstracted to <i>languages</i>.
 </p>
+
+<div class="definition">
+    <b>(Language)</b>
+    Let \(A\) be a set of input symbols. 
+    A <i>language from \(A\)</i> is a set of words from \(A\).
+    That is, a language is a subset \(L \subseteq A^*\).
+</div>
+
+<p>
+    The "winning configurations" of automata are the <i>accepting states</i>: in the definition of an automaton \(\mathcal A = (Q, A, \delta, F)\), these are the states \(x \in F \subseteq Q\). 
+    So the "solution space" of an automaton is, so to speak, the sequences of input letters that transition whichever state you start from to an accepting state.
+</p>
+
+<div class="definition">
+    <b>(Language Acceptance)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton, \(x \in Q\) be a state, and \(w \in A^*\) be a word from \(A\).
+    Then \(w\) is <i>accepted</i> (or <i>recognized</i>) <i>by \(x\)</i> if there is an accepting state \(y \in F\) such that \(y \in \delta(x, w)\).
+    The word \(w\) is <i>rejected by \(x\)</i> if it is not accepted by \(x\).
+
+    The <i>language accepted</i> (or <i>decided</i>) <i>by \(x\)</i> is the set of words accepted by \(x\),
+    \[
+        \mathcal L(\mathcal A, x) = \big\{ w \in A^* \mid \text{\(x\) accepts \(w\)}  \big\}
+    \]
+    If \(\mathcal A\) is clear from context, we will just write \(\mathcal L(x)\) instead of \(\mathcal L(\mathcal A, x)\).
+</div>
+
+<p>
+    A common turn of phrase you will see written is the statement "\(x\) accepts the language \(L\)". 
+    What this means is that \(L = \mathcal L(\mathcal A, x)\).
+</p>
+
+<p>
+    <b>Note.</b> There are two common mistakes you are going to make at least a few times:
+    the first one is to say that "an <i>automaton</i> accepts a language \(L \subseteq A^*\)". Automata do not accept languages, states do.
+    Remember: states are programs, automata are the machines that can run them.
+</p>
+<p>
+    The second mistake is to say that a state \(x \in Q\) accepts a language \(L \subseteq A^*\) if every \(w \in L\) is accepted by \(x\). 
+    This is equivalent to saying that \(\mathcal L(\mathcal A, x) \subseteq L\), not \(\mathcal L(\mathcal A, x) = L\)!
+    The terminology "\(x\) <i>decides</i> \(L\)" is usually much clearer, but the standard literature usually uses the word "accept" for historical reasons... 🙄
+</p>
+
+<p>
+    <b>Notation.</b> Recall that, given two sets \(X\) and \(Y\), we are going to write \(X \setminus Y\) for the set of elements of \(X\) that are not in \(Y\).
+    Formally, 
+    \(
+        X \setminus Y = \{x \in X \mid x \notin Y\}
+    \).    
+</p>
+
+<div class="exercise">
+    <b>(Accept and Reject)</b>
+    Show that a state \(x\) of an automaton \(\mathcal A\) accepts (decides) a language \(L \subseteq A^*\) if both of the following statements are true:
+    <ol>
+        <li>for any \(w \in L\), \(x\) accepts \(w\)</li>
+        <li>for any \(w \in A^* \setminus L\), \(x\) rejects \(w\)</li>
+    </ol>
+</div>
+
+<div class="problem">
+    <b>(Let 'em Cook)</b>
+    For each of the following languages \(L_i \subseteq A^*\) below, design an automaton \(\mathcal A_i = (Q_i, A_i, \delta_i, F_i)\) with a state \(x \in Q_i\) such that \(x\) accepts \(L_i\).
+    <ol>
+        <li>\(L_1 = \{a, aa, aaa\}\)</li>
+        <li>\(L_2 = \{w \in A^* \mid \text{\(w\) ends with \(b\)}\}\)</li>
+        <li>\(L_3 = \{w \in A^* \mid \text{\(w\) has an even number of \(a\)'s}\}\)</li>
+        <li>\(L_4 = \{w \in A^* \mid \text{\(w\) has \(3k+1\) \(a\)'s for some \(k \ge 0\)}\}\)</li>
+    </ol>
+    For each of these languages, if you drew a nondeterministic or partial automaton, try to also draw a total deterministic one (include both in your write-up).
+</div>
+
+<!--Section-->
+<h2>The Brzozowski Construction</h2>
+<p>
+    We defined languages abstractly, as arbitrary sets of words over an alphabet. 
+    But then we talked about languages <i>accepted by states of automata</i>.
+    Are these the same?
+    In other words, is every language the language accepted by some automaton?
+    The answer to this question is "yes", and the construction is easy to write down. 
+    The definition below takes a bit of patience, so read it a few times and really try to convince yourself it works.
+</p>
+
+<p>
+    The basic idea behind this section is that the <i>set of all languages</i> is the state space of an automaton.
+    That is, we take the states of the automaton to be languages, and the transitions of the automaton to be transitions between languages.
+    These transitions are called <i>Brzozowski derivatives"</i>.
+</p>
+
+<div class="definition">
+    <b>(<a href="https://www.wikipedia.com/en/Brzozowski" target="_blank">Brzozowski</a> Derivatives)</b>
+    Let \(A\) be a set of input letters and let \(a \in L\).
+    Given a language \(L \subseteq A^*\), we define the <i>\(a\)-derivative of \(L\)</i> to be the set 
+    \[
+        a^{-1} L = \big\{ w \in A^*  \mid a\ w \in L \big\}
+    \]
+    In other words, \(a^{-1} L\) is the set of words \(w\) such that adding \(a\) to the beginning of \(w\) produces a word in \(L\). 
+</div>
+
+<p>
+    Remember that we want to define an automaton where the languages are the states.
+    This means that we want to think of <i>languages as programs</i> (because they are states and states are programs).
+    The program that corresponds to a language \(L\) should really be thought of as "eating letters" as it runs, and accepting when it has nothing left to eat.
+    In the simplest case, this is how you should imagine the \(a\)-derivative of just a word: \(a^{-1}\{a\ b\ c\} = \{b\ c\}\).
+    For arbitrary languages, taking the \(a\)-derivative is what is meant by "eating all the \(a\)'s".
+</p>
+
+<div class="exercise">
+    <b>(Where's the "b"?)</b>
+    What is the \(b\)-derivative of the language \(\{a, aa, aaa\}\)?
+</div>
+
+<p>
+    What is the \(a\)-derivative of the word \(a\) of length \(1\)?
+    Well, remember that \(a^{-1}\ a\ w = w\) for any word \(w\).
+    This includes the empty word, so 
+    \[
+        a^{-1}\{a\} = a^{-1}\{a\ \varepsilon\} = \{\varepsilon\}
+    \]
+    Observe that the language has a special property: one of the words has nothing left to eat!
+</p>
+
+<div class="exercise">
+    <b>(Practice with Derivatives)</b>
+    Compute \(a\)-derivative, \(b\)-derivative, and \(c\)-derivative of the language
+    \[
+        L = \{\varepsilon, aa, ba, cab, c, acab\}
+    \]
+</div>
+
+<div class="definition">
+    <b>(The Brzozowski Automaton)</b>
+    The <i>Brzozowski automaton</i> is the automaton \(\mathcal A_{Brz} = (2^{A^*}, A, \delta, F)\) where 
+    <ul>
+        <li>\(2^{A^*} = \{L \mid L \subseteq A^*\}\)</li>
+        <li>\(\delta = \{(L, a, a^{-1}L) \mid \text{\(a \in A\) and \(L \subseteq A^*\)}\}\)</li>
+        <li>\(F = \{L \subseteq A^* \mid \varepsilon \in L\}\)</li>
+    </ul>
+</div>
+
+<div class="exercise">
+    <b>(Unravelling a Language)</b>
+    Draw a state diagram of all of the languages that are reachable from the language \(L = \{\varepsilon, aa, ba, cab, c, acab\}\) in the Brzozowski automaton (by taking derivatives). 
+    Include all of the double-circles to indicate which languages are accepting states of the Brzozowski automaton.
+    What language is accepted by \(L\)?
+</div>
+
+<div class="problem">
+    <b>(Self-accepting)</b>
+    Let \(\mathcal A_{Brz}\) be the Brzozowski automaton and let \(L \in 2^{A^*}\).
+    Come up with a general description of the language \(\mathcal L(\mathcal A_{Brz}, L)\) and prove that your description is always correct.
+</div>

@@ -54,16 +54,6 @@
 
 
 <!-- BEGINNING OF BODY -->
-<!--
-- Words from an alphabet
-- The empty set, the empty word
-- Languages from an alphabet
-- Describing the space of accepted moves 
-    • set comprehension
-    • union, intersection
-    • concatenation
-    • the Kleene star 	
--->
 <h1>Reading words</h1>
 
 <p>
@@ -85,6 +75,7 @@
     \[
         \delta(x, a) = \{y \in Q \mid x \xrightarrow{a}_\delta y\}
     \]
+    In other words, \(y \in \delta(x, a)\) if and only if \(x \xrightarrow{a}_\delta y\).
 </div>
 
 <p>
@@ -255,7 +246,7 @@
     Let \(A\) be a set of input letters, and let \(L \subseteq A^*\) be a set of words from \(A\).
     Suppose that the following two statements hold:
     <ol>
-        <li>the empty word \(\varepsilon \in L\)</li>
+        <li>the empty word \(\varepsilon \in L\) </li>
         <li>for any \(w \in L\) and any \(a \in A\), the word \(w\ a \in L\)</li>
     </ol>
     Then \(L = A^*\).

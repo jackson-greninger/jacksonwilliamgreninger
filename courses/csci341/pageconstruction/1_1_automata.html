@@ -1,22 +1,3 @@
-<!--
-- Automata, Transition Tables, Accepting states
-- Deterministic transition systems
-    • X = State space
-    • A = Alphabet of "legal moves" or "actions"
-    • \delta : A x X -> X = Transition function
-- Deterministic automata (DA)
-    • deterministic transition system
-    • \alpha : X -> 2 = Accept/reject function
-- Drawing DAs
-    • Circles, double cicles, arrows, and labels
-    • Transition tables
-- Basic examples:
-    • The empty automaton
-    • Parity recognition and modular arithmetic
-- Intuitive notion of word acceptance by a "starting state"
-- Using a sink to simulate borkedness (CJ's pergatory)
--->
-
 <h1>Automata</h1>
 <p>
     Last time, we saw that state diagrams were useful as compact representations of some top-down puzzle games like Sokoban and mazes.
@@ -46,6 +27,7 @@
         \delta(x, a) = \{y \in Q \mid x \xrightarrow{a}_\delta y\}
     \]
     What this notation means is that a state \(y \in Q\) is in \(\delta(x, a)\) precisely when \(x \xrightarrow{a}_\delta y\).
+    If \(\delta\) is clear from context, we'll usually write \(\xrightarrow{a}\) instead of \(\xrightarrow{a}_\delta\).
 </div>
 
 <p>
@@ -236,6 +218,15 @@
     Draw transition tables for the empty, sink, diverging loop, and all-accepting automata.
 </div>
 
+<div class="exercise">
+    <b>(Formalizing)</b>
+    Draw transition tables for the two automata below.
+    <div class="figure">
+        <img src="../imgs/draw_these_DFAs.png" />
+    </div>
+    Use your transition table to write down \(Q\), \(A\), \(\delta\), and \(F\) for each automaton \(\mathcal A = (Q, A, \delta, F)\).
+</div>
+
 <p>
     One thing that we have not addressed at this point is that the definition of <i>automaton</i> that we have given above has a particular feature that games don't really have:
     a state can have multiple outgoing transitions labelled with the same input letter.
@@ -299,8 +290,8 @@
     Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton.
     Prove that \(\mathcal A\) is a deterministic and total if and only if \(\delta\) is a function \(\delta \colon Q \times A \to Q\).
     <div class="hint">
-        Remember how to prove "\(A\) if and only if \(B\)" statements: first, assume that \(A\) is true, and then argue that \(B\) follows from \(A\) (this called the <i>forward direction</i>).
-        Second, assume that \(B\) is true, and then argue that \(A\) follows from \(B\) (this is called the <i>backwards diection</i>).
+        Remember how to prove "A if and only if B" statements: first, assume that A is true, and then argue that B follows from A (this called the <i>forward direction</i>).
+        Second, assume that B is true, and then argue that A follows from B (this is called the <i>backwards diection</i>).
     </div>
     <div class="hint">
         If it helps, let \(X = Q \times A\) and \(Y = Q\) and show that \(\delta \colon X \to Y\) is a function if and only if \(\mathcal A\) is deterministic and total.
