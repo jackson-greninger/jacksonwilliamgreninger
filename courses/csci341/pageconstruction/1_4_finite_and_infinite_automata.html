@@ -1,0 +1,107 @@
+<h1>Finite and Infinite Automata</h1>
+
+<p>
+    If you can write down the whole state diagram of an automaton, then we call it a <i>finite</i> automaton, because it has a finite number of states and transitions.
+    If there are not finitely many states and transitions, then we call the automaton <i>infinite</i>.
+    As we are about to see, there are some very natural examples of infinite automata!
+</p>
+
+<div class="example" id="ReverseNaturals">
+    <b>(The Reverse Naturals)</b>
+    In this example, states are not "abstract" in the same way as we were writing before, when we wrote "\(x\)", or "\(q_1\)", or whatever. 
+    We are going to define an automaton \(\mathcal A_{RNat} = (Q, A, \delta, F)\).
+    The states of the Reverse Naturals automaton are the natural numbers, \(Q = \mathbb{N} = \{0, 1, 2, 3, \dots\}\).
+    (From this, we can already see that the automaton is infinite!)
+    The alphabet of input letters is only going to have one letter: \(A = \{l\}\) (\(l\) for "one \(l\)ess").
+    The transitions essentially "subtract one":
+    \[
+        \delta = \big\{ (n + 1, l, n) \mid n \in \mathbb N \big\}
+    \]
+    <div class="figure">
+        <img src="../imgs/reversenaturals.svg" />
+    </div>
+</div>
+
+<h2>The Brzozowski Construction</h2>
+<p>
+    We defined languages abstractly, as arbitrary sets of words over an alphabet. 
+    But then we talked about languages <i>accepted by states of automata</i>.
+    Are these the same?
+    In other words, is every language the language accepted by some automaton?
+    The answer to this question is "yes", and the construction is easy to write down. 
+    The definition below takes a bit of patience, so read it a few times and really try to convince yourself it works.
+</p>
+
+<p>
+    The basic idea behind this section is that the <i>set of all languages</i> is the state space of an automaton.
+    That is, we take the states of the automaton to be languages, and the transitions of the automaton to be transitions between languages.
+    These transitions are called <i>Brzozowski derivatives"</i>.
+</p>
+
+<div class="definition">
+    <b>(<a href="https://www.wikipedia.com/en/Brzozowski" target="_blank">Brzozowski</a> Derivatives)</b>
+    Let \(A\) be a set of input letters and let \(a \in L\).
+    Given a language \(L \subseteq A^*\), we define the <i>\(a\)-derivative of \(L\)</i> to be the set 
+    \[
+        a^{-1} L = \big\{ w \in A^*  \mid a\ w \in L \big\}
+    \]
+    In other words, \(a^{-1} L\) is the set of words \(w\) such that adding \(a\) to the beginning of \(w\) produces a word in \(L\). 
+</div>
+
+<p>
+    Remember that we want to define an automaton where the languages are the states.
+    This means that we want to think of <i>languages as programs</i> (because they are states and states are programs).
+    The program that corresponds to a language \(L\) should really be thought of as "eating letters" as it runs, and accepting when it has nothing left to eat.
+    In the simplest case, this is how you should imagine the \(a\)-derivative of just a word: \(a^{-1}\{a\ b\ c\} = \{b\ c\}\).
+    For arbitrary languages, taking the \(a\)-derivative is what is meant by "eating all the \(a\)'s".
+</p>
+
+<div class="exercise">
+    <b>(Where's the "b"?)</b>
+    What is the \(b\)-derivative of the language \(\{a, aa, aaa\}\)?
+</div>
+
+<p>
+    What is the \(a\)-derivative of the word \(a\) of length \(1\)?
+    Well, remember that \(a^{-1}\ a\ w = w\) for any word \(w\).
+    This includes the empty word, so 
+    \[
+        a^{-1}\{a\} = a^{-1}\{a\ \varepsilon\} = \{\varepsilon\}
+    \]
+    Observe that the language has a special property: one of the words has nothing left to eat!
+</p>
+
+<div class="exercise">
+    <b>(Practice with Derivatives)</b>
+    Compute \(a\)-derivative, \(b\)-derivative, and \(c\)-derivative of the language
+    \[
+        L = \{\varepsilon, aa, ba, cab, c, acab\}
+    \]
+</div>
+
+<div class="definition">
+    <b>(The Brzozowski Automaton)</b>
+    The <i>Brzozowski automaton</i> is the automaton \(\mathcal A_{Brz} = (2^{A^*}, A, \delta, F)\) where 
+    <ul>
+        <li>\(2^{A^*} = \{L \mid L \subseteq A^*\}\)</li>
+        <li>\(\delta = \{(L, a, a^{-1}L) \mid \text{\(a \in A\) and \(L \subseteq A^*\)}\}\)</li>
+        <li>\(F = \{L \subseteq A^* \mid \varepsilon \in L\}\)</li>
+    </ul>
+</div>
+
+<div class="exercise">
+    <b>(Unravelling a Language)</b>
+    Draw a state diagram of all of the languages that are reachable from the language \(L = \{\varepsilon, aa, ba, cab, c, acab\}\) in the Brzozowski automaton (by taking derivatives). 
+    Include all of the double-circles to indicate which languages are accepting states of the Brzozowski automaton.
+    What language is accepted by \(L\)?
+</div>
+
+<div class="theorem" id="BrzozowskiFixedPoint">
+    <b>(Brzozowski Fixed Point)</b>
+    Let \(\mathcal A_{Brz}\) be the Brzozowski automaton and let \(L \in 2^{A^*}\) be a language/state of \(\mathcal A_{Brz}\).
+    Then \(L = \mathcal L(\mathcal A_{Brz}, L)\).
+</div>
+
+<div class="proof">
+
+</div>

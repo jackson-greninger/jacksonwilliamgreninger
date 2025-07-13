@@ -34,10 +34,12 @@
 .figure {
 	font-style: italic;
 	font-size: small;
+	width:fit-content;
 	max-width: 80%;
 	text-align: center;
 	align-content: center;
 	margin: 20px;
+	padding: 20px;
 	margin-left:auto;
 	margin-right:auto;
 	border: 1px solid rgba(128, 128, 128, 0.494);
@@ -52,6 +54,31 @@
 	margin-right:auto;
 	margin-bottom: 10px;
 	padding: 20px;
+}
+
+.code {
+	color: white;
+	font-style: italic;
+	font-size: small;
+	max-width: 80%;
+	text-align: center;
+	align-content: center;
+	margin: 20px;
+	margin-left:auto;
+	margin-right:auto;
+	/* border: 1px solid rgba(128, 128, 128, 0.494); */
+	background-color: rgb(25, 25, 25);
+}
+
+.code iframe {
+	display: block;
+	width: 95%;
+	min-height: 400px;
+	margin-left:auto;
+	margin-right:auto;
+	margin-bottom: 10px;
+	padding: 20px;
+	border: none;
 }
 
 .exercise {
@@ -143,6 +170,7 @@
 	width: 80%;
 	margin-left: auto;
 	margin-right: auto;
+	margin-top: 10px;
 	border: 1px dashed rgb(101, 0, 110) ;
 }
 

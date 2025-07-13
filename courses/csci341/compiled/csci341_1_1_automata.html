@@ -70,7 +70,7 @@
 
 <div class="definition" id="automaton">
     <b>(Automaton)</b>
-    An <i>automaton</i> \(\mathcal A = (Q, A, \delta, F)\) consists of the following data:
+    An <i>automaton</i> \(\mathcal A = (Q, A, \delta, F)\) consists of the following four pieces of information:
     <ul>
         <li>A set \(Q\) of <i>states</i>, called the <i>state space</i></li>
         <li>A set \(A\) of <i>input letters</i>, called the <i>input alphabet</i></li>
@@ -78,7 +78,7 @@
         <li>A set \(F \subseteq Q\) of <i>final</i> (also called <i>accepting</i>) <i>states</i></li>
     </ul>
     Given states \(x_1,x_2 \in Q\) and an input letter \(a \in A\), we write \(x_1 \xrightarrow{a}_\delta x_2\) to mean that \((s_1, a, s_2) \in \delta\).
-    Furthermore, given \(x \in Q\) and in input letter \(a \in A\), we define the set of <i>outgoing \(a\)-transitions from state \(x\)</i> by
+    Furthermore, given \(x \in Q\) and an input letter \(a \in A\), we define the set of <i>outgoing \(a\)-transitions from state \(x\)</i> by
     \[
         \delta(x, a) = \{y \in Q \mid x \xrightarrow{a}_\delta y\}
     \]
@@ -88,7 +88,7 @@
 
 <p>
     Recall that a <i>relation</i> is a set of tuples, which are immutable finite lists (just like in Python). 
-    In the definition of <i>automaton</i>, the transition relation is a <i>trinary</i> relation, which means it consists of a set of triples \((x, a, y)\), immutable lists of length \(3\).
+    In the definition of <i>automaton</i>, the transition relation is a <i>ternary</i> relation, which means it consists of a set of triples \((x, a, y)\), immutable lists of length \(3\).
     Every automaton can be drawn visually using a state diagram, just the ones we drew in the previous section.
 </p>
 
@@ -107,15 +107,16 @@
             A &= \{\Uparrow, \Rightarrow, \Downarrow, \Leftarrow\} \\
             \delta &= \{
                     (s_1, \Rightarrow, s_2), 
-                    (s_2, \Leftarrow, s_4), 
-                    (s_2, \Downarrow, s_3), 
-                    (s_3, \Uparrow, s_2), 
-                    (s_4, \Rightarrow, s_2), 
+                    (s_2, \Rightarrow, s_4), 
+                    (s_2, \Uparrow, s_3), 
+                    (s_3, \Downarrow, s_2), 
+                    (s_4, \Leftarrow, s_2), 
             \} \\
             F &= \{s_2, s_3, s_4\}
         \end{aligned}
     \]
     Here, we have taken the final states of \(\mathcal A\) to be the <i>winning</i> states. 
+    The double-outline indicates that the state is an accepting state.
 </div>
 
 <p>
@@ -183,6 +184,9 @@
                 <td style="color:gray">
                     \(\to\)
                 </td>
+                <td style="color:gray">
+                    \(F\)
+                </td>
                 <td>
                     \(\cdots\)
                 </td>
@@ -195,6 +199,9 @@
                     \(\vdots\)
                 </td>
                 <td>
+                    \(\vdots\)
+                </td>
+                <td>
                 </td>
                 <td>
                     \(\vdots\)
@@ -203,6 +210,9 @@
             <tr>
                 <td>
                     \(x\)
+                </td>
+                <td>
+                    1 or 0
                 </td>
                 <td>
                     \(\cdots\)
@@ -297,8 +307,13 @@
     </div>
 </div>
 
+<p>
+    The way you want to interpret this multiple-out-going-transitions situation is that the automaton "runs each outgoing transition in parallel". 
+    This kind of branching-into-threads is called <i>nondeterminism</i>.
+</p>
+
 <!--Section-->
-<h2>Partial, Deterministic, and Nondeterministic Automata</h2>
+<h2>Partial, Total, Deterministic, and Nondeterministic Automata</h2>
 <p>
     As we stated before, the puzzle game examples of automata have the property that each legal action transports you to at most one state.
     This is a special property of automata that will come up often throughout the course.
@@ -322,6 +337,11 @@
 <div class="exercise">
     <b>(Reflecting on Examples)</b>
     Which of \(\mathcal A_1\), \(\mathcal A_2\), and \(\mathcal A_3\) in Practice with Transition Tables is deterministic? Are any of the three total?
+</div>
+
+<div class="exercise">
+    <b>(Noticing Patterns)</b>
+    Describe the transition tables for nondeterministic, deterministic, partial, and total automata.
 </div>
 
 <div class="exercise">
