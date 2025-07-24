@@ -1,3 +1,104 @@
+<!-- THIS IS A COMPILED FILE 
+ Compiled on 2025-07-24 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <html>
 
 <head>
@@ -98,14 +199,23 @@
 <div class="definition">
     <b>(Words)</b>
     Fix a set \(A\) of input letters. 
-    A <i>word</i> (or <i>string</i>) <i>from \(A\)</i> is a finite sequence of input letters \(a_0a_1a_2\dots a_{n-1}\), where \(a_i \in A\) for all \(i < n\).
-    The number \(n\) in the word \(w = a_0a_1a_2\dots a_{n-1}\) is the <i>length</i> of \(w\) and written \(|w| = n\).
-    Taking \(n = 0\) in the above definition, we obtain the <i>empty word</i>, which is written \(\varepsilon\). 
-    The empty word is the unique word of length \(0\).
-    The set of all words from \(A\) is written with a superscripted star,
+    A <i>word</i> (or <i>string</i>) <i>from \(A\)</i> is a finite sequence of input letters 
     \[
-        A^* = \big\{a_0a_1a_2\dots a_{n-1} \mid \text{\(n \ge 0\) and \(a_i \in A\) for all \(i < n\)} \big\}
+        a_0a_1a_2\dots a_{n-1}
     \]
+    where \(a_i \in A\) for all \(i < n\).
+    The number \(n\) in the word \(w = a_0a_1a_2\dots a_{n-1}\) is the <i>length</i> of \(w\) and written \(|w| = n\).
+    
+    <p>
+        Taking \(n = 0\) in the above definition, we obtain the <i>empty word</i>, which is written \(\varepsilon\). 
+        The empty word is the unique word of length \(0\).
+    </p>
+    <p>
+        The set of all words from \(A\) is written with a superscripted star,
+        \[
+            A^* = \big\{a_0a_1a_2\dots a_{n-1} \mid \text{\(n \ge 0\) and \(a_i \in A\) for all \(i < n\)} \big\}
+        \]
+    </p>
 </div>
 
 <p>
@@ -194,10 +304,13 @@
     <b>(The Best Tweet)</b>
     Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton and let \(x \in Q\).
     What is \(\delta(x, \varepsilon)\)? (Remember that \(\varepsilon\) is the empty word.)
+    <div class="hint">
+        Said differently, what is the result of reading \(\varepsilon\) from a state \(x\)?
+    </div>
 </div>
 
 <p>
-    Given two words \(w\) and \(u\) from \(A\) (i.e., \(w,u \in A^*\)), we can always form the word \(wu\) by <i>concatenating</i> them (the idea is the same as for strings in Python or Java). 
+    Given two words \(w\) and \(u\) from \(A\) (\(w,u \in A^*\)), we can always form the word \(wu\) by <i>concatenating</i> them (the idea is the same as for strings in Python or Java). 
     More specifically, if \(w = a_0a_1\cdots a_{n-1}\) and \(u = b_0b_1\cdots b_{m-1}\), then 
     \[
         w u = a_0 a_1 \cdots a_{n-1} b_0 b_1 \cdots b_{m-1}
@@ -206,12 +319,8 @@
 </p>
 
 <div class="exercise">
-    If \(w = a_0 a_1 \cdots a_{n-1}\) and \(u = b_0 b_1 \cdots b_{m-1}\), then what is \(|w u|\) (i.e., the length of \(w u\))? 
+    If \(w = a_0 a_1 \cdots a_{n-1}\) and \(u = b_0 b_1 \cdots b_{m-1}\), then what is \(|w u|\) (the length of \(w u\))? 
     If \(a \in A\), what is \(|w a|\)?
-
-    <div class="hint">
-        Said differently, what is the result of reading \(\varepsilon\) from a state \(x\)?
-    </div>
 </div>
 
 <div class="problem">
@@ -253,8 +362,8 @@
     Let \(A\) be a set of input letters, and let \(L \subseteq A^*\) be a set of words from \(A\).
     Suppose that the following two statements hold:
     <ol>
-        <li>the empty word is in \(L\), i.e., \(\varepsilon \in L\) </li>
-        <li>for any \(w \in L\) and any \(a \in A\), \(w a \in L\)</li>
+        <li>the empty word is in \(L\), \(\varepsilon \in L\) </li>
+        <li>for any \(w \in L\) and any \(a \in A\), \(aw \in L\)</li>
     </ol>
     Then \(L = A^*\).
 </div>
@@ -268,9 +377,8 @@
     <b>(Who's Missing?)</b>
     Let \(A = \{0, 1\}\) and consider the following language:
     \[
-        L = \{\varepsilon, 0, 1, 01, 10, 11, 00, 000, 001, 010, 100, 011, 101, 111, \dots\} \subseteq A^*
+        L = \{\varepsilon, 0, 1, 01, 10, 11, 00, 000, 001, 010, 100, 011, 101, 111\} \subseteq A^*
     \]
-    Assume that all of the words in \(L\) not shown above are longer than three letter.
     Find the shortest word \(w \in L\) and the letter \(a \in A\) such that \(w \in L\) but \(w a \notin L\).
 </div>
 
@@ -282,6 +390,7 @@
     <div class="hint">
         Let \(L = \{w \in A^* \mid \text{\(\delta(x, w)\) has one element}\}\).
         Show that (Base Case) \(\varepsilon \in L\), and (Induction Step) that if \(w \in L\), then \(w a \in L\) for any \(a \in A\).
+        If it helps, try using the Repeated Derivatives problem.
     </div>
     
     <!--
@@ -305,7 +414,8 @@
 </div>
 
 <p>
-    You might not often need it, but a much stronger version of Induction on Words is true, and I encourage you to use it when you find that Inductionon Words is not all that useful.
+    You won't often need it, but a stronger version of Induction on Words is true.
+    I encourage you to use it when you find that Induction on Words is not enough.
 </p>
 
 <div class="theorem">
@@ -317,26 +427,6 @@
         <li>for any \(w \in A^*\), if \(u \in L\) for every \(u \in A^*\) such that \(|u| < |w|\), then \(w \in L\)</li>
     </ol>
     Then \(L = A^*\).
-</div>
-
-<div class="problem">
-    <b>(Induction on Words 2)</b>
-    Let \(A\) be a set of input letters, and let \(L \subseteq A^*\) be a set of words from \(A\).
-    Prove the following statement: if
-    <ol>
-        <li>\(\varepsilon \in L\), and </li>
-        <li>for any \(w \in L\) and any \(a \in A\), \(a w \in L\),</li>
-    </ol>
-    then \(L = A^*\).
-
-    <div class="hint">
-        Use Strong Induction on Words. 
-        In the inductive step, you are trying to show that if \(u \in L\) whenever \(|u| < |w|\), then \(w \in L\).
-        Let \(w = a_0a_1\cdots a_{n-1}\), and define the letters \(b = a_0\), \(b_{i} = a_{i+1}\) for \(i < n - 1\).
-        Let \(u = b_0 b_1 \cdots b_{n-1}\).
-        Then \(w = b u\) and \(|u| < |w|\). 
-        Now look at assumption 2.
-    </div>
 </div>
 
 

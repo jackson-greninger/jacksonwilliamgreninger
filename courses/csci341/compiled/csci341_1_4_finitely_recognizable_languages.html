@@ -1,0 +1,219 @@
+<!-- THIS IS A COMPILED FILE 
+ Compiled on 2025-07-24 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+
+<head>
+	
+	<meta charset="UTF-8">
+	<meta name="author" content="Todd Schmid">
+	
+	<!-- Renders latex formulas -->
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+	<!-- Renders tikz figures mid page -->
+    <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+    <script src="https://tikzjax.com/v1/tikzjax.js"></script>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="../../../styles.css" />
+	<link rel="stylesheet" href="../../course_styles.css" />
+	<link rel="icon" href="../../../squidab.png" />
+	
+	<!-- * Customize for each course * -->
+	<title>CSCI 341 Theory of Computation</title>
+	<meta name="description" content="Course pages for CSCI 341.">
+	<meta name="keywords" content="bucknell,theory,computer,science,schmid,csci341">
+	<!-- ***************************** -->
+</head>
+
+<body>
+
+<div id="content">
+
+<!-- Header Section -->
+<div id="course_head" style="text-align: left;">
+	<h1 style="margin-bottom: 0; text-align: left;">CSCI 341 Theory of Computation</h1>
+	<i>Fall 2025, with <a href="../../../teaching.html">Schmid</a></i>
+	<div id="links">
+		<!-- * Customize for each course * -->
+		<a href="csci341_syllabus.html"><span class="link">Syllabus</span></a>
+		<a href="csci341_notes.html"><span class="link">Notes</span></a>
+		<a href="csci341_resources.html"><span class="link">Resources</span></a>
+
+		<!-- Make sure to update with correct gradescope link-->
+		<a href= 
+			"http://www.gradescope.com" 
+			target="_blank"><span class="link">Gradescope</span></a>
+		<!-- ***************************** -->
+	</div>
+</div>
+
+
+
+<div id="stuff">
+
+
+<!-- BEGINNING OF BODY -->
+<h1>Finitely Recognizable Languages</h1>
+
+<p>
+    Brzozowski's Fixed Point Theorem tells us that every language is accepted by <i>some</i> state of <i>some</i> automaton.
+    One issue with this theorem is that it doesn't tell you <i>how big</i> that automaton might be. 
+    In fact, it could be infinite for all we know!
+    But something very special happened when we 
+</p>
+
+<p></p>
+
+<div class="definition" id="finitelyrecognizable">
+    <b>(Language Families, Finitely Recognizable)</b>
+    A <i>family of languages</i> is a set of languages \(\mathsf{Fam} \subseteq 2^{A^*}\) over a fixed alphabet of input letters \(A\).
+    We are concerned with the following families of languages:
+    <ul>
+        <li>
+            A language \(L\subseteq A^*\) is <i>finitely recognizable</i> if there is a finite automaton \(\mathcal A = (Q, A, \delta, F)\) (i.e., \(Q\) is finite) and a state \(x \in Q\) such that \(L = \mathcal L(\mathcal A, x)\).
+            The family of finitely recognizable languages is
+            \[
+                \mathsf{Fin} = \big\{ L \subseteq A^* \mid \text{\(L\) is finitely recognizable} \big\}
+            \]
+        </li>
+        <li>
+            A language \(L\subseteq A^*\) is <i>deterministic finitely recognizable</i> if there is a deterministic finite automaton \(\mathcal A = (Q, A, \delta, F)\) and a state \(x \in Q\) such that \(L = \mathcal L(\mathcal A, x)\).
+            The family of deterministic finitely recognizable languages is
+            \[
+                \mathsf{DFin} = \big\{ L \subseteq A^* \mid \text{\(L\) is deterministic finitely recognizable} \big\}
+            \]
+        </li>
+        <li>
+            A language \(L\subseteq A^*\) is <i>total deterministic finitely recognizable</i> if there is a total deterministic finite automaton \(\mathcal A = (Q, A, \delta, F)\) and a state \(x \in Q\) such that \(L = \mathcal L(\mathcal A, x)\).
+            The family of total deterministic finitely recognizable languages is
+            \[
+                \mathsf{TDFin} = \big\{ L \subseteq A^* \mid \text{\(L\) is total deterministic finitely recognizable} \big\}
+            \]
+        </li>
+    </ul>
+</div>
+
+<p>
+    Something you should notice immediately: every total deterministic automaton is a deterministic automaton, and every deterministic automaton is an automaton. 
+    This means implies that 
+    \[
+        \mathsf{TDFin} \subseteq \mathsf{DFin} \subseteq \mathsf{Fin}
+    \]
+    right off the bat!
+</p>
+
+
+
+
+<!-- END OF BODY -->
+    <div style="height: 50px;border-top: 1px solid rgb(131, 131, 131);margin-top: 50px; padding: 20px; text-align: right;">
+        <a href=""><span class="link">Top</span></a>
+    </div>
+</div>
+</div>
+</body>
+
+
+</html>

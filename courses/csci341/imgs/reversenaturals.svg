@@ -2,8 +2,8 @@
 <svg
    x="0"
    y="0"
-   width="275.31149"
-   height="42.107803"
+   width="278.79413"
+   height="45.632561"
    style="fill:none"
    version="1.1"
    id="svg145"
@@ -11,148 +11,143 @@
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
      id="defs145" />
-  <svg
-     class="role-diagram-draw-area"
-     style="overflow:visible"
-     version="1.1"
-     id="svg40"
-     width="100%"
-     height="100%"
-     transform="translate(-240.99651,-5.0873327)">
+  <g
+     class="arrow-line"
+     id="g21"
+     style="fill:none;stroke:#000000"
+     transform="translate(-237.51384,-5.0873332)">
+    <path
+       class="connection real"
+       stroke-dasharray="none"
+       d="M 314.6,34.7 C 297.62,15.4 284.73,19.19 268.75,27.39"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1px"
+       id="path19" />
     <g
-       class="shapes-region"
-       style="fill:none;stroke:#000000"
-       id="g29">
-      <g
-         class="arrow-line"
-         id="g21">
-        <path
-           class="connection real"
-           stroke-dasharray="none"
-           d="M 314.6,34.7 C 297.62,15.4 284.73,19.19 268.75,27.39"
-           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1px"
-           id="path19" />
-        <g
-           stroke="#000"
-           transform="rotate(-27.65,191.00016,-528.34269)"
-           style="stroke:#000000;stroke-width:1px"
-           id="g20">
-          <path
-             d="M 10.93,-3.29 Q 4.96,-0.45 0,0 4.96,0.45 10.93,3.29"
-             id="path20" />
-        </g>
-      </g>
-      <g
-         class="arrow-line"
-         id="g23">
-        <path
-           class="connection real"
-           stroke-dasharray="none"
-           d="M 374.6,35.2 C 357.62,15.9 344.73,19.69 328.75,27.89"
-           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1px"
-           id="path21" />
-        <g
-           stroke="#000"
-           transform="rotate(-27.65,222.01607,-650.00116)"
-           style="stroke:#000000;stroke-width:1px"
-           id="g22">
-          <path
-             d="M 10.93,-3.29 Q 4.96,-0.45 0,0 4.96,0.45 10.93,3.29"
-             id="path22" />
-        </g>
-      </g>
-      <g
-         class="arrow-line"
-         id="g25">
-        <path
-           class="connection real"
-           stroke-dasharray="none"
-           d="M 434.6,35.2 C 417.62,15.9 404.73,19.69 388.75,27.89"
-           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1px"
-           id="path23" />
-        <g
-           stroke="#000"
-           transform="rotate(-27.65,252.01607,-771.90963)"
-           style="stroke:#000000;stroke-width:1px"
-           id="g24">
-          <path
-             d="M 10.93,-3.29 Q 4.96,-0.45 0,0 4.96,0.45 10.93,3.29"
-             id="path24" />
-        </g>
-      </g>
-      <g
-         class="arrow-line"
-         id="g27">
-        <path
-           class="connection real"
-           stroke-dasharray="none"
-           d="M 494.6,35.2 C 477.62,15.9 464.73,19.69 448.75,27.89"
-           style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1px"
-           id="path25" />
-        <g
-           stroke="#000"
-           transform="rotate(-27.65,282.01607,-893.8181)"
-           style="stroke:#000000;stroke-width:1px"
-           id="g26">
-          <path
-             d="M 10.93,-3.29 Q 4.96,-0.45 0,0 4.96,0.45 10.93,3.29"
-             id="path26" />
-        </g>
-      </g>
-      <g
-         id="g28" />
+       stroke="#000"
+       transform="rotate(-27.65,191.00016,-528.34269)"
+       style="stroke:#000000;stroke-width:1px"
+       id="g20">
+      <path
+         d="M 10.93,-3.29 Q 4.96,-0.45 0,0 4.96,0.45 10.93,3.29"
+         id="path20" />
     </g>
+  </g>
+  <g
+     class="arrow-line"
+     id="g23"
+     style="fill:none;stroke:#000000"
+     transform="translate(-237.51384,-5.0873332)">
+    <path
+       class="connection real"
+       stroke-dasharray="none"
+       d="M 374.6,35.2 C 357.62,15.9 344.73,19.69 328.75,27.89"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1px"
+       id="path21" />
     <g
-       id="g30" />
-    <g
-       id="g39">
-      <g
-         id="g35">
-        <circle
-           cx="254.39999"
-           cy="33.791649"
-           r="12.903488"
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px"
-           id="circle34" />
-      </g>
-      <g
-         id="g36">
-        <circle
-           cx="314.39999"
-           cy="33.791649"
-           r="12.903488"
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px"
-           id="circle35" />
-      </g>
-      <g
-         id="g37">
-        <circle
-           cx="374.39999"
-           cy="33.791649"
-           r="12.903488"
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px"
-           id="circle36" />
-      </g>
-      <g
-         id="g38">
-        <circle
-           cx="434.39999"
-           cy="33.791649"
-           r="12.903488"
-           style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px"
-           id="circle37" />
-      </g>
+       stroke="#000"
+       transform="rotate(-27.65,222.01607,-650.00116)"
+       style="stroke:#000000;stroke-width:1px"
+       id="g22">
+      <path
+         d="M 10.93,-3.29 Q 4.96,-0.45 0,0 4.96,0.45 10.93,3.29"
+         id="path22" />
     </g>
+  </g>
+  <g
+     class="arrow-line"
+     id="g25"
+     style="fill:none;stroke:#000000"
+     transform="translate(-237.51384,-5.0873332)">
+    <path
+       class="connection real"
+       stroke-dasharray="none"
+       d="M 434.6,35.2 C 417.62,15.9 404.73,19.69 388.75,27.89"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1px"
+       id="path23" />
     <g
-       id="g40" />
-  </svg>
+       stroke="#000"
+       transform="rotate(-27.65,252.01607,-771.90963)"
+       style="stroke:#000000;stroke-width:1px"
+       id="g24">
+      <path
+         d="M 10.93,-3.29 Q 4.96,-0.45 0,0 4.96,0.45 10.93,3.29"
+         id="path24" />
+    </g>
+  </g>
+  <g
+     class="arrow-line"
+     id="g27"
+     style="fill:none;stroke:#000000"
+     transform="translate(-237.51384,-5.0873332)">
+    <path
+       class="connection real"
+       stroke-dasharray="none"
+       d="M 494.6,35.2 C 477.62,15.9 464.73,19.69 448.75,27.89"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:1px"
+       id="path25" />
+    <g
+       stroke="#000"
+       transform="rotate(-27.65,282.01607,-893.8181)"
+       style="stroke:#000000;stroke-width:1px"
+       id="g26">
+      <path
+         d="M 10.93,-3.29 Q 4.96,-0.45 0,0 4.96,0.45 10.93,3.29"
+         id="path26" />
+    </g>
+  </g>
+  <g
+     id="g35"
+     transform="translate(-237.51384,-5.0873332)">
+    <circle
+       cx="254.40147"
+       cy="33.83226"
+       r="16.257664"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.25994px"
+       id="circle34-9" />
+    <circle
+       cx="254.39999"
+       cy="33.791649"
+       r="12.903488"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px"
+       id="circle34" />
+  </g>
+  <g
+     id="g36"
+     transform="translate(-237.51384,-5.0873332)">
+    <circle
+       cx="314.39999"
+       cy="33.791649"
+       r="12.903488"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px"
+       id="circle35" />
+  </g>
+  <g
+     id="g37"
+     transform="translate(-237.51384,-5.0873332)">
+    <circle
+       cx="374.39999"
+       cy="33.791649"
+       r="12.903488"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px"
+       id="circle36" />
+  </g>
+  <g
+     id="g38"
+     transform="translate(-237.51384,-5.0873332)">
+    <circle
+       cx="434.39999"
+       cy="33.791649"
+       r="12.903488"
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1px"
+       id="circle37" />
+  </g>
   <svg
      width="686"
      height="227.5"
      style="font-family:LatinModern-Math, LatinModern, Asana-Math, Asana"
      version="1.1"
      id="svg144"
-     transform="translate(-240.99651,-5.0873327)">
+     transform="translate(-237.51384,-5.0873332)">
     <g
        id="g112">
       <g

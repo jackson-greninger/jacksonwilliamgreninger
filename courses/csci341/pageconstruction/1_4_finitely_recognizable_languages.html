@@ -1,0 +1,49 @@
+<h1>Finitely Recognizable Languages</h1>
+
+<p>
+    Brzozowski's Fixed Point Theorem tells us that every language is accepted by <i>some</i> state of <i>some</i> automaton.
+    One issue with this theorem is that it doesn't tell you <i>how big</i> that automaton might be. 
+    In fact, it could be infinite for all we know!
+    But something very special happened when we 
+</p>
+
+<p></p>
+
+<div class="definition" id="finitelyrecognizable">
+    <b>(Language Families, Finitely Recognizable)</b>
+    A <i>family of languages</i> is a set of languages \(\mathsf{Fam} \subseteq 2^{A^*}\) over a fixed alphabet of input letters \(A\).
+    We are concerned with the following families of languages:
+    <ul>
+        <li>
+            A language \(L\subseteq A^*\) is <i>finitely recognizable</i> if there is a finite automaton \(\mathcal A = (Q, A, \delta, F)\) (i.e., \(Q\) is finite) and a state \(x \in Q\) such that \(L = \mathcal L(\mathcal A, x)\).
+            The family of finitely recognizable languages is
+            \[
+                \mathsf{Fin} = \big\{ L \subseteq A^* \mid \text{\(L\) is finitely recognizable} \big\}
+            \]
+        </li>
+        <li>
+            A language \(L\subseteq A^*\) is <i>deterministic finitely recognizable</i> if there is a deterministic finite automaton \(\mathcal A = (Q, A, \delta, F)\) and a state \(x \in Q\) such that \(L = \mathcal L(\mathcal A, x)\).
+            The family of deterministic finitely recognizable languages is
+            \[
+                \mathsf{DFin} = \big\{ L \subseteq A^* \mid \text{\(L\) is deterministic finitely recognizable} \big\}
+            \]
+        </li>
+        <li>
+            A language \(L\subseteq A^*\) is <i>total deterministic finitely recognizable</i> if there is a total deterministic finite automaton \(\mathcal A = (Q, A, \delta, F)\) and a state \(x \in Q\) such that \(L = \mathcal L(\mathcal A, x)\).
+            The family of total deterministic finitely recognizable languages is
+            \[
+                \mathsf{TDFin} = \big\{ L \subseteq A^* \mid \text{\(L\) is total deterministic finitely recognizable} \big\}
+            \]
+        </li>
+    </ul>
+</div>
+
+<p>
+    Something you should notice immediately: every total deterministic automaton is a deterministic automaton, and every deterministic automaton is an automaton. 
+    This means implies that 
+    \[
+        \mathsf{TDFin} \subseteq \mathsf{DFin} \subseteq \mathsf{Fin}
+    \]
+    right off the bat!
+</p>
+

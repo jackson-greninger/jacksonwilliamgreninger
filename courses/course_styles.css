@@ -57,17 +57,13 @@
 }
 
 .code {
-	color: white;
-	font-style: italic;
-	font-size: small;
+	display: block;
+	width: 800px;
 	max-width: 80%;
-	text-align: center;
-	align-content: center;
+	min-height: 500px;
 	margin: 20px;
 	margin-left:auto;
 	margin-right:auto;
-	/* border: 1px solid rgba(128, 128, 128, 0.494); */
-	background-color: rgb(25, 25, 25);
 }
 
 .code iframe {
@@ -217,4 +213,28 @@ td {
 .alignenv td, .alignenv th {
   border: none;
   padding: 5px;
+}
+
+.proof {
+	/* height: 40px;
+	overflow: hidden; */
+	margin-top: 0;
+	margin-bottom:10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%;
+	padding:2%;
+	/* border: 1px solid blue; */
+	background-color:rgba(178, 146, 185, 0.05);
+	border-bottom: 2px double rgba(199, 128, 254, 0.554) ;
+}
+
+.proof:hover{
+	/* height: fit-content; */
+}
+
+.proof::before {
+	color: rgb(0, 0, 0);
+	content: "Proof. ";
+	font-weight: bold;
 }

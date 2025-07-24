@@ -69,7 +69,8 @@
 
 <div class="problem" id="letemcook">
     <b>(Let 'em Cook)</b>
-    For each of the following languages \(L_i \subseteq A^*\) below, design an automaton \(\mathcal A_i = (Q_i, A_i, \delta_i, F_i)\) with a state \(x \in Q_i\) such that \(x\) accepts \(L_i\), and briefly explain why your automaton accepts \(L_i\).
+    For each of the following languages \(L_i \subseteq A^*\) below, design an automaton \(\mathcal A_i = (Q_i, A, \delta_i, F_i)\) with a state \(x \in Q_i\) such that \(x\) accepts \(L_i\), and briefly explain why your automaton accepts \(L_i\).
+    Note that \(A = \{a, b\}\) in all of the cases below.
     <ol>
         <li>\(L_1 = \{a, aa, aaa\}\)</li>
         <li>\(L_2 = \{w \in A^* \mid \text{\(w\) ends with \(b\)}\}\)</li>
@@ -77,7 +78,10 @@
         <li>\(L_4 = \{w \in A^* \mid \text{\(w\) has \(3k+1\) many \(a\)'s for some \(k \ge 0\)}\}\)</li>
         <li>\(L_5 = \{w \in A^* \mid \text{\(w\) either has \(3k+1\) or \(3k + 2\) many \(a\)'s for some \(k \ge 0\)}\}\)</li>
     </ol>
-    For each of these languages, if you drew a nondeterministic or partial automaton, try to also draw a total deterministic one (include both in your write-up).
+    For each of these languages, if you drew a nondeterministic or partial automaton, also draw a total deterministic one (include both in your write-up).
+    <div class="hint">
+        What should you do with the hidden "b"s?
+    </div>
 </div>
 
 <!--Section-->
@@ -125,6 +129,10 @@
     </div>
 </div>
 
+<p>
+    Later, we will see a more compact notation for writing down languages.
+</p>
+
 <!--Section-->
 <h2>States as literal programs</h2>
 
@@ -135,16 +143,12 @@
 
 <div class="problem">
     <b>(Pythonic Automaton I)</b>
-    Consider the python program below.
-    <div class="figure">
-        <!-- <iframe src="https://replit.com/@tjws001/PythonicAutomatonI#main.py?embed=true"></iframe> -->
-        <img src="../code/PythonicAutomatonI.png" />
-        <a href="https://replit.com/@tjws001/PythonicAutomatonI#main.py">(External link to code.)</a>
-    </div>
+    Consider the python program linked here:
+    <a href="https://colab.research.google.com/drive/1rHdYUT2oZc2GF6BTtsHksiUO_GJ64Vsx" target="_blank">(External link to code)</a>.
     This Python program corresponds to a state in an automaton \(\mathcal A = (Q, A, \delta, F)\) where \(A = \{0,1\}\).
     <ol>
         <li>
-            Write down a transition table for \(\mathcal A\).
+            Write down a transition table for \(\mathcal A\) and draw a state diagram of \(\mathcal A\).
         </li>
         <li>
             Which state does the program correspond to?
@@ -153,6 +157,7 @@
             Using set comprehension, describe the language accepted by this state.
         </li>
     </ol>
+    Make sure to thoroughly test out your state diagram of \(\mathcal A\) against the program.
 </div>
 
 <div class="exercise">
@@ -163,6 +168,7 @@
 <div class="problem">
     <b>(Pythonic Automaton III)</b>
     Write a Python script in the same format as the Pythonic Automaton I that implements state \(s_1\) in <a href="./1_0_games_and_state_diagrams.html#firstpush" target="_blank">abstract state diagram (A)</a> from the games and puzzles section. 
+    <b>Submit your program as a .py file.</b>
     
     <i>In some sense, you just made a Sokoban game!</i>
 </div>
