@@ -39,22 +39,22 @@
 
 <h2>The Brzozowski Construction</h2>
 <p>
-    We defined languages abstractly, as arbitrary sets of words over an alphabet. 
+    We defined languages abstractly, as arbitrary sets of words from an alphabet. 
     But then we talked about languages <i>accepted by states of automata</i>.
     Are these the same?
     In other words, is every language the language accepted by some automaton?
-    The answer to this question is "yes", and the construction is easy to write down. 
-    The definition below takes a bit of patience, so read it a few times and really try to convince yourself it works.
+    As a matter of fact, the answer to this question is "yes"!
+    And moreover, it just takes one automaton to see this in action.
+    The automaton we are going to construct below is called the "Brzozowski automaton", and it is <i>very</i> infinite. 
 </p>
 
 <p>
-    The basic idea behind this section is that the <i>set of all languages</i> is the state space of an automaton.
-    That is, we take the states of the automaton to be languages, and the transitions of the automaton to be transitions between languages.
-    These transitions are called <i>Brzozowski derivatives"</i>.
+    The basic idea is that the <i>set of all languages</i> is the state space of an automaton.
+    That is, we are going to define an automaton whose states are languages (observe that these states have a semantics, just liike in the Reverse Naturals automaton!), and the transitions between states (i.e., languages) are <i>Brzozowski derivatives</i>, in the following sense.
 </p>
 
 <div class="definition">
-    <b>(<a href="https://www.wikipedia.com/en/Brzozowski" target="_blank">Brzozowski</a> Derivatives)</b>
+    <b>(<a href="https://en.wikipedia.org/wiki/Janusz_Brzozowski_(computer_scientist)" target="_blank">Brzozowski</a> Derivatives)</b>
     Let \(A\) be a set of input letters and let \(a \in L\).
     Given a language \(L \subseteq A^*\), we define the <i>\(a\)-derivative of \(L\)</i> to be the set 
     \[
@@ -92,22 +92,51 @@
 
 <div class="exercise">
     <b>(More Practice with Derivatives)</b>
-    Compute \(a\)-derivative, \(b\)-derivative, and \(c\)-derivative of the languages below:
+    Compute the \(a\)-derivative, \(b\)-derivative, and \(c\)-derivative of the languages below:
     <ol>
         <li>\(L_1 = \{\varepsilon, aa, ba, cab, c, acab\}\)</li>
         <li>\(L_2 = \{aa, aaa, aaaa, caaa\}\)</li>
         <li>\(L_3 = \{\varepsilon, bac, abc, cab\}\)</li>
+        <li>\(L_4 = \{b^n \mid n \in \mathbb N\}\) where \(b^n = bbb\dots b\) is \(n\) consecutive \(b\)'s</li> 
+        <li>\(L_5 = L_2 \cup L_3\)</li> 
+        <li>\(L_6 = L_4 \cup \{a^n \mid n \in \mathbb n\}\)</li> 
     </ol>
 </div>
+
+<p>
+    Alright, now that you've had some practice with derivatives, let's take a look at the formal definition of the Brzozowski automaton.
+</p>
 
 <div class="definition">
     <b>(The Brzozowski Automaton)</b>
     The <i>Brzozowski automaton</i> is the automaton \(\mathcal A_{Brz} = (2^{A^*}, A, \delta, F)\) where 
     <ul>
         <li>\(2^{A^*} = \{L \mid L \subseteq A^*\}\)</li>
-        <li>\(\delta = \{(L, a, a^{-1}L) \mid \text{\(a \in A\) and \(L \subseteq A^*\)}\}\)</li>
+        <li>\(\delta = \{(L, a, a^{-1}L) \mid \text{\(a \in A\) and \(L \subseteq A^*\)}\} \subseteq 2^{A^*} \times A \times 2^{A^*}\)</li>
         <li>\(F = \{L \subseteq A^* \mid \varepsilon \in L\}\)</li>
     </ul>
+</div>
+
+<p>
+    In particular, there is the empty language \(\emptyset \in 2^{A^*}\).
+</p>
+
+<div class="example">
+    Consider the language \(\{a, aa, aaa\}\). 
+    We see the following transitions in \(\mathcal A_{Brz}\):
+    <script type="text/tikz">
+        \begin{tikzpicture}[
+            state/.style={rectangle, draw=black, fill=white, very thick, minimum size=5mm},
+            stateaccept/.style={rectangle, rounded corners, draw=black, fill=white, very thick, double, minimum size=5mm}
+        ]
+        %Nodes
+        \node[state]       (init)              {\(a\), \(aa\), \(aaa\)};
+        \node[stateaccept] (a) [right= of init] {\(\varepsilon\), \(a\), \(aa\)};
+
+        %Lines
+        \draw[-stealth, thick] (init.east) -- node[above] {\(a\)} -- (a.west);
+        \end{tikzpicture}
+    </script>
 </div>
 
 <p>
@@ -119,8 +148,15 @@
     that starts at \(x\) and ends at \(y\).
 </p>
 
-<div class="problem">
-    <b>(Unravelling a Language)</b>
+<div class="problem" id="unravelling">
+    <b>(Unravelling an Infinite Language)</b>
+    Draw a state diagram of all of the languages that are reachable from the language \(L = \{\varepsilon, aa, ba, cab, c, acab\}\) in the Brzozowski automaton (by taking derivatives). 
+    Include all of the double-circles to indicate which languages are accepting states of the Brzozowski automaton.
+    What language is accepted by \(L\)?
+</div>
+
+<div class="problem" id="unravelling">
+    <b>(Unravelling an Infinite Language)</b>
     Draw a state diagram of all of the languages that are reachable from the language \(L = \{\varepsilon, aa, ba, cab, c, acab\}\) in the Brzozowski automaton (by taking derivatives). 
     Include all of the double-circles to indicate which languages are accepting states of the Brzozowski automaton.
     What language is accepted by \(L\)?
