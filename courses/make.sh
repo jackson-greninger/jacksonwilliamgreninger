@@ -1,7 +1,5 @@
-file $2
 cd "$1/assignments"
 echo ls
-pdflatex $2
 rm *.aux
 rm *.bcf
 rm *.fdb_latexmk
@@ -15,3 +13,7 @@ rm *.xml
 rm *.gz
 cd ../../
 python3 compilepages.py $1
+
+if [ ${2:+1} ]; then
+    pdflatex $2
+fi

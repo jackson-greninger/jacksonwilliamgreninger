@@ -7,6 +7,10 @@
     In fact, it could be infinite for all we know!
 </p>
 
+<p>
+    Thankfully, the whole Brzozowski automaton is not needed, only the part that corresponds to \(L\). 
+</p>
+
 <h2>Reachability and Local Finiteness</h2>
 <p>
     The Brzozowski automaton was most definitely an infinite automaton.
@@ -36,20 +40,37 @@
     Note that \(\langle x \rangle_{\mathcal A}\) has the same alphabet as \(\mathcal A\).
 </p>
 
-<div class="exercise">
-    <b>()</b>
+<div class="example">
+    <b>(A=B)</b>
+    The following language is a classic example of a language that generates an infinite subautomaton of the Brzozowski automaton \(\mathcal A_{Brz}\):
+    \[
+        L_{a=b} = \big\{ a^nb^n \mid n \in \mathbb N\big\}
+    \]
+    After \(k\) \(a\)-derivatives, the language becomes
+    \[
+        a^{-k}L_{a=b} = \big\{ a^{n-k}b^n \mid n \in \mathbb N, n \ge k\big\}
+    \] 
+    If \(k \le k'\), then \(a^{-k}L_{a=b} \neq a^{-k'}L_{a=b}\), so there is a distinct state in \(\langle L_{a=b}\rangle_{\mathcal A_{Brz}}\) for each \(k \in \mathbb N\).
+    This means infinitely many!
 </div>
+
+<div class="exercise">
+    <b>(Distinct Derivatives of A=B)</b>
+    Show that \(a^{-1}L_{a=b} \neq a^{-2}L_{a=b}\) by finding a word in one of the languages that is not in the other. 
+    How would you generalize this to a proof that if \(k \le k'\), then \(a^{-k}L_{a=b} \neq a^{-k'}L_{a=b}\)?
+</div>
+
+<p>
+    It turns out that \(L_{a=b}\) is not accepted by <i>any</i> state in <i>any</i> finite automaton. 
+    We don't quite have the tools to prove this yet, though.
+    We will see those later when we talk about the Pumping Lemma for finite automata.
+</p>
 
 <div class="exercise">
     <b>(Reverse Naturals Again)</b>
     Remember that the Reverse Naturals automaton was defined by \(Q = \mathbb N\), \(A = \{l\}\), and \(n + 1 \xrightarrow{l} n\) for all \(n \in Q\).
     Is the Reverse Naturals automaton locally finite?
-</div>
-
-<div class="exercise">
-    <b>(Can't...draw...them...all...)</b>
-    Write down an automaton that is not locally finite.
-    <div class="hint">Play around with the Reverse Naturals automaton.</div>
+    What if we replace \(l\) with the the input letter \(s\) that <i>adds one</i> instead of subtracts: \(n \xrightarrow{s} n + 1\)?
 </div>
 
 <div class="exercise">
@@ -109,5 +130,34 @@
         \mathsf{TDFin} \subseteq \mathsf{DFin} \subseteq \mathsf{Fin}
     \]
     right off the bat!
+    But what about the reverse inclusions?
 </p>
 
+<div class="problem">
+    <b>(Total vs Partial)</b>
+    Prove that \(\mathsf{DFin} = \mathsf{TDFin}\) by describing how to turn a deterministic automaton into a total deterministic automaton without changing the languages accepted by the states.
+    <div class="hint">
+        Do the CJ's Pergatory exercise below.
+    </div>
+</div>
+
+<p>
+    In the next lecture, we are going to see that in fact, all three families of languages are equal.
+</p>
+
+<h2 id="exercises">Exercises</h2>
+
+<div class="exercise">
+    <b>(CJ's Pergatory)</b>
+    For each of the deterministic partial automata below, find a total deterministic automaton with a state that accepts the same language as \(x\).
+    In each example, then input alphabet is \(A = \{a, b, c\}\).
+    <div class="figure">
+        <img src="../imgs/CJPerg1.svg" />
+        <img src="../imgs/CJPerg2.svg" />
+        <img src="../imgs/CJPerg3.svg" />
+        <img src="../imgs/CJPerg4.svg" />
+    </div>
+    <div class="hint">
+        You only ever need to add one state!
+    </div>
+</div>
