@@ -192,18 +192,20 @@
     What this means is that \(L = \mathcal L(\mathcal A, x)\).
 </p>
 
-<p>
+<div class="remark">
     There are two common mistakes you are going to make at least a few times:
     the first one is to say that "an <i>automaton</i> accepts a language \(L \subseteq A^*\)". Automata do not accept languages, states do.
     Remember: states are programs, automata are the machines that can run them.
-</p>
+    <p>
+        The second mistake is to say that a state \(x \in Q\) accepts a language \(L \subseteq A^*\) if every \(w \in L\) is accepted by \(x\). 
+        This is equivalent to saying that \(\mathcal L(\mathcal A, x) \subseteq L\), not \(\mathcal L(\mathcal A, x) = L\)!
+        The terminology "\(x\) <i>decides</i> \(L\)" is really a lot clearer, but the standard literature usually uses the word "accept".
+        Not sure why. 🙄
+    </p>
+</div>
+
 <p>
-    The second mistake is to say that a state \(x \in Q\) accepts a language \(L \subseteq A^*\) if every \(w \in L\) is accepted by \(x\). 
-    This is equivalent to saying that \(\mathcal L(\mathcal A, x) \subseteq L\), not \(\mathcal L(\mathcal A, x) = L\)!
-    The terminology "\(x\) <i>decides</i> \(L\)" is usually much clearer, but the standard literature usually uses the word "accept" for historical reasons... 🙄
-</p>
-<p>
-    <b>Notation.</b> Recall that, given two sets \(X\) and \(Y\), we are going to write \(X \setminus Y\) for the set of elements of \(X\) that are not in \(Y\).
+    <b>Notation.</b> Given two sets \(X\) and \(Y\), we are going to write \(X \setminus Y\) for the set of elements of \(X\) that are not in \(Y\).
     Formally, 
     \(
         X \setminus Y = \{x \in X \mid x \notin Y\}
@@ -211,7 +213,7 @@
     The set \(X \setminus Y\) is the <i>complement of \(Y\) in \(X\)</i>.
 </p>
 
-<div class="exercise">
+<!-- <div class="exercise">
     <b>(Accept and Reject)</b>
     Show that a state \(x\) of an automaton \(\mathcal A\) accepts (decides) a language \(L \subseteq A^*\) if both of the following statements are true:
     <ol>
@@ -222,7 +224,7 @@
 
 <p>
     In other words, if we were to start with a language \(L\) and try to come up with (design!) an automaton that accepts that language, then we also need to make sure that it rejects the complement of that language.
-</p>
+</p> -->
 
 <div class="problem" id="letemcook">
     <b>(Let 'em Cook)</b>
@@ -234,8 +236,13 @@
         <li>\(L_3 = \{w \in A^* \mid \text{\(w\) has an even number of \(a\)'s}\}\)</li>
         <li>\(L_4 = \{w \in A^* \mid \text{\(w\) has \(3k+1\) many \(a\)'s for some \(k \ge 0\)}\}\)</li>
         <li>\(L_5 = \{w \in A^* \mid \text{\(w\) either has \(3k+1\) or \(3k + 2\) many \(a\)'s for some \(k \ge 0\)}\}\)</li>
+        <li>\(L_6 = A^* \setminus L_2\)</li>
     </ol>
-    For each of these languages, if you drew a nondeterministic or partial automaton, also draw a total deterministic one (include both in your write-up).
+</div>
+
+<div class="exercise">
+    <b>(Cooking Deterministically)</b>
+    For each of the languages in Let 'em Cook, if you drew a nondeterministic or partial automaton, also draw a total deterministic one.
     <div class="hint">
         What should you do with the hidden "b"s?
     </div>
@@ -280,8 +287,9 @@
 
 <div class="exercise">
     <b>(One More Than)</b>
-    Using set comprehension, describe the language accepted by the state \(x_0\) in the automaton below. 
+    Using set comprehension, describe the languages accepted by the states \(x_0\) in the automata below. 
     <div class="figure">
+        <img src="../imgs/moreautomata.svg" />
         <img src="../imgs/morethanfour.svg" />
     </div>
 </div>
@@ -300,10 +308,19 @@
 
 <div class="problem">
     <b>(Pythonic Automaton I)</b>
-    Consider the python program linked here:
+    Go take a look at the Jupyter notebook linked here:
     <a href="https://colab.research.google.com/drive/1rHdYUT2oZc2GF6BTtsHksiUO_GJ64Vsx" target="_blank">(External link to code)</a>.
-    This Python program corresponds to a state in an automaton \(\mathcal A = (Q, A, \delta, F)\) where \(A = \{0,1\}\).
+    This Python program under the Pythonic Automaton I header corresponds to a state in an automaton \(\mathcal A = (Q, A, \delta, F)\) where \(A = \{0,1\}\).
     <ol>
+        <li>
+            Run the program and test out which of the following strings are accepted/rejected (type "quit" to stop the program):
+            <ul>
+                <li>\(\varepsilon\)</li>
+                <li>\(001\)</li>
+                <li>\(00100\)</li>
+                <li>\(011011\)</li>
+            </ul>
+        </li>
         <li>
             Write down a transition table for \(\mathcal A\) and draw a state diagram of \(\mathcal A\).
         </li>
@@ -319,7 +336,7 @@
 
 <div class="exercise">
     <b>(Pythonic Automaton II)</b>
-    Write a Python script in the same format as the Pythonic Automaton I that implements the state in the automaton \(\mathcal A_4\) you designed to accept \(L_4\) in <a href="#letemcook">Let 'em Cook</a>.
+    Write a Python script in the same format as the Pythonic Automaton I (you can use Pythonic Automaton II as a template) that implements the state in the automaton \(\mathcal A_4\) you designed to accept \(L_4\) in <a href="#letemcook">Let 'em Cook</a>.
 </div>
 
 <div class="problem">

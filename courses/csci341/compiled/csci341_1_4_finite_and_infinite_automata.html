@@ -279,21 +279,17 @@
 </p>
 
 <div class="example">
+    <b>(One at a Time)</b>
     Consider the language \(\{a, aa, aaa\}\). 
-    We see the following transitions in \(\mathcal A_{Brz}\):
-    <script type="text/tikz">
-        \begin{tikzpicture}[
-            state/.style={rectangle, draw=black, fill=white, very thick, minimum size=5mm},
-            stateaccept/.style={rectangle, rounded corners, draw=black, fill=white, very thick, double, minimum size=5mm}
-        ]
-        %Nodes
-        \node[state]       (init)              {\(a\), \(aa\), \(aaa\)};
-        \node[stateaccept] (a) [right= of init] {\(\varepsilon\), \(a\), \(aa\)};
+    We see the following transitions in \(\mathcal A_{Brz}\) with \(A = \{a\}\):
+    <div class="figure">
+        <img src="../imgs/languagedervs.svg" />
+    </div>
+</div>
 
-        %Lines
-        \draw[-stealth, thick] (init.east) -- node[above] {\(a\)} -- (a.west);
-        \end{tikzpicture}
-    </script>
+<div class="exercise">
+    <b>(Basic Language Derivatives)</b>
+    What would the state diagram in One at a Time look like if \(A = \{a, b\}\)?
 </div>
 
 <p>
@@ -305,16 +301,16 @@
     that starts at \(x\) and ends at \(y\).
 </p>
 
-<div class="problem" id="unravelling">
-    <b>(Unravelling an Infinite Language)</b>
-    Draw a state diagram of all of the languages that are reachable from the language \(L = \{\varepsilon, aa, ba, cab, c, acab\}\) in the Brzozowski automaton (by taking derivatives). 
+<div class="exercise" id="unravelling">
+    <b>(Unravelling a Finite Language)</b>
+    Draw a state diagram of all of the languages that are reachable from the language \(L = \{\varepsilon, aa, ba, cab, c, acab\}\) in the Brzozowski automaton (by taking \(a\)- and \(b\)- and \(c\)-derivatives). 
     Include all of the double-circles to indicate which languages are accepting states of the Brzozowski automaton.
     What language is accepted by \(L\)?
 </div>
 
 <div class="problem" id="unravelling">
     <b>(Unravelling an Infinite Language)</b>
-    Draw a state diagram of all of the languages that are reachable from the language \(L = \{\varepsilon, aa, ba, cab, c, acab\}\) in the Brzozowski automaton (by taking derivatives). 
+    Draw a state diagram of all of the languages that are reachable from the language \(L = \{(ab)^n \mid n \in \mathbb N\}\) in the Brzozowski automaton by taking \(a\)- and \(b\)-derivatives (the words in this language are \(\varepsilon\), \(ab\), \(abab\), ...). 
     Include all of the double-circles to indicate which languages are accepting states of the Brzozowski automaton.
     What language is accepted by \(L\)?
 </div>

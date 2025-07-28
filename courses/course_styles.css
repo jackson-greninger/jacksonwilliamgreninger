@@ -95,6 +95,24 @@
 	font-weight: bold;
 }
 
+.remark {
+	margin:10px;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: auto;
+	width: 90%;
+	padding:2%;
+	/* border: 1px solid gray; */
+	font-style: italic;
+	background-color:rgba(255, 254, 214, 0.058) ;
+}
+
+.remark::before {
+	color: rgb(56, 0, 0);
+	content: "Remark. ";
+	font-weight: bold;
+}
+
 .problem {
 	margin:10px;
 	margin-left: auto;

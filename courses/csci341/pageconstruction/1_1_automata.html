@@ -86,7 +86,7 @@
 
 <div class="example">
     <b>(Diverging Loop)</b>
-    The <i>diverging loop</i> automaton \(\mathcal A_\bullet = (Q, A, \delta, F)\) has 
+    The <i>diverging loop</i> automaton \(\mathcal A_\circlearrowright = (Q, A, \delta, F)\) has 
     \[
         Q = \{\bullet\}
         \qquad \delta = \{(\bullet, a, \bullet) \mid a \in A\} 
@@ -96,7 +96,7 @@
 
 <div class="example">
     <b>(All-Accepting)</b>
-    The <i>all-accepting</i> automaton \(\mathcal A_\bullet = (Q, A, \delta, F)\) has 
+    The <i>all-accepting</i> automaton \(\mathcal A_\checkmark = (Q, A, \delta, F)\) has 
     \[
         Q = \{\bullet\}
         \qquad \delta = \{(\bullet, a, \bullet) \mid a \in A\} 
@@ -230,11 +230,12 @@
 
 <div class="exercise">
     <b>(Formalizing)</b>
-    Draw transition tables for the two automata below.
+    Draw transition tables for the automata below.
+    Use your transition table to write down \(Q\), \(\delta\), and \(F\) for each automaton \(\mathcal A = (Q, A, \delta, F)\) below.
+    Note that the alphabet \(A\) is different from automaton to automaton, so the columns will be different each time.
     <div class="figure">
-        <img src="../imgs/draw_these_DFAs.png" />
+        <img src="../imgs/ex_transitiontables.svg" />
     </div>
-    Use your transition table to write down \(Q\), \(A\), \(\delta\), and \(F\) for each automaton \(\mathcal A = (Q, A, \delta, F)\).
 </div>
 
 <p>
@@ -244,10 +245,11 @@
 </p>
 
 <div class="exercise">
-    <b>(Practice With Transition Tables)</b>
-    Determine the state space \(Q\), the input alphabet \(A\), and the accepting states \(F\) of the automata below and write down their transition tables.
+    <b>(Nondeterminism and Transition Tables)</b>
+    Determine the state space \(Q\), the input alphabet \(A\), and the accepting states \(F\) of the automaton below given its transition table.
+    Draw a state diagram of the automaton.
     <div class="figure">
-        <img src="../imgs/threeautomata.svg" />
+        <img src="../imgs/ex_nondet_transitiontable.svg" />
     </div>
 </div>
 
@@ -278,27 +280,30 @@
     </ul>
 </div>
 
-<div class="exercise">
-    <b>(Reflecting on Examples)</b>
-    Which of \(\mathcal A_1\), \(\mathcal A_2\), and \(\mathcal A_3\) in Practice with Transition Tables is deterministic? Are any of the three total?
-</div>
 
-<div class="problem">
-    <b>(Noticing Patterns)</b>
-    Describe the transition tables for nondeterministic, deterministic, partial, and total automata.
-    Justify your description by making reference to the definition of each property.
-</div>
 
 <div class="exercise">
     <b>(Differentiating Types)</b>
     Fix an input alphabet \(A\).
-    Draw one of each of the following examples of automata \(\mathcal A = (Q, A, \delta, F)\):
+    Draw one example of each of the following types of automata \(\mathcal A = (Q, A, \delta, F)\) and write down their transition tables.
     <ol>
         <li>\(\mathcal A\) is deterministic and total</li>
         <li>\(\mathcal A\) is nondeterministic and total</li>
         <li>\(\mathcal A\) is nondeterministic and partial</li>
         <li>\(\mathcal A\) is deterministic and partial</li>
     </ol>
+</div>
+
+<div class="problem">
+    <b>(Noticing Patterns)</b>
+    Describe the transition tables for nondeterministic, deterministic, partial, and total automata.
+    In particular: which of these types of automata have 
+    <ol>
+        <li>More than one entry in each row/column?</li>
+        <li>Exactly one entry in each row/column?</li>
+        <li>Less than one entry in each row/column?</li>
+    </ol>
+    Justify your answers to these questions by making reference to the definition of each property.
 </div>
 
 <p>
@@ -313,6 +318,7 @@
     <div class="hint">
         Remember how to prove "A if and only if B" statements: first, assume that A is true, and then argue that B follows from A (this called the <i>forward direction</i>).
         Second, assume that B is true, and then argue that A follows from B (this is called the <i>backwards diection</i>).
+        In this case, "A" is the statement, "\(\mathcal A\) is a total deterministic automaton", and "B" is the statement, "\(\delta\) is a function from \(Q \times A\) to \(Q\)".
     </div>
     <div class="hint">
         If it helps, let \(X = Q \times A\) and \(Y = Q\) and show that \(\delta \colon X \to Y\) is a function if and only if \(\mathcal A\) is deterministic and total.

@@ -284,16 +284,11 @@
 
 <div class="exercise">
     <b>(Reading Examples)</b> 
-    Calculate the set \(\delta(x, w)\) where...
+    Calculate the following sets:
     <ol>
-        <li>\(x = s_1\) in \(\mathcal A_1\) and \(w = a\)</li>
-        <li>\(x = s_1\) in \(\mathcal A_1\) and \(w = aa\)</li>
-        <li>\(x = x_0\) in \(\mathcal A_2\) and \(w = abd\)</li>
-        <li>\(x = x_0\) in \(\mathcal A_2\) and \(w = ad\)</li>
-        <li>\(x = x_1\) in \(\mathcal A_2\) and \(w = abd\)</li>
-        <li>\(x = x_0\) in \(\mathcal A_3\) and \(w = 01\)</li>
-        <li>\(x = x_1\) in \(\mathcal A_3\) and \(w = 01\)</li>
-        <li>\(x = x_0\) in \(\mathcal A_3\) and \(w = 1110\)</li>
+        <li>\(\delta(x, a)\) and \(\delta(x, aa)\) in \(\mathcal A_1\)</li>
+        <li>\(\delta(x, abd)\) and \(\delta(x, ad)\) in \(\mathcal A_2\)</li>
+        <li>\(\delta(x, 01)\), \(\delta(x, 10)\), and \(\delta(x, 1110)\) in \(\mathcal A_3\)</li>
     </ol>
     <div class="figure">
         <img src="../imgs/threeautomata.svg" />
@@ -328,7 +323,7 @@
     Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton, let \(x \in Q\), and \(w \in A^*\) and \(a \in A\).
     Prove the following identity:
     \[
-        \delta(x, w a) = \{z \mid z \in \delta(y, a) \text{ and } y \in \delta(x, w)\}
+        \delta(x, w a) = \{z \mid z \in \delta(y, a) \text{ for some } y \in \delta(x, w)\}
     \]
     <div class="hint">
         You are going to show two things: (1) that 

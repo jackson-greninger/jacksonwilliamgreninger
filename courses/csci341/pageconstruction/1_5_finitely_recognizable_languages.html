@@ -36,12 +36,13 @@
     \[
         \bigcup_{w \in A^*} \delta(x, w) = \{y \mid \text{there is a word \(w \in A^*\) such that \(y \in \delta(x, w)\)}\}
     \]
-    The definition of \(\delta_x\) just says that \(\delta\)
+    The definition of \(\delta_x\) just says that it has all the same transitions as \(\delta\) but restricted to \(Q_x\).
     Note that \(\langle x \rangle_{\mathcal A}\) has the same alphabet as \(\mathcal A\).
 </p>
 
 <div class="example">
     <b>(A=B)</b>
+    Recall that in the Brzozowski automaton \(\mathcal A_{Brz}\), the states are languages, the transitions are given by derivatives, \(L \xrightarrow{a} a^{-1}L\), and the accepting states are the languages \(L\subseteq A^*\) that contain the empty word \(\varepsilon \in L\).
     The following language is a classic example of a language that generates an infinite subautomaton of the Brzozowski automaton \(\mathcal A_{Brz}\):
     \[
         L_{a=b} = \big\{ a^nb^n \mid n \in \mathbb N\big\}
@@ -50,14 +51,14 @@
     \[
         a^{-k}L_{a=b} = \big\{ a^{n-k}b^n \mid n \in \mathbb N, n \ge k\big\}
     \] 
-    If \(k \le k'\), then \(a^{-k}L_{a=b} \neq a^{-k'}L_{a=b}\), so there is a distinct state in \(\langle L_{a=b}\rangle_{\mathcal A_{Brz}}\) for each \(k \in \mathbb N\).
+    If \(k \lneq k'\), then \(a^{-k}L_{a=b} \neq a^{-k'}L_{a=b}\), so there is a distinct state in \(\langle L_{a=b}\rangle_{\mathcal A_{Brz}}\) for each \(k \in \mathbb N\).
     This means infinitely many!
 </div>
 
 <div class="exercise">
     <b>(Distinct Derivatives of A=B)</b>
     Show that \(a^{-1}L_{a=b} \neq a^{-2}L_{a=b}\) by finding a word in one of the languages that is not in the other. 
-    How would you generalize this to a proof that if \(k \le k'\), then \(a^{-k}L_{a=b} \neq a^{-k'}L_{a=b}\)?
+    How would you generalize this to a proof that if \(k \lneq k'\), then \(a^{-k}L_{a=b} \neq a^{-k'}L_{a=b}\)?
 </div>
 
 <p>
@@ -65,13 +66,6 @@
     We don't quite have the tools to prove this yet, though.
     We will see those later when we talk about the Pumping Lemma for finite automata.
 </p>
-
-<div class="exercise">
-    <b>(Reverse Naturals Again)</b>
-    Remember that the Reverse Naturals automaton was defined by \(Q = \mathbb N\), \(A = \{l\}\), and \(n + 1 \xrightarrow{l} n\) for all \(n \in Q\).
-    Is the Reverse Naturals automaton locally finite?
-    What if we replace \(l\) with the the input letter \(s\) that <i>adds one</i> instead of subtracts: \(n \xrightarrow{s} n + 1\)?
-</div>
 
 <div class="exercise">
     <b>(Reachable = Generated)</b>
@@ -93,6 +87,24 @@
         Remember that to prove a statement like "\(P\) if and only if \(Q\)", you need to write two separate proofs: you need to prove (1) that "if \(P\), then \(Q\)", and (2) that "if \(Q\), then \(P\)".
     </div>
 </div>
+
+<div class="exercise">
+    <b>(Reverse Naturals Again)</b>
+    Remember that the Reverse Naturals automaton was defined by \(Q = \mathbb N\), \(A = \{l\}\), and \(n + 1 \xrightarrow{l} n\) for all \(n \in Q\).
+    Is the Reverse Naturals automaton locally finite?
+    What if we replace \(l\) with the the input letter \(s\) that <i>adds one</i> instead of subtracts: \(n \xrightarrow{s} n + 1\)?
+</div>
+
+<h2>Finitely Recognizable Languages</h2>
+
+<p>
+    So we've seen that it's possible for a language to generate an infinite automaton. 
+    Which ones are the languages that generate finite automata?
+    Obviously, we can't store an infinite automaton in a computer, let alone run one. 
+    <i>Which languages can be accepted by a state in a finite automaton?</i>
+    In fact, <i>which languages can be accepted by a state in a deterministic, or total deterministic finite automaton?</i>
+    Questions like this lead us to considering a whole range of different families of languages in this course.
+</p>
 
 <div class="definition" id="finitelyrecognizable">
     <b>(Language Families, Finitely Recognizable)</b>
@@ -133,11 +145,26 @@
     But what about the reverse inclusions?
 </p>
 
+<div class="exercise">
+    <b>(CJ's Pergatory)</b>
+    For each of the deterministic partial automata below, find a total deterministic automaton with a state that accepts the same language as \(x\).
+    In each example, the input alphabet is \(A = \{a, b, c\}\).
+    <div class="figure">
+        (1)<img src="../imgs/CJPerg1.svg" />
+        (2)<img src="../imgs/CJPerg2.svg" />
+        (3)<img src="../imgs/CJPerg3.svg" />
+        (4)<img src="../imgs/CJPerg4.svg" />
+    </div>
+    <div class="hint">
+        You only ever need to add one state!
+    </div>
+</div>
+
 <div class="problem">
     <b>(Total vs Partial)</b>
     Prove that \(\mathsf{DFin} = \mathsf{TDFin}\) by describing how to turn a deterministic automaton into a total deterministic automaton without changing the languages accepted by the states.
     <div class="hint">
-        Do the CJ's Pergatory exercise below.
+        What did you do in the CJ's Pergatory exercise every time?
     </div>
 </div>
 
@@ -145,19 +172,4 @@
     In the next lecture, we are going to see that in fact, all three families of languages are equal.
 </p>
 
-<h2 id="exercises">Exercises</h2>
 
-<div class="exercise">
-    <b>(CJ's Pergatory)</b>
-    For each of the deterministic partial automata below, find a total deterministic automaton with a state that accepts the same language as \(x\).
-    In each example, then input alphabet is \(A = \{a, b, c\}\).
-    <div class="figure">
-        <img src="../imgs/CJPerg1.svg" />
-        <img src="../imgs/CJPerg2.svg" />
-        <img src="../imgs/CJPerg3.svg" />
-        <img src="../imgs/CJPerg4.svg" />
-    </div>
-    <div class="hint">
-        You only ever need to add one state!
-    </div>
-</div>
