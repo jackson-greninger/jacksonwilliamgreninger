@@ -1,5 +1,5 @@
 <!-- THIS IS A COMPILED FILE 
- Compiled on 2025-07-31 -->
+ Compiled on 2025-08-21 -->
 
 
 
@@ -137,13 +137,13 @@
 	<i>Fall 2025, with <a href="../../../teaching.html">Schmid</a></i>
 	<div id="links">
 		<!-- * Customize for each course * -->
-		<a href="csci341_syllabus.html"><span class="link">Syllabus</span></a>
+		<a href="csci341_index.html"><span class="link">Syllabus</span></a>
 		<a href="csci341_notes.html"><span class="link">Notes</span></a>
 		<a href="csci341_resources.html"><span class="link">Resources</span></a>
 
 		<!-- Make sure to update with correct gradescope link-->
 		<a href= 
-			"http://www.gradescope.com" 
+			"https://www.gradescope.com/courses/1094390" 
 			target="_blank"><span class="link">Gradescope</span></a>
 		<!-- ***************************** -->
 	</div>
@@ -311,7 +311,7 @@
 <div class="problem" id="unravelling">
     <b>(Unravelling an Infinite Language)</b>
     Draw a state diagram of all of the languages that are reachable from the language \(L = \{(ab)^n \mid n \in \mathbb N\}\) in the Brzozowski automaton by taking \(a\)- and \(b\)-derivatives (the words in this language are \(\varepsilon\), \(ab\), \(abab\), ...). 
-    Include all of the double-circles to indicate which languages are accepting states of the Brzozowski automaton.
+    Include all of the double-circled states to indicate which languages are accepting states of the Brzozowski automaton.
     What language is accepted by \(L\)?
 </div>
 
@@ -387,6 +387,11 @@
         We have shown two things: that \(\varepsilon \in U\), and if \(w\in U\) and \(a \in A\), then \(aw \in U\).
         By Induction on words, \(U = A^*\), or in other words, \(L \subseteq \mathcal L(\mathcal A_{Brz}, L)\) for every language \(L \subseteq A^*\).
     </p>
+</div>
+
+<div class="exercise">
+    <b>(Language Determinism?)</b>
+    Is Brzozowski's automaton deterministic, total, or both?
 </div>
 
 <div class="exercise">

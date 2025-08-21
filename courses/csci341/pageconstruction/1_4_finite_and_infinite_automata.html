@@ -154,7 +154,7 @@
 <div class="problem" id="unravelling">
     <b>(Unravelling an Infinite Language)</b>
     Draw a state diagram of all of the languages that are reachable from the language \(L = \{(ab)^n \mid n \in \mathbb N\}\) in the Brzozowski automaton by taking \(a\)- and \(b\)-derivatives (the words in this language are \(\varepsilon\), \(ab\), \(abab\), ...). 
-    Include all of the double-circles to indicate which languages are accepting states of the Brzozowski automaton.
+    Include all of the double-circled states to indicate which languages are accepting states of the Brzozowski automaton.
     What language is accepted by \(L\)?
 </div>
 
@@ -230,6 +230,11 @@
         We have shown two things: that \(\varepsilon \in U\), and if \(w\in U\) and \(a \in A\), then \(aw \in U\).
         By Induction on words, \(U = A^*\), or in other words, \(L \subseteq \mathcal L(\mathcal A_{Brz}, L)\) for every language \(L \subseteq A^*\).
     </p>
+</div>
+
+<div class="exercise">
+    <b>(Language Determinism?)</b>
+    Is Brzozowski's automaton deterministic, total, or both?
 </div>
 
 <div class="exercise">
