@@ -208,10 +208,10 @@
             A &= \{\Uparrow, \Rightarrow, \Downarrow, \Leftarrow\} \\
             \delta &= \{
                     (s_1, \Rightarrow, s_2), 
-                    (s_2, \Rightarrow, s_4), 
+                    (s_2, \Leftarrow, s_4), 
                     (s_2, \Uparrow, s_3), 
                     (s_3, \Downarrow, s_2), 
-                    (s_4, \Leftarrow, s_2)
+                    (s_4, \Rightarrow, s_2)
             \} \\
             F &= \{s_2, s_3, s_4\}
         \end{aligned}
@@ -263,7 +263,7 @@
 
 <div class="exercise">
     <b>(Simple Diagrams)</b>
-    Draw state diagrams for the Empty, Sink, Diverging Loop, and All-Accepting automata.
+    Draw state diagrams for the Empty, Sink, Diverging Loop, and All-Accepting automata when \(A = \{0, 1\}\).
 </div>
 
 <p>
@@ -382,7 +382,7 @@
 
 <div class="exercise">
     <b>(Trivial Tables)</b>
-    Draw transition tables for the empty, sink, diverging loop, and all-accepting automata.
+    Draw transition tables for the empty, sink, diverging loop, and all-accepting automata when \(A = \{0, 1\}\).
 </div>
 
 <div class="exercise">
@@ -441,7 +441,7 @@
 
 <div class="exercise">
     <b>(Differentiating Types)</b>
-    Fix an input alphabet \(A\).
+    Fix an input alphabet \(A = \{a, b, c\}\).
     Draw one example of each of the following types of automata \(\mathcal A = (Q, A, \delta, F)\) and write down their transition tables.
     <ol>
         <li>\(\mathcal A\) is deterministic and total</li>
