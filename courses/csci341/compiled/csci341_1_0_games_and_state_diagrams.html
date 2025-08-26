@@ -1,5 +1,5 @@
 <!-- THIS IS A COMPILED FILE 
- Compiled on 2025-08-25 -->
+ Compiled on 2025-08-26 -->
 
 
 
@@ -369,18 +369,18 @@
 
 <div class="figure" id="abstract-A">
     <img src="../imgs/reverseengineering.svg" />
-    Abstract state diagram (A).
+    Abstract state diagram (1).
 </div>
 
 <div class="problem">
     <b>(Reverse Engineering)</b>
-    Find a Sokoban game that represents state \(s_1\) in abstract state diagram (A).
+    Find a Sokoban game that represents state \(s_1\) in abstract state diagram (1).
     Replace the states in the state diagram with drawings of each state of the Sokoban game.
 </div>
 
 <div class="problem">
     <b>(Impossibility)</b>
-    Prove that there <i>does not</i> exist a directional maze that represents state \(s_1\) in abstract state diagram (A).
+    Prove that there <i>does not</i> exist a directional maze that represents state \(s_1\) in abstract state diagram (1).
     <div class="hint">Determine the set of legal moves \(A\). Is there a way that legal moves interact in a directional maze that you won't always see in a Sokoban game?</div>
 </div>
 
@@ -390,7 +390,7 @@
     A more formal way of writing down a state diagram is a <i>transition table</i>.
     We will leave the formal definition for next time, when we start to treat state diagrams as formal entities called <i>automata</i>, but the basic idea should be intuitive.
     A transition table records all the state transitions in one big table. 
-    For example, the state diagram for <a href="#abstract-A">abstract state diagram (A)</a> is the table below:
+    For example, the state diagram for <a href="#abstract-A">abstract state diagram (1)</a> is the table below:
 </p>
 
 <div class="figure">
@@ -431,13 +431,13 @@
             <td></td>
         </tr>
     </table>
-    The transition table for abstract state diagram (A).
+    The transition table for abstract state diagram (1).
 </div>
 
 <p>
     In the left-most column of the table, you can see the states of the state diagram, and at the top (in the first row) you can see all the legal moves.
     If \(s\) is a state and \(a\) is a legal move, then if the \((s, a)\)-indexed item in the table is the state \(t\), then you should read: \(s \xrightarrow{a} t\).
-    For example, in the transition table for abstract state diagram (A), you can see that the \((s_3,\Uparrow)\)-indexed item is \(s_2\), because \(s_3 \xrightarrow{\Uparrow} s_2\).
+    For example, in the transition table for abstract state diagram (1), you can see that the \((s_3,\Uparrow)\)-indexed item is \(s_2\), because \(s_3 \xrightarrow{\Uparrow} s_2\).
 </p>
 
 <div class="exercise">
