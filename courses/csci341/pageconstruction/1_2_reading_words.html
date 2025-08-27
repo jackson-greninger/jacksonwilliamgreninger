@@ -97,7 +97,7 @@
     </div>
     Now repeat the following until the tape head is over an empty part of the tape:
     <ol>
-        <li>Read the letter under the tape head. Call it \(a_i\).</li>
+        <li>If there is no letter under the tape head, stop. Read the letter under the tape head. Call it \(a_i\).</li>
         <li>For each active state \(y\) (a state with a marker on it) with a transition \(y \xrightarrow{a_i} z\), remove the marker from \(y\) and place a marker on \(z\). Now \(z\) is active.</li>
         <li>Move the tape head to the right and go back to 1.</li>
     </ol>

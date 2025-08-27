@@ -1,5 +1,5 @@
 <!-- THIS IS A COMPILED FILE 
- Compiled on 2025-08-26 -->
+ Compiled on 2025-08-27 -->
 
 
 
@@ -208,20 +208,20 @@
     \[
         a^{-k}L_{a=b} = \big\{ a^{n-k}b^n \mid n \in \mathbb N, n \ge k\big\}
     \] 
-    If \(k \lneq k'\), then \(a^{-k}L_{a=b} \neq a^{-k'}L_{a=b}\), so there is a distinct state in \(\langle L_{a=b}\rangle_{\mathcal A_{Brz}}\) for each \(k \in \mathbb N\).
+    If \(k < k'\), then \(a^{-k}L_{a=b} \neq a^{-k'}L_{a=b}\), so there is a distinct state in \(\langle L_{a=b}\rangle_{\mathcal A_{Brz}}\) for each \(k \in \mathbb N\).
     This means infinitely many!
 </div>
 
 <div class="exercise">
     <b>(Distinct Derivatives of A=B)</b>
     Show that \(a^{-1}L_{a=b} \neq a^{-2}L_{a=b}\) by finding a word in one of the languages that is not in the other. 
-    How would you generalize this to a proof that if \(k \lneq k'\), then \(a^{-k}L_{a=b} \neq a^{-k'}L_{a=b}\)?
+    How would you generalize this to a proof that if \(k < k'\), then \(a^{-k}L_{a=b} \neq a^{-k'}L_{a=b}\)?
 </div>
 
 <p>
     It turns out that \(L_{a=b}\) is not accepted by <i>any</i> state in <i>any</i> finite automaton. 
     We don't quite have the tools to prove this yet, though.
-    We will see those later when we talk about the Pumping Lemma for finite automata.
+    (We will see those later when we talk about the <i>Pumping Lemma</i> for finite automata.)
 </p>
 
 <div class="exercise">
@@ -248,8 +248,12 @@
 <div class="exercise">
     <b>(Reverse Naturals Again)</b>
     Remember that the Reverse Naturals automaton was defined by \(Q = \mathbb N\), \(A = \{l\}\), and \(n + 1 \xrightarrow{l} n\) for all \(n \in Q\).
-    Is the Reverse Naturals automaton locally finite?
-    What if we replace \(l\) with the the input letter \(s\) that <i>adds one</i> instead of subtracts: \(n \xrightarrow{s} n + 1\)?
+    <ol>
+        <li>Is the Reverse Naturals automaton locally finite?</li>
+        <li>What if we replace \(l\) with the the input letter \(s\) that <i>adds one</i> instead of subtracts: \(n \xrightarrow{s} n + 1\)? 
+            What does the state diagram look like now? 
+            Is it locally finite?</li>
+    </ol>
 </div>
 
 <h2>Finitely Recognizable Languages</h2>
@@ -258,14 +262,40 @@
     So we've seen that it's possible for a language to generate an infinite automaton. 
     Which ones are the languages that generate finite automata?
     Obviously, we can't store an infinite automaton in a computer, let alone run one. 
-    <i>Which languages can be accepted by a state in a finite automaton?</i>
-    In fact, <i>which languages can be accepted by a state in a deterministic, or total deterministic finite automaton?</i>
-    Questions like this lead us to considering a whole range of different families of languages in this course.
+    This brings us to the question:
+    <i>which languages can be accepted by a state in a finite automaton?</i>
+    Moreover, <i>which languages can be accepted by a state in a deterministic, or total deterministic finite automaton?</i>
+    Questions like these lead us to considering a whole range of different <i>families of languages</i> in this course.
 </p>
 
 <div class="definition" id="finitelyrecognizable">
-    <b>(Language Families, Finitely Recognizable)</b>
+    <b>(Families of Languages, Finitely Recognizable)</b>
     A <i>family of languages</i> is a set of languages \(\mathsf{Fam} \subseteq 2^{A^*}\) over a fixed alphabet of input letters \(A\).
+</div>
+
+<div class="exercise">
+    <b>(Family Unit)</b>
+    For each of the families of languages below, find an automaton \(\mathcal A = (\{x, y, z\}, \{a, b, c\}, \delta, F)\) such that 
+    \(\mathsf{Fam}_i = \{\mathcal L(\mathcal A, x), \mathcal L(\mathcal A, y), \mathcal L(\mathcal A, z)\}\).
+    <ol>
+        <li>\(\mathsf{Fam}_1 = \big\{~ \{\}, \{\varepsilon\}, \{a\} ~\big\}\)</li>
+        <li>\(\mathsf{Fam}_3 = \big\{~ \{\}, \{(ab)^n \mid n \in \mathbb N\}~\big\}\)</li>
+        <li>A bit more challenging: 
+            \[\begin{aligned}
+                \mathsf{Fam}_3 
+                &= \big\{ \quad \{\varepsilon\}, \\
+                &\hspace{3em} \{(ab)^nc \mid n \in \mathbb N\} \cup \{a(ba)^nc \mid n \in \mathbb N\}, \\
+                &\hspace{3em} \{(ba)^nc \mid n \in \mathbb N\} \cup \{b(ab)^nc \mid n \in \mathbb N\} \quad\big\}
+            \end{aligned}
+            \]</li>
+    </ol>
+    <div class="hint">
+        Remember that \((ab)^0 = \varepsilon\), \((ab)^1 = ab\), \((ab)^2 = abab\), \((ab)^3 = ababab\), and in general, \((ab)^{n+1} = ab(ab)^n\) for any \(n \in \mathbb N\).
+    </div>
+</div>
+
+<div class="definition" id="finitelyrecognizable">
+    <b>(Finitely Recognizable)</b>
     We are concerned with the following families of languages:
     <ul>
         <li>
