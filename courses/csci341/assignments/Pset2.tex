@@ -4,12 +4,12 @@
     2
 }
 \newcommand{\subtitle}{
-    Reading Words; 
     Language Acceptance; 
-    Finite and Infinite Automata
+    Finite and Infinite Automata;
+    Finitely Recognizable Languages
 }
 \newcommand{\duedate}{
-    Monday, September 8
+    Friday, September 12
 }
 
 
@@ -212,23 +212,6 @@
 
 \maketitle
 
-\subsection*{Reading Words}
-
-\begin{problem}
-    [Repeated Derivatives]
-    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton, let \(x \in Q\), and \(w \in A^*\) and \(a \in A\).
-    Prove the following identity:
-    \[
-        \delta(x, w a) = \{z \mid z \in \delta(y, a) \text{ and } y \in \delta(x, w)\}
-    \]
-\end{problem}
-
-\begin{problem}
-    [Determinstic Extension]
-    Let \(\mathcal A = (Q, A, \delta, F)\) be a total deterministic automaton.
-    Let \(x \in Q\) and \(w \in A^*\).
-    Prove that \(\delta(x, w)\) has exactly one element using Induction on Words.
-\end{problem}
 
 \subsection*{Language Acceptance}
 
@@ -246,18 +229,18 @@
     For each of these languages, if you drew a nondeterministic or partial automaton, also draw a total deterministic one (include both in your write-up).
 \end{problem}
 
-\begin{problem}
-    [Pythonic Automaton I]
-    Consider the python program here: 
-    \href{https://colab.research.google.com/drive/1rHdYUT2oZc2GF6BTtsHksiUO_GJ64Vsx?usp=sharing}{Colab Link}.
-    This Python program corresponds to a state in an automaton \(\mathcal A = (Q, A, \delta, F)\) where \(A = \{0,1\}\).
-    \begin{enumerate}
-        \item Write down a transition table for \(\mathcal A\) and draw a state diagram of \(\mathcal A\).
-        \item Which state does the program correspond to?
-        \item Using set comprehension, describe the language accepted by this state.
-    \end{enumerate}
-    Make sure to thoroughly test out your state diagram of \(\mathcal A\) against the program.
-\end{problem}
+% \begin{problem}
+%     [Pythonic Automaton I]
+%     Consider the python program here: 
+%     \href{https://colab.research.google.com/drive/1rHdYUT2oZc2GF6BTtsHksiUO_GJ64Vsx?usp=sharing}{Colab Link}.
+%     This Python program corresponds to a state in an automaton \(\mathcal A = (Q, A, \delta, F)\) where \(A = \{0,1\}\).
+%     \begin{enumerate}
+%         \item Write down a transition table for \(\mathcal A\) and draw a state diagram of \(\mathcal A\).
+%         \item Which state does the program correspond to?
+%         \item Using set comprehension, describe the language accepted by this state.
+%     \end{enumerate}
+%     Make sure to thoroughly test out your state diagram of \(\mathcal A\) against the program.
+% \end{problem}
 
 \begin{problem}
     [Pythonic Automaton III]
@@ -284,6 +267,13 @@
     [Language Accepts Itself]
     Let \(L \subseteq A^*\) be any language. 
     Prove that \(\mathcal L(\mathcal A_{Brz}, L) \subseteq L\).
+\end{problem}
+
+\subsection*{Finitely Recognizable Languages}
+
+\begin{problem}
+    [Total vs Partial]
+    Prove that \(\mathsf{DFin} = \mathsf{TDFin}\) by describing how to turn a deterministic automaton into a total deterministic automaton without changing the languages accepted by the states.
 \end{problem}
 
 \end{document}

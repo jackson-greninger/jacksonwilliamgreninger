@@ -193,7 +193,7 @@
 \title{CSCI 341 Problem Set 1}
 \author{Games and State Machines; Automata}
 \date{Due
-    Monday, September 1
+    Friday, September 5
 }
 
 \begin{document}
@@ -243,41 +243,6 @@
     Prove that \(\delta(x, w)\) has exactly one element using Induction on Words.
 \end{problem}
 
-\subsection*{Language Acceptance}
 
-\begin{problem}
-    [Let 'em Cook]
-    For each of the following languages \(L_i \subseteq A^*\) below, design an automaton \(\mathcal A_i = (Q_i, A, \delta_i, F_i)\) with a state \(x \in Q_i\) such that \(x\) accepts \(L_i\), and briefly explain why your automaton accepts \(L_i\).
-    Note that \(A = \{a, b\}\) in all of the cases below.
-    \begin{enumerate}
-        \item \(L_1 = \{a, aa, aaa\}\)
-        \item \(L_2 = \{w \in A^* \mid \text{\(w\) ends with \(b\)}\}\)
-        \item \(L_3 = \{w \in A^* \mid \text{\(w\) has an even number of \(a\)'s}\}\)
-        \item \(L_4 = \{w \in A^* \mid \text{\(w\) has \(3k+1\) many \(a\)'s for some \(k \ge 0\)}\}\)
-        \item \(L_5 = \{w \in A^* \mid \text{\(w\) either has \(3k+1\) or \(3k + 2\) many \(a\)'s for some \(k \ge 0\)}\}\)
-        \item \(L_6 = A^* \setminus L_2\)
-    \end{enumerate}
-\end{problem}
-
-\begin{problem}
-    [Pythonic Automaton]
-    Write a Python script in the same format as the Pythonic Automaton I that implements state \(s_1\) in abstract state diagram (A) from the games and puzzles section. 
-    Submit your program as a .py file in the programming submission box (see the other Gradescope assignment).
-\end{problem}
-
-\subsection*{Finite and Infinite Automata}
-
-\begin{problem}
-    [Unravelling an Infinite Language]
-    Draw a state diagram of all of the languages that are reachable from the language \(L = \{(ab)^n \mid n \in \mathbb N\}\) in the Brzozowski automaton by taking \(a\)- and \(b\)-derivatives (the words in this language are \(\varepsilon\), \(ab\), \(abab\), ...). 
-    Include all of the double-circled states to indicate which languages are accepting states of the Brzozowski automaton.
-    What language is accepted by \(L\)?
-\end{problem}
-
-\begin{problem}
-    [Language Accepts Itself]
-    Let \(L \subseteq A^*\) be any language. 
-    Prove that \(\mathcal L(\mathcal A_{Brz}, L) \subseteq L\).
-\end{problem}
 
 \end{document}
