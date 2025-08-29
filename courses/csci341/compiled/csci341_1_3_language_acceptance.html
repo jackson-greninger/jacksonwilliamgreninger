@@ -1,5 +1,5 @@
 <!-- THIS IS A COMPILED FILE 
- Compiled on 2025-08-27 -->
+ Compiled on 2025-08-29 -->
 
 
 
@@ -140,11 +140,7 @@
 		<a href="csci341_index.html"><span class="link">Syllabus</span></a>
 		<a href="csci341_notes.html"><span class="link">Notes</span></a>
 		<a href="csci341_resources.html"><span class="link">Resources</span></a>
-
-		<!-- Make sure to update with correct gradescope link-->
-		<a href= 
-			"https://www.gradescope.com/courses/1094390" 
-			target="_blank"><span class="link">Gradescope</span></a>
+		<a href= "csci341_assignments.html"><span class="link">Assignments</span></a>
 		<!-- ***************************** -->
 	</div>
 </div>
@@ -226,7 +222,7 @@
     In other words, if we were to start with a language \(L\) and try to come up with (design!) an automaton that accepts that language, then we also need to make sure that it rejects the complement of that language.
 </p> -->
 
-<div class="problem" id="letemcook">
+<div class="exercise" id="letemcook">
     <b>(Let 'em Cook)</b>
     For each of the following languages \(L_i \subseteq A^*\) below, design an automaton \(\mathcal A_i = (Q_i, A, \delta_i, F_i)\) with a state \(x \in Q_i\) such that \(x\) accepts \(L_i\), and briefly explain why your automaton accepts \(L_i\).
     Note that \(A = \{a, b\}\) in all of the cases below.
@@ -281,7 +277,7 @@
     are accepted. 
     It's not feasible to write down the language accepted by \(x_0\) this way, so we use a set comprehension to capture the idea for us. 
     \[
-        \mathcal L(x_0) = \{w \in A^* \mid \text{\(w\) contains \(2k + 1\) many \(a\)'s}\}
+        \mathcal L(x_0) = \{w \in A^* \mid \text{\(w\) contains an odd number of \(a\)'s}\}
     \]
 </div>
 
@@ -317,7 +313,7 @@
             <ul>
                 <li>\(1\)</li>
                 <li>\(010\)</li>
-                <li>\(\varepsilon\)</li>
+                <li>\(\varepsilon\) (just hit Enter/Return)</li>
                 <li>\(011011\)</li>
             </ul>
         </li>

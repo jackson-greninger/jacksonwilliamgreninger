@@ -161,6 +161,22 @@
 	font-weight: bold;
 }
 
+.lemma {
+	margin:10px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 90%;
+	padding:2%;
+	/* border: 1px solid blue; */
+	background-color:rgba(206, 172, 255, 0.15) ;
+}
+
+.lemma::before {
+	color: rgb(57, 0, 142);
+	content: "Lemma. ";
+	font-weight: bold;
+}
+
 .example {
 	margin:10px;
 	margin-left: auto;

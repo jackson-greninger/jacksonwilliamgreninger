@@ -1,5 +1,5 @@
 <!-- THIS IS A COMPILED FILE 
- Compiled on 2025-08-27 -->
+ Compiled on 2025-08-29 -->
 
 
 
@@ -140,11 +140,7 @@
 		<a href="csci341_index.html"><span class="link">Syllabus</span></a>
 		<a href="csci341_notes.html"><span class="link">Notes</span></a>
 		<a href="csci341_resources.html"><span class="link">Resources</span></a>
-
-		<!-- Make sure to update with correct gradescope link-->
-		<a href= 
-			"https://www.gradescope.com/courses/1094390" 
-			target="_blank"><span class="link">Gradescope</span></a>
+		<a href= "csci341_assignments.html"><span class="link">Assignments</span></a>
 		<!-- ***************************** -->
 	</div>
 </div>
@@ -181,7 +177,7 @@
         A <i>Money Bags</i> puzzle.
     </div>
     <ol>
-        <li> What is a <i>state</i> of this game? which states are the <i>winning</i> states?</li>
+        <li>What pieces of information constitute a <i>state</i> of this Money Bags? Which states are the <i>winning</i> states?</li>
         <li>What does the state diagram of this game look like?</li>
     </ol>
 </div>
@@ -416,26 +412,57 @@
     <b>(Cancelling Out)</b>
     Let \(L \subseteq A^*\) be a language.
     <ol>
-        <li>Show that if \(\varepsilon \in a^{-1}L\), then \(a \in L\)</li>
-        <li>Show that if \(\varepsilon \in b^{-1}a^{-1}L\), then \(ab \in L\)</li>
-        <li>Show that if \(a \in b^{-1}b^{-1}a^{-1}L\), then \(abba \in L\)</li>
+        <li>Suppose that \(\varepsilon \in a^{-1}L\), name an element of \(L\)</li>
+        <li>Suppose that \(\varepsilon \in b^{-1}a^{-1}L\), name an element of \(L\)</li>
+        <li>Suppose that \(a \in b^{-1}b^{-1}a^{-1}L\), name an element of \(L\)</li>
     </ol>
-    Now use (ordinary) proof by induction to show that if \(w = a_1\cdots a_n\) is a word of length \(n\) and \(u \in A^*\) is any word such that
+</div>
+
+<p>
+    To complete the problem mentioned in the proof of the <a href="#BrzozowskiFixedPoint">Brzozowski Fixed Point Theorem</a>, it helps to have the following <i>lemma</i> ("lemma" means "tiny theorem" 🥺👉👈).
+</p>
+
+<div class="lemma">
+    Let \(w = a_1\cdots a_n\) and \(u \in A^*\) be words in the alphabet \(A\).
+    If
     \[
         u \in a_n^{-1}a_{n-1}^{-1} \cdots a_2^{-1} a_1^{-1}L
     \]
     then \(wu \in L\).
-    <div class="hint">
-        This is a proof by induction on \(n\).
-        For the base case, you are working with \(n = 0\).
+</div>
+
+<p>Notice that \(w\) has been reversed in the equation above.</p>
+
+<div class="proof">
+    This is a proof by ordinary induction on \(n\).
+
+    <p>
+        In the base case, \(n = 0\).
         Remember that the only word of length \(0\) is \(\varepsilon\).
-        For the induction step, assume the following induction hypothesis: <i>for any \(u\in A^*\), if \(u \in a_{n}^{-1}a_{n-1}^{-1}\cdots a_{1}^{-1}L\), then \(a_1\cdots a_nu \in L\)</i>.
-        Now show that if 
+        So, in the base case, we are trying to show that if \(u \in L\), then \(wu = \varepsilon u \in L\).
+        But \(\varepsilon u = u\), and we assumed at the beginning that \(u \in L\).
+        It follows that \(wu \in L\).
+    </p>
+
+    <p>
+        For the induction step, let \(w = a_1\cdots a_n a_{n+1}\) and assume the following induction hypothesis: <i>for any \(v\in A^*\), if \(v \in a_{n}^{-1}a_{n-1}^{-1}\cdots a_{1}^{-1}L\), then \(a_1\cdots a_nv \in L\)</i>.
+        To start the induction step, suppose that
         \[
-        u \in a_{n+1}^{-1}a_{n}^{-1}a_{n-1}^{-1}\cdots a_{1}^{-1}L
+            u \in a_{n+1}^{-1}a_{n}^{-1}\cdots a_{1}^{-1}L
         \]
-        then \(a_1\cdots a_n a_{n+1} u \in L\).
-    </div>
+        By definition of the Brzozowski derivative,
+        \[
+            a_{n+1}u \in a_{n}^{-1}\cdots a_{1}^{-1}L
+        \]
+        Applying the the induction hypothesis with \(v = a_{n+1}u\), we obtain 
+        \[\begin{aligned}
+            wu 
+            &= a_1 \cdots a_n a_{n+1}u  &&\text{(\(w = a_1 \cdots a_n a_{n+1}\))} \\
+            &= a_1 \cdots a_n v         &&\text{(\(v = a_{n+1} u\))} \\
+            &\in L                      &&\text{(induction hypothesis)}
+        \end{aligned}\]
+        like we wanted.
+    </p>
 </div>
 
 <div class="problem">
@@ -449,7 +476,7 @@
             L \xrightarrow{a_1} L_1 \xrightarrow{a_2} \cdots \xrightarrow{a_n} L_n
         \]
         and \(\varepsilon \in L_n\), then \(a_1a_2\cdots a_n \in L\).
-        To see why this is true, write down a formula for \(L_n\) in terms of \(a_1,\dots,a_n\) and \(L\) and use Cancelling Out.
+        To see why this is true, write down a formula for \(L_n\) in terms of \(a_1,\dots,a_n\) and \(L\) and use the lemma.
     </div>
 </div>
 

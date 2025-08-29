@@ -79,7 +79,7 @@
     <b>(Sink)</b>
     The <i>sink</i> automaton \(\mathcal A_\bullet = (Q, A, \delta, F)\) has 
     \[
-        Q = \{\bullet\}
+        Q = \{s_0\}
         \qquad \delta = F = \emptyset
     \]
 </div>
@@ -88,8 +88,8 @@
     <b>(Diverging Loop)</b>
     The <i>diverging loop</i> automaton \(\mathcal A_\circlearrowright = (Q, A, \delta, F)\) has 
     \[
-        Q = \{\bullet\}
-        \qquad \delta = \{(\bullet, a, \bullet) \mid a \in A\} 
+        Q = \{s_0\}
+        \qquad \delta = \{(s_0, a, s_0) \mid a \in A\} 
         \qquad F = \emptyset
     \]
 </div>
@@ -98,8 +98,8 @@
     <b>(All-Accepting)</b>
     The <i>all-accepting</i> automaton \(\mathcal A_\checkmark = (Q, A, \delta, F)\) has 
     \[
-        Q = \{\bullet\}
-        \qquad \delta = \{(\bullet, a, \bullet) \mid a \in A\} 
+        Q = \{s_0\}
+        \qquad \delta = \{(s_0, a, s_0) \mid a \in A\} 
         \qquad F = Q
     \]
 </div>

@@ -1,5 +1,5 @@
 <!-- THIS IS A COMPILED FILE 
- Compiled on 2025-08-27 -->
+ Compiled on 2025-08-29 -->
 
 
 
@@ -140,11 +140,7 @@
 		<a href="csci341_index.html"><span class="link">Syllabus</span></a>
 		<a href="csci341_notes.html"><span class="link">Notes</span></a>
 		<a href="csci341_resources.html"><span class="link">Resources</span></a>
-
-		<!-- Make sure to update with correct gradescope link-->
-		<a href= 
-			"https://www.gradescope.com/courses/1094390" 
-			target="_blank"><span class="link">Gradescope</span></a>
+		<a href= "csci341_assignments.html"><span class="link">Assignments</span></a>
 		<!-- ***************************** -->
 	</div>
 </div>
@@ -236,7 +232,7 @@
     <b>(Sink)</b>
     The <i>sink</i> automaton \(\mathcal A_\bullet = (Q, A, \delta, F)\) has 
     \[
-        Q = \{\bullet\}
+        Q = \{s_0\}
         \qquad \delta = F = \emptyset
     \]
 </div>
@@ -245,8 +241,8 @@
     <b>(Diverging Loop)</b>
     The <i>diverging loop</i> automaton \(\mathcal A_\circlearrowright = (Q, A, \delta, F)\) has 
     \[
-        Q = \{\bullet\}
-        \qquad \delta = \{(\bullet, a, \bullet) \mid a \in A\} 
+        Q = \{s_0\}
+        \qquad \delta = \{(s_0, a, s_0) \mid a \in A\} 
         \qquad F = \emptyset
     \]
 </div>
@@ -255,8 +251,8 @@
     <b>(All-Accepting)</b>
     The <i>all-accepting</i> automaton \(\mathcal A_\checkmark = (Q, A, \delta, F)\) has 
     \[
-        Q = \{\bullet\}
-        \qquad \delta = \{(\bullet, a, \bullet) \mid a \in A\} 
+        Q = \{s_0\}
+        \qquad \delta = \{(s_0, a, s_0) \mid a \in A\} 
         \qquad F = Q
     \]
 </div>
