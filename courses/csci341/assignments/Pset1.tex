@@ -1,5 +1,17 @@
 \documentclass[11pt]{article}
 
+\newcommand{\pset}{
+    1
+}
+\newcommand{\subtitle}{
+    Puzzle games, solutions, and state diagrams;
+    Automata;
+    Reading words
+}
+\newcommand{\duedate}{
+    Friday, September 5
+}
+
 % Page Setup
 \usepackage{geometry}
 \geometry{
@@ -98,60 +110,26 @@
 % MACROS %
 %%%%%%%%%%
 
-% Categories and functors
-\newcommand{\Set}{\mathbf{Set}}
-\newcommand{\Alg}{\mathbf{Alg}}
-\newcommand{\Coalg}{\mathbf{Coalg}}
-\newcommand{\Cat}{\mathbf{C}}
-\newcommand{\Id}{\mathrm{Id}}
-\newcommand{\op}{\mathrm{op}}
-\newcommand{\obj}{\mathrm{obj}}
-\newcommand{\Std}{\mathsf{S}}
+\newcommand{\op}{\mathrm{op}}               % Opposite
+\newcommand{\inv}{{-1}}                     % Inverse
+\newcommand{\id}{\mathsf{id}}               % Identity f(x) = x
+\newcommand{\Det}{\mathrm{Det}}             % determinize
+\newcommand{\Lang}{\mathcal{L}}             % Language
 
-% Natural Transformations
-\newcommand{\id}[1]{\mathsf{id}_{#1}}
-\newcommand{\unit}[1]{\eta_{#1}}
-\newcommand{\mult}[1]{\mu_{#1}}
-\newcommand{\incl}{\mathsf{incl}}
-\newcommand{\proj}{\mathsf{proj}}
-
-% Algebras and Monads
-\newcommand{\T}{\mathsf{T}}
-\newcommand{\Pow}{\mathcal{P}}
-\newcommand{\Dis}{\mathcal{D}}
-\newcommand{\FF}{\mathcal F}
+\newcommand{\incl}{\mathsf{incl}}           % Inclusion
+\newcommand{\proj}{\mathsf{proj}}           % Projection
 
 % Numbers and Standard notation
-\newcommand{\NN}{\mathbb{N}}
-\newcommand{\ZZ}{\mathbb{Z}}
-\newcommand{\RR}{\mathbb{R}}
-\newcommand{\QQ}{\mathbb{Q}}
-\newcommand{\pRR}{\mathbb{R}_{+}}
+\newcommand{\NN}{\mathbb{N}}                % 0, 1, 2, 3, 4, ...
+\newcommand{\ZZ}{\mathbb{Z}}                % ..., -2, -1, 0, 1, 2, ...
+\newcommand{\QQ}{\mathbb{Q}}                % n/m for n and m in \NN and m > 0
+\newcommand{\RR}{\mathbb{R}}                % real numbers
+\newcommand{\pRR}{\mathbb{R}_{+}}           % positive real numbers
 
-\newcommand{\dom}{\mathrm{dom}}
-\newcommand{\cod}{\mathrm{cod}}
+\newcommand{\dom}{\mathrm{dom}}             % Domain
+\newcommand{\cod}{\mathrm{cod}}             % Codomain
 
-\newcommand{\dd}{\mathsf{d}}
-\newcommand{\der}{\mathbf{\partial}}
-\newcommand{\eval}{\mathsf{eval}}
-\newcommand{\head}{\mathsf{head}}
-\newcommand{\beh}{\mathsf{beh}}
-
-\newcommand{\Grph}{\operatorname{Grph}}
-
-\newcommand{\Grid}{\mathsf{Grid}}
-
-\newcommand{\pulse}{\mathsf{e}}
-\newcommand{\switch}{\mathsf{s}}
-
-\newcommand{\inv}{{-1}}
-
-% Semantics
-\newcommand{\sem}[1]{\llbracket{#1}\rrbracket}
-\newcommand{\bigsem}[1]{\Big\llbracket{#1}\Big\rrbracket}
-\newcommand{\e}{\varepsilon}
-
-\newcommand{\wordCat}[1]{\{\hspace*{-2.5pt}| #1 |\hspace*{-2.5pt}\}^*}
+\newcommand{\Grph}{\operatorname{Grph}}     % Graph of a function
 
 % Transitions
 \newcommand{\tr}[1]{
@@ -185,16 +163,11 @@
 
 
 
-
-
-
-
-
 % Title
-\title{CSCI 341 Problem Set 1}
-\author{Games and State Machines; Automata}
+\title{CSCI 341 Problem Set \pset}
+\author{\subtitle}
 \date{Due
-    Friday, September 5
+    \duedate
 }
 
 \begin{document}

@@ -233,6 +233,7 @@
         <li>\(L_4 = \{w \in A^* \mid \text{\(w\) has \(3k+1\) many \(a\)'s for some \(k \ge 0\)}\}\)</li>
         <li>\(L_5 = \{w \in A^* \mid \text{\(w\) either has \(3k+1\) or \(3k + 2\) many \(a\)'s for some \(k \ge 0\)}\}\)</li>
         <li>\(L_6 = A^* \setminus L_2\)</li>
+        <li>\(L_7 = \{w \mid \text{every \(ab\) in \(w\) is immediately followed by a \(ba\)}\}\)</li>
     </ol>
 </div>
 
@@ -293,6 +294,39 @@
 <p>
     Later, we will see a more compact notation for writing down languages.
 </p>
+
+<div class="problem">
+    <b>(Cooking with Gas)</b>
+    In each of the following questions, you are asked to design an automaton with a state that accepts a given language.
+    Draw its state diagram and its transition table, and briefly explain why the automaton works.
+    <ol>
+        <li>
+            Over the alphabet \(A_1 = \{1, 2\}\) of input letters, define the function \(\mathrm{sum} \colon A^* \to \NN\) by
+            \[
+                \mathrm{sum}(\varepsilon) = 0
+                \qquad
+                \mathrm{sum}(a_1a_2 \cdots a_n) = a_1 + a_2 + \cdots + a_n
+            \]
+            So, for example, \(\mathrm{sum}(1221) = 1 + 2 + 2 + 1 = 6\).
+            Design an automaton with a state that accepts the language 
+            \[
+                L_1 = \{w \in A^* \mid \text{\(\mathrm{sum}(w)\) is a multiple of \(3\)} \}
+            \]
+        </li>
+        <li>
+            Over the alphabet \(A_2 = \{a, c, t\}\) of input letters, design an automaton with a state that accepts the language 
+            \[
+                L_2 = \{w \in A_2^* \mid \text{\(w\) contains the word \(cat\)}\}
+            \]
+        </li>
+        <li>
+            Over the alphabet \(A_3 = A_1 \cup A_2\) of input letters, design an automaton with a state that accepts the language 
+            \[
+                L_3 = L_1\cdot L_2 = \{wu \in A_3^* \mid \text{\(w \in L_1\) and \(u \in L_2\)}\}
+            \]
+        </li>
+    </ol>
+</div>
 
 <!--Section-->
 <h2>States as literal programs</h2>

@@ -180,8 +180,7 @@
         \delta_x &= \delta \cap (Q_x \times Q_x) \\
         F_x &= F \cap Q_x \\
     \end{aligned}\]
-    The state \(x \in Q\) of \(\mathcal A\) is called <i>locally finite</i> if \(Q_x\) is finite, i.e., \(\langle x \rangle_{\mathcal A}\) is a finite automaton. 
-    The automaton \(\mathcal A\) is called <i>locally finite</i> if every state \(x \in Q\) is locally finite. 
+    The automaton \(\mathcal A\) is called <i>locally finite</i> if \(\langle x \rangle_{\mathcal A}\) is a finite automaton for every state \(x \in Q\). 
 </div>
 
 <p>
@@ -220,10 +219,10 @@
     (We will see those later when we talk about the <i>Pumping Lemma</i> for finite automata.)
 </p>
 
-<div class="exercise">
+<div class="problem">
     <b>(Reachable = Generated)</b>
     Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton and let \(x \in Q\) be a state. 
-    Convince yourself of the following three statements: 
+    Prove the following three statements using the definition of \(\langle x \rangle_{\mathcal A}\) and \(\delta(x, w)\): 
     <ol>
         <li>
             \(Q_x = \{ y \in Q \mid \text{there is a path \(x \xrightarrow{a_1} x_1 \xrightarrow{a_2} \cdots \xrightarrow{a_n} y\) in \(\mathcal A\)} \}\)

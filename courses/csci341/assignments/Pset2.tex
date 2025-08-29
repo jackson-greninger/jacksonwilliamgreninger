@@ -12,9 +12,6 @@
     Friday, September 12
 }
 
-
-
-
 % Page Setup
 \usepackage{geometry}
 \geometry{
@@ -71,18 +68,19 @@
 	}
 }
 \usepackage{musicography}
-\usepackage{graphics}
+\usepackage{graphicx}
+\usepackage{svg}
 \graphicspath{../imgs/}
 
 % Hyperlinks
 \usepackage{hyperref}
 \hypersetup{
     colorlinks,
-    linkcolor   = RubineRed,
+    linkcolor   = black,
     filecolor   = RubineRed,
     urlcolor    = RubineRed,
     citecolor   = RubineRed,
-    pdftitle    = {\subtitle}
+    pdftitle    = {Notes on Behavioural PDEs}
 }
 \usepackage[capitalize]{cleveref}
 
@@ -112,60 +110,26 @@
 % MACROS %
 %%%%%%%%%%
 
-% Categories and functors
-\newcommand{\Set}{\mathbf{Set}}
-\newcommand{\Alg}{\mathbf{Alg}}
-\newcommand{\Coalg}{\mathbf{Coalg}}
-\newcommand{\Cat}{\mathbf{C}}
-\newcommand{\Id}{\mathrm{Id}}
-\newcommand{\op}{\mathrm{op}}
-\newcommand{\obj}{\mathrm{obj}}
-\newcommand{\Std}{\mathsf{S}}
+\newcommand{\op}{\mathrm{op}}               % Opposite
+\newcommand{\inv}{{-1}}                     % Inverse
+\newcommand{\id}{\mathsf{id}}               % Identity f(x) = x
+\newcommand{\Det}{\mathrm{Det}}             % determinize
+\newcommand{\Lang}{\mathcal{L}}             % Language
 
-% Natural Transformations
-\newcommand{\id}[1]{\mathsf{id}_{#1}}
-\newcommand{\unit}[1]{\eta_{#1}}
-\newcommand{\mult}[1]{\mu_{#1}}
-\newcommand{\incl}{\mathsf{incl}}
-\newcommand{\proj}{\mathsf{proj}}
-
-% Algebras and Monads
-\newcommand{\T}{\mathsf{T}}
-\newcommand{\Pow}{\mathcal{P}}
-\newcommand{\Dis}{\mathcal{D}}
-\newcommand{\FF}{\mathcal F}
+\newcommand{\incl}{\mathsf{incl}}           % Inclusion
+\newcommand{\proj}{\mathsf{proj}}           % Projection
 
 % Numbers and Standard notation
-\newcommand{\NN}{\mathbb{N}}
-\newcommand{\ZZ}{\mathbb{Z}}
-\newcommand{\RR}{\mathbb{R}}
-\newcommand{\QQ}{\mathbb{Q}}
-\newcommand{\pRR}{\mathbb{R}_{+}}
+\newcommand{\NN}{\mathbb{N}}                % 0, 1, 2, 3, 4, ...
+\newcommand{\ZZ}{\mathbb{Z}}                % ..., -2, -1, 0, 1, 2, ...
+\newcommand{\QQ}{\mathbb{Q}}                % n/m for n and m in \NN and m > 0
+\newcommand{\RR}{\mathbb{R}}                % real numbers
+\newcommand{\pRR}{\mathbb{R}_{+}}           % positive real numbers
 
-\newcommand{\dom}{\mathrm{dom}}
-\newcommand{\cod}{\mathrm{cod}}
+\newcommand{\dom}{\mathrm{dom}}             % Domain
+\newcommand{\cod}{\mathrm{cod}}             % Codomain
 
-\newcommand{\dd}{\mathsf{d}}
-\newcommand{\der}{\mathbf{\partial}}
-\newcommand{\eval}{\mathsf{eval}}
-\newcommand{\head}{\mathsf{head}}
-\newcommand{\beh}{\mathsf{beh}}
-
-\newcommand{\Grph}{\operatorname{Grph}}
-
-\newcommand{\Grid}{\mathsf{Grid}}
-
-\newcommand{\pulse}{\mathsf{e}}
-\newcommand{\switch}{\mathsf{s}}
-
-\newcommand{\inv}{{-1}}
-
-% Semantics
-\newcommand{\sem}[1]{\llbracket{#1}\rrbracket}
-\newcommand{\bigsem}[1]{\Big\llbracket{#1}\Big\rrbracket}
-\newcommand{\e}{\varepsilon}
-
-\newcommand{\wordCat}[1]{\{\hspace*{-2.5pt}| #1 |\hspace*{-2.5pt}\}^*}
+\newcommand{\Grph}{\operatorname{Grph}}     % Graph of a function
 
 % Transitions
 \newcommand{\tr}[1]{
@@ -199,8 +163,6 @@
 
 
 
-
-
 % Title
 \title{CSCI 341 Problem Set \pset}
 \author{\subtitle}
@@ -212,35 +174,12 @@
 
 \maketitle
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% START OF PROBLEM SET                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection*{Language Acceptance}
 
-\begin{problem}
-    [Let 'em Cook]
-    For each of the following languages \(L_i \subseteq A^*\) below, design an automaton \(\mathcal A_i = (Q_i, A, \delta_i, F_i)\) with a state \(x \in Q_i\) such that \(x\) accepts \(L_i\), and briefly explain why your automaton accepts \(L_i\).
-    Note that \(A = \{a, b\}\) in all of the cases below.
-    \begin{enumerate}
-        \item \(L_1 = \{a, aa, aaa\}\)
-        \item \(L_2 = \{w \in A^* \mid \text{\(w\) ends with \(b\)}\}\)
-        \item \(L_3 = \{w \in A^* \mid \text{\(w\) has an even number of \(a\)'s}\}\)
-        \item \(L_4 = \{w \in A^* \mid \text{\(w\) has \(3k+1\) many \(a\)'s for some \(k \ge 0\)}\}\)
-        \item \(L_5 = \{w \in A^* \mid \text{\(w\) either has \(3k+1\) or \(3k + 2\) many \(a\)'s for some \(k \ge 0\)}\}\)
-    \end{enumerate}
-    For each of these languages, if you drew a nondeterministic or partial automaton, also draw a total deterministic one (include both in your write-up).
-\end{problem}
-
-% \begin{problem}
-%     [Pythonic Automaton I]
-%     Consider the python program here: 
-%     \href{https://colab.research.google.com/drive/1rHdYUT2oZc2GF6BTtsHksiUO_GJ64Vsx?usp=sharing}{Colab Link}.
-%     This Python program corresponds to a state in an automaton \(\mathcal A = (Q, A, \delta, F)\) where \(A = \{0,1\}\).
-%     \begin{enumerate}
-%         \item Write down a transition table for \(\mathcal A\) and draw a state diagram of \(\mathcal A\).
-%         \item Which state does the program correspond to?
-%         \item Using set comprehension, describe the language accepted by this state.
-%     \end{enumerate}
-%     Make sure to thoroughly test out your state diagram of \(\mathcal A\) against the program.
-% \end{problem}
 
 \begin{problem}
     [Pythonic Automaton III]
