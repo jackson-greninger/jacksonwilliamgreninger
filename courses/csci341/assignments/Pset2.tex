@@ -180,16 +180,45 @@
 
 \subsection*{Language Acceptance}
 
+\begin{problem}
+    [Cooking with Gas]
+    In each of the following questions, you are asked to design an automaton with a state that accepts a given language.
+    Draw its state diagram and its transition table, and briefly explain why the automaton works.
+    \begin{enumerate}
+        \item Over the alphabet \(A_1 = \{1, 2\}\) of input letters, define the function \(\mathrm{sum} \colon A^* \to \mathbb N\) by
+            \[
+                \mathrm{sum}(\varepsilon) = 0
+                \qquad
+                \mathrm{sum}(a_1a_2 \cdots a_n) = a_1 + a_2 + \cdots + a_n
+            \]
+            So, for example, \(\mathrm{sum}(1221) = 1 + 2 + 2 + 1 = 6\).
+            Design an automaton with a state that accepts the language 
+            \[
+                L_1 = \{w \in A^* \mid \text{\(\mathrm{sum}(w)\) is a multiple of \(3\)} \}
+            \]
+        
+        \item Over the alphabet \(A_2 = \{a, c, t\}\) of input letters, design an automaton with a state that accepts the language 
+            \[
+                L_2 = \{w \in A_2^* \mid \text{\(w\) contains the word \(cat\)}\}
+            \]
+        
+        \item Over the alphabet \(A_3 = A_1 \cup A_2\) of input letters, design an automaton with a state that accepts the language 
+            \[
+                L_3 = L_1\cdot L_2 = \{wu \in A_3^* \mid \text{\(w \in L_1\) and \(u \in L_2\)}\}
+            \]
+    \end{enumerate}
+\end{problem}
+
 
 \begin{problem}
     [Pythonic Automaton III]
-    Write a Python script in the same format as the Pythonic Automaton I that implements state \(s_1\) in abstract state diagram (A) from the games and puzzles section. 
+    Write a Python script in the same format as the Pythonic Automaton I that implements state \(s_1\) in abstract state diagram (1) from the games and puzzles section. 
     Submit your program as a .py file.
 
     \begin{figure}[h]
         \centering
-        \includegraphics{../imgs/reverseengineering.png}
-        \caption{Abstract state diagram (A).}
+        \includegraphics{../imgs/reverseengineering.pdf}
+        \caption{Abstract state diagram (1).}
     \end{figure}
 \end{problem}
 
@@ -209,6 +238,12 @@
 \end{problem}
 
 \subsection*{Finitely Recognizable Languages}
+
+\begin{problem}
+    [Languages as Trees]
+    Let \(A = \{0, 1\}\), and let \(L \subseteq A^*\) be a language from \(A\). 
+    Prove that if \(L\) is finite, i.e., \(L = \{w_1, \dots, w_n\}\) for some \(n \in \mathbb N\), then \(L\) is finitely recognizable.
+\end{problem}
 
 \begin{problem}
     [Total vs Partial]

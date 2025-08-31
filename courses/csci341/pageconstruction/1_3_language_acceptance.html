@@ -56,19 +56,6 @@
     The set \(X \setminus Y\) is the <i>complement of \(Y\) in \(X\)</i>.
 </p>
 
-<!-- <div class="exercise">
-    <b>(Accept and Reject)</b>
-    Show that a state \(x\) of an automaton \(\mathcal A\) accepts (decides) a language \(L \subseteq A^*\) if both of the following statements are true:
-    <ol>
-        <li>for any \(w \in L\), \(x\) accepts \(w\)</li>
-        <li>for any \(w \in A^* \setminus L\), \(x\) rejects \(w\)</li>
-    </ol>
-</div>
-
-<p>
-    In other words, if we were to start with a language \(L\) and try to come up with (design!) an automaton that accepts that language, then we also need to make sure that it rejects the complement of that language.
-</p> -->
-
 <div class="exercise" id="letemcook">
     <b>(Let 'em Cook)</b>
     For each of the following languages \(L_i \subseteq A^*\) below, design an automaton \(\mathcal A_i = (Q_i, A, \delta_i, F_i)\) with a state \(x \in Q_i\) such that \(x\) accepts \(L_i\), and briefly explain why your automaton accepts \(L_i\).
@@ -142,6 +129,7 @@
     Later, we will see a more compact notation for writing down languages.
 </p>
 
+<!-- PROBLEM -->
 <div class="problem">
     <b>(Cooking with Gas)</b>
     In each of the following questions, you are asked to design an automaton with a state that accepts a given language.
@@ -216,6 +204,7 @@
     Write a Python script in the same format as the Pythonic Automaton I (you can use Pythonic Automaton II as a template) that implements the state in the automaton \(\mathcal A_4\) you designed to accept \(L_4\) in <a href="#letemcook">Let 'em Cook</a>.
 </div>
 
+<!-- PROBLEM -->
 <div class="problem">
     <b>(Pythonic Automaton III)</b>
     Write a Python script in the same format as the Pythonic Automaton I that implements state \(s_1\) in <a href="./1_0_games_and_state_diagrams.html#firstpush" target="_blank">abstract state diagram (1)</a> from the games and puzzles section. 
