@@ -11,11 +11,40 @@
 </p>
 
 <div class="exercise">
-    <b>(Flip the Switch)</b>
+    <b>(Flip the Switch 1)</b>
     Draw a state diagram of the two-state automaton \(\mathcal A = (\{x_0, x_1\}, \{a, b\}, \{(x_0, a, x_1), (x_1, a, x_0)\}, \{x_1\})\).
-    
-    Consider the automaton below.
-    <div class="figure">
-        <img src=""
-    </div>
+    <ol>
+        <li>Is \(\mathcal A\) deterministic or total?</li>
+        <li>What language is accepted by the state \(x_0\)?</li>
+        <li>Now <i>flip</i> the states, set \(F = \{x_0\}\) instead. Now what language is accepted by the state \(x_0\)?</li>
+    </ol>
+</div>
+
+<div class="exercise">
+    <b>(Flip the Switch 2)</b>
+    Draw a total deterministic automaton with a state that accepts the following language over the alphabet \(A = \{1\}\).
+    \[
+        L = \{w \in A^* \mid \text{\(|w|\) is a multiple of \(3\)}\}
+    \]
+    Change \(F\) in this automaton so that the same state accepts 
+    \[
+        A^* \setminus L = \{w \in A^* \mid \text{\(|w|\) is not a multiple of \(3\)}\}
+    \]
+</div>
+
+<div>
+    <b>(Flip the Switch 3?)</b>
+    Now consider the following automaton \[
+        \mathcal A = (\{x_0, x_1, x_2\}, \{a\}, \{
+                (x_0, a, x_1), (x_0, a, x_2)
+            \},
+            \{x_0\})
+    \]
+    <ol>
+        <li>Draw a state diagram for \(\mathcal A\).</li>
+        <li>Is \(\mathcal A\) total or deterministic?</li>
+        <li>What language \(L\) does \(x_0\) accept?</li>
+        <li>Play the same trick as in Flip the Switch 1 and 2 to make \(x_0\) accept \(A^* \setminus L\). Did it work? What language does \(x_0\) accept now?</li>
+        <li>What makes the trick work?</li>
+    </ol>
 </div>
