@@ -304,8 +304,11 @@
 
 \begin{problem}
     [Double-reversal]
-    Given a word \(w\), define \(w^\op\) to be the \emph{reversal} of the word: \((a_0 a_1 \cdots a_{n-1})^\op = a_{n-1}\cdots a_1 a_0\).
-    Note that \(\varepsilon^\op = \varepsilon\) by definition.
+    Given a word \(w\), define \(w^\op\) to be the \emph{reversal} of the word, as follows:
+    on the empty word, we define \(\varepsilon^\op = \varepsilon\). 
+    Given a word \(w \in A^*\) and a letter \(a \in A\), we define \((wa)^\op = a w^\op\).
+    % \((a_0 a_1 \cdots a_{n-1})^\op = a_{n-1}\cdots a_1 a_0\).
+    % Note that \(\varepsilon^\op = \varepsilon\) by definition.
     Use Induction on Words to prove that for any word \(w \in A^*\), \((w^\op)^\op = w\). 
 \end{problem}
 

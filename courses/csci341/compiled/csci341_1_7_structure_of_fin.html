@@ -1,5 +1,5 @@
 <!-- THIS IS A COMPILED FILE 
- Compiled on 2025-08-31 -->
+ Compiled on 2025-09-02 -->
 
 
 
@@ -163,6 +163,17 @@
     In particular, \(\mathsf{Fin}\) is <i>closed</i> under a number of common set-operations.
 </p>
 
+<h2>Complements</h2>
+
+<p>
+    Remember that for any two sets \(X\) and \(Y\),
+    \[
+        Y \setminus X = \{y \in Y \mid \text{\(y\) is not in \(X\)}\}
+    \]
+    So, in particular, for a language \(L \subseteq A\), \(A^* \setminus L\) is the language consisting of all words that are <i>not</i> in \(L\).
+    This language, \(A^*\setminus L\), is the <i>complement of the language \(L\)</i>.
+</p>
+
 <div class="exercise">
     <b>(Flip the Switch 1)</b>
     Draw a state diagram of the two-state automaton \(\mathcal A = (\{x_0, x_1\}, \{a, b\}, \{(x_0, a, x_1), (x_1, a, x_0)\}, \{x_1\})\).
@@ -185,7 +196,7 @@
     \]
 </div>
 
-<div>
+<div class="exercise">
     <b>(Flip the Switch 3?)</b>
     Now consider the following automaton \[
         \mathcal A = (\{x_0, x_1, x_2\}, \{a\}, \{
@@ -200,6 +211,33 @@
         <li>Play the same trick as in Flip the Switch 1 and 2 to make \(x_0\) accept \(A^* \setminus L\). Did it work? What language does \(x_0\) accept now?</li>
         <li>What makes the trick work?</li>
     </ol>
+</div>
+
+<div class="theorem">
+    <b>(Closed under Complement)</b>
+    The family of finitely recognizable languages is closed under complements. 
+    That is, if \(L \in \mathsf{Fin}\), then \(A^* \setminus L \in \mathsf{Fin}\).
+</div>
+
+<div class="proof">
+    Let \(L \in \mathsf{Fin}\).
+    By the Finite Recognizability Theorem, there is a total deterministic automaton \(\mathcal A = (Q, A, \delta, F)\) and a state \(x \in Q\) such that \(\mathcal L(\mathcal A, x) = L\).
+
+    <div class="figure">
+        <b>Claim:</b> Let \(\mathcal A' = (Q, A, \delta, Q\setminus F)\).
+        Then \(\mathcal L(\mathcal A', x) = A^* \setminus L\).
+    </div>
+
+    <i>You are going to prove this Claim in the problem below.</i>
+
+    Because \(\mathcal A\) is a total deterministic automaton, \(\mathcal A'\) is a total deterministic automaton.
+    By the Claim above, \(\mathcal A'\) is a total deterministic automaton with a state \(x\) that accepts \(A^*\setminus L\).
+    Therefore, \(L \in \mathsf{Fin}\).
+</div>
+
+<div class="problem">
+    <b>(Finish Closed under Complement)</b>
+    Prove the Claim in the Proof of the Closed under Complement theorem
 </div>
 
 
