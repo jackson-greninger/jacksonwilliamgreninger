@@ -51,3 +51,178 @@
         <li>Since \((((a + \emptyset))^* \cdot \varepsilon)\) and \(b\) are a regular expressions, \(((((a + \emptyset))^* \cdot \varepsilon) + b)\) is a regular expression.</li>
     </ol>
 </div>
+
+<div class="exercise">
+    <b>(Practicing the Rules)</b>
+    Form three more regular expressions using the formation rules for regular expressions.
+</div>
+
+<p>
+    There are so many brackets!
+    We can get rid of them, in much the same way as we know how to get rid of brackets when we're doing arithmetic. 
+    Like, what is 
+    \[
+        7 + 8 \times 4^2 = \text{?}
+    \]
+    I would use BEDMAS to write in the brackets that <i>should</i> be there, if I were being really careful:
+    \[
+        7 + 8 \times 4^2 = (7 + (8 \times (4)^2))
+    \]
+    The <i>order of precedence</i> for the arithmetic operations is \((-) > {-}^2 > \times > +\), so we bracket them in that order.
+    We can do the same thing with regular expressions: the order of precedence is 
+    \[
+        (-) > {-}^* > {\cdot} > +
+    \]
+    This allows us to remove brackets in the expressions: 
+    \[
+     (a + \emptyset)^* \cdot \varepsilon + b = ((((a + \emptyset))^* \cdot \varepsilon) + b)
+    \]
+    Much better!
+</p>
+
+<div class="exercise">
+    <b>(Getting in Formation)</b>
+    Put the brackets back into the following expressions. 
+    <ol>
+        <li>\(a + b \cdot c ^* \)</li>
+        <li>\((a + b)^* \cdot c ^* + b \)</li>
+        <li>\(a \cdot b^* + c ^* + b \)</li>
+    </ol>
+</div>
+
+<h2>Regular Languages</h2>
+
+<p>
+    So far, regular expressions are just meaningless symbols. 
+    We need to give them a <i>semantics</i>.
+    The semantics of a regular expression is the language it represents.
+</p>
+
+<div class="definition">
+    <b>(Language Semantics)</b>
+    Recall that \(\mathit{RExp}\) is the set of regular expressions and \(2^{A^*}\) is the set of languages over an alphabet \(A\).
+    We define the <i>language semantics \(\mathcal L(r) \in 2^{A^*}\) of a regular expression \(r \in \mathit{RExp}\)</i> recursively using the formation rules.
+    <ul>
+        <li>\(\mathcal L(\emptyset) = \{\}\)</li>
+        <li>\(\mathcal L(\varepsilon) = \{\varepsilon\}\)</li>
+        <li>for each \(a \in A\), \(\mathcal L(a) = \{a\}\)</li>
+    </ul>
+    The next few rules are the <i>recursive</i> rules. 
+    <ul>
+        <li>Given regular expressions \(r_1, r_2 \in \mathit{RExp}\), \(\mathcal L(r_1 + r_2) = \mathcal L(r_1) \cup \mathcal L(r_2)\).</li>
+        <li>
+            Given regular expressions \(r_1, r_2 \in \mathit{RExp}\), \[
+                \mathcal L(r_1 \cdot r_2) = \mathcal L(r_1) \cdot \mathcal L(r_2) = \{wu \in A^* \mid w \in \mathcal L(r_1) \text{ and } u \in \mathcal L(r_2)\}
+            \]
+        </li>
+        <li>
+            Given a regular expression \(r \in \mathit{RExp}\), 
+            \[
+                \mathcal L(r^*) = \mathcal L(r)^* = \{w_1w_2\cdots w_n \in A^* \mid w_1,w_2,\dots, w_n \in \mathcal L(r)\}
+            \]
+        </li>
+    </ul>
+</div>
+
+<p>
+    These operations have names:
+    <ul>
+        <li>\(+\) is called <i>union</i> (as usual),</li>
+        <li>\(\cdot\) is called <i>sequential composition</i> (or just <i>composition</i>),</li>
+        <li>\(-^*\) is called <i>Kleene star</i> (or just <i>star</i>).</li>
+    </ul>
+    The Kleene star is named after <a href="https://en.wikipedia.org/wiki/Stephen_Cole_Kleene" target="_blank">Stephen Cole Kleene</a>, who discovered regular expressions in the 50s.
+</p>
+
+<div class="example">
+    <b>(Some Small Concatenations and Stars)</b>
+    Let's do some small calculations using the definition of language semantics. 
+    First of all, let's start with letters \(a,b \in A\).
+    Then the definition of the language semantics of \(a\) (as a regular expression) is \(\mathcal L(a) = \{a\}\), and similarly for \(b\). 
+    Therefore, 
+    \[
+        \mathcal L(a + b) = \mathcal L(a) \cup \mathcal L(b) = \{a\} \cup \{b\} = \{a, b\}
+    \]
+    We can compute in the same manner the language 
+    \[
+        \mathcal L(a \cdot b) = \mathcal L(a)\cdot\mathcal L(b) = \{a\} \cdot \{b\} = \{ab\}
+    \]
+    That last equation comes from the definition: the words in \(\mathcal L(a) \cdot \mathcal L(b)\) are all the words \(wu\) such that \(w \in \mathcal L(a)\) and \(u \in \mathcal L(b)\). 
+    These languages have one word each, \(a\) and \(b\) respectively, so there is only the concatenation \(wu = ab\) in \(\mathcal L(a)\cdot \mathcal L(b)\).
+
+    <p>
+        Now let's take a look at the star.
+        The star takes whatever words are in the language and forms all of the different concatenations of them (including the empty word).
+        So, since \(\mathcal L(a) = \{a\}\) has only one word, 
+        \[
+            \mathcal L(a^*) = \{\varepsilon, a, aa, aaa, \dots, a^n\} = \{a^n \mid n \in \mathbb N\}
+        \]
+        It gets more complicated when there are multiple words in the language. 
+        For example, 
+        \[
+            \mathcal L((a + b)^*) 
+            = \mathcal L(a + b)^*
+            = \{a, b\}^*
+            = \{\varepsilon, a, b, aa, ab, ba, bb, aaa, aab, aba, \dots\}
+        \]
+    </p>
+</div>
+
+<div class="exercise">
+    <b>(Let's Compute some Languages!)</b>
+    Compute the language semantics of the following regular expressions over the alphabet \(A = \{a,b,c\}\).
+    In other words, describe the language semantics explicitly or using set comprehension.
+    <ol>
+        <li>\(a + \varepsilon\)</li>
+        <li>\(b(a + \varepsilon)\)</li>
+        <li>\((ab)^*\)</li>
+        <li>\(ab^*\)</li>
+        <li>\(\varepsilon^*\)</li>
+        <li>\((\varepsilon + a)^*\)</li>
+    </ol>
+</div>
+
+<p>
+    So far, we have shown how to turn regular expressions into languages directly.
+    But we set out, to begin with, towards the goal of creating a coding language for <i>automata</i>, not languages. 
+    This discrepancy introduces yet another family of languages into the picture.
+</p>
+
+<div class="definition">
+    <b>(Regular Language)</b>
+    Let \(L \subseteq A^*\) be a language.
+    Then \(L\) is <i>regular</i> if there is a regular expression \(r \in \mathit{RExp}\) such that \(L = \mathcal L(r)\).
+    The family of regular languages is \(\mathsf{Reg}\).
+</div>
+
+<p>
+    At this point, we have no idea how automata and regular languages are related. 
+    Is \(\mathsf{Fin} \subseteq \mathsf{Reg}\)? What about \(\mathsf{Fin} \supseteq \mathsf{Reg}\)?
+    The first main result we will prove in this course is that, in fact, these two things are equal. 
+    This is called <i>Kleene's Theorem</i>, but it will take several days before we are ready to write down an actual proof.
+</p>
+
+<div class="exercise">
+    <b>(Finding Expressions)</b>
+    Show that the following languages are regular over the alphabet \(A = \{a, b, c\}\).
+    <ol>
+        <li>\(L_1 = \{a, \varepsilon\}\)</li>
+        <li>\(L_2 = \{ba, ab\}\)</li>
+        <li>\(L_3 = \{ba^n \mid n \in \mathbb N\}\)</li>
+        <li>\(L_4 = A^*\)</li>
+        <li>\(L_5 = \{w \in A^*\mid w \text{ contains the word } abba\}\)</li>
+    </ol>
+</div>
+
+<div class="problem">
+    <b>(Intersections and Complements)</b>
+    Show that the following two languages are regular over \(A = \{a, b\}\). 
+    <ol>
+        <li>\(L_6 = \mathcal L(b^*a(a + b)^*) \cap \mathcal L(a^*b(a + b)^*)\)</li>
+        <li>\(L_7 = A^* \setminus L_6\)</li>
+    </ol>
+    <div class="hint">
+        Start by describing these languages explicitly. 
+        The first one has something to do with the numbers of \(a\)s and \(b\)s in the word.
+    </div>
+</div>
