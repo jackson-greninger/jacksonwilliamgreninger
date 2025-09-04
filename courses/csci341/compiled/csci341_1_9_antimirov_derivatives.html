@@ -1,0 +1,241 @@
+<!-- THIS IS A COMPILED FILE 
+ Compiled on 2025-09-03 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+
+<head>
+	
+	<meta charset="UTF-8">
+	<meta name="author" content="Todd Schmid">
+	
+	<!-- Renders latex formulas -->
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+	<!-- Renders tikz figures mid page -->
+    <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+    <script src="https://tikzjax.com/v1/tikzjax.js"></script>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="../../../styles.css" />
+	<link rel="stylesheet" href="../../course_styles.css" />
+	<link rel="icon" href="../../../squidab.png" />
+	
+	<!-- * Customize for each course * -->
+	<title>CSCI 341 Theory of Computation</title>
+	<meta name="description" content="Course pages for CSCI 341.">
+	<meta name="keywords" content="bucknell,theory,computer,science,schmid,csci341">
+	<!-- ***************************** -->
+</head>
+
+<body>
+
+<div id="content">
+
+<!-- Header Section -->
+<div id="course_head" style="text-align: left;">
+	<h1 style="margin-bottom: 0; text-align: left;">CSCI 341 Theory of Computation</h1>
+	<i>Fall 2025, with <a href="../../../teaching.html">Schmid</a></i>
+	<div id="links">
+		<!-- * Customize for each course * -->
+		<a href="csci341_index.html"><span class="link">Syllabus</span></a>
+		<a href="csci341_notes.html"><span class="link">Notes</span></a>
+		<a href="csci341_resources.html"><span class="link">Resources</span></a>
+		<a href= "csci341_assignments.html"><span class="link">Assignments</span></a>
+		<!-- ***************************** -->
+	</div>
+</div>
+
+
+
+<div id="stuff">
+
+
+<!-- BEGINNING OF BODY -->
+<h1>Antimirov Derivatives</h1>
+
+<p>
+    We are currently working toward using regular expressions as a coding language for automata, specifically finite automata.
+    Today, we are going to show that every regular expression represents a state in a finite automaton.  
+    We are going to start by defining an infinite automaton, called the <i>Antimirov automaton</i> \(\mathcal A_{Ant}\), whose states are regular expressions and such that \(\mathcal L(\mathcal A_{Ant}, r) = \mathcal L(r)\) for every regular expression \(r \in \mathit{RExp}\).
+    This is analogous to the Brzozowski automaton, whose states were languages.
+    Except in this case, the states are expressions!
+</p>
+
+<h2>Antimirov Derivatives</h2>
+
+<p>
+    When we built the Brzozowski automaton, we needed to define what was called the <i>Brzozowski derivative</i> of a language, \(a^{-1}L\) for each \(a \in A\) and \(L \in 2^{A^*}\).
+    To define the Antimirov automaton, we have to do something similar---we are going to define a notion of derivative for regular expressions.
+    However, there is an important difference between the Brzozowski automaton and the Antimirov automaton: the Brzozowski automaton is total and deterministic, but the Antimirov automaton is neither. 
+    In other words, a regular expression can have <i>multiple</i> Antimirov derivatives.
+</p>
+
+<p>
+    Here is the formal definition:
+</p>
+
+<div class="definition">
+    <b>(Antimirov Automaton)</b>
+    Let \(A\) be an alphabet of input symbols.
+    The <i>Antimirov automaton</i> is the automaton \(\mathcal A_{Ant} = (\mathit{RExp}, A, \delta, F)\), where \(\delta\) and \(F\) are defined recursively by the following rules:
+
+    <p>
+        Starting with \(F\), we define 
+        <ol>
+            <li>\(\varepsilon \in F\),</li>
+            <li>for any regular expression \(r\), \(r^* \in F\).</li>
+        </ol>
+        and recursively, for regular expressions \(r_1,r_2 \in \mathit{RExp}\):
+        <ol start=3>
+            <li>If \(r_1 \in F\), then \((r_1 + r_2) \in F\).</li>
+            <li>If \(r_2 \in F\), then \((r_1 + r_2) \in F\).</li>
+            <li>If \(r_1 \in F\) and \(r_2\in F\), then \((r_1 \cdot r_2) \in F\).</li>
+        </ol>
+        There are no other elements of \(F\).
+    </p>
+    <p>
+        Now let's define \(\delta\).
+        For any \(a \in A\), we define
+        <ol type="A">
+            <li>\(\varepsilon \xrightarrow{a}_\delta \emptyset\)</li>
+            <li>\(a \xrightarrow{a}_\delta \varepsilon\)</li>
+        </ol>
+        and recursively, for any regular expressions \(r, r_1, r_2, s \in \mathit{RExp}\):
+        <ol start="3" type="A">
+            <li>If \(r_1 \xrightarrow{a}_\delta s\), then \((r_1 + r_2) \xrightarrow{a}_\delta s\).</li>
+            <li>If \(r_2 \xrightarrow{a}_\delta s\), then \((r_1 + r_2) \xrightarrow{a}_\delta s\).</li>
+            <li>If \(r_1 \xrightarrow{a}_\delta s\), then \((r_1 \cdot r_2) \xrightarrow{a}_\delta (s \cdot r_2)\).</li>
+            <li>If \(r_1 \in F\) and \(r_2 \xrightarrow{a}_\delta s\), then \((r_1 \cdot r_2) \xrightarrow{a}_\delta s\).</li>
+            <li>If \(r \xrightarrow{a}_\delta s\), then \(r^* \xrightarrow{a}_\delta s\cdot r^*\).</li>
+        </ol>
+        There are no other transitions in \(\mathcal A_{Ant}\).
+    </p>
+    The elements of \(\delta(r, a)\) are called the <i>Antimirov \(a\)-derivatives of \(r\)</i>.
+</div>
+
+<p>
+    To reiterate: states of \(\mathcal A_{Ant}\) are regular expressions.
+    There are infinitely many states in \(\mathcal A_{Ant}\), because there are infinitely many regular expressions. 
+    However! 
+    It turns out that the automaton generated by a regular expression in \(\mathcal A_{Ant}\), \(\langle r \rangle_{\mathcal A_{Ant}}\), is finite. 
+    Let's compute a couple of these now. 
+</p>
+
+<div class="example">
+    <b>(A School for Ants)</b>
+    Let's start with a small example, say the regular expression \(ab\).
+    We know that \(a \xrightarrow{a} \varepsilon\), by the first bullet point in the 
+    Here, we know the following things: \(ab\) is <i>not accepting</i> in the Antimirov automaton, because you cannot 
+</div>
+
+
+<!-- END OF BODY -->
+    <div style="height: 50px;border-top: 1px solid rgb(131, 131, 131);margin-top: 50px; padding: 20px; text-align: right;">
+        <a href=""><span class="link">Top</span></a>
+    </div>
+</div>
+</div>
+</body>
+
+
+</html>
