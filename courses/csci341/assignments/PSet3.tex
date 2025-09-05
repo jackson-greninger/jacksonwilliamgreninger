@@ -175,49 +175,85 @@
 
 \maketitle
 
-\subsection*{Games and State Machines}
+\subsection*{Determinization}
 
 \begin{problem}
-    [Always an Upper Bound]
-    Let \(M = (G, L, S, E, A, C)\) be a directional maze with the set of legal moves \(A = \{\Uparrow, \Rightarrow\}\).
-    Prove that \(\mathcal S(M)\) is finite (there are only finitely many elements) by calculating an upper bound on the number of all possible legal paths through an \(n\times m\) directional maze.
+    [Determinizing is Deterministic]
+    Prove that for any automaton \(\mathcal A = (Q, A, \delta, F)\), \(\mathrm{Det}(\mathcal A)\) is total deterministic.    
 \end{problem}
 
-\begin{problem}
-    [Reverse Engineering]
-    Find a Sokoban game that represents state \(s_1\) in abstract state diagram (1).
-    Replace the states in the state diagram with drawings of each state of the Sokoban game.
-
-    \begin{figure}[h]
-        \centering
-        \includegraphics{../imgs/reverseengineering.pdf}
-        \caption{Abstract state diagram (1).}
-    \end{figure}
-\end{problem}
+\begin{proof}[Solution.]
+    
+\end{proof}
 
 \begin{problem}
-    [Impossibility]
-    Prove that there \emph{does not} exist a directional maze that represents state \(s_1\) in abstract state diagram (1).
-\end{problem}
-
-\subsection*{Reading Words}
-
-\begin{problem}
-    [Repeated Derivatives]
-    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton, let \(x \in Q\), and \(w \in A^*\) and \(a \in A\).
-    Prove the following identity:
+    [Determinized State, Completing the Proof]
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton, and let \(\mathrm{Det}(\mathcal A)\) be its determinization.
+    Prove that for any state \(x \in Q\), 
     \[
-        \delta(x, w a) = \{z \mid z \in \delta(y, a) \text{ for some } y \in \delta(x, w)\}
-    \]
+        \mathcal L(\mathcal A, x) \supseteq \mathcal L(\mathrm{Det}(\mathcal A), \{x\})
+    \]    
 \end{problem}
+
+\begin{proof}[Solution.]
+    
+\end{proof}
 
 \begin{problem}
-    [Determinstic Extension]
-    Let \(\mathcal A = (Q, A, \delta, F)\) be a total deterministic automaton.
-    Let \(x \in Q\) and \(w \in A^*\).
-    Prove that \(\delta(x, w)\) has exactly one element using Induction on Words.
+    [You Got Options]
+    Find the smallest automaton (not necessarily total or deterministic) with a state that accepts the language 
+    \[
+        L = \{ab^n \mid n \in \mathbb N\} \cup \{ac^n \mid n \in \mathbb N\} \cup \{a(bc)^n \mid n \in \mathbb N\}
+    \]
+    over the alphabet \(A = \{a,b,c\}\).
+    Use determinization to find a deterministic automaton with a state that accepts the same language.  
 \end{problem}
 
+\begin{proof}[Solution.]
+    
+\end{proof}
+
+\subsection*{the Structure of \(\mathsf{Fin}\)}
+
+\begin{problem}
+    [Finish Closed under Complement]
+    Let \(\mathcal A' = (Q, A, \delta, Q\setminus F)\).
+    Prove that \(\mathcal L(\mathcal A', x) = A^* \setminus L\).
+\end{problem}
+
+\begin{proof}[Solution.]
+    
+\end{proof}
+
+\begin{problem}
+    [Intersection-product Construction]
+    Let \(\mathcal A_1 = (Q_1, A, \delta_1, F_1)\) and \(\mathcal A_2 = (Q_2, A, \delta_2, F_2)\) be total deterministic automata, and let \(x \in Q_1\) and \(y \in Q_2\).
+    Let \(L_1 = \mathcal L(\mathcal A_1, x)\) and \(L_2 = \mathcal L(\mathcal A_2, x)\).
+    Change the accepting states in the union-product construction to obtain an automaton \(\mathcal A_1 \otimes \mathcal A_2 = (Q_1 \times Q_2, A, \delta^\times, F^
+    \otimes)\) such that \(\mathcal L(\mathcal A_1 \otimes \mathcal A_2, (x, y)) = L_1 \cap L_2\).
+    Explain how to obtain a proof of the Closure under Intersection Theorem from the proof of the Closure under Union Theorem (i.e., what would you change?).
+\end{problem}
+
+\begin{proof}[Solution.]
+    
+\end{proof}
+
+\subsection*{Regular Expressions}
+
+\begin{problem}
+    [Intersections and Complements]
+    Show that the following two languages are regular over \(A = \{a, b\}\). 
+    \begin{enumerate}
+        \item \(L_6 = \mathcal L(b^*a(a + b)^*) \cap \mathcal L(a^*b(a + b)^*)\)
+        \item \(L_7 = A^* \setminus L_6\)
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}[Solution.]
+    
+\end{proof}
+
+\subsection*{title}
 
 
 \end{document}
