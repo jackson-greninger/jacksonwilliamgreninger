@@ -40,7 +40,7 @@ if __name__ == "__main__" :
     # Create pages and spit them into local directory
     print("Creating pages:")
     for page_file in listdir(pages_folder) :
-        pagename = fsdecode(page_file)
+        pagename = fsdecode(page_file).lower()
         print("\t- Creating", Fore.BLUE, pagename)
 
         file = open(f"{course_folder}/pageconstruction/{pagename}", "r")
