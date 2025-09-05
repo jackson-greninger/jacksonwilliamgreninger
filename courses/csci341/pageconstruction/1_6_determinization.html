@@ -288,3 +288,21 @@
         It follows that \(L\) is a total deterministic finitely recognizable language, i.e., \(L \in \mathsf{TDFin}\).
     </p>
 </div>
+
+<div class="exercise">
+    <b>(Is Determinization Optimal?)</b>
+    Remember that a <i>minimal</i> automaton is a total deterministic automaton where no two states accept the same language, and that a minimal automaton is the smallest total deterministic automaton that accepts all its states' languages. 
+    Does determinization find the smallest automaton?
+    If it does, explain why. 
+    If it does not, give an example of a determinized automaton that is not minimal.
+</div>
+
+<div class="exercise">
+    <b>(You Got Options)</b>
+    Find the smallest automaton (not necessarily total or deterministic) with a state that accepts the language 
+    \[
+        L = \{01^n \mid n \in \mathbb N\} \cup \{02^n \mid \} \cup \{0(12)^n \mid n \in \mathbb N\}
+    \]
+    over the alphabet \(A = \{0, 1, 2\}\).
+    Use determinization to find a deterministic automaton with a state that accepts the same language.
+</div>
