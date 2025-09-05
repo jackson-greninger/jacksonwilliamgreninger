@@ -162,7 +162,7 @@
 </p>
 
 <p>
-    It turns out that if you remove all the bells and whistles from the regular expressions you know and love, you get coding language that is perfectly suited to programming states of finite automata.
+    It turns out that if you remove all the bells and whistles from the regular expressions you know and love, you get a coding language that is perfectly suited to programming states of finite automata.
     Today we're going to step away from finite automata for a moment and just get familiar with regular expressions on their own.
 </p>
 
@@ -207,7 +207,8 @@
 
 <div class="exercise">
     <b>(Practicing the Rules)</b>
-    Form three more regular expressions using the formation rules for regular expressions.
+    Is \((a + b\) a regular expression? What about \(b + (\emptyset)\)?
+    Form five more regular expressions using the formation rules for regular expressions.
 </div>
 
 <p>
@@ -313,7 +314,7 @@
         The star takes whatever words are in the language and forms all of the different concatenations of them (including the empty word).
         So, since \(\mathcal L(a) = \{a\}\) has only one word, 
         \[
-            \mathcal L(a^*) = \{\varepsilon, a, aa, aaa, \dots, a^n\} = \{a^n \mid n \in \mathbb N\}
+            \mathcal L(a^*) = \{\varepsilon, a, aa, aaa, aaaa, a^5, a^6, \dots\} = \{a^n \mid n \in \mathbb N\}
         \]
         It gets more complicated when there are multiple words in the language. 
         For example, 
@@ -362,7 +363,7 @@
 <p>
     At this point, we have no idea how automata and regular languages are related. 
     Is \(\mathsf{Fin} \subseteq \mathsf{Reg}\)? What about \(\mathsf{Fin} \supseteq \mathsf{Reg}\)?
-    The first main result we will prove in this course is that, in fact, these two things are equal. 
+    The first main result we will prove in this course is that, in fact, these two families are the same. 
     This is called <i>Kleene's Theorem</i>, but it will take several days before we are ready to write down an actual proof.
 </p>
 
