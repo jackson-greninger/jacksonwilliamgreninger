@@ -280,6 +280,11 @@
     <p>
         Let \(L \in \mathsf{Fin}\).
         Then by definition of finite recognizability, there is a finite automaton \(\mathcal A = (Q, A, \delta, F)\) and a state \(x \in Q\) such that \(L = \mathcal L(\mathcal A, x)\).
-        We need to find a 
+        We need to find a total deterministic finite automaton \(\mathcal A'\) and a state \(z\) of \(\mathcal A'\) such that \(\mathcal L(\mathcal A', z) = L\).
+        By the Determinized State Theorem, \(\mathcal A' = \mathrm{Det}(\mathcal A)\) is such an automaton: it is a total deterministic automaton with the state \(\{x\}\), and 
+        \[
+            L = \mathcal L(\mathcal A, x) = \mathcal L(\mathrm{Det}(\mathcal A), \{x\})
+        \]
+        It follows that \(L\) is a total deterministic finitely recognizable language.
     </p>
 </div>
