@@ -301,8 +301,11 @@
     <b>(You Got Options)</b>
     Find the smallest automaton (not necessarily total or deterministic) with a state that accepts the language 
     \[
-        L = \{01^n \mid n \in \mathbb N\} \cup \{02^n \mid n \in \mathbb N\} \cup \{0(12)^n \mid n \in \mathbb N\}
+        L = \{ab^n \mid n \in \mathbb N\} \cup \{ac^n \mid n \in \mathbb N\} \cup \{a(bc)^n \mid n \in \mathbb N\}
     \]
-    over the alphabet \(A = \{0, 1, 2\}\).
+    over the alphabet \(A = \{a,b,c\}\).
     Use determinization to find a deterministic automaton with a state that accepts the same language.
+    <div class="hint">
+        Possibly a life-saving hint... You do not need to draw every state of the automaton \(\mathrm{Det}(\mathcal A)\), only the ones reachable from \(\{x\}\).
+    </div>
 </div>
