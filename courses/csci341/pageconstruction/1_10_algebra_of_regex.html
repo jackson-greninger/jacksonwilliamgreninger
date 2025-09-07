@@ -263,19 +263,21 @@
         (a + b)^* =_{\mathcal L} (a^*b)^*
     \]
     But it's actually not a difficult application of Arden's rule.
-    Let \(r = (a + b)^*\).
+    Let \(s = (a + b)^*\).
     Then we have 
     \[\begin{aligned}
-        r   &= (a + b)^*                                  && \text{(definition of \(r\))}\\
+        s   &= (a + b)^*                                  && \text{(definition of \(s\))}\\
             &= \varepsilon + (a + b)(a + b)^*             && \text{(Kleene Star 1)}\\
             &= \varepsilon + a(a + b)^* + b(a + b)^*      && \text{(Seq Comp 4)}\\
-            &= \varepsilon + ar + br                      && \text{(definition of \(r\))}\\
-            &= \varepsilon + br + ar                      && \text{(Union 1)}\\
-            &= a^*(\varepsilon + br)                      && \text{(Arden's Rule with \(s = a\) and \(t = \varepsilon + br\))}\\
-            &= a^*\varepsilon + a^*br                     && \text{(Seq Comp 4)}\\
-            &= a^* + a^*br                                && \text{(Seq Comp 1)}\\
-            &= (a^*b)^*a^*                                && \text{(Arden's Rule with \(s = a^*b\) and \(t = a^*\))}
+            &= \varepsilon + as + bs                      && \text{(definition of \(s\))}\\
+            &= \varepsilon + bs + as                      && \text{(Union 1)}\\
+            &= a^*(\varepsilon + bs)                      && \text{(Arden's Rule with \(r = a\) and \(t = \varepsilon + bs\))}\\
+            &= a^*\varepsilon + a^*bs                     && \text{(Seq Comp 4)}\\
+            &= a^* + a^*bs                                && \text{(Seq Comp 1)}\\
+            &= (a^*b)^*a^*                                && \text{(Arden's Rule with \(r = a^*b\) and \(t = a^*\))}
     \end{aligned}\]
+    Above, Arden's Rule is applied twice: once with \(r = a\) and once with \(r = a^*b\). 
+    Neither \(r\) has the empty word property: it can be seen directly that \(\mathcal L(a)\) does not contain \(\varepsilon\), and by definition every word in \(\mathcal L(a^*b)\) must end with a \(b\), so \(a^*b\) doesn't have the empty word property either.
 </div>
 
 <div class="exercise">
