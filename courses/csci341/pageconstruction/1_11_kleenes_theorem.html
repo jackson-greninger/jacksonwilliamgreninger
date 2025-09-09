@@ -287,16 +287,16 @@
             y_1 
             &= \emptyset + ay_1 + by_2 \\
             &= \emptyset + ay_1 + b(\varepsilon + (a + b)y_1) \\
-            &= \emptyset + ay_1 + b\varepsilon + b(a + b)y_1 &&\text{distribute} \\
-            &= \emptyset + ay_1 + b + b(a + b)y_1 &&\text{\(\varepsilon\) seq comp} \\
-            &= \emptyset + b  + ay_1 + b(a + b)y_1 &&\text{union rules} \\
-            &= (\emptyset + b) + (a + b(a + b))y_1 &&\text{collect like terms} \\
+            &= \emptyset + ay_1 + b\varepsilon + b(a + b)y_1 &&\text{(distribute)} \\
+            &= \emptyset + ay_1 + b + b(a + b)y_1 &&\text{(\(\varepsilon\) seq comp)} \\
+            &= \emptyset + b  + ay_1 + b(a + b)y_1 &&\text{(union rules)} \\
+            &= (\emptyset + b) + (a + b(a + b))y_1 &&\text{(collect like terms)}
         \end{aligned}\]
         Kleene's algorithm now tells us to use Arden's rule to finish the calculation.
         \[\begin{aligned}
             y_1 
             &= (\emptyset + b) + (a + b(a + b))y_1  \\
-            &= (a + b(a + b))^*(\emptyset + b) &&\text{Arden's Rule} \\
+            &= (a + b(a + b))^*(\emptyset + b) &&\text{(Arden's Rule)} \\
         \end{aligned}\]
         <!-- One nice thing about this example is that \(y_2\) does not appear in the last equation.  -->
         This means that we proceed to the next step, which is to 
