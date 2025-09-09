@@ -271,10 +271,20 @@
 </p>
 
 <div class="definition">
-    <b>(System of Equations from Automaton)</b>
-    Let \(\mathcal A = (Q, A, \delta, F)\) be a finite automaton, and write 
+    <b>(Left-Affine System)</b>
+    A <i>left-affine system of equations</i> is a system of equations of the form 
+    \[\begin{aligned}
+        x_1 &= b_1 + r_{11} x_1 + r_{12} x_2 + \cdots + r_{1n} x_n \\
+        x_2 &= b_2 + r_{21} x_1 + r_{22} x_2 + \cdots + r_{2n} x_n \\
+        &\hspace{2em} \vdots \\
+        x_n &= b_n + r_{n1} x_1 + r_{n2} x_2 + \cdots + r_{nn} x_n 
+    \end{aligned}\]
+    where \(b_i,r_{ij} \in \mathit{RExp}\) are regular expressions and none of the \(r_{ij}\) have the empty word property.
+    The variables \(x_1, \dots, x_n\) are called the <i>indeterminate variables</i> of the system.
+    
+    <p>Let \(\mathcal A = (Q, A, \delta, F)\) be a finite automaton, and write 
     \(Q = \{x_1, x_2, \dots, x_n\}\).
-    The <i>system of equations from \(\mathcal A\)</i> is given by 
+    The <i>left-affine system from \(\mathcal A\)</i> is given by 
     \[\begin{aligned}
         x_1 &= b_1 + r_{11} x_1 + r_{12} x_2 + \cdots + r_{1n} x_n \\
         x_2 &= b_2 + r_{21} x_1 + r_{22} x_2 + \cdots + r_{2n} x_n \\
@@ -292,6 +302,7 @@
     \[
         r_{ij} = \sum_{(x_i, a, x_j) \in \delta} a
     \]
+    </p>
 </div>
 
 
