@@ -231,12 +231,15 @@
     Now we can plug this back into the rest of the left-affine system to get a left-affine system with only \(n\) indeterminate variables. 
     \[\begin{aligned}
         x_1 
-            &= b_1 + r_{11} x_1 + \cdots + r_{1n} x_n + r_{1(n+1)}((r_{(n+1)(n+1)})^* b_{n+1} + (r_{(n+1)(n+1)})^*r_{(n+1)1} x_1 + \cdots + (r_{(n+1)(n+1)})^*r_{(n+1)n} x_n) \\
+            &= b_1 + r_{11} x_1 + \cdots + r_{1n} x_n \\
+            & \hspace{2em} + r_{1(n+1)}((r_{(n+1)(n+1)})^* b_{n+1} + (r_{(n+1)(n+1)})^*r_{(n+1)1} x_1 + \cdots + (r_{(n+1)(n+1)})^*r_{(n+1)n} x_n) \\
         x_2 
-            &= b_2 + r_{21} x_1 + \cdots + r_{2n} x_n + r_{2(n+1)}((r_{(n+1)(n+1)})^* b_{n+1} + (r_{(n+1)(n+1)})^*r_{(n+1)1} x_1 + \cdots + (r_{(n+1)(n+1)})^*r_{(n+1)n} x_n) \\
+            &= b_2 + r_{21} x_1 + \cdots + r_{2n} x_n \\
+            & \hspace{2em} + r_{2(n+1)}((r_{(n+1)(n+1)})^* b_{n+1} + (r_{(n+1)(n+1)})^*r_{(n+1)1} x_1 + \cdots + (r_{(n+1)(n+1)})^*r_{(n+1)n} x_n) \\
         &\hspace{2em} \vdots \\
         x_n 
-            &= b_n + r_{n1} x_1 + \cdots + r_{nn} x_n + r_{n(n+1)}((r_{(n+1)(n+1)})^* b_{n+1} + (r_{(n+1)(n+1)})^*r_{(n+1)1} x_1 + \cdots + (r_{(n+1)(n+1)})^*r_{(n+1)n} x_n) \\
+            &= b_n + r_{n1} x_1 + \cdots + r_{nn} x_n \\
+            & \hspace{2em} + r_{n(n+1)}((r_{(n+1)(n+1)})^* b_{n+1} + (r_{(n+1)(n+1)})^*r_{(n+1)1} x_1 + \cdots + (r_{(n+1)(n+1)})^*r_{(n+1)n} x_n) \\
     \end{aligned}\]
     Using distributivity and collecting like terms turns the above system of equations into a left-affine system of equations.
     Is it pretty? No, but it does work!
