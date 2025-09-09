@@ -1,0 +1,62 @@
+<h1>Kleene's Theorem</h1>
+
+<p>
+    We have already seen that \(\mathsf{Reg} \subseteq \mathsf{Fin}\).
+    The proof of this inclusion entailed turning a regular expression \(r\) into a state of an automaton \(\mathcal A_{Ant}\) such that \(\mathcal L(\mathcal A_{Ant}, r) = \mathcal L(r)\).
+    Today we're going to do the opposite: we are going to use a procedure (called <i>Kleene's algeorithm</i>) for turning a state in a finite automaton into a regular expression whose language semantics is the language accepted by the state.
+    This procedure requires a bit of the algebra of regular expressions, which we explored last time, to solve certain systems of equations.
+</p>
+
+<p>
+    To get at the "systems of equations" part, let's do a little analysis of a couple automata.
+</p>
+
+<div class="figure">
+    <img src="../imgs/about-to-union.svg" alt="two automata" />
+    Two two-state automata, \(\mathcal A_1\) and \(\mathcal A_2\).
+</div>
+
+<p>
+    The one on the left, \(\mathcal A_1\), has two states: \(x_1\) and \(x_2\).
+    We are going to calculate the language that \(x_1\) accepts.
+    Whatever it is, call it \(L_1 = \mathcal L(\mathcal A_1, x_1)\), we know that any word of the form \(aw \in L_1\) has to have its \(w\) component accepted by \(x_2\), and conversely every word \(w\) accepted by \(x_2\) determines a word \(aw\ in L_1\).
+    This ties the two languages together: let \(L_2 = \mathcal L(\mathcal A_2, x_2)\) be the language \(x_2\) accepts. 
+    Then what we have deduced is that \(\{a\} \cdot L_2 \subseteq L_1\).
+</p>
+
+<p>
+    Now, we also know that if \(w \in L_1\), then because \(x_1 \xrightarrow{b} x_1\), \(\{b\}\cdot L_1 \subseteq L_1\).
+    But there are no other words in \(L_1\)! so we have arrived at the following equation:
+    \[
+        L_1 = \{a\} \cdot L_2 \cup \{b\} \cdot L_1
+    \]
+    In terms of regular expressions, if \(s_1\) is a regular expression for \(L_1\) and \(s_2\) is a regular expression for \(L_2\), then the quation reads 
+    \[
+        s_1 =_{\mathcal L} as_2 + bs_1
+    \]
+    Now, check it out! 
+    Since \(b\) does not have the empty word property, we can simplify this equation to get 
+    \[
+        s_1 =_{\mathcal L} b^*(a s_2)
+    \]
+    So it remains to figure out what \(s_2\) is.
+</p>
+
+<p>
+    The situation for \(s_2\) is slightly different. 
+    It's true that \(\{a\} \cdot L_1 \subseteq L_2\), and similarly that \(\{a\} \cdot L_2 \subseteq L_2\) and \(\(\{b\} \cdot L_2 \subseteq L_2\)\).
+    But this isn't quite all of \(L_2\): we also know that \(\varepsilon \in L_2\).
+    Altogether, that makes 
+    \[
+        L_2 = \{\varepsilon\} \cup \{a\}\cdot L_1 \cup \{a\}\cdot L_2 \cup \{b\} \cdot L_2
+    \]
+    In terms of regular expressions, this gives the equation
+    \[
+        s_2 =_{\mathcal L} \varepsilon + as_1 + as_2 + bs_2
+    \]
+    Collecting like terms (remember the Sequential Composition equations from the Algebra of Regular Expressions), we get 
+    \[
+        s_2 =_{\mathcal L} \varepsilon + as_1 + (a + b)s_2
+    \]
+    Now, \(a+b\) does not have the empty word property, so 
+</p>
