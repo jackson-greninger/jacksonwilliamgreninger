@@ -370,6 +370,12 @@
         x_n &= b_n + r_{n1} x_1 + r_{n2} x_2 + \cdots + r_{nn} x_n + r_{n(n+1)}x_{n+1} \\
         x_{n+1} &= b_{n+1} + r_{(n+1)1} x_1 + r_{(n+1)2} x_2 + \cdots + r_{(n+1)n} x_n + r_{(n+1)(n+1)}x_{n+1} 
     \end{aligned}\]
+    The idea is to start as follows: observe that the \((n+1)\)th equation is an instance of Arden's rule, because \(r_{(n+1)(n+1)}\) does not have the empty word property.
+    \[\begin{aligned}
+        x_{n+1} 
+        &= \overline{b_{n+1} + r_{(n+1)1} x_1 + r_{(n+1)2} x_2 + \cdots + r_{(n+1)n} x_n}^t + \overline{r_{(n+1)(n+1)}}^r    \overline{x_{n+1}}^s \\
+        &= b_{n+1} + r_{(n+1)1} x_1 + r_{(n+1)2} x_2 + \cdots + r_{(n+1)n} x_n + r_{(n+1)(n+1)}x_{n+1} \\
+    \end{aligned}\]
 </p>
 
 <div class="theorem">
