@@ -145,7 +145,7 @@
     
     <p>Let \(\mathcal A = (Q, A, \delta, F)\) be a finite automaton, and write 
     \(Q = \{x_1, x_2, \dots, x_n\}\).
-    The <i>left-affine system from \(\mathcal A\)</i> is given by 
+    The <i>left-affine system from \(\mathcal A\)</i>, \(\mathcal S(\mathcal A)\), is given by 
     \[\begin{aligned}
         x_1 &= b_1 + r_{11} x_1 + r_{12} x_2 + \cdots + r_{1n} x_n \\
         x_2 &= b_2 + r_{21} x_1 + r_{22} x_2 + \cdots + r_{2n} x_n \\
@@ -189,5 +189,36 @@
 </p>
 
 <div class="theorem">
+    <b>(Solutions are Solutions)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be a finite automaton with \(Q = \{x_1, \dots, x_n\}\), and consider its left-affine system of equations \(\mathcal S(\mathcal A)\).
+    If \(s_1,\dots, s_n \in \mathit{RExp}\) is a solution to \(\mathcal S(\mathcal A)\), then for each \(i = 1,\dots, n\), \(\mathcal L(\mathcal A, x_i) = \mathcal L(s_i)\).
+</div>
 
+<h2>Kleene's Algorithm and Kleene's Theorem</h2>
+
+<p>
+    It turns out that every left-affine system of equations has a (in fact, unique) solution.
+    The most important part of this section is <i>Kleene's algorithm</i>, which finds that solution always.
+</p>
+
+<p>
+    Kleene's algorithm is recursive, which means that it has a <i>base case</i> and a <i>recursive step</i>.
+    Basically, you recurse on the number of indeterminate variables in the left-affine system:
+    if the number of variables is zero, then you are done.
+    There are no indeterminate variables, so all of the regular expressions on the right-hand side are explicit regular expressions with no \(x_i\)s in them. 
+</p>
+
+<p>
+    In the recursive step, you will have a left-affine system of the form
+    \[\begin{aligned}
+        x_1 &= b_1 + r_{11} x_1 + r_{12} x_2 + \cdots + r_{1n} x_n + r_{1(n+1)}x_{n+1} \\
+        x_2 &= b_2 + r_{21} x_1 + r_{22} x_2 + \cdots + r_{2n} x_n + r_{2(n+1)}x_{n+1} \\
+        &\hspace{2em} \vdots \\
+        x_n &= b_n + r_{n1} x_1 + r_{n2} x_2 + \cdots + r_{nn} x_n + r_{n(n+1)}x_{n+1} 
+        x_{n+1} &= b_{n+1} + r_{(n+1)1} x_1 + r_{(n+1)2} x_2 + \cdots + r_{(n+1)n} x_n + r_{(n+1)(n+1)}x_{n+1} 
+    \end{aligned}\]
+</p>
+
+<div class="theorem">
+    <b>(Kleene's Theorem)</b>
 </div>
