@@ -94,44 +94,13 @@
         \[
             s_1 =_{\mathcal L} b^*as_2 =_{\mathcal L} b^*a(ab^*a + a + b)^*
         \]
-    </p>
-
-    <p>
-        Now, \(a+b\) does not have the empty word property, so we get the following instance of Arden's rule:
-        \[\begin{aligned}
-            \overbrace{\framebox{\(s_2\)}}^s
-            &=_{\mathcal L} \overbrace{(\varepsilon + as_1)}^t + \overbrace{(a + b)}^r \overbrace{\framebox{\(s_2\)}}^s \\
-            &=_{\mathcal L} \overbrace{(a + b)^*}^{r^*}\overbrace{(\varepsilon + as_1)}^t && \text{(Arden's Rule)}
-        \end{aligned}\]
-        Note that the \(s_2\) disappears on the right-hand side, leaving \(s_1\) as an indeterminate variable.
-    </p>
-
-    <p>
-        Now let's plug \(s_2\) back into the first equation. 
-        This gives
-        \[\begin{align}
-            s_1 
-            &= b^*(a((a + b)^*(\varepsilon + as_1))) && \text{substitute \(s_2\)} \\
-            &= b^*(a(a + b)^*\varepsilon + a(a + b)^*as_1) && \text{distribute sequential composition} \\
-            &= b^*a(a + b)^*\varepsilon + b^*a(a + b)^*as_1 && \text{distribute sequential composition} \\
-            &= b^*a(a + b)^* + b^*a(a + b)^*as_1 && \text{\(\varepsilon\) sequential composition} \\
-        \end{align}\]
-        Again, \(b^*a(a + b)^*a\) does not have the empty word property (its language semantics contains words with two \(a\)s), so we have another instance of Arden's rule:
-        \[\begin{aligned}
-            \overbrace{\framebox{\(s_1\)}}^s 
-            &= \overbrace{(b^*a(a + b)^*)}^t + \overbrace{(b^*a(a + b)^*a)}^r \overbrace{\framebox{\(s_1\)}}^s \\
-            &= \overbrace{(b^*a(a + b)^*a)^*}^{r^*}\overbrace{(b^*a(a + b)^*)}^t && \text{\(\varepsilon\) sequential composition} \\
-        \end{aligned}\]
-        Aha! And there are no more \(s_1\) and \(s_2\)s in that equation!
-    </p>
-    <p>
-        Using algebraic reasoning, we have come to the following conclusion: that the language accepted by \(x_2\) is the semantics of the regular expression...
+        Using algebraic reasoning, we have come to the following conclusion: that the language accepted by \(x_1\) is the semantics of the regular expression...
         \[
-            \mathcal L(\mathcal A_1, x_1) = \mathcal L(s_2) = \mathcal L(
-                (b^*a(a + b)^*a)^*(b^*a(a + b)^*)
+            \mathcal L(\mathcal A_1, x_1) = \mathcal L(s_1) = \mathcal L(
+                b^*a(ab^*a + a + b)^*
             )
         \]
-        ...it's not a pretty regular expression, but this is generally how the method of deriving these equations works.
+        Neat, huh?
     </p>
 </div>
 
