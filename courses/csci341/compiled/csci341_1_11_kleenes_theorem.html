@@ -176,18 +176,23 @@
     <p>
         The one on the left, \(\mathcal A_1\), has two states: \(x_1\) and \(x_2\).
         We are going to calculate the language that \(x_1\) accepts.
-        Whatever it is, call it \(L_1 = \mathcal L(\mathcal A_1, x_1)\), we know that any word of the form \(aw \in L_1\) has to have its \(w\) component accepted by \(x_2\), and conversely every word \(w\) accepted by \(x_2\) determines a word \(aw\ in L_1\).
-        This ties the two languages together: let \(L_2 = \mathcal L(\mathcal A_2, x_2)\) be the language \(x_2\) accepts. 
-        Then what we have deduced is that \(\{a\} \cdot L_2 \subseteq L_1\).
+        Whatever it is, call it \(L_1 = \mathcal L(\mathcal A_1, x_1)\).
+        We also need a name for the language \(x_2\) accepts, so let's call that \(L_2 = \mathcal L(\mathcal A_2, x_2)\).
     </p>
-
     <p>
-        Now, we also know that if \(w \in L_1\), then because \(x_1 \xrightarrow{b} x_1\), \(\{b\}\cdot L_1 \subseteq L_1\).
-        But there are no other words in \(L_1\)! so we have arrived at the following equation:
+        Observing the transitions in \(\mathcal A_1\) out of \(x_1\), one sees that for any word \(w\) accepted by \(x_2\), we find the word \(aw \in L_1\).
+        This is simply because \(x_1 \xrightarrow{a} x_2\).
+        This ties the two languages together: 
+        What we have just deduced is that \(\{a\} \cdot L_2 \subseteq L_1\).
+        Similarly, for any word \(w\) accepted by \(x_1\), \(bw\) is also accepted by \(x_1\), again because \(x_1 \xrightarrow{b} x_1\).
+        So also, \(\{b\} \cdot L_1 \subseteq L_1\).
+    </p>
+    <p>
+        Since we have exhausted the outgoing transitions from \(x_1\), there are no other words in \(L_1\), so we have arrived at the following equation:
         \[
             L_1 = (\{a\} \cdot L_2) \cup (\{b\} \cdot L_1)
         \]
-        In terms of regular expressions, if \(s_1\) is a regular expression for \(L_1\) and \(s_2\) is a regular expression for \(L_2\), then the quation reads 
+        In terms of regular expressions, if \(s_1\) is a regular expression whose semantics is \(L_1\) and \(s_2\) is a regular expression whose semantics is \(L_2\), then the equation above can be written
         \[
             s_1 =_{\mathcal L} as_2 + bs_1
         \]
@@ -202,7 +207,7 @@
     </p>
 
     <p>
-        The situation for \(s_2\) is slightly different. 
+        The situation for \(s_2\) is only slightly different. 
         It's true that \(\{a\} \cdot L_1 \subseteq L_2\), and similarly that \(\{a\} \cdot L_2 \subseteq L_2\) and \(\{b\} \cdot L_2 \subseteq L_2\).
         But this isn't quite all of \(L_2\): we also know that \(\varepsilon \in L_2\).
         Altogether, that makes 
@@ -213,10 +218,21 @@
         \[
             s_2 =_{\mathcal L} \varepsilon + as_1 + as_2 + bs_2
         \]
+        Since we have already worked out what \(s_1\) is in terms of \(s_2\), let's plug that in.
+        \[\begin{aligned}
+            s_2 
+            &=_{\mathcal L} \varepsilon + as_1 + (a + b)s_2 \\
+            &=_{\mathcal L} \varepsilon + ab^*as_2 + (a + b)s_2  && \text{plug in \(s_1\)}\\
+        \end{aligned}\]
+        This only has \(s_2\) as a dependent variable!
         Collecting like terms (remember the Sequential Composition equations from the Algebra of Regular Expressions), we get 
         \[
-            s_2 =_{\mathcal L} \varepsilon + as_1 + (a + b)s_2
+            s_2 =_{\mathcal L} \varepsilon + (ab^*a + a + b)s_2
         \]
+
+    </p>
+
+    <p>
         Now, \(a+b\) does not have the empty word property, so we get the following instance of Arden's rule:
         \[\begin{aligned}
             \overbrace{\framebox{\(s_2\)}}^s
