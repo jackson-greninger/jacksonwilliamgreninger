@@ -435,7 +435,7 @@
             &= \varepsilon(\varepsilon + (a + b)y_1) &&\text{(Using the Basic Equations)} \\
             &= \varepsilon + (a + b)y_1 &&\text{(\(\varepsilon\) sequential composition)} 
         \end{aligned}\]
-        Now Kleene's theorem tells us we want to plug this back into the first equation and collect like terms: 
+        Now Kleene's algorithm tells us we want to plug this back into the first equation and collect like terms: 
         \[\begin{aligned}
             y_1 
             &= \emptyset + ay_1 + by_2 \\
@@ -451,6 +451,13 @@
             &= (\emptyset + b) + (a + b(a + b))y_1  \\
             &= (a + b(a + b))^*(\emptyset + b) &&\text{(Arden's Rule)} \\
         \end{aligned}\]
+        And viola! One regular expression whose semantics is the language accepted by \(y_1\) is \((a + b(a + b))^*(\emptyset + b)\)!
+        Of course, we can simplify using the \(\emptyset\) union rule to eliminate \(\empset\) above, and as a result we get
+        \[
+            \mathcal L(\mathcal A_2, y_1) 
+            = \mathcal L((a + b(a + b))^*(\emptyset + b))
+            = \mathcal L((a + b(a + b))^*b)
+        \]
         <!-- One nice thing about this example is that \(y_2\) does not appear in the last equation.  -->
         This means that we proceed to the next step, which is to 
 
