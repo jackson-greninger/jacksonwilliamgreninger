@@ -164,55 +164,137 @@
     To get at the "systems of equations" part, let's do a little analysis of a couple automata.
 </p>
 
-<div class="figure">
-    <img src="../imgs/about-to-union.svg" alt="two automata" />
-    Two two-state automata, \(\mathcal A_1\) and \(\mathcal A_2\).
+<div class="example">
+    <b>(Finding a Regular Expression)</b>
+    Consider the automata in the figure below.
+
+    <div class="figure">
+        <img src="../imgs/about-to-union.svg" alt="two automata" />
+        Two two-state automata, \(\mathcal A_1\) and \(\mathcal A_2\).
+    </div>
+
+    <p>
+        The one on the left, \(\mathcal A_1\), has two states: \(x_1\) and \(x_2\).
+        We are going to calculate the language that \(x_1\) accepts.
+        Whatever it is, call it \(L_1 = \mathcal L(\mathcal A_1, x_1)\), we know that any word of the form \(aw \in L_1\) has to have its \(w\) component accepted by \(x_2\), and conversely every word \(w\) accepted by \(x_2\) determines a word \(aw\ in L_1\).
+        This ties the two languages together: let \(L_2 = \mathcal L(\mathcal A_2, x_2)\) be the language \(x_2\) accepts. 
+        Then what we have deduced is that \(\{a\} \cdot L_2 \subseteq L_1\).
+    </p>
+
+    <p>
+        Now, we also know that if \(w \in L_1\), then because \(x_1 \xrightarrow{b} x_1\), \(\{b\}\cdot L_1 \subseteq L_1\).
+        But there are no other words in \(L_1\)! so we have arrived at the following equation:
+        \[
+            L_1 = (\{a\} \cdot L_2) \cup (\{b\} \cdot L_1)
+        \]
+        In terms of regular expressions, if \(s_1\) is a regular expression for \(L_1\) and \(s_2\) is a regular expression for \(L_2\), then the quation reads 
+        \[
+            s_1 =_{\mathcal L} as_2 + bs_1
+        \]
+        Now, check it out! 
+        Since \(b\) does not have the empty word property, we can use Arden's rule to simplify this equation:
+        \[\begin{aligned}
+            \overbrace{\framebox{\(s_1\)}}^s 
+            &=_{\mathcal L} \overbrace{(as_2)}^t + \overbrace{(b)}^r  \overbrace{\framebox{\(s_1\)}}^s \\
+            &=_{\mathcal L} \overbrace{b^*}^{r^*}\overbrace{(a s_2)}^t && \text{(Arden's Rule)}
+        \end{aligned}\]
+        So it remains to figure out what \(s_2\) is.
+    </p>
+
+    <p>
+        The situation for \(s_2\) is slightly different. 
+        It's true that \(\{a\} \cdot L_1 \subseteq L_2\), and similarly that \(\{a\} \cdot L_2 \subseteq L_2\) and \(\{b\} \cdot L_2 \subseteq L_2\).
+        But this isn't quite all of \(L_2\): we also know that \(\varepsilon \in L_2\).
+        Altogether, that makes 
+        \[
+            L_2 = (\{\varepsilon\}) \cup (\{a\}\cdot L_1) \cup (\{a\}\cdot L_2) \cup (\{b\} \cdot L_2)
+        \]
+        In terms of regular expressions, this gives the equation
+        \[
+            s_2 =_{\mathcal L} \varepsilon + as_1 + as_2 + bs_2
+        \]
+        Collecting like terms (remember the Sequential Composition equations from the Algebra of Regular Expressions), we get 
+        \[
+            s_2 =_{\mathcal L} \varepsilon + as_1 + (a + b)s_2
+        \]
+        Now, \(a+b\) does not have the empty word property, so we get the following instance of Arden's rule:
+        \[\begin{aligned}
+            \overbrace{\framebox{\(s_2\)}}^s
+            &=_{\mathcal L} \overbrace{(\varepsilon + as_1)}^t + \overbrace{(a + b)}^r \overbrace{\framebox{\(s_2\)}}^s \\
+            &=_{\mathcal L} \overbrace{(a + b)^*}^{r^*}\overbrace{(\varepsilon + as_1)}^t && \text{(Arden's Rule)}
+        \end{aligned}\]
+        Note that the \(s_2\) disappears on the right-hand side, leaving \(s_1\) as an indeterminate variable.
+    </p>
+
+    <p>
+        Now let's plug \(s_2\) back into the first equation. 
+        This gives
+        \[\begin{align}
+            s_1 
+            &= b^*(a((a + b)^*(\varepsilon + as_1))) && \text{substitute \(s_2\)} \\
+            &= b^*(a(a + b)^*\varepsilon + a(a + b)^*as_1) && \text{distribute sequential composition} \\
+            &= b^*a(a + b)^*\varepsilon + b^*a(a + b)^*as_1 && \text{distribute sequential composition} \\
+            &= b^*a(a + b)^* + b^*a(a + b)^*as_1 && \text{\(\varepsilon\) sequential composition} \\
+        \end{align}\]
+        Again, \(b^*a(a + b)^*a\) does not have the empty word property (its language semantics contains words with two \(a\)s), so we have another instance of Arden's rule:
+        \[\begin{aligned}
+            \overbrace{\framebox{\(s_1\)}}^s 
+            &= \overbrace{(b^*a(a + b)^*)}^t + \overbrace{(b^*a(a + b)^*a)}^r \overbrace{\framebox{\(s_1\)}}^s \\
+            &= \overbrace{(b^*a(a + b)^*a)^*}^{r^*}\overbrace{(b^*a(a + b)^*)}^t && \text{\(\varepsilon\) sequential composition} \\
+        \end{aligned}\]
+        Aha! And there are no more \(s_1\) and \(s_2\)s in that equation!
+    </p>
+    <p>
+        Using algebraic reasoning, we have come to the following conclusion: that the language accepted by \(x_2\) is the semantics of the regular expression...
+        \[
+            \mathcal L(\mathcal A_1, x_1) = \mathcal L(s_2) = \mathcal L(
+                (b^*a(a + b)^*a)^*(b^*a(a + b)^*)
+            )
+        \]
+        ...it's not a pretty regular expression, but this is generally how the method of deriving these equations works.
+    </p>
+</div>
+
+<div class="exercise">
+    <b>(Kleene is Kinda Dirty)</b>
+    Find a shorter regular expression \(r\) whose language semantics is the language accepted by \(x_1\) in \(\mathcal A_1\) from the example above, i.e., \(\mathcal L(\mathcal A_1, x_1) = \mathcal L(r)\).
 </div>
 
 <p>
-    The one on the left, \(\mathcal A_1\), has two states: \(x_1\) and \(x_2\).
-    We are going to calculate the language that \(x_1\) accepts.
-    Whatever it is, call it \(L_1 = \mathcal L(\mathcal A_1, x_1)\), we know that any word of the form \(aw \in L_1\) has to have its \(w\) component accepted by \(x_2\), and conversely every word \(w\) accepted by \(x_2\) determines a word \(aw\ in L_1\).
-    This ties the two languages together: let \(L_2 = \mathcal L(\mathcal A_2, x_2)\) be the language \(x_2\) accepts. 
-    Then what we have deduced is that \(\{a\} \cdot L_2 \subseteq L_1\).
+    In the example above, we used Arden's rule a bunch to fish out a regular expression from a system of equations that we obtained from an automaton. 
+    Altogehter, the <i>system of equations</i> in the example was (and I have moved terms around a little bit)
+    \[\begin{aligned}
+        s_1 &= bs_1 + as_2 \\
+        s_2 &=_{\mathcal L} \varepsilon + as_1 + (a + b)s_2
+    \end{aligned}\]
+    and to find the regular expression that corresponds to \(s_1\) we needed to eliminate the indeterminate variables, \(s_1\) and \(s_2\), from the right-hand side of each equation.
 </p>
 
-<p>
-    Now, we also know that if \(w \in L_1\), then because \(x_1 \xrightarrow{b} x_1\), \(\{b\}\cdot L_1 \subseteq L_1\).
-    But there are no other words in \(L_1\)! so we have arrived at the following equation:
+<div class="definition">
+    <b>(System of Equations from Automaton)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be a finite automaton, and write 
+    \(Q = \{x_1, x_2, \dots, x_n\}\).
+    The <i>system of equations from \(\mathcal A\)</i> is given by 
+    \[\begin{aligned}
+        x_1 &= b_1 + r_{11} x_1 + r_{12} x_2 + \cdots + r_{1n} x_n \\
+        x_2 &= b_2 + r_{21} x_1 + r_{22} x_2 + \cdots + r_{2n} x_n \\
+        &\hspace{2em} \vdots \\
+        x_n &= b_n + r_{n1} x_1 + r_{n2} x_2 + \cdots + r_{nn} x_n 
+    \end{aligned}\]
+    where 
     \[
-        L_1 = \{a\} \cdot L_2 \cup \{b\} \cdot L_1
+        b_i = \begin{cases}
+            \varepsilon &\text{if \(x_i \in F\)} \\
+            \emptyset &\text{if \(x_i \notin F\)}
+        \end{cases}
     \]
-    In terms of regular expressions, if \(s_1\) is a regular expression for \(L_1\) and \(s_2\) is a regular expression for \(L_2\), then the quation reads 
+    and 
     \[
-        s_1 =_{\mathcal L} as_2 + bs_1
+        r_{ij} = \sum_{(x_i, a, x_j) \in \delta} a
     \]
-    Now, check it out! 
-    Since \(b\) does not have the empty word property, we can simplify this equation to get 
-    \[
-        s_1 =_{\mathcal L} b^*(a s_2)
-    \]
-    So it remains to figure out what \(s_2\) is.
-</p>
+</div>
 
-<p>
-    The situation for \(s_2\) is slightly different. 
-    It's true that \(\{a\} \cdot L_1 \subseteq L_2\), and similarly that \(\{a\} \cdot L_2 \subseteq L_2\) and \(\(\{b\} \cdot L_2 \subseteq L_2\)\).
-    But this isn't quite all of \(L_2\): we also know that \(\varepsilon \in L_2\).
-    Altogether, that makes 
-    \[
-        L_2 = \{\varepsilon\} \cup \{a\}\cdot L_1 \cup \{a\}\cdot L_2 \cup \{b\} \cdot L_2
-    \]
-    In terms of regular expressions, this gives the equation
-    \[
-        s_2 =_{\mathcal L} \varepsilon + as_1 + as_2 + bs_2
-    \]
-    Collecting like terms (remember the Sequential Composition equations from the Algebra of Regular Expressions), we get 
-    \[
-        s_2 =_{\mathcal L} \varepsilon + as_1 + (a + b)s_2
-    \]
-    Now, \(a+b\) does not have the empty word property, so 
-</p>
+
 
 
 <!-- END OF BODY -->
