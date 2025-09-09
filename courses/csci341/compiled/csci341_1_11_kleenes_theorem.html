@@ -217,26 +217,24 @@
         \]
         In terms of regular expressions, this gives the equation
         \[
-            s_2 =_{\mathcal L} \varepsilon + as_1 + as_2 + bs_2
+            s_2 =_{\mathcal L} \varepsilon + as_2 + bs_2
         \]
-        Since we have already worked out what \(s_1\) is in terms of \(s_2\), let's plug that in and collect like terms.
+        Let's collect like terms.
         \[\begin{aligned}
             s_2 
-            &=_{\mathcal L} \varepsilon + as_1 + as_2 + bs_2 \\
-            &=_{\mathcal L} \varepsilon + ab^*as_2 + as_2 + bs_2  && \text{(plug in \(s_1\))}\\
-            &=_{\mathcal L} \varepsilon + (ab^*a + a + b)s_2  && \text{(collect like terms)}
+            &=_{\mathcal L} \varepsilon + as_2 + bs_2 \\
+            &=_{\mathcal L} \varepsilon + (a + b)s_2  && \text{(collect like terms)}
         \end{aligned}\]
-        This only has \(s_2\) as a dependent variable!
     </p>
 
     <p>
-        Now, none of \(ab^*a\), \(a\), \(b\) have the empty word property, so neither does \(ab^*a + a + b\).
+        Neither \(a\) nor \(b\) have the empty word property, so neither does \(a + b\).
         This allows us to use Arden's rule again:
         \[\begin{aligned}
             \overbrace{\framebox{\(s_2\)}}^s 
-            &=_{\mathcal L} \overbrace{\varepsilon}^t + \overbrace{(ab^*a + a + b)}^r \overbrace{\framebox{\(s_2\)}}^s  \\
-            &=_{\mathcal L} \overbrace{(ab^*a + a + b)^*}^{r^*} \overbrace{\varepsilon}^t  && \text{(Arden's Rule)}\\
-            &=_{\mathcal L} (ab^*a + a + b)^*  && \text{(\(\varepsilon\) sequential composition)}
+            &=_{\mathcal L} \overbrace{\varepsilon}^t + \overbrace{(a + b)}^r \overbrace{\framebox{\(s_2\)}}^s  \\
+            &=_{\mathcal L} \overbrace{(a + b)^*}^{r^*} \overbrace{\varepsilon}^t  && \text{(Arden's Rule)}\\
+            &=_{\mathcal L} (a + b)^*  && \text{(\(\varepsilon\) sequential composition)}
         \end{aligned}\]
         This has no indeterminate variables, so we have just derived a regular expression for \(s_2\)!
     </p>
@@ -245,21 +243,18 @@
         But what about \(s_1\)?
         Well, now all you have to do is plug this back into the equation we derived for \(s_1\):
         \[
-            s_1 =_{\mathcal L} b^*as_2 =_{\mathcal L} b^*a(ab^*a + a + b)^*
+            s_1 =_{\mathcal L} b^*as_2 =_{\mathcal L} b^*a(a + b)^*
         \]
         Using algebraic reasoning, we have come to the following conclusion: that the language accepted by \(x_1\) is the semantics of the regular expression...
         \[
             \mathcal L(\mathcal A_1, x_1) = \mathcal L(s_1) = \mathcal L(
-                b^*a(ab^*a + a + b)^*
+                b^*a(a + b)^*
             )
         \]
+        This regular expression should not come as too much of a surprise: its language semantics includes words that start with some number of \(b\)s, then an \(a\), and then anything that comes after is ignored.
+        This is precisely the language that \(x_1\) accepts.
         Neat, huh?
     </p>
-</div>
-
-<div class="exercise">
-    <b>(Kleene is Kinda Dirty)</b>
-    Find a shorter regular expression \(r\) whose language semantics is the language accepted by \(x_1\) in \(\mathcal A_1\) from the example above, i.e., \(\mathcal L(\mathcal A_1, x_1) = \mathcal L(r)\).
 </div>
 
 <p>
@@ -466,22 +461,23 @@
             = \mathcal L((a + b(a + b))^*(\emptyset + b))
             = \mathcal L((a + b(a + b))^*b)
         \]
-        <!-- One nice thing about this example is that \(y_2\) does not appear in the last equation.  -->
         This means that we proceed to the next step, which is to 
-
     </p>
-</div>
-
-<div class="exercise">
-    <b>(Setting Things Up)</b>
-    Write down the left-affine system of equations for automaton \(\mathcal A_2\) in the Finding a Regular Expression example.
-    Find a solution to the system using the same kind of reasoning as in the example.
 </div>
 
 <p>
     Because it guarantees a solution always, Kleene's algorithm is a good one to practice a couple times.
     It's not hard to understand that it works, I think, but using it can be a bit tricky.
 </p>
+
+<div class="exercise">
+    <b>(I Am The Machine)</b>
+    Write down the left-affine system of equations for each automaton below and solve them using Kleene's algorithm.
+    Simplify the regular expressions where you can.
+    <div class="figure">
+        <img src="../imgs/kleenealgebraeg.svg" />
+    </div>
+</div>
 
 <p>
     The significance of Kleene's algorithm, left-affine systems and their solutions, and Antimirov derivatives, is that together they land us at the following theorem.
