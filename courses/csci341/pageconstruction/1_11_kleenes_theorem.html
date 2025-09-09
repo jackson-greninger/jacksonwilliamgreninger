@@ -166,6 +166,11 @@
     </p>
 </div>
 
+<p>
+    I slipped something under the rug in the definition above...
+    You should take a moment to convince yourself that \(\mathcal S(\mathcal A)\) is always a left-affine system (pay attention to the empty word property part).
+</p>
+
 <div class="exercise">
     <b>(Solving One-variable Systems)</b>
     Set up the left-affine system of equations for each of the following automata and solve them using Arden's rule.
@@ -175,12 +180,6 @@
         <li>The diverging loop, \(\mathcal A_\circlearrowright = (\{s_0\}, \{a, b\}, \{(s_0, a, s_0), (s_0, b, s_0)\}, \{\})\)</li>
         <li>The automaton that only accepts, \(\mathcal A_\varepsilon = (\{s_0\}, \{a, b\}, \{\}, \{s_0\})\)</li>
     </ol>
-</div>
-
-<div class="exercise">
-    <b>(Setting Things Up)</b>
-    Write down the left-affine system of equations for automaton \(\mathcal A_2\) in the Finding a Regular Expression example.
-    Find a solution to the system using the same kind of reasoning as in the example.
 </div>
 
 <p>
@@ -260,6 +259,39 @@
     <b>(Systems have Solutions)</b>
     Every left-affine system of equations has a solution.
     Furthermore, Kleene's algorithm finds this solution.
+</div>
+
+<div class="example">
+    <b>(Returning to Finding a Regular Expression)</b>
+    Following the definition literally, the left-affine system \(\mathcal S(\mathcal A_2)\) corresponding to the second automaton in the Finding a Regular Expression example is 
+    \[\begin{aligned}
+        y_1 &= \emptyset + ay_1 + by_2 \\
+        y_2 &= \varepsilon + (a + b)y_1 + \emptyset y_2
+    \end{aligned}\]
+    The first equation comes from \(b_1 = \emptyset\) (\(y_1\) is not accepting), \(y_1 \xrightarrow{a} y_2\), and \(y_1 \xrightarrow{b} y_2\) in the definition.
+    The second equation comes from \(b_2 = \varepsilon\) (\(y_2\) is accepting), \(y_2 \xrightarrow{a,b} y_1\), and that there are no transitions \(y_2 \to y_2\).
+
+    <p>
+        Kleene's algorithm tells us that we need to deal with the last equation first. 
+        Since \(\mathcal L(\emptyset)\) does not have the empty word property, we use Arden's rule to eliminate the \(y_2\) on the right-hand side. 
+        We get 
+        \[\begin{aligned}
+            y_2 
+            &= \varepsilon + (a + b)y_1 + \emptyset y_2 \\
+            &= \emptyset^*(\varepsilon + (a + b)y_1) &&\text{Arden's Rule} \\
+            &= \varepsilon(\varepsilon + (a + b)y_1) &&\text{Using the Basic Equations} \\
+            &= \varepsilon + (a + b)y_1 &&\text{\(\varepsilon\) sequential composition} \\
+        \end{aligned}\]
+        <!-- One nice thing about this example is that \(y_2\) does not appear in the last equation.  -->
+        This means that we proceed to the next step, which is to 
+
+    </p>
+</div>
+
+<div class="exercise">
+    <b>(Setting Things Up)</b>
+    Write down the left-affine system of equations for automaton \(\mathcal A_2\) in the Finding a Regular Expression example.
+    Find a solution to the system using the same kind of reasoning as in the example.
 </div>
 
 <p>
