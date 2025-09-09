@@ -224,14 +224,19 @@
             s_2 
             &=_{\mathcal L} \varepsilon + as_1 + as_2 + bs_2 \\
             &=_{\mathcal L} \varepsilon + ab^*as_2 + as_2 + bs_2  && \text{plug in \(s_1\)}\\
-            &=_{\mathcal L} \varepsilon + (ab^*a + a + b)s_2  && \text{collect like terms}\\
+            &=_{\mathcal L} \varepsilon + (ab^*a + a + b)s_2  && \text{collect like terms}
         \end{aligned}\]
         This only has \(s_2\) as a dependent variable!
-        Collecting like terms (remember the Sequential Composition equations from the Algebra of Regular Expressions), we get 
-        \[
-            s_2 =_{\mathcal L} \varepsilon + (ab^*a + a + b)s_2
-        \]
+    </p>
 
+    <p>
+        Now, none of \(ab^*a\), \(a\), \(b\) have the empty word property, so neither does \(ab^*a + a + b\).
+        This allows us to use Arden's rule again:
+        \[\begin{aligned}
+            \overbrace{\framebox{\(s_2\)}}^s 
+            &=_{\mathcal L} \overbrace{\varepsilon}^t + \overbrace{(ab^*a + a + b)}^r \overbrace{\framebox{\(s_2\)}}^s  \\
+            &=_{\mathcal L} (ab^*a + a + b)^*\varepsilon  && \text{Arden's Rule}
+        \end{aligned}\]
     </p>
 
     <p>
