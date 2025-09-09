@@ -270,6 +270,10 @@
     and to find the regular expression that corresponds to \(s_1\) we needed to eliminate the indeterminate variables, \(s_1\) and \(s_2\), from the right-hand side of each equation.
 </p>
 
+<p>
+    It turns out that every system of equations of this form has a solution.
+</p>
+
 <div class="definition">
     <b>(Left-Affine System)</b>
     A <i>left-affine system of equations</i> is a system of equations of the form 
@@ -281,6 +285,16 @@
     \end{aligned}\]
     where \(b_i,r_{ij} \in \mathit{RExp}\) are regular expressions and none of the \(r_{ij}\) have the empty word property.
     The variables \(x_1, \dots, x_n\) are called the <i>indeterminate variables</i> of the system.
+
+    <p>
+        A <i>solution</i> to the left-affine system of equations above is a sequence of regular expressions \(s_1, s_2, \dots, s_n\) such that 
+        \[\begin{aligned}
+            s_1 &=_{\mathcal L} b_1 + r_{11} s_1 + r_{12} s_2 + \cdots + r_{1n} s_n \\
+            s_2 &=_{\mathcal L} b_2 + r_{21} s_1 + r_{22} s_2 + \cdots + r_{2n} s_n \\
+            &\hspace{2em} \vdots \\
+            s_n &=_{\mathcal L} b_n + r_{n1} s_1 + r_{n2} s_2 + \cdots + r_{nn} s_n 
+        \end{aligned}\]
+    </p>
     
     <p>Let \(\mathcal A = (Q, A, \delta, F)\) be a finite automaton, and write 
     \(Q = \{x_1, x_2, \dots, x_n\}\).
@@ -305,7 +319,31 @@
     </p>
 </div>
 
+<div class="exercise">
+    <b>(Solving One-variable Systems)</b>
+    Set up the left-affine system of equations for each of the following automata and solve them using Arden's rule.
+    <ol>
+        <li>The all-accepting automaton, \(\mathcal A_\checkmark = (\{s_0\}, \{a, b\}, \{(s_0, a, s_0), (s_0, b, s_0)\}, \{s_0\})\)</li>
+        <li>The sink automaton, \(\mathcal A_\bullet = (\{s_0\}, \{a, b\}, \{\}, \{\})\)</li>
+        <li>The diverging loop, \(\mathcal A_\circrightarrow = (\{s_0\}, \{a, b\}, \{(s_0, a, s_0), (s_0, b, s_0)\}, \{\})\)</li>
+        <li>The automaton that only accepts, \(\mathcal A_\varepsilon = (\{s_0\}, \{a, b\}, \{\}, \{s_0\})\)</li>
+    </ol>
+</div>
 
+<div class="exercise">
+    <b>(Setting Things Up)</b>
+    Write down the left-affine system of equations for automaton \(\mathcal A_2\) in the Finding a Regular Expression example.
+    Find a solution to the system using the same kind of reasoning as in the example.
+</div>
+
+<p>
+    The next theorem states that solving the left-affine system of equations for an automaton finds you all the regular expressions that correspond to its states.
+    The reason is a kind of it-works-by-design type deal, as we saw in the Finding a Regular Expression Example.
+</p>
+
+<div class="theorem">
+
+</div>
 
 
 <!-- END OF BODY -->
