@@ -388,10 +388,31 @@
         &\hspace{2em} \vdots \\
         x_n &= b_n + r_{n1} x_1 + r_{n2} x_2 + \cdots + r_{nn} x_n + r_{n(n+1)}((r_{(n+1)(n+1)})^* b_{n+1} + (r_{(n+1)(n+1)})^*r_{(n+1)1} x_1 + \cdots + (r_{(n+1)(n+1)})^*r_{(n+1)n} x_n) \\
     \end{aligned}\]
+    Using distributivity and collecting like terms turns the above system of equations into a left-affine system of equations.
+    Is it pretty? No, but it does work!
+</p>
+
+<div class="theorem">
+    <b>(Systems have Solutions)</b>
+    Every left-affine system of equations has a solution.
+    Furthermore, Kleene's algorithm finds this solution.
+</div>
+
+<p>
+    Because it guarantees a solution always, Kleene's algorithm is a good one to practice a couple times.
+    It's not hard to understand that it works, I think, but using it can be a bit tricky.
+</p>
+
+<p>
+    The significance of Kleene's algorithm, left-affine systems and their solutions, and Antimirov derivatives, is that together they land us at the following theorem.
 </p>
 
 <div class="theorem">
     <b>(Kleene's Theorem)</b>
+    Let \(L \subseteq A^*\) be a language. 
+    Then \(L\) is accepted by a state in a finite automaton if and only if \(L\) is the language semantics of somer egular expression. 
+    Formally,
+    \[\mathsf{Fin} = \mathsf{Reg}\]
 </div>
 
 
