@@ -215,9 +215,10 @@
     Prove the following identities.
     <ol>
         <li>\((\varepsilon + a)^* =_{\mathcal L} (\emptyset + a)^*\)</li>
-        <li>\(a^* =_{\mathcal L} a^* + \varepsilon\)</li>
+        <li>\(\varepsilon + a^* =_{\mathcal L} a^*\)</li>
         <li>\(\emptyset^* =_{\mathcal L} \varepsilon\)</li>
         <li>\((a + b)^* =_{\mathcal L} a(a + b + \varepsilon)^* + b(\emptyset + b + a)^* + \varepsilon\)</li>
+        <li>for any \(r_i,s_i \in \mathit{RExp}\), \((r_1 + r_2)(s_1 + s_2) =_{\mathcal L} r_1s_1 + r_1s_2 + r_2s_1 + r_2s_2\)</li>
     </ol>
 </div>
 
@@ -292,6 +293,15 @@
 </div>
 
 <div class="exercise">
+    <b>(Using Arden's Rules)</b>
+    Use the equations above to prove the following equations.
+    <ol>
+        <li>\(aa^* = a^* a\)</li>
+        <li>\(a^* =_{\mathcal L} (aa)^*(a + \varepsilon)\).</li>
+    </ol>
+</div>
+
+<div class="exercise">
     <b>(Breaking Arden's Rule)</b>
     What does the empty word property have to do with Arden's Rule at all?
     Find two solutions \(r_1,r_2 \in \mathit{RExp}\) to the equation 
@@ -302,14 +312,7 @@
     What went wrong?
 </div>
 
-<div class="exercise">
-    <b>(Even or Odd, Equationally!)</b>
-    Use Arden's rule to prove that \(a^* =_{\mathcal L} (aa)^*(a + \varepsilon)\).
-</div>
-
-<div class="exercise">
-    <b>This one is a CHALLENGE.</b><br /><br />
-
+<div class="challenge-exercise">
     <b>(aa...Aaa..<a href="https://youtu.be/O04H-z1z1T0?si=CBtEBf88xJ5xnm-c" target="_blank">.</a>.AAAA)</b>
     Let \(a \in A\).
     Use the equations in the Lemmas above to prove that \[a^* =_{\mathcal L} (a^*)^*\]
@@ -319,7 +322,11 @@
 <div class="problem">
     <b>()</b>
     Let \(a,b \in A\).
-    Use the equations in the Lemmas above to prove that \[(a^* + b^*)^* =_{\mathcal L} (a + b)^*\]
+    Use the equations in the Lemmas above to prove the following equations:
+    <ol>
+        <li>\(a^*a^* =_{\mathcal L} (aa)^*a^*\).</li>
+        <li>\((a + b)^* =_{\mathcal L} b^*(ab^*)^*\)</li>
+    </ol>
     Label each equation you use in your proof to indicate which lemma was used where. 
 </div>
 
