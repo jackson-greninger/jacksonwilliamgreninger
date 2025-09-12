@@ -104,11 +104,11 @@
 	padding:2%;
 	border: 1px solid rgb(255, 0, 0);
 	
-	background-color:rgba(147, 255, 156, 0.15) ;
+	background-color:rgba(219, 255, 147, 0.15) ;
 }
 
 .challenge-exercise::before {
-	color: rgb(32, 110, 87);
+	color: rgb(32, 110, 38);
 	content: "Challenge Exercise. ";
 	font-weight: bold;
 }
