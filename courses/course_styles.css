@@ -109,7 +109,7 @@
 
 .challenge-exercise::before {
 	color: rgb(32, 110, 87);
-	content: "Individual Exercise. ";
+	content: "Challenge Exercise. ";
 	font-weight: bold;
 }
 
@@ -127,7 +127,7 @@
 
 .individual-exercise::before {
 	color: rgb(32, 110, 87);
-	content: "Challenge Exercise. ";
+	content: "Individual Exercise. ";
 	font-weight: bold;
 }
 
