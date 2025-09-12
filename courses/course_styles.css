@@ -109,6 +109,24 @@
 
 .challenge-exercise::before {
 	color: rgb(32, 110, 87);
+	content: "Individual Exercise. ";
+	font-weight: bold;
+}
+
+.individual-exercise {
+	margin:10px;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: auto;
+	width: 90%;
+	padding:2%;
+	border: 1px solid rgb(38, 0, 255);
+	
+	background-color:rgba(147, 255, 226, 0.15) ;
+}
+
+.individual-exercise::before {
+	color: rgb(32, 110, 87);
 	content: "Challenge Exercise. ";
 	font-weight: bold;
 }
