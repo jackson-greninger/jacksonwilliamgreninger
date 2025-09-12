@@ -1,0 +1,312 @@
+<h1>Determinization</h1>
+
+<p>
+    Remember that a language \(L\) is finitely recognizable if there is a finite automaton \(\mathcal A = (Q, A, \delta, F)\) and a state \(x \in Q\) such that \(L = \mathcal L(\mathcal A, x)\).
+    Last time, we saw that \(\mathsf{Fin} \subseteq \mathsf{TDFin}\). 
+    Today, we are going to show the converse: that \(\mathsf{TDFin} \subseteq \mathsf{Fin}\), which would prove the following theorem:
+</p>
+
+<div class="theorem" id="thm_finiteRecognizability">
+    <b>(Finite Recognizability)</b>
+    Let \(L \subseteq A^*\) be a language.
+    Then \(L\) is finitely recognizable if and only if \(L\) is total deterministic finitely recognizable.
+    In other words, \[\mathsf{TDFin} = \mathsf{DFin} = \mathsf{Fin}\]
+</div>
+
+<p>
+    
+    The difficult part of the proof of the Finite Recognizability Theorem is showing that \(\mathsf{TDFin} \subseteq \mathsf{Fin}\). 
+    The idea behind the proof is an <i>automaton construction</i>: this is a kind of function that takes an automaton and a state as input, and produces an automaton and a state as output. 
+    The automaton construction we need is
+    <ul>
+        <li><b>Input:</b> a finite automaton \(\mathcal A = (Q, A, \delta, F)\) and a state \(x \in Q\)</li>
+        <li><b>Output:</b> a finite automaton \(\mathrm{Det}(\mathcal A) = (Q', A, \delta', F')\) and a state \(S \in Q'\) such that 
+            \[\mathcal L(\mathcal A, x) = \mathcal L(\mathrm{Det}(\mathcal A), S)\]</li>
+    </ul>
+</p>
+
+<p>
+    The automaton construction we are going to describe below, \(\mathrm{Det}\), is called <i>determinization</i>.
+    Before we get into it, it helps to see a bit of intuition for where it comes from. 
+    Remember how a state of an automaton reads a word: 
+    <ol>
+        <li>Write the word to a tape and place a marker on the starting state.</li>
+        <li>If there is no letter under the tape head, stop. Otherwise, Read the letter under the tape head. Call it \(a_i\).</li>
+        <li>For each active state \(y\) (a state with a marker on it) with a transition \(y \xrightarrow{a_i} z\), remove the marker from \(y\) and place a marker on \(z\). Now \(z\) is active.</li>
+        <li>Move the tape head to the right and go back to 2.</li>
+    </ol>
+    In the example below, let's just run this on \(x_0\) for the word \(aa\).
+</p>
+
+<div class="figure" style="border: none;">
+    <img src="../imgs/movealonginnondet.svg" alt="go to two places" />
+</div>
+
+<p>
+    We know that \(x_0\) accepts \(aa\) here because one of the active states is accepting at the end. 
+    But how do we turn this into a <i>deterministic</i> path?
+</p>
+
+<p>
+    At the moment, multiple states are active at each step.
+    The idea behind turning this into a deterministic automaton is to create a state in our <i>determinized</i> automaton for each possible <i>collection</i> of active states. 
+    So, the first collection would just be \(\{x_0\}\), since that's where we start. 
+    The outgoing transitions from \(x_0\) are now collected into a single state: after reading an \(a\), the next active state would be the collection \(\{x_1, x_2\}\).
+    Now repeat this again: after reading a second \(a\), collect all the outgoing transitions from \(\{x_1, x_2\}\) into a single transition to the collection \(\{x_3, x_4, x_5\}\).
+    The collections \(\{x_0\}\), \(\{x_1, x_2\}\), and \(\{x_3, x_4, x_5\}\) are three of the states that we get from <i>determinizing</i> the automaton. 
+</p>
+
+<div class="figure" style="border: none;">
+    <img src="../imgs/movealongdet.svg" alt="collect the set of states into a single state" />
+</div>
+
+<p>
+    Above, the collection \(\{x_3, x_4, x_5\}\) is a accepting state because <i>one of the states it contains is accepting</i>: indeed, observe that \(x_0\) accepts \(aa\).
+    This is where the definition of \(\mathrm{Det}(\mathcal A)\) below comes from. 
+</p>
+
+<div class="definition" id="def_det">
+    <b>(Determinization)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton. 
+    The <i>determinization of \(\mathcal A\)</i> is the automaton \(\mathrm{Det}(\mathcal A) = (Q', A, \delta', F')\), where 
+    <ul>
+        <li>\(Q' = 2^Q\) is the set of <i>subsets</i> of \(Q\), i.e., the set of all collections of states of \(\mathcal A\),</li>
+        <li>\(\delta' = \big\{ (U, a, V) \mid V = \bigcup_{x \in U} \delta(x, a) \big\}\), i.e., \(U \xrightarrow{a} V\) if \(V\) is the set of all states with incoming \(a\) transitions from states in \(U\),</li>
+        <li>\(F' = \big\{ U \mid F \cap U \neq \emptyset\big\}\), i.e., a collection of states is accepting if it contains an accepting state of \(\mathcal A\)</li>
+    </ul>
+</div>
+
+<p>
+    The set \(2^Q\), consisting of all the subsets of \(Q\), is called the <i>powerset</i> of \(Q\).
+    You might sometimes hear this determinization construction called the <i>powerset construction</i>.
+</p>
+
+<div class="exercise">
+    <b>(Understanding the Powerset)</b>
+    Calculate the powerset \(2^Q\), where 
+    <ol>
+        <li>\(Q = \{x\}\)</li>
+        <li>\(Q = \{x, y\}\)</li>
+        <li>\(Q = \{x, y, z\}\)</li>
+        <li>\(Q = \{\}\)</li>
+    </ol>
+    <div class="hint">
+        These sets have \(2, 4, 8\), and \(1\) elements respectively.
+    </div>
+</div>
+
+<div class="example">
+    Consider the two-state automaton in the alphabet \(A = \{a, b\}\) below
+
+    <div class="figure">
+        <img src="../imgs/twostateexampleofdet.svg" alt="two states, x-naught and x-1, with mutual a-transitions, and an a-loop on x-naught. x-1 is accepting." />
+        A two-state automaton \(\mathcal A_{eg}\) over the alphabet \(A = \{a, b\}\).
+        Notice that there are no \(b\)-transitions.
+    </div>
+    <p>
+        Formally, this state diagram represents the automaton \(\mathcal A_{eg} = (Q, A, \delta, F)\) given by
+        \[\begin{aligned}
+            Q       &= \{x_0, x_1\} \\
+            A       &= \{a, b\} \\
+            \delta  &= \{(x_0, a, x_0), (x_0, a, x_1), (x_1, a, x_0)\}\\
+            F       &= \{x_1\}
+        \end{aligned}\]
+        This is not a deterministic automaton: there are two \(a\)-transitions leaving \(x_0\).
+    </p>
+    <p>
+        In the determinization of \(\mathcal A_{eg}\), the states are <i>collections</i> of states from \(\mathcal A_{eg}\) (in other words, subsets of \(Q\)).
+        There are two states in \(\mathcal A_{eg}\), so there are \(2^2 = 4\) states in \(\mathrm{Det}(\mathcal A_{eg})\).
+        Specifically, 
+        \[
+            Q' = 2^Q = \big\{ \{\}, \{x_0\}, \{x_1\}, \{x_0,x_1\} \big\}
+        \]
+        Let's look at an example of a transition: since \(x_0 \xrightarrow{a} x_0\) and \(x_0 \xrightarrow{a} x_1\), the transition \(\{x_0\} \xrightarrow{a} \{x_0, x_1\}\) appears in \(\mathrm{Det}(\mathcal A_{eg})\).
+        Similarly, since \(x_1 \xrightarrow{a} x_0\), there is a self \(a\)-transition \(\{x_0, x_1\} \xrightarrow{a} \{x_0, x_1\}\) in \(\mathrm{Det}(\mathcal A_{eg})\).
+        In total, the state diagram looks like this:
+    </p>
+    <div class="figure">
+        <img src="../imgs/twostatenondetdeterminized.svg" alt="two state automaton determinized, with four states" />
+        A state diagram for the determinization of the two state automaton, \(\mathrm{Det}(\mathcal A_{eg})\).
+    </div>
+</div>
+
+<div class="exercise">
+    <b>(Determinize for Yourself)</b>
+    Consider the following automaton \(\mathcal A\).
+    <div class="figure">
+        <img src="../imgs/determinizeforyourself.svg" />
+        A two-state nondeterministic automaton \(\mathcal A = (Q, A, \delta, F)\), where 
+        \[\begin{aligned}
+            Q &= \{x_0, x_1\} \\
+            A &= \{a, b\} \\
+            \delta &= \{
+                (x_0, a, x_0),
+                (x_0, a, x_1),
+                (x_0, a, x_1),
+                (x_1, a, x_0),
+                (x_1, b, x_1),
+                \} \\
+            F &= \{x_0, x_1\}
+        \end{aligned}\]
+    </div>  
+    Our goal is to draw the state diagram for \(\mathrm{Det}(\mathcal A)\).  
+    The states of \(\mathrm{Det}(\mathcal A)\) are subsets of \(Q\), \[
+        Q' = 2^Q = \{\{\}, \{x_0\}, \{x_1\}, \{x_0, x_1\}\}
+    \]
+    like before. 
+    But what about the rest of it?
+    <ol>
+        <li>\(\{x_0\} \xrightarrow{a} \{x_0,x_1\}\) is a transition in \(\mathrm{Det}(\mathcal A)\). What about \(\{x_0\} \xrightarrow{a} \{x_1\}\)?</li>
+        <li>What are the accepting states of \(\mathrm{Det}(\mathcal A)\)?</li>
+        <li>Draw the complete state diagram for \(\mathrm{Det}(\mathcal A)\).</li>
+    </ol>
+</div>
+
+<div class="exercise">
+    <b>(Yeah, Totally)</b>
+    Explain the \(b\)-transitions into the emptyset, \(\xrightarrow{b} \{\}\), in \(\mathcal A_{eg}\) and \(\mathcal A\) above.
+    Is \(\mathrm{Det}(\mathcal A)\) total?
+</div>
+
+<div class="problem">
+    <b>(Determinizing is Deterministic)</b>
+    Prove that for any automaton \(\mathcal A = (Q, A, \delta, F)\), \(\mathrm{Det}(\mathcal A)\) is total deterministic.
+    <div class="hint">
+        Let \(U,V,W \in 2^Q\) be states of \(\mathrm{Det}(\mathcal A)\) (i.e., subsets of \(Q\)), and let \(a \in A\).
+        Assume that \(U \xrightarrow{a} V\) and \(U \xrightarrow{a} W\) are two transitions in \(\mathrm{Det}(\mathcal A)\).
+        Show that \(V \subseteq W\).
+        Do we separately need to show that \(W \subseteq V\)?
+    </div>
+</div>
+
+<div class="exercise">
+    <b>(Running on Empty)</b>
+    Determinize the empty automaton. 
+    Which automaton do you get (it has a name)?
+</div>
+
+<div class="exercise">
+    <b>(A Bigger One)</b>
+    Consider the automaton \(\mathcal A = (Q, A, \delta, F)\) where 
+    \[\begin{aligned}
+        Q &= \{s_1, s_2, s_3\} \\
+        A &= \{0, 1\} \\
+        \delta &= \{
+            (s_1, 0, s_2),
+            (s_1, 0, s_3),
+            (s_2, 0, s_3),
+            (s_3, 0, s_2)
+            \} \\
+        F &= \{s_2\}
+    \end{aligned}\]
+    Write down the transition table for \(\mathrm{Det}(\mathcal A)\).
+    Draw the subautomaton of \(\mathrm{Det}(\mathcal A)\) that is reachable from the state \(\{s_1\}\)
+    What language is accepted by \(\{s_1\}\)?
+</div>
+
+<h2>Determinization Works</h2>
+
+<p>
+    The point of the previous few exercises and problems is to show that \(\mathrm{Det}(\mathcal A)\) is a total deterministic finite automaton when \(\mathcal A\) is a finite automaton. 
+    Our next goal is to show that this automaton construction is <i>correct</i>, in the sense that accomplishes our goal for this construction.
+    The way we designed \(\mathrm{Det}(\mathcal A)\) is that for any state \(x \in Q\), \(x\) accepts the same language as \(\{x\}\).
+</p>
+
+<div class="theorem">
+    <b>(Determinized State)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton, and let \(\mathrm{Det}(\mathcal A)\) be its determinization.
+    Then for any state \(x \in Q\), 
+    \[
+        \mathcal L(\mathcal A, x) = \mathcal L(\mathrm{Det}(\mathcal A), \{x\})
+    \]
+</div>
+
+<div class="proof">
+    We will prove one inclusion, \(\mathcal L(\mathcal A, x) \subseteq \mathcal L(\mathrm{Det}(\mathcal A), \{x\})\) here. 
+    The other inclusion is the problem below.
+
+    <p>
+        Let \(w \in \mathcal L(\mathcal A, x)\).
+        Since \(w\) is a word, there are letters \(a_1, a_2, \dots, a_n \in A\) such that \(w = a_1a_2\cdots a_n\).
+        Now \(x\) accepts \(w\), which means that there is a path through \(\mathcal A\) of the form 
+        \[
+            x \xrightarrow{a_1} x_1 \xrightarrow{a_2} \cdots \xrightarrow{a_n} x_n
+        \]
+        where \(x_n \in F\).
+        Let's build the path from \(\{x\}\) to an accepting state of \(\mathrm{Det}(\mathcal A)\).
+        Recursively, we define \(U_0 = \{x\}\), and for each \(0 \le i < n\), 
+        \[
+            U_{i+1} = \bigcup_{y \in U_i} \delta(y, a_i)
+        \]
+        So, for example, \(U_1\) is the set of states with incoming transitions from \(x\), \(U_2\) is the set of states with incoming transitions from states in \(U_1\), and so on. 
+        Notice that \(x_i \in U_i\) for each \(1 \le i \le n\).
+    </p>
+    <p>
+        By the definition of the transition relation \(\delta'\) of \(\mathrm{Det}(\mathcal A)\), the \(U_i\) form the path 
+        \[
+            \{x_0\} = U_0 \xrightarrow{a_1} U_1 \xrightarrow{a_2} U_2 \xrightarrow{a_3} \cdots \xrightarrow{a_{n}} U_n
+        \]
+        Since \(x_n \in U_n\) and \(x_n \in F\) (is an accepting state of \(\mathcal A\)), \(U_n\) is an accepting state of \(\mathrm{Det}(\mathcal A)\).
+        This means that \(w = a_1a_2\cdots a_n \in \mathcal L(\mathrm{Det}(\mathcal A), \{x\})\).
+    </p>
+    <p>
+        We have just shown that every element of \(\mathcal L(\mathcal A, x)\) is an element of \(\mathcal L(\mathrm{Det}(\mathcal A), \{x\})\).
+        In other words, \(\mathcal L(\mathcal A, x) \subseteq \mathcal L(\mathrm{Det}(\mathcal A), \{x\})\).
+    </p>
+</div>
+
+<div class="problem">
+    <b>(Determinized State, Completing the Proof)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton, and let \(\mathrm{Det}(\mathcal A)\) be its determinization.
+    Prove that for any state \(x \in Q\), 
+    \[
+        \mathcal L(\mathcal A, x) \supseteq \mathcal L(\mathrm{Det}(\mathcal A), \{x\})
+    \]
+    <div class="hint">
+        Let \(a_1a_2 \cdots a_n \in \mathcal L(\mathrm{Det}(\mathcal A), \{x\})\) and consider a path \(\{x\} \xrightarrow{a_1} U_1 \xrightarrow{a_2} \cdots \xrightarrow{a_n} U_n\) in \(\mathrm{Det}(\mathcal A)\) where \(U_n\) is an accepting state of \(\mathrm{Det}(\mathcal A)\).
+        Recursively define a path from \(x\) to an accepting state of \(\mathcal A\) by picking out a desirable state from each \(U_i\).
+    </div>
+</div>
+
+<p>
+    This allows for the following proof of the Finite Recognizability Theorem.
+</p>
+
+<div class="proof">
+    <b>(of the Finite Recognizability Theorem)</b>
+    We have already seen that \(\mathsf{TDFin} \subseteq \mathsf{DFin} \subseteq \mathsf{Fin}\). 
+    It suffices to show that \(\mathsf{Fin} \subseteq \mathsf{TDFin}\).
+    
+    <p>
+        Let \(L \in \mathsf{Fin}\).
+        Then by definition of finite recognizability, there is a finite automaton \(\mathcal A = (Q, A, \delta, F)\) and a state \(x \in Q\) such that \(L = \mathcal L(\mathcal A, x)\).
+        We need to find a total deterministic finite automaton \(\mathcal A'\) and a state \(z\) of \(\mathcal A'\) such that \(\mathcal L(\mathcal A', z) = L\).
+        By the Determinized State Theorem, \(\mathcal A' = \mathrm{Det}(\mathcal A)\) is such an automaton: it is a total deterministic automaton with the state \(\{x\}\), and 
+        \[
+            L = \mathcal L(\mathcal A, x) = \mathcal L(\mathrm{Det}(\mathcal A), \{x\})
+        \]
+        It follows that \(L\) is a total deterministic finitely recognizable language, i.e., \(L \in \mathsf{TDFin}\).
+    </p>
+</div>
+
+<div class="exercise">
+    <b>(Is Determinization Optimal?)</b>
+    Remember that a <i>minimal</i> automaton is a total deterministic automaton where no two states accept the same language, and that a minimal automaton is the smallest total deterministic automaton that accepts all its states' languages. 
+    Does determinization find the smallest automaton?
+    If it does, explain why. 
+    If it does not, give an example of a determinized automaton that is not minimal.
+</div>
+
+<div class="problem">
+    <b>(You Got Options)</b>
+    Find the smallest automaton (not necessarily total or deterministic) with a state that accepts the language 
+    \[
+        L = \{ab^n \mid n \in \mathbb N\} \cup \{ac^n \mid n \in \mathbb N\} \cup \{a(bc)^n \mid n \in \mathbb N\}
+    \]
+    over the alphabet \(A = \{a,b,c\}\).
+    Use determinization to find a deterministic automaton with a state that accepts the same language.
+    <div class="hint">
+        Possibly a life-saving hint... You do not need to draw every state of the automaton \(\mathrm{Det}(\mathcal A)\), only the ones reachable from \(\{x\}\).
+        I also don't necessarily want a total automaton!
+    </div>
+</div>

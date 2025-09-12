@@ -1,0 +1,329 @@
+<h1>The Structure of \(\mathsf{Fin}\)</h1>
+
+<p>
+    So far, we have seen that if a language is totally deterministically finitely recognizable, deterministically finitely recognizable, or finitely recognizable, then it is all three.
+    That is, 
+    \[
+        \mathsf{TDFin} = \mathsf{DFin} = \mathsf{Fin}
+    \]
+    This has a ton of very interesting consequences for the <i>structure</i> of \(\mathsf{Fin}\).
+    In particular, \(\mathsf{Fin}\) is <i>closed</i> under a number of common set-operations.
+</p>
+
+<!-- SECTION on complements -->
+<h2>Complements</h2>
+
+<p>
+    Remember that for any two sets \(X\) and \(Y\),
+    \[
+        Y \setminus X = \{y \in Y \mid \text{\(y\) is not in \(X\)}\}
+    \]
+    So, in particular, for a language \(L \subseteq A\), \(A^* \setminus L\) is the language consisting of all words that are <i>not</i> in \(L\).
+    This language, \(A^*\setminus L\), is the <i>complement of the language \(L\)</i>.
+</p>
+
+<div class="exercise">
+    <b>(Flip the Switch 1)</b>
+    Draw a state diagram of the two-state automaton \(\mathcal A = (\{x_0, x_1\}, \{a, b\}, \{(x_0, a, x_1), (x_1, a, x_0)\}, \{x_1\})\).
+    <ol>
+        <li>Is \(\mathcal A\) deterministic or total?</li>
+        <li>What language is accepted by the state \(x_0\)?</li>
+        <li>Now <i>flip</i> the states, set \(F = \{x_0\}\) instead. Now what language is accepted by the state \(x_0\)?</li>
+    </ol>
+</div>
+
+<div class="exercise">
+    <b>(Flip the Switch 2)</b>
+    Draw a total deterministic automaton with a state that accepts the following language over the alphabet \(A = \{1\}\).
+    \[
+        L = \{w \in A^* \mid \text{\(|w|\) is a multiple of \(3\)}\}
+    \]
+    Change \(F\) in this automaton so that the same state accepts 
+    \[
+        A^* \setminus L = \{w \in A^* \mid \text{\(|w|\) is not a multiple of \(3\)}\}
+    \]
+</div>
+
+<div class="exercise">
+    <b>(Flip the Switch 3?)</b>
+    Now consider the following automaton \[
+        \mathcal A = (\{x_0, x_1, x_2\}, \{a\}, \{
+                (x_0, a, x_1), (x_0, a, x_2)
+            \},
+            \{x_0\})
+    \]
+    <ol>
+        <li>Draw a state diagram for \(\mathcal A\).</li>
+        <li>Is \(\mathcal A\) total or deterministic?</li>
+        <li>What language \(L\) does \(x_0\) accept?</li>
+        <li>Play the same trick as in Flip the Switch 1 and 2 to make \(x_0\) accept \(A^* \setminus L\). Did it work? What language does \(x_0\) accept now?</li>
+        <li>What makes the trick work?</li>
+    </ol>
+</div>
+
+<div class="theorem">
+    <b>(Closed under Complement)</b>
+    The family of finitely recognizable languages is closed under complements. 
+    That is, if \(L \in \mathsf{Fin}\), then \(A^* \setminus L \in \mathsf{Fin}\).
+</div>
+
+<div class="proof">
+    Let \(L \in \mathsf{Fin}\).
+    By the Finite Recognizability Theorem, there is a total deterministic automaton \(\mathcal A = (Q, A, \delta, F)\) and a state \(x \in Q\) such that \(\mathcal L(\mathcal A, x) = L\).
+
+    <div class="figure">
+        <b>Claim:</b> Let \(\mathcal A' = (Q, A, \delta, Q\setminus F)\).
+        Then \(\mathcal L(\mathcal A', x) = A^* \setminus L\).
+    </div>
+
+    <i>You are going to prove this Claim in the problem below.</i>
+
+    Because \(\mathcal A\) is a total deterministic automaton, \(\mathcal A'\) is a total deterministic automaton.
+    By the Claim above, \(\mathcal A'\) is a total deterministic automaton with a state \(x\) that accepts \(A^*\setminus L\).
+    Therefore, \(L \in \mathsf{Fin}\).
+</div>
+
+<div class="problem">
+    <b>(Finish Closed under Complement)</b>
+    Prove the Claim in the Proof of the Closed under Complement theorem.
+    <div class="hint">
+        Remember that if you want to show that two sets are equal, you need to show that they are contained in each other. 
+        So, for the \(\mathcal L(\mathcal A', x) \subseteq A^* \setminus L\) direction, let \(w \in \mathcal L(\mathcal A', x)\) (this means that \(x\) accepts \(w\) in \(\mathcal A'\)) and show that \(w \in A^*\setminus L\), i.e., \(w \notin L\) (this is the same thing as saying that \(x\) <i>rejects</i> \(w\) in \(\mathcal A\)).
+        Similarly for the \(\mathcal L(\mathcal A', x) \supseteq A^* \setminus L\) direction.
+    </div>
+</div>
+
+<!-- Section on Unions -->
+<h2>Unions and Intersections</h2>
+
+<p>
+    It's also true that \(\mathsf{Fin}\) is closed under unions and intersections.
+    We are going to show the first statement together, and you are going to show the second.
+    It helps to see a few examples of this in action.
+</p>
+
+<p>
+    You should take pictures of the automata you build in Union of Constants to reflect on later.
+</p>
+
+<div class="exercise">
+    <b>(Union of Constants)</b>
+    For each language in the alphabet \(A = \{a,b\}\) below, start by writing down a few words of the language. 
+    Then design a total deterministic finite automaton with a state that accepts the language.
+    <ol>
+        <li>\(L_1 = \{a^n \in A^* \mid n \in \mathbb N\}\)</li>
+        <li>\(L_2 = \{b^n \in A^* \mid n \in \mathbb N\}\)</li>
+        <li>\(L_3 = L_1 \cup L_2\)</li>
+        <li>\(L_4 = \{(ab)^n \in A^* \mid n \in \mathbb N\}\)</li>
+        <li>\(L_5 = L_1 \cup L_4\)</li>
+    </ol>
+    <div class="hint">
+        You need \(4\) states for \(L_3\) and \(6\) for \(L_6\).
+    </div>
+</div>
+
+<p>
+    There is something funky going on in these examples; you might have missed it. 
+    If you did the Union of Constants exercise right, then you might know what I am referring to when I say that \(2 \times 2 = 4\) and \(2 \times 3 = 6\).
+    This is not a coincidence!
+</p>
+
+<h3>The Product Constructions</h3>
+
+<p>
+    When you are confronted with two finitely recognizable languages \(L_1\) and \(L_2\) and you want to combine them in some way to make a new finitely recognizable language, your best bet is to combine some automata and states that accept \(L_1\) and \(L_2\) individually.
+    This is a different flavour of automaton construction than determinization, since the input is <i>two</i> automata instead of one.
+</p>
+<p>
+    One way to combine finitely recognizable languages is by taking their union. 
+    To show that the union is finitely recognizable, we can use an automaton construction that combines two automata called the <i>union-product construction</i>.
+</p>
+
+<div class="definition">
+    <b>(Union-product Construction)</b>
+    Fix an alphabet of input letters \(A\), and let \(\mathcal A_1 = (Q_1, A, \delta_1, F_1)\) and \(\mathcal A_2 = (Q_2, A, \delta_2, F_2)\) be total deterministic automata.
+    Then the <i>union-product of \(\mathcal A_1\) and \(\mathcal A_2\)</i> is the automaton \(\mathcal A_1\oplus \mathcal A_2 = (Q_1 \times Q_2, A, \delta^\times, F^\oplus)\), where 
+    <ul>
+        <li>\(Q_1 \times Q_2\) is the Cartesian product of \(Q_1\) and \(Q_2\), which is the set of pairs \((x, y)\) where \(x \in Q_1\) and \(y \in Q_2\).</li>
+        <li>\(\delta^\times\) is the transition relation defined by the following:
+            \[
+                (x_1, y_1) \xrightarrow{a}_{\delta^\times} (x_1, y_2)
+                \text{ if and only if } 
+                x_1 \xrightarrow{a}_{\delta_1} x_2 
+                \text{ and } 
+                y_1 \xrightarrow{a}_{\delta_2} y_2
+            \]
+            In other words, in \(\mathcal A_1 \oplus \mathcal A_2\), <i>states travel together</i>.
+        </li>
+        <li>
+            \(F^\oplus = \{(x, y) \in Q_1 \times Q_2 \mid x \in F_1 \text{ or }y \in F_2\}\), i.e., a pair \((x, y)\) accepts if <i>one of</i> \(x\) or \(y\) accepts. 
+        </li>
+    </ul>
+</div>
+
+<div class="example">
+    <b>(Our First Union-Product)</b>
+    Consider the two automata below.
+    <div class="figure">
+        <img src="../imgs/about-to-union.svg" alt="Two automata, both four states." />
+        Above, \(\mathcal A_1 = (Q_1, A, \delta_1, F_1)\) and \(\mathcal A_2 = (Q_2, A, \delta_2, F_2)\).
+    </div>
+    There are \(2 \times 2 = 4\) states of the union-product \(\mathcal A_1 \oplus \mathcal A_2\), namely 
+    \[
+        Q_1 \times Q_2 = \{(x_1, y_1), (x_1, y_2), (x_2, y_1), (x_2, y_2)\}
+    \]
+    Now let's take a look at the definition of the transition function: in \(\mathcal A_1 \oplus \mathcal A_2\), we have 
+    <ul>
+        <li>\((x_1, y_1) \xrightarrow{a} (x_2, y_1)\), because \(x_1 \xrightarrow{a} x_2\) in \(\mathcal A_1\) and \(y_1 \xrightarrow{a} y_1\) in \(\mathcal A_2\)</li>
+        <li>\((x_1, y_1) \xrightarrow{b} (x_1, y_2)\), because \(x_1 \xrightarrow{b} x_1\) in \(\mathcal A_1\) and \(y_1 \xrightarrow{b} y_2\) in \(\mathcal A_2\)</li>
+        <li>\((x_1, y_2) \xrightarrow{a} (x_2, y_1)\), because \(x_1 \xrightarrow{a} x_2\) in \(\mathcal A_1\) and \(y_2 \xrightarrow{a} y_1\) in \(\mathcal A_2\)</li>
+        <li>\((x_1, y_2) \xrightarrow{b} (x_1, y_1)\), because \(x_1 \xrightarrow{b} x_1\) in \(\mathcal A_1\) and \(y_2 \xrightarrow{b} y_1\) in \(\mathcal A_2\)</li>
+    </ul>
+    and so on.
+    Furthermore, the accepting states of \(\mathcal A_1 \oplus \mathcal A_2\) are 
+    \[
+        F^\oplus = \{
+            (x_1, y_2),
+            (x_2, y_1),
+            (x_2, y_2)
+        \}
+    \]
+    because one of these states is accepting in each pair.
+</div>
+
+<div class="exercise">
+    <b>(Sketching the Union-product)</b>
+    Draw the state diagram for the union-product \(\mathcal A_1 \oplus \mathcal A_2\) in the figure above.
+</div>
+
+<div class="exercise">
+    <b>(Union of Constants Again)</b>
+    Return to the total deterministic automata you built in Union of Constants earlier. 
+    Construct the union-product of the automata you built to accept \(L_1\) and \(L_2\) and compare it with the automaton you built to accept \(L_3\).
+    (If you like, repeat for \(L_4\), \(L_5\), and \(L_6\).)
+</div>
+
+<p>
+    Importantly, the union-product of two total deterministic automata is a total deterministic automaton, by construction. 
+    Every pair of states has exactly one out-going transition for each letter \(a \in A\), because every state in \(\mathcal A_1\) or \(\mathcal A_2\) has exactly one outgoing transition for each letter.
+</p>
+
+<p>
+    The significance of the union-product construction is that it allows us to prove that \(\mathsf{Fin}\) is closed under unions, in the following sense.
+</p>
+
+<div class="theorem">
+    <b>(Closure under Union)</b>
+    Let \(L_1, L_2 \in \mathsf{Fin}\). 
+    Then \(L_1 \cup L_2 \in \mathsf{Fin}\).
+</div>
+
+<div class="proof">
+    Let \(\mathcal A_1 = (Q_1, A, \delta_1, F_1)\) be a total deterministic automaton with a state \(x \in Q_1\) such that \(\mathcal L(\mathcal A_1, x) = L_1\), and let \(\mathcal A_2 = (Q_2, A, \delta_2, F_2)\) be a total deterministic automaton with a state \(y \in Q_2\) such that \(\mathcal L(\mathcal A_2, y) = L_2\).
+    <div class="figure">
+        <b>Claim.</b> Let \(\mathcal A = \mathcal A_1 \oplus \mathcal A_2\). 
+        Then \(\mathcal L(\mathcal A, (x, y)) = L_1 \cup L_2\).
+    </div>
+    If we manage to prove the claim, then we are done: \(\mathcal A_1 \oplus \mathcal A_2\) is a finite automaton with a state that accepts \(L_1 \cup L_2\).
+
+    <p>
+        So let's prove the claim. 
+        We need to show two things: (1) that \(\mathcal L(\mathcal A, (x, y)) \subseteq L_1 \cup L_2\), and (2) that \(\mathcal L(\mathcal A, (x, y)) \supseteq L_1 \cup L_2\).
+    </p>
+    <p>
+        To see (1), let \(w \in \mathcal L(\mathcal A, (x,y))\). 
+        Write \(w = b_0 b_1 \cdots b_{n-1}\).
+        Then there is a path 
+        \[
+            (x, y) \xrightarrow{b_0} (x_1, y_1) \xrightarrow{b_1} \cdots \xrightarrow{b_{n-1}} (x_{n}, y_{n})
+        \] 
+        and either \(x_n \in F_1\) or \(y_n \in F_2\).
+        By definition, this means that we have found two paths through \(\mathcal A_1\) and \(\mathcal A_2\):
+        \[\begin{gathered}
+            x \xrightarrow{b_0} x_1 \xrightarrow{b_1} x_2 \xrightarrow{b_2} \cdots \xrightarrow{b_{n-1}} x_n
+            \qquad \text{in \(\mathcal A_1\)}\\
+            y \xrightarrow{b_0} y_1 \xrightarrow{b_1} y_2 \xrightarrow{b_2} \cdots \xrightarrow{b_{n-1}} y_n
+            \qquad \text{in \(\mathcal A_2\)}
+        \end{gathered}\]
+        If \(x_n \in F_1\), the first path tells us that \(w \in L_1\). 
+        If \(y_n \in F_2\), then the second path tells us that \(w \in L_2\).
+        It follows that \(w \in L_1 \cup L_2\).
+    </p>
+
+    <p>
+        To see (2), let \(w \in L_1 \cup L_2\). 
+        Then either \(w \in L_1\) or \(w \in L_2\). 
+        The rest of the proof is the same in either case, so let's just assume that \(w \in L_1\) for now. 
+        Again, let \(w = b_0b_1\cdots b_{n-1}\).
+        Since \(L_1 = \mathcal L(\mathcal A, x)\), \(w \in L_1\) means that there is a path 
+        \[
+            x \xrightarrow{b_0} x_1 \xrightarrow{b_1} x_2 \xrightarrow{b_2} \cdots \xrightarrow{b_{n-1}} x_n
+        \]
+        in \(\mathcal A_1\) such that \(x_n \in F_1\). 
+    </p>
+    <p>
+        Now here is where we need that \(\mathcal A_1\) and \(\mathcal A_2\) are total and deterministic:
+        since \(\mathcal A_2\) is total and deterministic, we can form a path,
+        \[
+            y \xrightarrow{b_0} y_1 \xrightarrow{b_1} y_2 \xrightarrow{b_2} \cdots \xrightarrow{b_{n-1}} y_n
+        \]
+        in \(\mathcal A_2\) (recall that there is always an outgoing transition because of totality). 
+        It doesn't matter which path we choose, we just need to know it exists, because it tells us there is a path 
+        \[
+            (x, y) \xrightarrow{b_0} (x_1, y_1) \xrightarrow{b_1} \cdots \xrightarrow{b_{n-1}} (x_{n}, y_{n})
+        \] 
+        Since \(x_n \in F_1\), \((x_n, y_n) \in F^\oplus\), and therefore \(w = b_0b_1 \cdots b_{n-1} \in \mathcal L(\mathcal A, (x,y))\).
+        It follows that \(L_1 \cup L_2 \subseteq \mathcal L(A, (x, y))\).
+    </p>
+    <p>
+        Since we have shown both that \(\mathcal L(\mathcal A, (x, y)) \subseteq L_1 \cup L_2\) and that \(\mathcal L(\mathcal A, (x, y)) \supseteq L_1 \cup L_2\), we have proven the Claim. 
+        Since the Claim implies the Closure Under Union Theorem, we are done.
+    </p>
+</div>
+
+<p>
+    The title of this subsection is <i>The Product Construction<b>s</b></i>, plural.
+    There are indeed two, and I bet you can find the other one. 
+</p>
+
+<div class="theorem">
+    <b>Closure under Intersection</b>
+    Let \(L_1, L_2 \in \mathsf{Fin}\). 
+    Then \(L_1 \cap L_2 \in \mathsf{Fin}\).
+</div>
+
+<div class="problem">
+    <b>(Intersection-product Construction)</b>
+    Let \(\mathcal A_1 = (Q_1, A, \delta_1, F_1)\) and \(\mathcal A_2 = (Q_2, A, \delta_2, F_2)\) be total deterministic automata, and let \(x \in Q_1\) and \(y \in Q_2\).
+    Let \(L_1 = \mathcal L(\mathcal A_1, x)\) and \(L_2 = \mathcal L(\mathcal A_2, x)\).
+    Change the accepting states in the union-product construction to obtain an automaton \(\mathcal A_1 \otimes \mathcal A_2 = (Q_1 \times Q_2, A, \delta^\times, F^
+    \otimes)\) such that \(\mathcal L(\mathcal A_1 \otimes \mathcal A_2, (x, y)) = L_1 \cap L_2\).
+    Explain how to obtain a proof of the Closure under Intersection Theorem from the proof of the Closure under Union Theorem (i.e., what would you change?).
+    <div class="hint">
+        It's called the <i>intersection</i>-product construction, not the <i>union</i>-product construction!
+    </div>
+</div>
+
+<div class="exercise">
+    <b>(Intersection Examples)</b>
+    For each language in the alphabet \(A = \{a,b\}\) below, start by writing down a few words of the language. 
+    Then design a total deterministic finite automaton with a state that accepts the language.
+    <ol>
+        <li>\(L_1 = \{a^nb^m \in A^* \mid n,m \in \mathbb N\}\)</li>
+        <li>\(L_2 = \{b^na^m \in A^* \mid n,m \in \mathbb N\}\)</li>
+        <li>\(L_3 = L_1 \cap L_2\)</li>
+        <li>\(L_4 = \{a^nb(ba)^m \in A^* \mid n,m \in \mathbb N\}\)</li>
+        <li>\(L_5 = L_1 \cap L_4\)</li>
+    </ol>
+</div>
+
+<div class="exercise">
+    <b>(Hello De Morgan)</b>
+    One of De Morgan's laws is the identity \[
+        Z \setminus (X \cup Y) = (Z \setminus X) \cap (Z \setminus Y)
+    \]
+    Use this identity to prove the Closure under Intersection Theorem a different way than constructing a new automaton.
+    <div class="hint">
+        You need to use the Closure under Complement and Closure under Union Theorems.
+    </div>
+</div>

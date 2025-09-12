@@ -1,0 +1,297 @@
+<h1>Finitely Recognizable Languages</h1>
+
+<p>
+    Brzozowski's Fixed Point Theorem tells us that every language is accepted by <i>some</i> state of <i>some</i> automaton.
+    In particular, the language \(L\) is accepted by the state \(L\) in the Brzozowski automaton \(\mathcal A_{Brz}\).
+    One issue with this theorem is that it doesn't tell you <i>how big</i> that automaton might be. 
+    In fact, it could be infinite for all we know!
+</p>
+
+<p>
+    But here's the thing: our goal in this course is to find a mathematical model of computers <i>as they exist IRL</i>. 
+    Physical computers are finite: the memory is finite, so the number of programs they can run is finite.
+    If you'll recall, states are programs in our models of computers, so physical computers are like automata but with finitely many states!
+</p>
+
+<p>
+    This brings us to the question:
+    <i>which languages can be accepted by a state in a finite automaton?</i>
+</p>
+
+<div class="definition" id="FinitelyGenerated">
+    <b>(Finitely Recognizable)</b>
+    A language \(L\subseteq A^*\) is <i>finitely recognizable</i> if there is a finite automaton \(\mathcal A = (Q, A, \delta, F)\) (i.e., \(Q\) is finite) and a state \(x \in Q\) such that \(L = \mathcal L(\mathcal A, x)\).
+</div>
+
+<p>
+    In this first part of the course, the <i>Automata and Languages</i> part, we are going to focus our attention on the finitely recognizable languages, their properties, and how to <i>program</i> them, in the following sense: 
+    if you want to show that a language is finitely recognizable, then you need to find a finite automaton with a state that recognizes the language.
+    We have already done this for a ton of different languages.
+</p>
+
+<div class="exercise">
+    <b>(A First Go)</b>
+    Consider the alphabet \(A = \{0, 1\}\).
+    Show that the language of all strings, \(L = A^*\), is finitely recognizable.
+</div>
+
+<!-- PROBLEM -->
+<div class="problem">
+    <b>(Languages as Trees)</b>
+    Let \(A = \{0, 1\}\), and let \(L \subseteq A^*\) be a language from \(A\). 
+    Prove that if \(L\) is finite, i.e., \(L = \{w_1, \dots, w_n\}\) for some \(n \in \mathbb N\), then \(L\) is finitely recognizable.
+    <div class="hint">
+        Draw a tree with \(n\) different branches, where the nodes of the tree are states.
+        Alternatively, you could give an upper bound on the number of states reachable from \(L\) in the Brzozowski automaton; see Reachability and Local Finiteness below.
+    </div>
+</div>
+
+<p>
+    We have seen all sorts of finitely recognizable languages so far, because we have seen all sorts of finite automata.
+    But we have also seen different types of automata: automata with properties like determinism and totality. 
+    We can also ask the question, <i>which languages are accepted by total/deterministic automata?</i>
+    After all, physical computers are total and deterministic (think about this for a second).
+    Nondeterminism probably came as a surprise when we allowed for it in our model of computation! 
+    So far, we've just used partiality and nondeterminism as a convenient tool for drawing smaller automata than the total deterministic ones.
+    The languages recognized by each of these types of automata form <i>families of languages</i>, and it would be worthwhile to know which is which.
+</p>
+
+<div class="definition" id="finitelyrecognizable">
+    <b>(Families of Languages, Finitely Recognizable)</b>
+    A <i>family of languages</i> is a set of languages \(\mathsf{Fam} \subseteq 2^{A^*}\) over a fixed alphabet of input letters \(A\).
+</div>
+
+<p>
+    A word is a string of input letters. 
+    A language is a set of words.
+    A family of languages is a set of sets of words.
+    If this is a bit much, the following exercise may help to put families of languages into perspective.
+</p>
+
+<div class="exercise">
+    <b>(Family Unit)</b>
+    For each of the families of languages below, find an automaton \(\mathcal A = (\{x, y, z\}, \{a, b, c\}, \delta, F)\) such that 
+    \(\mathsf{Fam}_i = \{\mathcal L(\mathcal A, x), \mathcal L(\mathcal A, y), \mathcal L(\mathcal A, z)\}\).
+    <ol>
+        <li>\(\mathsf{Fam}_1 = \big\{~ \{\}, \{\varepsilon\}, \{a\} ~\big\}\)</li>
+        <li>\(\mathsf{Fam}_3 = \big\{~ \{b(ab)^n \mid n \in \mathbb N\}, \{(ab)^n \mid n \in \mathbb N\}~\big\}\)</li>
+        <li>A bit more challenging: 
+            \[\begin{aligned}
+                \mathsf{Fam}_3 
+                &= \big\{ \quad \{\varepsilon\}, \\
+                &\hspace{3em} \{(ab)^nc \mid n \in \mathbb N\} \cup \{a(ba)^nc \mid n \in \mathbb N\}, \\
+                &\hspace{3em} \{(ba)^nc \mid n \in \mathbb N\} \cup \{b(ab)^nc \mid n \in \mathbb N\} \quad\big\}
+            \end{aligned}
+            \]</li>
+    </ol>
+    <div class="hint">
+        Remember that \((ab)^0 = \varepsilon\), \((ab)^1 = ab\), \((ab)^2 = abab\), \((ab)^3 = ababab\), and in general, \((ab)^{n+1} = ab(ab)^n\) for any \(n \in \mathbb N\).
+        So the words in \(\{b(ab)^n \mid n \in \mathbb N\}\) are \(b, bab, babab, bababab, \dots\)
+    </div>
+</div>
+
+<p>
+    Altogether, we can split the languages we care about into three families.
+</p>
+
+<div class="definition" id="finitelyrecognizable">
+    <b>(Finitely Recognizable)</b>
+    Let \(A\) be an alphabet, and \(L \subseteq A^*\) a language.
+    <ul>
+        <li>
+            \(L\) is <i>finitely recognizable</i> if there is a finite automaton \(\mathcal A = (Q, A, \delta, F)\) (i.e., \(Q\) is finite) and a state \(x \in Q\) such that \(L = \mathcal L(\mathcal A, x)\).
+            The family of finitely recognizable languages is
+            \[
+                \mathsf{Fin} = \big\{ L \subseteq A^* \mid \text{\(L\) is finitely recognizable} \big\}
+            \]
+        </li>
+        <li>
+            \(L\) is <i>deterministic finitely recognizable</i> if there is a deterministic finite automaton \(\mathcal A = (Q, A, \delta, F)\) and a state \(x \in Q\) such that \(L = \mathcal L(\mathcal A, x)\).
+            The family of deterministic finitely recognizable languages is
+            \[
+                \mathsf{DFin} = \big\{ L \subseteq A^* \mid \text{\(L\) is deterministic finitely recognizable} \big\}
+            \]
+        </li>
+        <li>
+            \(L\) is <i>total deterministic finitely recognizable</i> if there is a total deterministic finite automaton \(\mathcal A = (Q, A, \delta, F)\) and a state \(x \in Q\) such that \(L = \mathcal L(\mathcal A, x)\).
+            The family of total deterministic finitely recognizable languages is
+            \[
+                \mathsf{TDFin} = \big\{ L \subseteq A^* \mid \text{\(L\) is total deterministic finitely recognizable} \big\}
+            \]
+        </li>
+    </ul>
+</div>
+
+<p>
+    Something you should notice immediately: every total deterministic automaton is a deterministic automaton, and every deterministic automaton is an automaton. 
+    This means implies that 
+    \[
+        \mathsf{TDFin} \subseteq \mathsf{DFin} \subseteq \mathsf{Fin}
+    \]
+    right off the bat!
+    But what about the reverse inclusions?
+</p>
+
+<div class="exercise">
+    <b>(CJ's Pergatory)</b>
+    For each of the deterministic partial automata below, find a total deterministic automaton with a state that accepts the same language as \(x\).
+    In each example, the input alphabet is \(A = \{a, b, c\}\).
+    <div class="figure">
+        (1)<img src="../imgs/CJPerg1.svg" />
+        (2)<img src="../imgs/CJPerg2.svg" />
+        (3)<img src="../imgs/CJPerg3.svg" />
+        (4)<img src="../imgs/CJPerg4.svg" />
+    </div>
+    <div class="hint">
+        You only ever need to add one state!
+    </div>
+</div>
+
+<!-- PROBLEM -->
+<div class="problem">
+    <b>(Total vs Partial)</b>
+    Prove that \(\mathsf{DFin} = \mathsf{TDFin}\) by describing how to turn a deterministic automaton into a total deterministic automaton without changing the languages accepted by the states.
+    <div class="hint">
+        What did you do in the CJ's Pergatory exercise every time?
+    </div>
+</div>
+
+<p>
+    In the next lecture, we are going to see that in fact, all three families of languages are equal!
+</p>
+
+
+<!-- More advanced Stuff -->
+<h2>Reachability and Local Finiteness</h2>
+
+<p>
+    The Brzozowski automaton was most definitely an infinite automaton.
+    But something very special happened in the <a href="csci341_1_4_finite_and_infinite_automata.html#unravelling" target="_blank">Unravelling a Language</a> problem:
+    the states reachable from that particular language were finite in number, and using that fact we were able to show that that language is finitely recognizable. 
+    We just had to draw the finite automaton consisting of the states reachable from \(L = \{\varepsilon, aa, ba, cab, c, acab\}\), of which there are finitely many.
+    The states reachable from a given state in an automaton form a <i>subautomaton generated by the state</i>.
+</p>
+
+<div class="definition" id="generated">
+    <b>(Generated, Locally Finite)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton and let \(x \in Q\) be a state. 
+    The <i>automaton generated by \(x\)</i> is the automaton \(\langle x \rangle_{\mathcal A} = (Q_x, A, \delta_x, F_x)\) defined by 
+    \[\begin{aligned}
+        Q_x &= \bigcup_{w \in A^*} \delta(x, w) \\
+        \delta_x &= \delta \cap (Q_x \times A \times Q_x) \\
+        F_x &= F \cap Q_x \\
+    \end{aligned}\]
+    The automaton \(\mathcal A\) is called <i>locally finite</i> if \(\langle x \rangle_{\mathcal A}\) is a finite automaton for every state \(x \in Q\). 
+</div>
+
+<p>
+    Above, the notation \(\bigcup_{w \in A^*} \delta(x, w)\) is shorthand for the set 
+    \[
+        \bigcup_{w \in A^*} \delta(x, w) = \{y \mid \text{there is a word \(w \in A^*\) such that \(y \in \delta(x, w)\)}\}
+    \]
+    There is a lot of notation going on in that definition, but the idea is pretty simple: \(\langle x\rangle_{\mathcal A}\) is the automaton that you get by deleting all of the states that are not reachable from \(x\) by some path (of length \(0\) or more). 
+</p>
+
+<div class="exercise">
+    <b>(Computing Reachable Parts)</b>
+    Consider the automaton \(\mathcal A = (Q, A, \delta, F)\) given by the state diagram below.
+    <div class="figure">
+        <img src="../imgs/reach.svg" />
+        The automaton \(\mathcal A = (Q, A, \delta, F)\). 
+        Here, \(A = \{0, 1\}\).
+    </div>
+    Circle the automata \(\langle x_0 \rangle_{\mathcal A}\), \(\langle x_1 \rangle_{\mathcal A}\), \(\langle x_2 \rangle_{\mathcal A}\), \(\langle x_3 \rangle_{\mathcal A}\), and \(\langle x_4 \rangle_{\mathcal A}\), generated by each of the states of \(\mathcal A\).
+</div>
+
+<p>
+    
+    The definition of \(\delta_x\) just says that it has all the same transitions as \(\delta\) but restricted to \(Q_x\).
+    Note that \(\langle x \rangle_{\mathcal A}\) has the same alphabet as \(\mathcal A\).
+</p>
+
+<div class="exercise">
+    <b>(Reverse Naturals Again)</b>
+    Remember that the Reverse Naturals automaton was defined by \(Q = \mathbb N\), \(A = \{l\}\), and \(n + 1 \xrightarrow{l} n\) for all \(n \in Q\).
+    <ol>
+        <li>Is the Reverse Naturals automaton locally finite?</li>
+        <li>What if we replace \(l\) with the the input letter \(s\) that <i>adds one</i> instead of subtracts: \(n \xrightarrow{s} n + 1\)? 
+            What does the state diagram look like now? 
+            Is it locally finite?</li>
+    </ol>
+</div>
+
+<p>
+    We are not going to prove the theorem below (Brzozowski is Minimal) in this course. 
+    The proof would be a detour through several other concepts like <i>bisimilarity</i> and <i>quotient automata</i>, which would take us too far off course. 
+    It would be more appropriate in a course just about automata theory, but we have got places to be!
+    But in any case, it is helpful to keep in mind, because it can guide you through the process of determining whther a language is total deterministic finitely recognizable or not.
+</p>
+
+<div class="definition">
+    <b>(Minimal)</b>
+    A total deterministic automaton \(\mathcal A = (Q, A, \delta, F)\) is <i>minimal</i> if for any states \(x,y \in Q\), if \(\mathcal L(\mathcal A, x) = \mathcal L(\mathcal A, y)\), then \(x = y\). 
+    In other words, there are no two distinct states that accept the same language in \(\mathcal A\).
+</div>
+
+<p>
+    Given a language \(L\) and a state \(x \in Q\) in a <b>minimal</b> total deterministic automaton \(\mathcal A\) such that \(L = \mathcal L(\mathcal A, x)\), \(\langle x \rangle_{\mathcal A}\) is the smallest automaton with a state that accepts \(L\). 
+    This is where the following theorem comes from.
+</p>
+
+<div class="theorem">
+    <b>(Brzozowski is Minimal)</b>
+    The Brzozowski automaton \(\mathcal A = (2^{A^*}, A, \delta, F)\) is minimal.
+    In particular, for any language \(L\), \(\langle L \rangle_{\mathcal A_{Brz}}\) is the smallest automaton that accepts \(L\).
+    Thus, \(L\) is total deterministic finitely recognizable if and only if \(\langle L \rangle_{\mathcal A_{Brz}}\) is finite.
+</div>
+
+<div class="example">
+    <b>(A=B)</b>
+    Recall that in the Brzozowski automaton \(\mathcal A_{Brz}\), the states are languages, the transitions are given by derivatives, \(L \xrightarrow{a} a^{-1}L\), and the accepting states are the languages \(L\subseteq A^*\) that contain the empty word \(\varepsilon \in L\).
+    The following language is a classic example of a language that generates an infinite subautomaton of the Brzozowski automaton \(\mathcal A_{Brz}\), and therefore is not totally deterministic finitely recognizable:
+    \[
+        L_{a=b} = \big\{ a^nb^n \mid n \in \mathbb N\big\}
+    \]
+    After \(k\) \(a\)-derivatives, the language becomes
+    \[
+        a^{-k}L_{a=b} = \big\{ a^{n-k}b^n \mid n \in \mathbb N, n \ge k\big\}
+    \] 
+    If \(k < k'\), then \(a^{-k}L_{a=b} \neq a^{-k'}L_{a=b}\), so there is a distinct state in \(\langle L_{a=b}\rangle_{\mathcal A_{Brz}}\) for each \(k \in \mathbb N\).
+    This means infinitely many!
+</div>
+
+<div class="exercise">
+    <b>(Distinct Derivatives of A=B)</b>
+    Show that \(a^{-1}L_{a=b} \neq a^{-2}L_{a=b}\) by finding a word in one of the languages that is not in the other. 
+    How would you generalize this to a proof that if \(k < k'\), then \(a^{-k}L_{a=b} \neq a^{-k'}L_{a=b}\)?
+</div>
+
+<p>
+    It turns out that \(L_{a=b}\) is not accepted by <i>any</i> state in <i>any</i> finite automaton. 
+    We don't quite have the tools to prove this yet, though.
+    (We will see those later when we talk about the <i>Pumping Lemma</i> for finite automata.)
+</p>
+
+<!-- PROBLEM -->
+<div class="problem">
+    <b>(Reachable = Generated)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton and let \(x \in Q\) be a state. 
+    Prove the following three statements using the definition of \(\langle x \rangle_{\mathcal A}\) and \(\delta(x, w)\): 
+    <ol>
+        <li>
+            \(Q_x = \{ y \in Q \mid \text{there is a path \(x \xrightarrow{a_1} x_1 \xrightarrow{a_2} \cdots \xrightarrow{a_n} y\) in \(\mathcal A\)} \}\)
+        </li>
+        <li>
+            for any \(y,z \in Q_x\), \(y \xrightarrow{a} z\) in \(\mathcal A\) if and only if \(y \xrightarrow{a} z\) in \(\langle x \rangle_{\mathcal A}\)
+        </li>
+        <li>
+            for any \(y \in Q_x\), \(y\in F\) if and only if \(y \in F_x\)
+        </li>
+    </ol>
+    Explain why this implies that \(\mathcal L(\mathcal A, x) = \mathcal L(\langle x \rangle_{\mathcal A}, x)\).
+    <div class="hint">
+        Remember that to prove a statement like "\(P\) if and only if \(Q\)", you need to write two separate proofs: you need to prove (1) that "if \(P\), then \(Q\)", and (2) that "if \(Q\), then \(P\)".
+    </div>
+</div>
+
+
