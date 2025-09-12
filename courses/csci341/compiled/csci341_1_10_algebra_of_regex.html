@@ -357,6 +357,7 @@
     Then 
     <ol>
         <li>\(\varepsilon + rr^* =_{\mathcal L} r^*\)</li>
+        <li>\(\varepsilon + r^*r =_{\mathcal L} r^*\)</li>
         <li>\((\varepsilon + r)^* =_{\mathcal L} r^*\)</li>
     </ol>
 </div>
@@ -394,10 +395,20 @@
 </p>
 
 <div class="theorem">
-    <b>(Arden's Rule)</b>
+    <b>(Arden's Rules)</b>
     Let \(r,s,t \in \mathit{RExp}\) be regular expressions. 
-    If \(r\) does not have the empty word property and \(s =_{\mathcal L} t + r\cdot s\), then \(s =_{\mathcal L} r^* \cdot t\).
+    Assume that \(r\) does not have the empty word property.
+    Then 
+    <ul>
+        <li>(Left Rule) if \(s =_{\mathcal L} t + r\cdot s\), then \(s =_{\mathcal L} r^* \cdot t\)</li>
+        <li>(Right Rule) if \(s =_{\mathcal L} t + s\cdot r\), then \(s =_{\mathcal L} t \cdot r^*\)</li>
+    </ul>
 </div>
+
+<p>
+    Typically, Arden's Left Rule is just called "Arden's Rule". 
+    Arden's Left Rule is all that's needed for the next lecture, but the Right rule is going to make things a lot easier for you in the exercises!
+</p>
 
 <p>
     Remember the equation \(r^* =_{\mathcal L} \varepsilon + rr^*\) from the Basics of the Kleene Star. 
