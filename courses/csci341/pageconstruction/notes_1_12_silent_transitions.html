@@ -1,0 +1,20 @@
+<h1>Silent Transitions</h1>
+
+<p>
+    In the previous two lectures, we saw that the regular languages and finitely recognizable languages coincide. 
+    This was called <i>Kleene's theorem</i>, and in the end it took a lot of algebraic reasoning to get there. 
+    In particular, we needed to be able to solve left-affine systems of equations, which looked bit like this:
+    \[\begin{aligned}
+        x_1 &= \varepsilon + (a + b)x_1 + bx_2 \\
+        x_2 &= (a + b + c)x_2 + cx_3 \\
+        x_3 &= bx_1 + ax_3 
+    \end{aligned}\]
+    A key feature of these systems of equations had to do with the <i>empty word property</i>.
+    Namely, that the regular expression appearing to the left of each variable does <i>not</i> have the mpty word property.
+    But what if we wanted to solve systems that were not of this form?
+    What if we were interested in something like
+    \[\begin{aligned}
+        x_1 &= \varepsilon + (a + b)x_1 + x_2 \\
+        x_2 &= x_1 
+    \end{aligned}\]
+</p>
