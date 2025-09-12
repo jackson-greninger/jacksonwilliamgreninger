@@ -408,6 +408,9 @@
 </p>
 
 <p>
+    This is how to find a regular expression \(s_1\) for \(x_1\). 
+    To find the regular expressions for the other \(x_i\), plug \(s_1\) into the equation for \(x_2\) to find its regular expression \(s_2\).
+    Then plug \(s_1\) and \(s_2\) into the equation for \(x_3\), and so on.
     Is it pretty? No, but it does work!
 </p>
 
@@ -461,7 +464,12 @@
             = \mathcal L((a + b(a + b))^*(\emptyset + b))
             = \mathcal L((a + b(a + b))^*b)
         \]
-        This means that we proceed to the next step, which is to 
+        This means that we proceed to the next step, which is to plug our solution to the first equation into the second:
+        \[\begin{aligned}
+            y_2 
+            &= \varepsilon + (a + b)y_1 \\ 
+            &= \varepsilon + (a + b)((a + b(a + b))^*b) &&\text{(plug \(y_1\) into \(y_2\))} 
+        \end{aligned}\]
     </p>
 </div>
 
