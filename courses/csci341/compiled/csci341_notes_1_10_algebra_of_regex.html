@@ -1,5 +1,5 @@
 <!-- THIS IS A COMPILED FILE 
- Compiled on 2025-09-14 -->
+ Compiled on 2025-09-15 -->
 
 
 
@@ -206,11 +206,11 @@
     However, it's not hard to prove that they are <i>language equivalent</i>: on the one hand, we have
     \[\begin{aligned}
         \mathcal L(a + (b + c))
-        &= \mathcal L(a) \cup \mathcal L(c + d) \\
-        &= \mathcal L(a) \cup (\mathcal L(c) \cup \mathcal L(d)) \\
-        &= \{a\} \cup (\{c\} \cup \{d\}) \\
-        &= \{a\} \cup \{c,d\} \\
-        &= \{a,c,d\} 
+        &= \mathcal L(a) \cup \mathcal L(b + c) \\
+        &= \mathcal L(a) \cup (\mathcal L(b) \cup \mathcal L(c)) \\
+        &= \{a\} \cup (\{b\} \cup \{c\}) \\
+        &= \{a\} \cup \{b,c\} \\
+        &= \{a,b,d\} 
     \end{aligned}\]
     On the other, we also have 
     \[
@@ -292,7 +292,7 @@
 <div class="exercise">
     <b>(Do Expression Commute?)</b>
     In artithmetic, we have the lovely equation \(n \times m = m \times n\) for all \(n,m \in \mathbb N\).
-    For which regular expressions \(r_1,r_2 \in \mathit{RExp}\) is the equation \(r_1 \cdot r_2 = r_2 \cdot r_1\) true?
+    For which regular expressions \(r_1,r_2 \in \mathit{RExp}\) is the equation \(r_1 \cdot r_2 =_{\mathcal L} r_2 \cdot r_1\) true?
     Assume an alphabet of \(A = \{a,b\}\).
 </div>
 
