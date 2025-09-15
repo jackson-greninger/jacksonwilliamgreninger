@@ -1,16 +1,15 @@
 \documentclass[11pt]{article}
 
 \newcommand{\pset}{
-    3
+    4
 }
 \newcommand{\subtitle}{
-    Determinization, 
-    the Structure of \(\mathsf{Fin}\),
-    Regular Expressions, and 
-    Antimirov Derivatives
+    The Algebra of Regular Expressions;
+    Kleene's Theorem;
+    Silent Transitions
 }
 \newcommand{\duedate}{
-    Friday, September 5
+    Friday, September 26
 }
 
 % Page Setup
@@ -81,7 +80,7 @@
     filecolor   = RubineRed,
     urlcolor    = RubineRed,
     citecolor   = RubineRed,
-    pdftitle    = {}
+    pdftitle    = {CSCI 341 Course Materials}
 }
 \usepackage[capitalize]{cleveref}
 
@@ -177,11 +176,14 @@
 
 Don't forget to check the webspace for hints and additional context for each problem!
 
-\subsection*{Determinization}
+\subsection*{Algebra of Regular Expressions}
 
 \begin{problem}
-    [Determinizing is Deterministic]
-    Prove that for any automaton \(\mathcal A = (Q, A, \delta, F)\), \(\mathrm{Det}(\mathcal A)\) is total deterministic.    
+    [Distributing on the Left]
+    Let \(r_1,r_2,r_3 \in \mathit{RExp}\).
+    Prove the equation 
+    \[r_1 \cdot (r_2 + r_3) =_{\mathcal L} (r_1 \cdot r_2) + (r_1 \cdot r_3)\]
+    by calculating the language on either side of the equation and arguing that these two languages are equal.   
 \end{problem}
 
 \begin{proof}[Solution.]
@@ -189,66 +191,40 @@ Don't forget to check the webspace for hints and additional context for each pro
 \end{proof}
 
 \begin{problem}
-    [Determinized State, Completing the Proof]
-    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton, and let \(\mathrm{Det}(\mathcal A)\) be its determinization.
-    Prove that for any state \(x \in Q\), 
-    \[
-        \mathcal L(\mathcal A, x) \supseteq \mathcal L(\mathrm{Det}(\mathcal A), \{x\})
-    \]    
-\end{problem}
-
-\begin{proof}[Solution.]
-    
-\end{proof}
-
-\begin{problem}
-    [You Got Options]
-    Find the smallest automaton (not necessarily total or deterministic) with a state that accepts the language 
-    \[
-        L = \{ab^n \mid n \in \mathbb N\} \cup \{ac^n \mid n \in \mathbb N\} \cup \{a(bc)^n \mid n \in \mathbb N\}
-    \]
-    over the alphabet \(A = \{a,b,c\}\).
-    Use determinization to find a deterministic automaton with a state that accepts the same language.  
-\end{problem}
-
-\begin{proof}[Solution.]
-    
-\end{proof}
-
-\subsection*{The Structure of \(\mathsf{Fin}\)}
-
-\begin{problem}
-    [Finish Closed under Complement]
-    Let \(\mathcal A = (Q, A, \delta, F)\) be a total deterministic automaton with a state \(x\) and let \(L = \mathcal L(\mathcal A, x)\).
-    Let \(\mathcal A' = (Q, A, \delta, Q\setminus F)\).
-    Prove that \(\mathcal L(\mathcal A', x) = A^* \setminus L\).
-\end{problem}
-
-\begin{proof}[Solution.]
-    
-\end{proof}
-
-\begin{problem}
-    [Intersection-product Construction]
-    Let \(\mathcal A_1 = (Q_1, A, \delta_1, F_1)\) and \(\mathcal A_2 = (Q_2, A, \delta_2, F_2)\) be total deterministic automata, and let \(x \in Q_1\) and \(y \in Q_2\).
-    Let \(L_1 = \mathcal L(\mathcal A_1, x)\) and \(L_2 = \mathcal L(\mathcal A_2, x)\).
-    Change the accepting states in the union-product construction to obtain an automaton \(\mathcal A_1 \otimes \mathcal A_2 = (Q_1 \times Q_2, A, \delta^\times, F^
-    \otimes)\) such that \(\mathcal L(\mathcal A_1 \otimes \mathcal A_2, (x, y)) = L_1 \cap L_2\).
-    Explain how to obtain a proof of the Closure under Intersection Theorem from the proof of the Closure under Union Theorem (i.e., what would you change?).
-\end{problem}
-
-\begin{proof}[Solution.]
-    
-\end{proof}
-
-\subsection*{Regular Expressions}
-
-\begin{problem}
-    [Intersections and Complements]
-    Show that the following two languages are regular over \(A = \{a, b\}\). 
+    [Air Flare]
+    Let \(a,b \in A\).
+    Use the equations in the Lemmas above to prove the following equations:
     \begin{enumerate}
-        \item \(L_6 = \mathcal L(b^*a(a + b)^*) \cap \mathcal L(a^*b(a + b)^*)\)
-        \item \(L_7 = A^* \setminus L_6\)
+        \item \(a^*a^* =_{\mathcal L} a^*\)
+        \item \((a + b)^* =_{\mathcal L} b^*(ab^*)^*\)
+    \end{enumerate}
+    Label each equation you use in your proof to indicate which lemma was used where.  
+\end{problem}
+
+\begin{proof}[Solution.]
+    
+\end{proof}
+
+\subsection*{Kleene's Theorem}
+
+\begin{problem}
+    [Some String Matching]
+    Let \(A = \{0,1\}\).
+    In the following automaton, the state \(x_0\) represents a program that checks that in a given input string, every instance of \(01\) is eventually followed by a \(0\).
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics{01then0.pdf}
+        \caption{An automaton \(\mathcal A\) with a state \(x_0\) that accepts a string of \(0\)s and \(1\)s if and only if every instance of \(01\) is eventually followed by \(0\).}
+    \end{figure}
+
+    \begin{enumerate}
+        \item Use Kleene's algorithm to derive a regular expression \(s_0 \in \mathit{RExp}\) such that \(\mathcal L(\mathcal A, x_0) = \mathcal L(s_0)\).
+        
+        \item 
+            Draw the portion of the Antimirov automaton generated by \(s_0\), \(\mathcal A' = \langle s_0\rangle_{\mathcal A_{Ant}}\). 
+            There is a state \(y_0\) is the Antimirov automaton such that \(\mathcal A = \langle y_0\rangle_{\mathcal A'}\).
+            Find \(y_0\).
     \end{enumerate}
 \end{problem}
 
@@ -256,18 +232,18 @@ Don't forget to check the webspace for hints and additional context for each pro
     
 \end{proof}
 
-\subsection*{Antimirov Derivatives}
+
+\subsection*{Silent Transitions}
 
 \begin{problem}
-    [Some Nested Derivatives]
-    Consider the regular expression \(r = (a(b+c^*) + b)^*\) over the alphabet \(A = \{a,b,c\}\).
-    \begin{enumerate}
-        \item Name three different words \(w_0,w_1,w_1 \in A^*\) that are not in \(\mathcal L(r)\), i.e., \(w_0,w_1,w_2 \notin \mathcal L(r)\).
-        <li>Use the inequalities in the proof of the Linear Bound on Antimirov Derivatives Lemma to determine an upper bound on the number of states in the automaton \(\langle r\rangle_{\mathcal A_{Ant}}\) generated by \(r\) in \(\mathcal A_{Ant}\), i.e., \(\#(r)\).</li>
-        \item Now draw a state diagram of \(\langle r\rangle_{\mathcal A_{Ant}}\).
-        \item How many formation rules were used to form the regular expression \(r\)? 
-            How does this number of formation rules compare to the number of states in \(\langle r\rangle_{\mathcal A_{Ant}}\)?
-    \end{enumerate}
+    [Follow Through 2]
+    Use the dagger construction to transform the automaton with silent transitions into a standard automaton and then determine the languages accepted by each state.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics{silent_transition_problem.pdf}
+        \caption{An automaton with silent transitions \(\mathcal B = (Q, A, \delta, \leadsto, F)\).}
+    \end{figure}
 \end{problem}
 
 \begin{proof}[Solution.]
