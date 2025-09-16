@@ -9,4 +9,63 @@
         = \mathsf{Reg}
         = \mathsf{Fin}_\varepsilon
     \]
+    This is to say that there are many models of computation to choose from when it comes to modelling decision procedures for regular languages.
+    All of these are so expressive that even silent transitions can't escape \(\mathsf{Reg}\)!
+    So is that it then?
+    Regular languages are the end of the story?
 </p>
+
+<p>
+    Well, actually, regular languages are just the beginning. 
+    If you'll remember, from the <a href="csci341_notes_1_04_finite_and_infinite_languages.html" target="_blank">Finite and Infinite Languages notes</a>, we have already seen a language that didn't appear to have a total deterministic finite automaton associated with it:
+    \[
+        L_{a=b} = \{a^nb^n \mid n \in \mathbb N\} = \{\varepsilon, ab, aabb, aaabbb, \dots\}
+    \]
+    We were suspicious of the this language because its Brzozowski derivatives never loop back on themselves.
+    But how do we <i>prove</i> that a particular language is not regular?
+</p>
+
+<p>
+    It turns out that there are many ways to prove that a language is not regular (including calculating its Brzozowski derivatives, but that is beyond the scope of the course). 
+    But one approach has a particular strength: it's a common technique that you will see all across the sciences!
+    The slogan goes like this: Suppose that you have a collections of 'things', called \(X\). 
+    And given a particular thing, call it \(y\), we want to prove that \(y \notin X\). 
+    Then we must conjure up a property \(P\) such that every \(x \in X\) satisfies \(P\), but \(y\) does <i>not</i> satisfy \(P\). 
+    This establishes that \(y \notin X\).
+</p>
+
+<p>
+    In our case, \(X = \mathsf{Reg}\), \(x = L_{a=b}\), and the property \(P\) will have to do with something called a <i>pumping length</i>. 
+</p>
+
+<h2>Necessary Cycles</h2>
+
+<p>
+    To talk about <i>pumping</i>, we need to talk about <i>cycles</i>, <i>lassos</i>, and <i></i>.
+</p>
+
+<div class="definition">
+    <b>(Cycle)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton. 
+    A <i>cycle</i> in \(\mathcal A\) is a path 
+    \[
+        x_1 \xrightarrow{a_1} x_2 \xrightarrow{a_2} \cdots \xrightarrow{a_n} x_n
+    \]
+    such that \(x_1 = x_n\). 
+    Each of the \(x_i\) is said to <i>appear</i> in the cycle.
+    A cycle is <i>simple</i> if furthermore, \(x_i \neq x_j\) for all \(0 < i < j < n\) (in other words, there are no other repetitions than \(x_1 = x_n\)).
+</div>
+
+<p>
+    The story as it unfolds here is much better <i>done</i> than <i>told</i>, so why don't we just <i>do it</i>?
+</p>
+
+<div class="exercise">
+    <b>(Finite with Cycles)</b>
+    Draw a state diagram of an automaton \(\mathcal A\) with a state \(x\) such that
+    <ol>
+        <li>\(x\) appears in a cycle</li>
+        <li>\(\mathcal L(\mathcal A, x)\)</li>
+    </ol>
+    What can you tell me about \(\mathcal L(\mathcal A, x)\)?
+</div>
