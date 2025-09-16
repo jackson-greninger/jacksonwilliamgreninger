@@ -1,5 +1,5 @@
 <!-- THIS IS A COMPILED FILE 
- Compiled on 2025-09-15 -->
+ Compiled on 2025-09-16 -->
 
 
 
@@ -162,7 +162,285 @@
         = \mathsf{Reg}
         = \mathsf{Fin}_\varepsilon
     \]
+    This is to say that there are many models of computation to choose from when it comes to modelling decision procedures for regular languages.
+    All of these are so expressive that even silent transitions can't escape \(\mathsf{Reg}\)!
+    So is that it then?
+    Regular languages are the end of the story?
 </p>
+
+<p>
+    Well, actually, regular languages are just the beginning. 
+    If you'll remember, from the <a href="csci341_notes_1_04_finite_and_infinite_languages.html" target="_blank">Finite and Infinite Languages notes</a>, we have already seen a language that didn't appear to have a total deterministic finite automaton associated with it:
+    \[
+        L_{a=b} = \{a^nb^n \mid n \in \mathbb N\} = \{\varepsilon, ab, aabb, aaabbb, \dots\}
+    \]
+    We were suspicious of the this language because its Brzozowski derivatives never loop back on themselves.
+    But how do we <i>prove</i> that a particular language is not regular?
+</p>
+
+<p>
+    It turns out that there are many ways to prove that a language is not regular (including calculating its Brzozowski derivatives, but that is beyond the scope of the course). 
+    But one approach has a particular strength: it's a common technique that you will see all across the sciences!
+    The slogan goes like this: Suppose that you have a collections of 'things', called \(X\). 
+    And given a particular thing, call it \(y\), we want to prove that \(y \notin X\). 
+    Then we must conjure up a property \(P\) such that every \(x \in X\) satisfies \(P\), but \(y\) does <i>not</i> satisfy \(P\). 
+    This establishes that \(y \notin X\).
+</p>
+
+<p>
+    In our case, \(X = \mathsf{Reg}\), \(x = L_{a=b}\), and the property \(P\) will have to do with something called a <i>pumping length</i>. 
+</p>
+
+
+<p>
+    The story as it unfolds here is much better <i>done</i> than <i>told</i>, so why don't we just <i>do it</i>?
+</p>
+
+<h2>Necessary Cycles</h2>
+
+<div class="individual-exercise">
+    <b>(Words)</b>
+    Let \(A = \{0, 1\}\) and consider the language \(L_{\le 3} = \{w \in A^* \mid |w| \le 3\}\).
+    Attempt to write down all of the words in \(L_{\le 3}\). 
+    How many are there?
+    Are there finitely many or infinitely many words in \(L_{\le 502332}\)?
+    Or in \(L_{\le n}\) for some fixed \(n \in \mathbb N\)?
+</div>
+
+<div class="definition">
+    <b>(Cycle)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton. 
+    A <i>cycle</i> in \(\mathcal A\) is a path 
+    \[
+        x_1 \xrightarrow{a_1} x_2 \xrightarrow{a_2} \cdots \xrightarrow{a_{n-1}} x_n
+    \]
+    such that \(x_1 = x_n\). 
+    Each of the \(x_i\) is said to <i>appear</i> in the cycle.
+    A cycle is <i>simple</i> if furthermore, \(x_i \neq x_j\) for all \(0 < i < j < n\) (in other words, there are no other repetitions than \(x_1 = x_n\)).
+</div>
+
+<p>
+    When all an automaton consists of is a (simple) cycle, then we are going to simply call it a (simple) cycle.
+</p>
+
+<div class="exercise">
+    <b>(Finding Cycles)</b>
+    Consider the state diagram below. 
+    <div class="figure">
+        <img src="../imgs/cycles.svg" />
+        An automaton \(\mathcal A\) with states \(x_0,x_1,x_2,x_3\) with a bunch of different cycles!
+    </div>
+    Find all of the simple cycles in \(\mathcal A\).
+    Make note of all of the simple cycles in which \(x_0\) appears (you can use this example later).
+</div>
+
+<div class="exercise">
+    <b>(Finite with Cycles)</b>
+    Draw a few examples of an automaton \(\mathcal A\) with a state \(x\) such that
+    <ol>
+        <li>\(x\) appears in a cycle</li>
+        <li>\(\mathcal L(\mathcal A, x)\) is finite</li>
+    </ol>
+    What can you tell me about \(\mathcal L(\mathcal A, x)\)?
+</div>
+
+<div class="exercise">
+    <b>(With Better Cycles?)</b>
+    Draw a few examples of an automaton \(\mathcal A\) with a state \(x\) such that 
+    <ol>
+        <li>\(x\) appears in a cycle</li>
+        <li>\(x\) is accepting</li>
+    </ol>
+    What can you tell me about \(\mathcal L(\mathcal A, x)\)?
+    In particular, how many words does it have?
+</div>
+
+<div class="exercise">
+    <b>(Necessary Cycles)</b>
+    Draw a few examples of an automaton \(\mathcal A\) with a state \(x\) such that for some nonempty word \(w = a_1a_2\cdots a_n\) (you get to decide which), 
+    \[\mathcal L((w)^*) \subseteq \mathcal L(\mathcal A, x)\]
+    What do they all have in common?
+</div>
+
+<h2>Necessary Lassos</h2>
+
+<p>
+    Ok... so we were dealing with automata and paths and cycles and stuff... where is this going?
+    ... around in circles! Eventually.
+</p>
+
+<div class="definition">
+    <b>(Lasso)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton. 
+    A <i>lasso</i> in \(\mathcal A\) is a path 
+    \[
+        x_1 \xrightarrow{a_1} x_2 \xrightarrow{a_2} \cdots \xrightarrow{a_{n-1}} x_n
+    \]
+    such that \(x_m = x_n\) for some \(1\le m < n\).
+    Each of the \(x_i\) above is said to <i>appear</i> in the lasso, and \(x_1\) is said to <i>start</i> the lasso.
+    A lasso is <i>simple</i> if furthermore, \(x_i \neq x_j\) for all \(m < i < j < n\) (in other words, there are no other repetitions than \(x_m = x_n\)).
+</div>
+
+<p>
+    When all an automaton consists of is a (simple) lasso, then we are going to simply call it a (simple) lasso.
+</p>
+
+<p>
+    An easy consequence of this definition is that every cycle is a lasso.
+    But the converse is not true. 
+</p>
+
+<div class="exercise">
+    <b>(Capturing the Lasso)</b>
+    Draw a lasso that is not a cycle. 
+    Is every simple cycle a simple lasso?
+</div>
+
+<div class="exercise">
+    <b>(Finding Cycles)</b>
+    Consider the state diagram below. 
+    <div class="figure">
+        <img src="../imgs/cycles.svg" />
+        An automaton \(\mathcal A\) with states \(x_0,x_1,x_2,x_3\) with a bunch of different lassos!
+    </div>
+    Find all of the simple lassos in \(\mathcal A\) that start with \(x_0\).
+</div>
+
+<div class="exercise">
+    <b>(Unnecessary Lassos)</b>
+    Draw a lasso \(\mathcal A\) with a state \(x\) such that 
+    <ol>
+        <li>\(\mathcal L(\mathcal A, x)\) is finite</li>
+        <li>\(x\) starts a lasso</li>
+    </ol>
+</div>
+
+<div class="problem">
+    <b>(Necessary Lassos)</b>
+    Prove the following statement using pictures to illustrate your reasoning:
+    let \(\mathcal A\) be a finite automaton with a state \(x\), and let \(L = \mathcal L(\mathcal A, x)\). 
+    If \(L\) is infinite, then \(x\) starts a lasso.
+</div>
+
+<h2>Pumps</h2>
+
+<div class="definition">
+    <b>(Pump)</b>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton. 
+    A <i>pump</i> in \(\mathcal A\) is a path 
+    \[
+        x_1 \xrightarrow{a_1} x_2 \xrightarrow{a_2} \cdots \xrightarrow{a_{n-1}} x_n
+    \]
+    such that \(x_m = x_k\) for some \(1\le m < k \le n\).
+    Each of the \(x_i\) above is said to <i>appear</i> in the pump, and \(x_1\) is said to <i>start</i> the pump.
+
+    <ul>
+        <li>
+            The sub-path \(x_1 \xrightarrow{a_1} \cdots \xrightarrow{a_{m-1}} x_{m}\) is called the <i>head</i> of the pump.
+        </li>
+        <li>
+            The sub-path \(x_m \xrightarrow{a_m} \cdots \xrightarrow{a_{k-1}} x_{k}\) is called the <i>body</i> of the pump.
+        </li>
+        <li>
+            The sub-path \(x_k \xrightarrow{a_k} \cdots \xrightarrow{a_{n-1}} x_{n}\) is called the <i>tail</i> of the pump.
+        </li>
+    </ul>
+    That is, 
+    \[
+        x_1 \mathrel{\overbrace{\xrightarrow{a_1} \cdots \xrightarrow{a_{m-1}} }^{\text{head}}}
+        x_m \mathrel{\overbrace{\xrightarrow{a_m} \cdots \xrightarrow{a_{k-1}} }^{\text{body}}}
+        x_k \mathrel{\overbrace{\xrightarrow{a_k} \cdots \xrightarrow{a_{n-1}} }^{\text{tail}}}
+        x_n
+    \]
+    A pump is <i>simple</i> if every cycle it contains is simple.
+</div>
+
+<p>
+    An easy consequence of the definition is that every cycle and every lasso is a pump.
+</p>
+
+<div class="individual-exercise">
+    <b>(Cowboys and Gucci Gangs)</b>
+    Explain why every cycle is a lasso and every lasso is a pump.
+</div>
+
+<div class="exercise">
+    <b>(Loop-de-loop)</b>
+    Draw a pump that is not a lasso.
+    Is every simple lasso a simple pump?
+</div>
+
+<div class="exercise">
+    <b>(Find the Pump)</b>
+    Consider the state diagram below. 
+    <div class="figure">
+        <img src="../imgs/cycles.svg" />
+        An automaton \(\mathcal A\) with states \(x_0,x_1,x_2,x_3\) with a bunch of different pumps!
+    </div>
+    <ol>
+        <li>Find all of the simple pumps in \(\mathcal A\) that start with \(x_0\).</li>
+        <li>Verify that every path of length \(\ge 4\) starting from \(x_0\) is a pump.</li>
+    </ol>
+</div>
+
+<h2>Pumping Lengths</h2>
+
+<p>
+    Something happened in that last exercise.
+    Did you catch it?
+    There was a particular number, namely \(4\), where any path of length at least \(4\) contained a pump.
+    This number is pretty special, so we're going to write it down in a definition.
+</p>
+
+<div class="definition">
+    <b>(Pumping Lengths for Automata)</b>
+    Let \(\mathcal A\) be an automaton (not necessarily finite) with a state \(x\). 
+    A number \(\ell \in \mathbb N\) is called a <i>pumping length for \(x\)</i> if every path of length \(\ge \ell\) starting from \(x\) is a pump.
+</div>
+
+<div class="exercise">
+    <b>(Finding Pumping Lengths)</b>
+    Find a pumping length for each state in each of the following automata.
+    <ol>
+        <li><div class="figure">
+            <img src="../imgs/kleenealgebraeg.svg" />
+        </div></li>
+        <li><div class="figure">
+            <img src="../imgs/01then0.svg" />
+        </div></li>
+        <li><div class="figure">
+            <img src="../imgs/reach.svg" />
+        </div></li>
+    </ol>
+</div>
+
+<p>
+    We haven't said explicitly that every state in every automaton has a pumping length.
+    This is kind of the point! 
+    Not every one will!
+</p>
+
+<div class="problem">
+    <b>(Finite, Pumped)</b>
+    Prove that for any finite automaton \(\mathcal A = (Q, A, \delta, F)\) and any state \(x \in Q\), there is at least one \(\ell\) such that \(\ell\) is a pumping length for \(x\).
+</div>
+
+<p>
+    This establishes that pumping lengths exist for finite automata (in fact, you just wrote one down explicitly for each finite automaton!).
+    Now what does this have to do with languages?
+    There is also a notion of pumping length for languages.
+</p>
+
+<div class="definition">
+    <b>(Pumping Lengths for Languages)</b>
+    Let \(L \subseteq A^*\) be a language.
+    A number \(\ell \in \mathbb N\) is a <i>pumping length for \(L\)</i> if for any word \(w \in L\) such that \(|w| \ge \ell\), there exist three words \(u,p,v \in A^*\) that satisfy the following properties:
+    <ol>
+        <li>The word \(p\), called the <i>body</i>, is nonempty \[p \neq \varepsilon\]</li>
+        <li>Together with the body, he words \(u\) and \(v\), called the <i>head</i> and <i>tail</i> respectively, satisfy \[w = upv\]</li>
+        <li>The length of the head and body does not exceed \(\ell\), i.e., \[|up| \le \ell\]</li>
+    </ol>
+</div>
 
 
 <!-- END OF BODY -->
