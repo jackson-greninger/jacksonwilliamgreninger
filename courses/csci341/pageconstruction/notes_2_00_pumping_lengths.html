@@ -349,8 +349,30 @@
 
 <div class="lemma">
     <b>(Pumping Lengths Coincide)</b>
-    Let \(\mathcal A\) be a finite automaton with a state \(x\), and let \(\ell \in \mathbb N\) be any number.
-    Then \(\ell\) is a pumping length for \(\mathcal L(\mathcal A, x)\) if and only if \(\ell\) is a pumping length for \(x\).
+    Let \(\mathcal A\) be an automaton with a state \(x\), and let \(\ell \in \mathbb N\) be any number.
+    If \(\ell\) is a pumping length for \(x\) in \(\mathcal A\), then \(\ell\) is a pumping length for \(\mathcal L(\mathcal A, x)\).
+</div>
+
+<div class="proof">
+    Let \(\ell\) be a pumping length for \(x\), and let \(w \in \mathcal L(\mathcal A, x)\) be a word of length \(\ge \ell\). 
+    We need to find \(u,p,v \in A^*\) that satisfy the four properties in the definition of pumping length for a language. 
+    We can do this as follows: let \(w = a_1 \cdots a_n\), so that \(n \ge \ell\). 
+    By definition of acceptance in an automaton, there is a path 
+    \[
+        x \xrightarrow{a_1} x_1 \xrightarrow{a_2} \cdots \xrightarrow{a_n} x_n \in F
+    \]
+    Since \(\ell\) is a pumping length for \(x\), this path is a pump.
+    That means that there are \(1 \le i < j \le n) such that \(x_i = x_j\). 
+    \[
+        x \xrightarrow{a_1} 
+        x_1 \xrightarrow{a_2} 
+        \cdots 
+        \xrightarrow{a_i} x_i
+        \xrightarrow{a_{i+1}} \cdots
+        \xrightarrow{a_j} x_j
+        \xrightarrow{a_{j+1}} \cdots
+        \xrightarrow{a_n} x_n
+    \]
 </div>
 
 <p>
