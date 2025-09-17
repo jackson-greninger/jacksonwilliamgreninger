@@ -98,7 +98,7 @@
 
 <div class="exercise">
     <b>(Finite with Cycles)</b>
-    Draw a few examples of an automaton \(\mathcal A\) with a state \(x\) such that
+    Draw an automaton \(\mathcal A\) with a state \(x\) such that
     <ol>
         <li>\(x\) appears in a cycle</li>
         <li>\(\mathcal L(\mathcal A, x)\) is finite</li>
@@ -108,7 +108,7 @@
 
 <div class="exercise">
     <b>(With Better Cycles?)</b>
-    Draw a few examples of an automaton \(\mathcal A\) with a state \(x\) such that 
+    Draw an automaton \(\mathcal A\) with a state \(x\) such that 
     <ol>
         <li>\(x\) appears in a cycle</li>
         <li>\(x\) is accepting</li>
@@ -119,9 +119,8 @@
 
 <div class="exercise">
     <b>(Necessary Cycles)</b>
-    Draw a few examples of an automaton \(\mathcal A\) with a state \(x\) such that for some nonempty word \(w = a_1a_2\cdots a_n\) (you get to decide which), 
+    Draw an automaton \(\mathcal A\) with a state \(x\) such that for some nonempty word \(w = a_1a_2\cdots a_n\) (you get to decide which), 
     \[\mathcal L((w)^*) \subseteq \mathcal L(\mathcal A, x)\]
-    What do they all have in common?
 </div>
 
 <h2>Necessary Lassos</h2>
@@ -138,7 +137,7 @@
     \[
         x_1 \xrightarrow{a_1} x_2 \xrightarrow{a_2} \cdots \xrightarrow{a_{n-1}} x_n
     \]
-    such that \(x_m = x_n\) for some \(1\le m < n\).
+    such that \(x_m = x_n\) for some \(1\le m < n\) (note that in particular this means \(1 < n\)).
     Each of the \(x_i\) above is said to <i>appear</i> in the lasso, and \(x_1\) is said to <i>start</i> the lasso.
     A lasso is <i>simple</i> if it is a simple path that is followed by a simple cycle.
 </div>
@@ -165,7 +164,7 @@
         <img src="../imgs/cycles.svg" />
         An automaton \(\mathcal A\) with states \(x_0,x_1,x_2,x_3\) with a bunch of different lassos!
     </div>
-    Find all of the simple lassos in \(\mathcal A\) that start with \(x_0\).
+    Find all of the simple lassos in \(\mathcal A\) that start with \(x_0\) (and are not cycles).
 </div>
 
 <div class="exercise">
@@ -177,7 +176,7 @@
     </ol>
 </div>
 
-<div class="problem">
+<div class="individual-exercise">
     <b>(Necessary Lassos)</b>
     Prove the following statement using pictures to illustrate your reasoning:
     let \(\mathcal A\) be a finite automaton with a state \(x\), and let \(L = \mathcal L(\mathcal A, x)\). 
@@ -193,7 +192,7 @@
     \[
         x_1 \xrightarrow{a_1} x_2 \xrightarrow{a_2} \cdots \xrightarrow{a_{n-1}} x_n
     \]
-    such that \(x_m = x_k\) for some \(1\le m < k \le n\).
+    such that \(x_m = x_k\) for some \(1\le m < k \le n\) (again, \(1 < n\)) <b>and \(x_n \in F\)</b>.
     Each of the \(x_i\) above is said to <i>appear</i> in the pump, and \(x_1\) is said to <i>start</i> the pump.
 
     <ul>
@@ -240,7 +239,7 @@
         An automaton \(\mathcal A\) with states \(x_0,x_1,x_2,x_3\) with a bunch of different pumps!
     </div>
     <ol>
-        <li>Find all of the simple pumps in \(\mathcal A\) that start with \(x_0\).</li>
+        <li>Find all of the simple pumps in \(\mathcal A\) that start with \(x_0\) (and are not lassos).</li>
         <li>Verify that every path of length \(\ge 4\) starting from \(x_0\) is a pump.</li>
     </ol>
 </div>
@@ -257,7 +256,7 @@
 <div class="definition">
     <b>(Pumping Lengths for Automata)</b>
     Let \(\mathcal A\) be an automaton (not necessarily finite) with a state \(x\). 
-    A number \(\ell \in \mathbb N\) is called a <i>pumping length for \(x\)</i> if every path of length \(\ge \ell\) starting from \(x\) is a pump.
+    A number \(\ell \in \mathbb N\) is called a <i>pumping length for \(x\)</i> if every path of length \(\ge \ell\) starting from \(x\) and ending in an accepting state is a pump.
 </div>
 
 <div class="exercise">
@@ -290,7 +289,7 @@
 
 <div class="problem">
     <b>(Finite, Pumped)</b>
-    Prove that for any finite automaton \(\mathcal A = (Q, A, \delta, F)\) and any state \(x \in Q\), there is at least one \(\ell\) such that \(\ell\) is a pumping length for \(x\).
+    Prove the Pumping Lemma for Automata, i.e., that for any finite automaton \(\mathcal A = (Q, A, \delta, F)\) and any state \(x \in Q\), there is at least one \(\ell\) such that \(\ell\) is a pumping length for \(x\).
 </div>
 
 <p>
@@ -307,10 +306,60 @@
         <li>The word \(p\), called the <i>body</i>, is nonempty \[p \neq \varepsilon\]</li>
         <li>Together with the body, the words \(u\) and \(v\), called the <i>head</i> and <i>tail</i> respectively, satisfy \[w = upv\]</li>
         <li>The length of the head and body does not exceed \(\ell\), i.e., \[|up| \le \ell\]</li>
-        <li>For </li>
+        <li>For any \(k \in \mathbb N\), we can "pump up \(p\) \(k\) times", \[up^kv \in L\] </li>
     </ol>
 </div>
 
+<p>
+    For example, \(\ell = 1\) is a pumping length for \(a^*\). 
+    This is because for any word \(w \in \mathcal L(a^*)\), that word must be of the form \(w = a^n\) for some \(n > 0\).
+    If we take \(p = a\), \(u = \varepsilon\), \(v = a^{n-1}\), then 
+    <ol>
+        <li>\(p = a \neq \varepsilon\)</li>
+        <li>\(w = a^n = \varepsilon a a^{n-1}\)</li>
+        <li>\(|up| = |\varepsilon a| = |a| = 1 \le \ell\)</li>
+        <li>for any \(k \in \mathbb N\), \(up^kv = \varepsilon a^k a^{n-1} = a^{k + n - 1} \in \mathcal L(a^*)\)</li>
+    </ol>
+    Note that in order for \(\ell\) to be a pumping length, we need to show that <i>for any \(w\)</i> that is longer than \(\ell\) characters, <i>there exists</i> a breaking-up of \(w\) into \(upv\) <i>such that</i> properties 1.-4. hold. 
+    This is a universal-existential statement: it says that \(u,p,v\) depend on \(w\), and that \(w\) can vary.
+</p>
+
 <div class="exercise">
-    <b>()</b>
+    <b>(Finding some Pumping Lengths)</b>
+    Find a pumping length for each of the following languages. 
+    <ol>
+        <li>\(L_1 = \mathcal L(a^* + b^*)\)</li>
+        <li>\(L_2 = \mathcal L(a^*b^*)\)</li>
+        <li>\(L_3 = \mathcal L((ab)^*)\)</li>
+        <li>\(L_4 = \{\varepsilon, ab, ba, aab\}\)</li>
+        <li>The language \(L_5 = \mathcal L(\mathcal A, x_0)\) where \(\mathcal A\) is the automaton 
+            <div class="figure">
+                <img src="../imgs/reach.svg" />
+            </div>
+        </li>
+    </ol>
+    <div class="hint">
+        Use the Antimirov automaton if you need some direction.
+    </div>
 </div>
+
+<p>
+    In the last part of that exercise, you probably discovered the following fact.
+</p>
+
+<div class="lemma">
+    <b>(Pumping Lengths Coincide)</b>
+    Let \(\mathcal A\) be a finite automaton with a state \(x\), and let \(\ell \in \mathbb N\) be any number.
+    Then \(\ell\) is a pumping length for \(\mathcal L(\mathcal A, x)\) if and only if \(\ell\) is a pumping length for \(x\).
+</div>
+
+<p>
+    Putting all of the above together, we arrive at the following theorem (although the common name for it includes the word "lemma")!
+</p>
+
+<div class="theorem">
+    <b>(Pumping, for Languages)</b>
+    Let \(L \in \mathsf{Reg}\) be a regular language. 
+    Then a pumping length exists for \(L\).
+</div>
+

@@ -31,6 +31,38 @@
 }
 }
 
+
+/* Stolen from  https://stackoverflow.com/questions/10405945/html-ordered-list-1-1-1-2-nested-counters-and-scope-not-working */
+.section-listing {
+	counter-reset: section -1;
+	list-style-type: none;
+}
+
+.section-listing >  li {
+	counter-increment: section;
+	    counter-reset: item -1;
+}
+
+.section-listing li:before {
+	content: "Section " counter(section) ". ";
+	font-weight: bold;
+}
+
+.section-listing li ol {
+    list-style-type: none;
+}
+
+.section-listing li ol li {
+    counter-increment: item;
+}
+
+.section-listing li ol li:before {
+    content: counter(section) "." counter(item) " ";
+	font-weight: normal;
+}
+
+/* --- */
+
 .figure {
 	font-style: italic;
 	font-size: small;
