@@ -185,12 +185,27 @@
     And given a particular thing, call it \(y\), we want to prove that \(y \notin X\). 
     Then we must conjure up a property \(P\) such that every \(x \in X\) satisfies \(P\), but \(y\) does <i>not</i> satisfy \(P\). 
     This establishes that \(y \notin X\).
-</p>
-
-<p>
     In our case, \(X = \mathsf{Reg}\), \(x = L_{a=b}\), and the property \(P\) will have to do with something called a <i>pumping length</i>. 
 </p>
 
+<p>A lot of today has to do with paths of one sort or another. 
+    As the saying goes, 
+    <div class="figure">
+        If one has a path, then life is good.
+    </div>
+    It is helpful to have a bit of terminology on our side.
+</p>
+
+<div class="definition">
+    <b>(Simple Paths)</b>
+    Let \(\mathcal A\) be an automaton. 
+    A path in \(\mathcal A\),
+    \[
+    x_1 \xrightarrow{a_1} x_2 \xrightarrow{a_2} \cdots \xrightarrow{a_{n-1}} x_{n}
+    \]
+    is called <i>simple</i> if \(x_i \neq x_j\) for all \(0 \le i < j < n\).
+    We say that \(\mathcal A\) <i>is a path</i> if it is 
+</div>
 
 <p>
     The story as it unfolds here is much better <i>done</i> than <i>told</i>, so why don't we just <i>do it</i>?
@@ -278,7 +293,7 @@
     \]
     such that \(x_m = x_n\) for some \(1\le m < n\).
     Each of the \(x_i\) above is said to <i>appear</i> in the lasso, and \(x_1\) is said to <i>start</i> the lasso.
-    A lasso is <i>simple</i> if furthermore, \(x_i \neq x_j\) for all \(m < i < j < n\) (in other words, there are no other repetitions than \(x_m = x_n\)).
+    A lasso is <i>simple</i> if it is a simple path that is followed by a simple cycle.
 </div>
 
 <p>
