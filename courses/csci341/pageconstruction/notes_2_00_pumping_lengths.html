@@ -187,12 +187,18 @@
 
 <div class="definition">
     <b>(Pump)</b>
-    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton. 
-    A <i>pump</i> in \(\mathcal A\) is a path 
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton and \(\ell \in \mathbb N\).
+    A <i>pump before position \(\ell\)</i> in \(\mathcal A\) is a path 
     \[
         x_1 \xrightarrow{a_1} x_2 \xrightarrow{a_2} \cdots \xrightarrow{a_{n-1}} x_n
     \]
-    such that \(x_m = x_k\) for some \(1\le m < k \le n\) (again, \(1 < n\)) <b>and \(x_n \in F\)</b>.
+    such that 
+    <ol>
+        <li>\(\ell \le n\)</li>
+        <li>\(x_m = x_k\) for some \(1\le m < k \le \ell\) (again, this implies \(1 < n\))</li>
+        <li>\(x_n \in F\)</li>
+    </ol>
+    A <i>pump</i> is just a pump before some position \(\ell\) for some \(\ell\).
     Each of the \(x_i\) above is said to <i>appear</i> in the pump, and \(x_1\) is said to <i>start</i> the pump.
 
     <ul>
@@ -239,7 +245,7 @@
         An automaton \(\mathcal A\) with states \(x_0,x_1,x_2,x_3\) with a bunch of different pumps!
     </div>
     <ol>
-        <li>Find all of the simple pumps in \(\mathcal A\) that start with \(x_0\) (and are not lassos).</li>
+        <li>Find all of the simple pumps before position \(4\) in \(\mathcal A\) that start with \(x_0\) (and are not lassos).</li>
         <li>Verify that every path of length \(\ge 4\) starting from \(x_0\) is a pump.</li>
     </ol>
 </div>
@@ -256,7 +262,7 @@
 <div class="definition">
     <b>(Pumping Lengths for Automata)</b>
     Let \(\mathcal A\) be an automaton (not necessarily finite) with a state \(x\). 
-    A number \(\ell \in \mathbb N\) is called a <i>pumping length for \(x\)</i> if every path of length \(\ge \ell\) starting from \(x\) and ending in an accepting state is a pump.
+    A number \(\ell \in \mathbb N\) is called a <i>pumping length for \(x\)</i> if every path of length \(\ge \ell\) starting from \(x\) and ending in an accepting state is a pump before length \(\ell\).
 </div>
 
 <div class="exercise">
@@ -361,8 +367,8 @@
     \[
         x \xrightarrow{a_1} x_1 \xrightarrow{a_2} \cdots \xrightarrow{a_n} x_n \in F
     \]
-    Since \(\ell\) is a pumping length for \(x\), this path is a pump.
-    That means that there are \(1 \le i < j \le n\) such that \(x_i = x_j\). 
+    Since \(\ell\) is a pumping length for \(x\), this path is a pump before position \(\ell\).
+    That means that there are \(1 \le i < j \le \ell\) such that \(x_i = x_j\). 
     \[
         x \xrightarrow{a_1} 
         x_1 \xrightarrow{a_2} 
@@ -373,6 +379,31 @@
         \xrightarrow{a_{j+1}} \cdots
         \xrightarrow{a_n} x_n
     \]
+    This tells us that the path above is of the forllowing form (glue \(x_i\) and \(x_j\) together in the path above): 
+    \[\begin{aligned}
+        x_{j-1} \leftarrow & \leftarrow x_{x_{i}} \\
+        \searrow^{a_{j}}\ &\ {^{a_{i+1}}}\!\!\nearrow \\
+        x \xrightarrow{a_1} 
+        x_1 \xrightarrow{a_2} 
+        \cdots 
+        \xrightarrow{a_i}\hspace{1em} &{\color{blue} x_i}\hspace{1em}
+        \xrightarrow{a_{i+1}} \cdots
+        \xrightarrow{a_n} x_n
+    \end{aligned}\]
+    This implies that for any \(k \ge 0\),
+    \[
+        a_1\cdots a_i (a_{i+1} \cdots a_j)^k a_{j+1} \cdots a_n \in \mathcal L(\mathcal A, x)
+    \]
+    This is a big hint as to what we can choose as our words \(u,p,v\):
+    take \(u = a_1\cdots a_i\), \(pa_{i+1} \cdots a_j\), and \(v = a_{j+1} \cdots a_n\). 
+    Then 
+    <ol>
+        <li>\(p\) is nonempty, because \(j \ge i + 1\)</li>
+        <li>\(w = upv\)</li>
+        <li>\(|up| = j \le \ell\) because the path above is a pump before position \(\ell\)</li>
+    </ol>
+    and we have already seen condition 4 in the definition of pumping length for languages. 
+    Therefore, \(\ell\) is a pumping length for \(\mathcal L(\mathcal A, x)\).
 </div>
 
 <p>
@@ -385,3 +416,95 @@
     Then a pumping length exists for \(L\).
 </div>
 
+<h2>Nonregular Languages</h2>
+
+<p>
+    The Pumping Theorem (for Languages) is a very useful tool for showing that certain languages are <b>not</b> regular.
+    Let's return to the suspicious language from before. 
+</p>
+
+<div class="example">
+    Let's think about the language
+    \[
+        L = \{a^n b^n \mid n \in \mathbb N\}
+    \]
+    Does this language have a pumping length?
+    Well, let's see: if \(\ell\) were a pumping length for \(L\), then in particular, we could find the \(u,p,v \in A^*\) satisfying 1-4 in the definition of pumping lengths for the word 
+    \[
+        w = a^\ell b^\ell = \overbrace{aa\cdots a}^{\times\ell}\overbrace{bb\cdots b}^{\times\ell}
+    \]
+    Since one of the requirements of the \(u,p,v\) we can choose, \(|up| \le \ell\), so in particular \(up = a^k\) for some \(k \le \ell\). 
+    This means that \(p = a^j\) for some \(1 \le j \le k\). 
+    But here's the issue: we've assumed \(\ell\) is a pumping length, so \(u,p,v\) need to satisfy all these properties at the same time. 
+    But... then we would have 
+    \[
+        up^2v 
+        = a^{k - j} (a^j)^2 a^{\ell - k} b^{\ell}
+        = a^{k - j} a^{2j} a^{\ell - k} b^{\ell} \in L
+    \]
+    Is that possible?
+    Well, 
+    \[
+        (k - j) + 2j + (\ell - k)
+        = k - k + 2j - j + \ell
+        = j + \ell 
+        > \ell
+    \]
+    So no, \(up^2v \notin L\). 
+    Therefore, \(\ell\) cannot be a pumping length for \(L\). 
+    Since \(\ell\) was <i>any number</i> (we didn't say which), <i>no pumping length for \(L\) exists</i>.
+    By the Pumping Theorem for Languages, because \(L\) does not have a pumping length, \(L\) is not a regular language!
+</div>
+
+<p>
+    To reiterate, the method we used above to show that the language \(L\) is nonregular (not regular) happened in four steps: 
+    <ol>
+        <li>Assume for a contradiction that \(\ell\) is a pumping length for \(L\). <i>You do not get to choose \(\ell\), you are given it.</i></li>
+        <li>Pick a bad word \(w \in L\) that is more than \(\ell\) letters long, i.e., \(|w| \ge \ell\). <i>It is your job in this step to come up with a word. It may depend on \(\ell\).</i></li>
+        <li>Break the word into \(u, p, v \in A^*\) satisfying the first three of the four conditions in the definition of pumping length. <i>You do not get to choose the words \(u,p,v\). All you know is that they satisfy 1,2,3 of the definition of pumping length.</i></li>
+        <li>Find a \(k \in \mathbb N\) such that \(up^kv \notin L\). <i>It is your job to find a specific \(k\). It may depend on \(\ell\), \(u\), \(p\), and \(v\) (but it doesn't have to).</i></li>
+    </ol>
+</p>
+
+<div class="exercise">
+    <b>(Same Number)</b>
+    Show that the following language is not regular.
+    \[
+        L = \{w \in \{0,1\} \mid \text{\(w\) contains the same number of \(0\)s as it does \(1\)s}\}
+    \] 
+    <div class="hint">
+        Look at the example again.
+    </div>
+</div>
+
+<div class="exercise">
+    <b>(Linear Combination)</b>
+    Show that the following language is not regular. 
+    \[
+        L = \{a^nb^{2n - 1} \mid n \in \mathbb N \}
+    \]
+</div>
+
+<div class="problem">
+    <b>(Balanced Parentheses)</b>
+    A string of parentheses, i.e., \(\mathtt{)}\) and \(\mathtt{(}\), is called <i>balanced</i> if every left-parenthese \(\mathtt{(}\) is eventually followed by a unique <i>matching</i> right-parenthese \(\mathtt{)}\). 
+    For example, the following strings of parentheses are not balanced:
+    \[
+    \mathtt{(},
+    \qquad \mathtt{))()},
+    \qquad \mathtt{((())()}
+    \]
+    but the following strings of parentheses are:
+    \[
+    \varepsilon,
+    \qquad \mathtt{()},
+    \qquad \mathtt{(())()},
+    \qquad \mathtt{((())())()}
+    \]
+    Let \(A = \{\mathtt{(}, \mathtt{)}\}\). 
+    Prove that the language 
+    \[
+        L = \{w \in A^* \mid \text{\(w\) is balanced}\}
+    \]
+    is nonregular.
+</div>

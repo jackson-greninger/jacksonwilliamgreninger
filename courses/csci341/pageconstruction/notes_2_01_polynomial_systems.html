@@ -1,0 +1,17 @@
+<h1>Solving Polynomial Systems</h1>
+
+<p>
+    Last time, we saw that a couple of very simple languages... balancing parentheses, same amounts of \(a\)s as \(b\), etc... are nonregular! 
+    By Kleene's Theorem, this amounts to the statement that there is no state in any finite automaton that accepts them (how rude!).
+    The general slogan you hear people say about these languages is that they "require memory to recognize".
+    This is true (and in a precise sense), but I think it is much easier to understand these languages from a systems-of-equations perspective.
+    So that's what we are going to do today.
+</p>
+
+<p>
+    Let's return to the language 
+    \[
+        L = \{a^n b^n \mid n \in \mathbb N\}
+    \]
+    from before.
+</p>
