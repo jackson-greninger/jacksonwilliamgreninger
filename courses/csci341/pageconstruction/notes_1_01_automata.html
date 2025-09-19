@@ -267,14 +267,17 @@
 
 <div class="definition" id="automaton_types">
     <b>(Types of Automata)</b>
-    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton. 
+    Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton, and \(x\in Q\) be a state in \(\mathcal A\).
     <ul>
         <li>
-            \(\mathcal A\) is called <i>deterministic</i> if for any state \(x \in Q\) and any input letter \(a \in A\), \(\delta(x, a)\) has one or fewer elements.
-            If \(\mathcal A\) is not deterministic, it is called <i>nondeterministic</i>.
+            The state \(x\) is <i>deterministic</i> if for any input letter \(a \in A\), \(\delta(x, a)\) has one or fewer elements.
+            \(\mathcal A\) is called <i>deterministic</i> if every state \(x \in Q\) is deterministic.
+            If \(x\) or \(\mathcal A\) are not deterministic, they are called <i>nondeterministic</i>.
         </li>
         <li>
-            \(\mathcal A\) is called <i>total</i> if for any state \(x \in Q\) and any input letter \(a \in A\), \(\delta(x, a)\) has at least one element.
+            The state \(x\) is <i>total</i> if for any input letter \(a \in A\), \(\delta(x, a)\) has one or more elements.
+            \(\mathcal A\) is called <i>total</i> if every state \(x \in Q\) is total.
+            If \(x\) or \(\mathcal A\) are not total, they are called <i>partial</i>.
             If \(\mathcal A\) is not total, we say that it is <i>partial</i>.
         </li>
     </ul>
