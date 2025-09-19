@@ -328,7 +328,7 @@
     Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton, let \(x \in Q\), and \(w \in A^*\) and \(a \in A\).
     Prove the following identity:
     \[
-        \delta(x, w a) = \{z \mid \text{for some \(y \in \delta(x, w)\), } z \in \delta(y, a)\}
+        \delta(x, w a) = \{z \in Q \mid \text{for some \(y \in \delta(x, w)\), } z \in \delta(y, a)\}
     \]
     <div class="hint">
         You are going to show two things: (1) that 
