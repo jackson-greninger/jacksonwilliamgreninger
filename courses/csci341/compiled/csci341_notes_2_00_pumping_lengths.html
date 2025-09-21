@@ -1,5 +1,5 @@
 <!-- THIS IS A COMPILED FILE 
- Compiled on 2025-09-19 -->
+ Compiled on 2025-09-21 -->
 
 
 
@@ -151,7 +151,7 @@
 
 
 <!-- BEGINNING OF BODY -->
-<div style="border: none; margin-bottom: -25px; padding: 0px; text-align: right;"><a href="../compiled/csci341_notes_1_12_silent_transitions.html"><span class="link"> \(\looparrowleft\) silent transitions</span></a><a href="../compiled/csci341_notes_2_01_polynomial_systems.html"><span class="link">polynomial systems \(\leadsto\)</span></a></div><h1>Pumping Lemgths</h1>
+<div style="border: none; margin-bottom: -25px; padding: 0px; text-align: right;"><a href="../compiled/csci341_notes_1_12_silent_transitions.html"><span class="link"> \(\looparrowleft\) silent transitions</span></a><a href="../compiled/csci341_notes_2_01_polynomial_systems.html"><span class="link">polynomial systems \(\leadsto\)</span></a></div><h1>Pumping Lengths</h1>
 
 <p>
     To summarize the whole situation so far in the course:
@@ -190,7 +190,7 @@
 
 <p>A lot of today has to do with paths of one sort or another. 
     As the saying goes, 
-    <div class="figure">
+    <div style="width: 100%; text-align: center; margin-bottom: 10px; font-style: italic;">
         If one has a path, then life is good.
     </div>
     It is helpful to have a bit of terminology on our side.
@@ -201,10 +201,9 @@
     Let \(\mathcal A\) be an automaton. 
     A path in \(\mathcal A\),
     \[
-    x_1 \xrightarrow{a_1} x_2 \xrightarrow{a_2} \cdots \xrightarrow{a_{n-1}} x_{n}
+    x_0 \xrightarrow{a_1} x_1 \xrightarrow{a_2} \cdots \xrightarrow{a_n} x_{n}
     \]
-    is called <i>simple</i> if \(x_i \neq x_j\) for all \(0 \le i < j < n\).
-    We say that \(\mathcal A\) <i>is a path</i> if it is 
+    is called <i>simple</i> if \(x_i \neq x_j\) for all \(0 \le i < j \le n\).
 </div>
 
 <p>
@@ -227,15 +226,15 @@
     Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton. 
     A <i>cycle</i> in \(\mathcal A\) is a path 
     \[
-        x_1 \xrightarrow{a_1} x_2 \xrightarrow{a_2} \cdots \xrightarrow{a_{n-1}} x_n
+        x_0 \xrightarrow{a_1} x_1 \xrightarrow{a_2} \cdots \xrightarrow{a_{n}} x_n
     \]
-    such that \(x_1 = x_n\). 
+    such that \(n > 0\) and \(x_0 = x_n\). 
     Each of the \(x_i\) is said to <i>appear</i> in the cycle.
-    A cycle is <i>simple</i> if furthermore, \(x_i \neq x_j\) for all \(0 < i < j < n\) (in other words, there are no other repetitions than \(x_1 = x_n\)).
+    A cycle is <i>simple</i> if furthermore, \(x_i \neq x_j\) for all \(0 \le i < j < n\) (in other words, there are no other repetitions than \(x_0 = x_n\)).
 </div>
 
 <p>
-    When all an automaton consists of is a (simple) cycle, then we are going to simply call it a (simple) cycle.
+    When all an automaton consists of is a (simple) path/cycle, then we are going to simply call it a (simple) path/cycle.
 </p>
 
 <div class="exercise">
@@ -288,10 +287,10 @@
     Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton. 
     A <i>lasso</i> in \(\mathcal A\) is a path 
     \[
-        x_1 \xrightarrow{a_1} x_2 \xrightarrow{a_2} \cdots \xrightarrow{a_{n-1}} x_n
+        x_0 \xrightarrow{a_1} x_1 \xrightarrow{a_2} \cdots \xrightarrow{a_{n}} x_n
     \]
-    such that \(x_m = x_n\) for some \(1\le m < n\) (note that in particular this means \(1 < n\)).
-    Each of the \(x_i\) above is said to <i>appear</i> in the lasso, and \(x_1\) is said to <i>start</i> the lasso.
+    such that \(x_m = x_n\) for some \(1 < m < n\) (note that in particular this means \(1 < n\)).
+    Each of the \(x_i\) above is said to <i>appear</i> in the lasso, and \(x_0\) is said to <i>start</i> the lasso.
     A lasso is <i>simple</i> if it is a simple path that is followed by a simple cycle.
 </div>
 
@@ -338,60 +337,64 @@
 
 <h2>Pumps</h2>
 
+<p>
+    As you have probably gathered so far, cycles and lassos can have a pretty big impact on the language accepted by a state. 
+    In fact, they were really the necessary ingredients for states that accept infinite languages. 
+    But we also saw in Unnecessary Lassos that a lasso does not necessarily guarantee a particular accepted language is infinite. 
+    This is where pumps come in.
+</p>
+
 <div class="definition">
     <b>(Pump)</b>
     Let \(\mathcal A = (Q, A, \delta, F)\) be an automaton and \(\ell \in \mathbb N\).
     A <i>pump before position \(\ell\)</i> in \(\mathcal A\) is a path 
     \[
-        x_1 \xrightarrow{a_1} x_2 \xrightarrow{a_2} \cdots \xrightarrow{a_{n-1}} x_n
+        x_0 \xrightarrow{a_1} x_1 \xrightarrow{a_2} \cdots \xrightarrow{a_{n}} x_n
     \]
     such that 
     <ol>
         <li>\(\ell \le n\)</li>
-        <li>\(x_m = x_k\) for some \(1\le m < k \le \ell\) (again, this implies \(1 < n\))</li>
+        <li>\(x_m = x_k\) for some \(0 \le m < k \le \ell\) (again, this implies \(1 < n\))</li>
         <li>\(x_n \in F\)</li>
     </ol>
-    A <i>pump</i> is just a pump before some position \(\ell\) for some \(\ell\).
     Each of the \(x_i\) above is said to <i>appear</i> in the pump, and \(x_1\) is said to <i>start</i> the pump.
-
     <ul>
         <li>
-            The sub-path \(x_1 \xrightarrow{a_1} \cdots \xrightarrow{a_{m-1}} x_{m}\) is called the <i>head</i> of the pump.
+            The path \(x_0 \xrightarrow{a_1} \cdots \xrightarrow{a_{m}} x_{m}\) is called the <i>head</i> of the pump.
         </li>
         <li>
-            The sub-path \(x_m \xrightarrow{a_m} \cdots \xrightarrow{a_{k-1}} x_{k}\) is called the <i>body</i> of the pump.
+            The path \(x_m \xrightarrow{a_m} \cdots \xrightarrow{a_{k}} x_{k}\) is called the <i>body</i> of the pump.
         </li>
         <li>
-            The sub-path \(x_k \xrightarrow{a_k} \cdots \xrightarrow{a_{n-1}} x_{n}\) is called the <i>tail</i> of the pump.
+            The path \(x_k \xrightarrow{a_k} \cdots \xrightarrow{a_{n}} x_{n}\) is called the <i>tail</i> of the pump.
         </li>
     </ul>
     That is, 
     \[
-        x_1 \mathrel{\overbrace{\xrightarrow{a_1} \cdots \xrightarrow{a_{m-1}} }^{\text{head}}}
-        x_m \mathrel{\overbrace{\xrightarrow{a_m} \cdots \xrightarrow{a_{k-1}} }^{\text{body}}}
-        x_k \mathrel{\overbrace{\xrightarrow{a_k} \cdots \xrightarrow{a_{n-1}} }^{\text{tail}}}
+        x_0 \mathrel{\overbrace{\xrightarrow{a_1} \cdots \xrightarrow{a_{m}} }^{\text{head}}}
+        x_m \mathrel{\overbrace{\xrightarrow{a_m} \cdots \xrightarrow{a_{k}} }^{\text{body}}}
+        x_k \mathrel{\overbrace{\xrightarrow{a_k} \cdots \xrightarrow{a_{n}} }^{\text{tail}}}
         x_n
     \]
     A pump is <i>simple</i> if every cycle it contains is simple.
 </div>
 
 <p>
-    An easy consequence of the definition is that every cycle and every lasso is a pump.
+    Take note! The last state in a pump is always accepting!
 </p>
-
-<div class="individual-exercise">
-    <b>(Lil Pump in the Country)</b>
-    Explain why every cycle is a lasso and every lasso is a pump.
-</div>
 
 <div class="exercise">
     <b>(Loop-de-loop)</b>
-    Draw a pump that is not a lasso.
-    Is every simple lasso a simple pump?
+    Let's draw some neat-o paths, shall we?
+    <ol>
+        <li>Draw a pump that is not a lasso.</li>
+        <li>Draw a lasso that is not a pump.</li>
+        <li>Draw a simple pump that contains three cycles.</li>
+    </ol>
 </div>
 
 <div class="exercise">
-    <b>(Find the Pump)</b>
+    <b>(Find the Pumps)</b>
     Consider the state diagram below. 
     <div class="figure">
         <img src="../imgs/cycles.svg" />
@@ -399,7 +402,7 @@
     </div>
     <ol>
         <li>Find all of the simple pumps before position \(4\) in \(\mathcal A\) that start with \(x_0\) (and are not lassos).</li>
-        <li>Verify that every path of length \(\ge 4\) starting from \(x_0\) is a pump.</li>
+        <li>Verify that every path of length \(\ge 4\) starting from \(x_0\) and ending in an accepting state is a pump.</li>
     </ol>
 </div>
 
@@ -632,27 +635,30 @@
 
 <div class="exercise">
     <b>(Linear Combination)</b>
-    Show that the following language is not regular. 
-    \[
-        L = \{a^nb^{2n - 1} \mid n \in \mathbb N \}
-    \]
+    Show that the following languages are not regular. 
+    <ol>
+        <li>\(L_1 = \{a^nb^nc^n \mid n \in \mathbb N \}\)</li>
+        <li>\(L_2 = \{a^nb^{2n - 1} \mid n \in \mathbb N \}\)</li>
+        <li>\(L_3 = \{a^{n^2} \mid n \in \mathbb N \}\)</li>
+        <li>\(L_4 = \{a^nb^m \mid n,m \in \mathbb N \text{ and } n < m\}\)</li>
+    </ol>
 </div>
 
-<div class="problem">
+<div class="exercise">
     <b>(Balanced Parentheses)</b>
     A string of parentheses, i.e., \(\mathtt{)}\) and \(\mathtt{(}\), is called <i>balanced</i> if every left-parenthese \(\mathtt{(}\) is eventually followed by a unique <i>matching</i> right-parenthese \(\mathtt{)}\). 
     For example, the following strings of parentheses are not balanced:
     \[
-    \mathtt{(},
-    \qquad \mathtt{))()},
-    \qquad \mathtt{((())()}
+        \mathtt{(},
+        \qquad \mathtt{))()},
+        \qquad \mathtt{((())()}
     \]
     but the following strings of parentheses are:
     \[
-    \varepsilon,
-    \qquad \mathtt{()},
-    \qquad \mathtt{(())()},
-    \qquad \mathtt{((())())()}
+        \varepsilon,
+        \qquad \mathtt{()},
+        \qquad \mathtt{(())()},
+        \qquad \mathtt{((())())()}
     \]
     Let \(A = \{\mathtt{(}, \mathtt{)}\}\). 
     Prove that the language 
@@ -660,6 +666,14 @@
         L = \{w \in A^* \mid \text{\(w\) is balanced}\}
     \]
     is nonregular.
+</div>
+
+<div class="problem">
+    <b>(NOT THE Bs!)</b>
+    Show that the following language is not regular. 
+    \[
+        L = \{a^nb^m \mid n \in \mathbb N \text{ and } n > m\}
+    \]
 </div>
 
 
