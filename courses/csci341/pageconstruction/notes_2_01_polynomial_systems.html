@@ -1,4 +1,4 @@
-<h1>Solving Polynomial Systems</h1>
+<h1>Polynomial Systems and Context-free Grammars</h1>
 
 <p>
     Last time, we saw that a couple of very simple languages... balancing parentheses, same amounts of \(a\)s as \(b\), etc... are nonregular! 
@@ -9,7 +9,7 @@
 </p>
 <p>
     We have already seen one way of generalizing our left-affine systems of equations: by allowing them to be unguarded (for there to be terms \(r_{ij}x_i\) where \(r_{ij}\) <i>does</i> have the empty word property). 
-    Because of the Killing \(\varepsilon\)s with a Dagger construction, we can always transform one of these unguarded systems into a guarded one, so this generalization didn't buy us a larger family of languages than \(\mathsf{Rel}\).
+    Because of the dagger construction, we can always transform one of these unguarded systems into a guarded one, so this generalization didn't buy us a larger family of languages than \(\mathsf{Rel}\).
     Today we are going to generalize even more: we're going to let go of "left-affine" and replace it with "polynomial". 
     This will lead us to a much bigger family of languages, including some languages you will be <i>very</i> familiar with.
 </p>
@@ -25,7 +25,7 @@
     But it can still be written as a least solution to a system of equations. 
     In fact, it is the least solution to a single equation: 
     \[
-        x = \varepsilon + a\cdot x\cdot b
+        x = \varepsilon + a x b
     \]
     Let's see how this works.
 
@@ -33,9 +33,10 @@
         Remember that a <i>solution</i> to this equation is a language \(L \subseteq A^*\) such that 
         \[
             L = \{\varepsilon\} \cup (\{a\} \cdot L \cdot \{b\})
+            \hspace{4em}\text{(*)}
         \]
         and that the <i>least</i> solution is the solution that is contained in all other solutions. 
-        The language \(L_{a = b}\) satisfies this equation: \(\varepsilon \in L_{a = b}\) (set \(n = 0\)) and for any \(n \in \mathbb N\), \(a(a^nb^n)b = a^{n+1}b^{n+1} \in L_{a=b}\).
+        The language \(L_{a = b}\) satisfies this equation: we can read directly from \(\text{(*)}\) that \(\varepsilon \in L_{a = b}\) (set \(n = 0\)) and for any \(n \in \mathbb N\), \(a(a^nb^n)b = a^{n+1}b^{n+1} \in L_{a=b}\).
     </p>
     <p>
         To see that \(L_{a = b}\) is the <i>least</i> solution, we need to check that it <i>only contains the words it has to</i>. 
@@ -62,6 +63,10 @@
 <div class="individual-exercise">
     <b>(A = B: Resurrection: Resurrection)</b>
     Rephrase the reasoning in the example above so that it is an explicit proof by induction of the inclusion \(L_{a = b} \subseteq L\) for any solution \(L\) to \(x = \varepsilon + axb\).
+    <div class="hint">
+        This is a proof by induction on \(n\): the goal is to show that \(a^nb^n \in L\) for all \(n \in \mathbb N\).
+        The base case has been done for you in the example.
+    </div>
 </div>
 
 <div class="definition">
@@ -79,6 +84,7 @@
         </li>
     </ol>
     Above, we write \(p(x_1, \dots, x_n)\) to emphasize that the variables in the polynomial expression that appear are \(x_1, \dots, x_n \in X\). 
+    The set of all polynomial expressions in \(X\) variables is written \(\mathit{Poly}(X)\).
 
     <p>
         A <i>polynomial system of equations in \(X\) variables</i> is a system of equations of the form 
@@ -87,7 +93,7 @@
             &\ \vdots \\
             x_n &= p_n(x_1, \dots, x_n)
         \end{aligned}\]
-        where \(x_1, \dots, x_n \in X\). 
+        where \(x_1, \dots, x_n \in X\) and \(p_i(x_1,\dots, x_n) \in \mathit{Poly}(X)\) for each \(i=1,\dots, n\). 
         A <i>solution</i> to the polynomial system of equations in \(X\) variables above is a sequence of languages \(L_1, \dots, L_n\) such that 
         \[\begin{aligned}
             L_1 &= p_1(L_1, \dots, L_n) \\
@@ -178,7 +184,7 @@
         \qquad
         by + \varepsilon x y a
     \]
-    are in grammar-ready form, but none of 
+    are in grammar-ready form, but  
     \[
         ax(b + y)
         \qquad 
@@ -192,7 +198,7 @@
 
 <div class="exercise">
     <b>(Getting Ready for School)</b>
-    For each polynomial expression each of 
+    For each polynomial expression below, 
     \[
         p_1(x, y) = ax(b + y)
         \qquad 
@@ -202,12 +208,13 @@
     \]
     find a language equivalent polynomial expression in grammar-ready form, i.e., \(q_i(x, y)\) that is in grammar-ready form and 
     \[
-        p_i(x, y,) =_{\mathcal L} q_i(x, y)
+        p_i(x, y) =_{\mathcal L} q_i(x, y)
     \]    
 </div>
 
 <p>
     As you can probably guess, the translation from non-grammar-ready to grammar-ready is always the same sequence of steps.
+    This is the basic idea behind proving the following lemma. 
 </p>
 
 <div class="lemma">
@@ -219,13 +226,95 @@
 <h2>Grammars</h2>
 
 <p>
-    Finding the least solution to a polynomial system of equations is always a matter of determining which words <i>have to be in any solution</i>.
+    Finding the least solution to a polynomial system of equations is always a matter of determining which words <i>have to be in every solution</i>.
     This is always a matter of plugging in words we have already determined are in the language into the right-hand side of the equation. 
     There is a more systematic way of writing this process down: it's called a <i>rewrite rule</i>.
-    A set of reqwrite rules is called a <i>grammar</i>, although we will only consider one type of grammar for now. 
+    Roughly speaking, a set of rewrite rules is called a <i>grammar</i>.
 </p>
 
 <div class="definition">
-    <b>(Rewriting, Grammar)</b>
-    Given a 
+    <b>(Context-Free Grammar)</b>
+    A <i>context-free grammar</i> (or simply put, a <i>grammar</i>) is a tuple \(\mathcal G = (X, A, R)\) consisting of 
+    <ul>
+        <li>A set \(X\) of <i>variables</i></li>
+        <li>An alphabet \(A\) of letters</li>
+        <li>A set of <i>rewrite rules</i> \(R\), which relates variables to monomial expressions over \(A\) in \(X\) variables,
+            \[
+                R \subseteq X \times (X \cup A)^*
+            \]
+        </li>
+    </ul>
+    Given a variable \(x \in X\) and a monomial expression \(\mu\), we usually write \(x \to_R \mu\) to mean \((x, \mu) \in R\).
+    If \(X\) and \(R\) are finite, then we say that \(\mathcal G\) is <i>finite</i>.
 </div>
+
+<p>
+    Rewrite rules are essentially just translations of variables into words. 
+    This translation extends to a larger rewriting system that allows us to transform words into words.
+</p>
+
+<div class="definition">
+    <b>(Derivation)</b>
+    Let \(\mathcal G = (X, A, \Rightarrow)\) be a grammar.
+    The <i>rewrite relation in \(\mathcal G\)</i> is the relation 
+    \[
+        {\Rightarrow_{\mathcal G}} \subseteq (X \cup A)^* \times (X \cup A)^*
+    \] 
+    defined as follows: for any monomial expressions \(\mu_1(x_1, \cdots, x_n), \mu_2(x_1, \dots, x_n) \in (X \cup A)^*\), \(\mu_1 \Rightarrow_{\mathcal G} \mu_2\) if and only if there is a rewrite rule \(x_i \to_R \tau\) and 
+    \[
+        \mu_2 = \mu_1(x_1, \dots, \tau, \dots, x_n)
+    \]
+    The <i>multistep rewrite relation in \(\mathcal G\)</i> is the relation \(\Rightarrow_{\mathcal G}^*\) defined so that for any monomial expressions \(\mu\) and \(\tau\), \(\mu \Rightarrow_{\mathcal G} \tau\) if and only if there is a sequence of rewrites
+    \[
+        \mu 
+        \Rightarrow_{\mathcal G} \mu_1 
+        \Rightarrow_{\mathcal G} \cdots 
+        \Rightarrow_{\mathcal G} \mu_n = \tau
+    \]
+    We say that \(\mu \Rightarrow_{\mathcal G}^* \tau\) is a <i>derivation</i> if \(\tau\) contains no variables, i.e., \(\tau = w \in A^*\) is a word from \(A\). 
+</div>
+
+<div class="example">
+    For example, consider the grammar \[
+        \mathcal G = (\{x\}, \{a, b\}, \{(x, \varepsilon), (x, axb)\})
+    \]
+    This grammar has \(X = \{x\}\) for its single variable, \(A = \{a, b\}\) for its alphabet, and two rewrite rules, \(x \to \varepsilon\) and \(x \to axb\). 
+    What these rewrite rules are trying to capture are the possible ways that you can <i>start with the string \(x\) and rewrite it by repeatedly using the rules</i>.
+    In \(\mathcal G\), we can derive the string \(aabb\) by applying the rewrite rules as follows:
+    </i>
+    \[
+        x 
+        \overbrace{\Rightarrow_{\mathcal G}}^{x \to axb} axb 
+        \overbrace{\Rightarrow_{\mathcal G}}^{x \to axb} aaxbb 
+        \overbrace{\Rightarrow_{\mathcal G}}^{x \to \varepsilon} aa\varepsilon bb = aabb
+    \]
+    This sequence of rewrites is a derivation because \(aabb\) is a word in \(A^*\).
+</div>
+
+<div class="definition">
+    <b>(Derived, Context-free)</b>
+    Given a context-free grammar \(\mathcal G = (X, A, R)\) and a variable \(x \in X\), the <i>language derived from \(x\)</i> is the language 
+    \[
+        \mathcal L(\mathcal G, x)
+        = \{w \in A^* \mid \text{there is a derivation } x \Rightarrow_{\mathcal G}^* w\}
+    \]
+    A language \(L \subseteq A^*\) is called a <i>context-free language</i> if there is a contextfree gramma \(\mathcal G\) with a variable \(x\) such that \(\mathcal L(\mathcal G, x) = L\), i.e., it is the language derived from a variable in a finite context-free grammar.
+
+    <p>
+        The family of context-free languages is written 
+        \[
+            \mathsf{CFL} = \{L \subseteq A^* \mid L\text{ is context-free} \}
+        \]
+    </p>
+</div>
+
+<div class="exercise">
+    <b></b>
+
+</div>
+
+<h2>Backus–Naur Form</h2>
+
+<p>
+    Grammars achieve the same goal as "formation rules", as we have been using the phrase. 
+</p>
