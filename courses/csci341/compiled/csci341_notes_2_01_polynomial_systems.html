@@ -511,18 +511,49 @@
     <b>(Some Practice Deriving)</b>
     Consider the grammar \(\mathcal G = (X, A, R)\) below:
     \[\begin{aligned}
-        x &\to \varepsilon \mid 
+        x &\to \varepsilon \mid ax \mid yba \mid bxb \\
+        y &\to \varepsilon \mid ayy \mid zb \\
+        z &\to yx \mid az \\
     \end{aligned}\]
+    <ol>
+        <li>What are the variables \(X\)?</li>
+        <li>What is the alphabet \(A\)?</li>
+        <li>Derive 10 differnet words from \(x\) in \(\mathcal G\).</li>
+    </ol>
 </div>
 
 <div class="exercise">
     <b>(Designing Basic Grammars)</b>
-    Show that following languages are context-free by designing a finite grammar that derives them.
+    Show that following languages over \(A = \{a,b\}\) are context-free by designing a finite grammar that derives them.
+    <ol>
+        <li>\(L_1 = \{(ab)^n \mid n \in \mathbb N\}\)</li>
+        <li>\(L_2 = \{a^nb^m \mid n < m\}\)</li>
+        <li>\(L_3 = \{a^nb^{2n + 1} \mid n \in \mathbb N\}\)</li>
+        <li>\(L_4 = \{w \mid w = w^{\mathrm{op}} \text{(\(w\) is a palindrome)}\}\)</li>
+    </ol>
 </div>
 
 <div class="exercise">
     <b>(Forming Sentences)</b>
+    Consider the grammar \(\mathcal G = (X, A, R)\) below. 
+    \[\begin{aligned}
+        S &\to N_P V_P N_P \\
+        N_P &\to BAN \mid BN \\
+        A &\to \texttt{nice} \mid \texttt{mean} \\
+        B &\to \texttt{the} \mid \texttt{a} \\
+        N &\to \texttt{boy} \mid \texttt{girl} \mid \texttt{dog} \\
+        V_P &\to \texttt{likes} \mid \texttt{hates} 
+    \end{aligned}\]
+    (Here, \(V_P\) and \(N_P\) are variables.)
+    What are \(X\), \(A\), and \(R\)?
 
+    <p></p>
+    Derive the following sentences in \(\mathcal G\):
+    <ol>
+        <li>\(\texttt{the nice girl likes the mean dog}\)</li>
+        <li>\(\texttt{the boy likes the nice boy}\)</li>
+        <li>\(\texttt{the mean boy hates the dog}\)</li>
+    </ol>
 </div>
 
 <p>
