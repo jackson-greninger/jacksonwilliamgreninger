@@ -1,5 +1,5 @@
 <!-- THIS IS A COMPILED FILE 
- Compiled on 2025-09-21 -->
+ Compiled on 2025-09-22 -->
 
 
 
@@ -303,7 +303,35 @@
     The thing about polynomial systems is that they're hard to solve.
     And unfortunately, Arden's Rules can't save us when it comes to finding these least solutions.
     We need to use a slightly different but more direct approach.
-    This approach requires us to show that we can write polynomial expressions a certain way.
+</p>
+
+<!--Subsection-->
+<h2>Monomials and Grammar-Ready Polynomials</h2>
+
+<p>
+    The more direct approach just uses the same type of reasoning as we have been using up until now (including in the A=B: Resurrection example):
+    the words that are in the least solution are the ones that <i>must</i> be there.
+    So, if we have an equation 
+    \[
+        x = \varepsilon + axb + baxb \qquad (\dagger)
+    \]
+    in our system, and we know that a word \(w\) is in the least solution this equation, then we also know that \(awb\) and \(bawb\) are in the least solution as well.
+    From left to right, we can rewrite \(w\) in either way
+    \[
+        w \to awb 
+        \quad 
+        w \to bawb
+    \]
+    without leaving the least solution.
+    It stands to reason that all of the words in the least solution can be derived this way:
+    write \(L\) for the least solution to \((\dagger)\).
+    We know that \(\varepsilon \in L\), just by looking at the right hand side. 
+    We also know (from what we said above) that \(a\varepsilon b = ab\) and \(ba\varepsilon b = bab\) are in \(L\).
+</p>
+
+<p>
+    However, this "rewriting" approach to finding all of the words in a least solution only works in \((\dagger)\) because the right-hand side is written in a certain way: there is a \(+\) separating each of the different possible ways of discovering new words in the least solution.
+    Let's make this more precise. 
 </p>
 
 <div class="definition">
@@ -413,36 +441,54 @@
     \[
         {\Rightarrow_{\mathcal G}} \subseteq (X \cup A)^* \times (X \cup A)^*
     \] 
-    defined as follows: for any monomial expressions \(\mu_1(x_1, \cdots, x_n), \mu_2(x_1, \dots, x_n) \in (X \cup A)^*\), \(\mu_1 \Rightarrow_{\mathcal G} \mu_2\) if and only if there is a rewrite rule \(x_i \to_R \tau\) and 
+    defined as follows: for any monomial expressions 
     \[
-        \mu_2 = \mu_1(x_1, \dots, \tau, \dots, x_n)
+        \mu_1(x_1, \cdots, x_n), \mu_2(x_1, \dots, x_n) \in (X \cup A)^*
+    \] 
+    we can rewrite \(\mu_1 \Rightarrow_{\mathcal G} \mu_2\) if and only if there is a rewrite rule \(x_i \to_R \nu\) and 
+    \[
+        \mu_2 = \mu_1(x_1, \dots, \overbrace{\nu}^{\text{in place of \(x_i\)}}, \dots, x_n)
     \]
-    The <i>multistep rewrite relation in \(\mathcal G\)</i> is the relation \(\Rightarrow_{\mathcal G}^*\) defined so that for any monomial expressions \(\mu\) and \(\tau\), \(\mu \Rightarrow_{\mathcal G} \tau\) if and only if there is a sequence of rewrites
+    The <i>multistep rewrite relation in \(\mathcal G\)</i> is the relation \(\Rightarrow_{\mathcal G}^*\) defined so that for any monomial expressions \(\mu\) and \(\nu\), \(\mu \Rightarrow_{\mathcal G}^* \nu\) if and only if there is a sequence of rewrites
     \[
         \mu 
         \Rightarrow_{\mathcal G} \mu_1 
         \Rightarrow_{\mathcal G} \cdots 
-        \Rightarrow_{\mathcal G} \mu_n = \tau
+        \Rightarrow_{\mathcal G} \mu_n = \nu
     \]
-    We say that \(\mu \Rightarrow_{\mathcal G}^* \tau\) is a <i>derivation</i> if \(\tau\) contains no variables, i.e., \(\tau = w \in A^*\) is a word from \(A\). 
+    We say that \(\mu \Rightarrow_{\mathcal G}^* \nu\) is a <i>derivation</i> if \(\nu\) contains no variables, i.e., \(\nu = w \in A^*\) is a word from \(A\). 
 </div>
+
+<p>
+    In the future, if \(\mathcal G\) is clear from context, we are always going to write rules and reqrites as \(x \to \mu\) and \(\mu_1 \Rightarrow \mu_2\) instead of \(x \to_R \mu\) and \(\mu_1 \Rightarrow \mu_2\) (that is, the subscripts aren't strictly necessary).
+</p>
 
 <div class="example">
     For example, consider the grammar \[
         \mathcal G = (\{x\}, \{a, b\}, \{(x, \varepsilon), (x, axb)\})
     \]
     This grammar has \(X = \{x\}\) for its single variable, \(A = \{a, b\}\) for its alphabet, and two rewrite rules, \(x \to \varepsilon\) and \(x \to axb\). 
-    What these rewrite rules are trying to capture are the possible ways that you can <i>start with the string \(x\) and rewrite it by repeatedly using the rules</i>.
+    The more typical way you would see this grammar written as a kind of table, as in
+    \[\begin{aligned}
+        x &\to \varepsilon \mid axb
+    \end{aligned}\]
+    Here, the \(\mid\) just indicates a separation into one of several rules.
+
+    <p></p>
     In \(\mathcal G\), we can derive the string \(aabb\) by applying the rewrite rules as follows:
     </i>
     \[
         x 
-        \overbrace{\Rightarrow_{\mathcal G}}^{x \to axb} axb 
-        \overbrace{\Rightarrow_{\mathcal G}}^{x \to axb} aaxbb 
-        \overbrace{\Rightarrow_{\mathcal G}}^{x \to \varepsilon} aa\varepsilon bb = aabb
+        \mathrel{\overbrace{\Rightarrow}^{x \to axb}} axb 
+        \mathrel{\overbrace{\Rightarrow}^{x \to axb}} aaxbb 
+        \mathrel{\overbrace{\Rightarrow}^{x \to \varepsilon}} aa\varepsilon bb = aabb
     \]
     This sequence of rewrites is a derivation because \(aabb\) is a word in \(A^*\).
 </div>
+
+<p>
+    Similar to how an automaton <i>accepts</i> words, in a grammar we can <i>derive</i> them.
+</p>
 
 <div class="definition">
     <b>(Derived, Context-free)</b>
@@ -451,7 +497,7 @@
         \mathcal L(\mathcal G, x)
         = \{w \in A^* \mid \text{there is a derivation } x \Rightarrow_{\mathcal G}^* w\}
     \]
-    A language \(L \subseteq A^*\) is called a <i>context-free language</i> if there is a contextfree gramma \(\mathcal G\) with a variable \(x\) such that \(\mathcal L(\mathcal G, x) = L\), i.e., it is the language derived from a variable in a finite context-free grammar.
+    A language \(L \subseteq A^*\) is called a <i>context-free language</i> if there is a context-free grammar \(\mathcal G\) with a variable \(x\) such that \(\mathcal L(\mathcal G, x) = L\), i.e., it is the language derived from a variable in a finite context-free grammar.
 
     <p>
         The family of context-free languages is written 
@@ -462,15 +508,45 @@
 </div>
 
 <div class="exercise">
-    <b></b>
+    <b>(Some Practice Deriving)</b>
+    Consider the grammar \(\mathcal G = (X, A, R)\) below:
+    \[\begin{aligned}
+        x &\to \varepsilon \mid 
+    \end{aligned}\]
+</div>
+
+<div class="exercise">
+    <b>(Designing Basic Grammars)</b>
+    Show that following languages are context-free by designing a finite grammar that derives them.
+</div>
+
+<div class="exercise">
+    <b>(Forming Sentences)</b>
 
 </div>
 
-<h2>Backus–Naur Form</h2>
-
 <p>
-    Grammars achieve the same goal as "formation rules", as we have been using the phrase. 
+    It should hopefully be clear at this point that grammars are precisely the tools we need to understand the least solutions to polynomial systems of equations!
 </p>
+
+<div class="theorem">
+    <b>(Grammars and Polynomials)</b>
+    Let \(A\) be an alphabet and \(X\) a set of variables.
+    Consider the grammar-ready polynomial system of equations below:
+    \[\begin{aligned}
+        x_1 &= \mu_{11} + \mu_{12} + \cdots + \mu_{1n} \\
+         &\hspace{2em} \vdots \\
+        x_n &= \mu_{n1} + \mu_{n2} + \cdots + \mu_{nn} 
+    \end{aligned} \qquad (*)\]
+    Above, \(\mu_{ij} \in (X \cup A)^*\) is a monomial expression for each \(i,j\).
+    Let \(\mathcal G = (X, A, R)\) be the (necessarily finite) grammar 
+    \[\begin{aligned}
+        x_1 &\to \mu_{11} \mid \mu_{12} \mid \cdots \mid \mu_{1n} \\
+         &\hspace{2em} \vdots \\
+        x_n &\to \mu_{n1} \mid \mu_{n2} \mid \cdots \mid \mu_{nn} 
+    \end{aligned}\]
+    Then \(\mathcal L(\mathcal G, x_1), \mathcal L(\mathcal G, x_2), \dots, \mathcal L(\mathcal G, x_n)\) is the least solution to the polynomial system of equations \((*)\).
+</div>
 
 
 <!-- END OF BODY -->
