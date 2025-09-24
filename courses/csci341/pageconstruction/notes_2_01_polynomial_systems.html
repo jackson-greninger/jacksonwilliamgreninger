@@ -277,13 +277,36 @@
 </div>
 
 <p>
+    For example, consider the grammar 
+    \[
+        \mathcal G = (\{x\}, \{a, b\}, \{(x, \varepsilon), (x, axb)\})
+    \]
+    This grammar has \(X = \{x\}\) for its single variable, \(A = \{a, b\}\) for its alphabet, and two rewrite rules, \(x \to \varepsilon\) and \(x \to axb\). 
+    The more typical way you would see this grammar written as a kind of table, as in
+    \[\begin{aligned}
+        x &\to \varepsilon \mid axb
+    \end{aligned}\]
+    Here, the \(\mid\) just indicates a separation into one of several rules.
+    When there are multiple variables in the grammar, multiple lines will appear: 
+    for example, the grammar 
+    \[
+        \mathcal G = (\{x, y\}, \{a, b\}, \{(x, \varepsilon), (x, ayb), (y, bxa)\})
+    \]
+    can equivalently be written as 
+    \[\begin{aligned}
+        x &\to \varepsilon \mid ayb \\
+        y &\to bxa 
+    \end{aligned}\]
+</p>
+
+<p>
     Rewrite rules are essentially just translations of variables into words. 
     This translation extends to a larger rewriting system that allows us to transform words into words.
 </p>
 
 <div class="definition">
     <b>(Derivation)</b>
-    Let \(\mathcal G = (X, A, \Rightarrow)\) be a grammar.
+    Let \(\mathcal G = (X, A, R)\) be a grammar.
     The <i>rewrite relation in \(\mathcal G\)</i> is the relation 
     \[
         {\Rightarrow_{\mathcal G}} \subseteq (X \cup A)^* \times (X \cup A)^*
@@ -311,18 +334,12 @@
 </p>
 
 <div class="example">
-    For example, consider the grammar \[
+    <b>(Deriving A=B)</b>
+    In the grammar 
+    \[
         \mathcal G = (\{x\}, \{a, b\}, \{(x, \varepsilon), (x, axb)\})
     \]
-    This grammar has \(X = \{x\}\) for its single variable, \(A = \{a, b\}\) for its alphabet, and two rewrite rules, \(x \to \varepsilon\) and \(x \to axb\). 
-    The more typical way you would see this grammar written as a kind of table, as in
-    \[\begin{aligned}
-        x &\to \varepsilon \mid axb
-    \end{aligned}\]
-    Here, the \(\mid\) just indicates a separation into one of several rules.
-
-    <p></p>
-    In \(\mathcal G\), we can derive the string \(aabb\) by applying the rewrite rules as follows:
+    we can derive the string \(aabb\) by applying the rewrite rules as follows:
     </i>
     \[
         x 
@@ -330,7 +347,43 @@
         \mathrel{\overbrace{\Rightarrow}^{x \to axb}} aaxbb 
         \mathrel{\overbrace{\Rightarrow}^{x \to \varepsilon}} aa\varepsilon bb = aabb
     \]
-    This sequence of rewrites is a derivation because \(aabb\) is a word in \(A^*\).
+    This witnesses that \(x \Rightarrow^* aab\).
+    Furthermore, this sequence of rewrites is a derivation because \(aabb\) is a word in \(A^*\).
+</div>
+
+<div class="example">
+    <b>(A-B Swap)</b>
+    Consider the grammar below again:
+    \[\begin{aligned}
+        x &\to \varepsilon \mid ayb \\
+        y &\to bxa 
+    \end{aligned}\]
+    In this grammar, we can perform the rewrites 
+    \[
+        x \Rightarrow ayb \Rightarrow abxab \Rightarrow a b a y b a b
+    \]
+    However, this is not a derivation, because the variable \(y\) appears in the monomial expression at the end of the sequence of rewrites.
+    If that sequence of rewrites took a different turn, we'd get
+    \[
+        x \Rightarrow ayb \Rightarrow abxab \Rightarrow ab\varepsilon ab = abab
+    \]
+    This is a derivation because there are no variables in \(abab\).
+</div>
+
+<div class="exercise">
+    <b>(Some Practice Deriving)</b>
+    Consider the grammar \(\mathcal G = (X, A, R)\) below:
+    \[\begin{aligned}
+        x &\to \varepsilon \mid ax \mid yba \mid bxb \\
+        y &\to \varepsilon \mid ayy \mid zb \\
+        z &\to yx \mid az \\
+    \end{aligned}\]
+    <ol>
+        <li>What are the variables \(X\)?</li>
+        <li>What is the alphabet \(A\)?</li>
+        <li>Derive the word \(aabba\) from the variable \(x\).</li>
+        <li>What are the three shortest words that can be derived from \(x\) in \(\mathcal G\)?</li>
+    </ol>
 </div>
 
 <p>
@@ -355,28 +408,13 @@
 </div>
 
 <div class="exercise">
-    <b>(Some Practice Deriving)</b>
-    Consider the grammar \(\mathcal G = (X, A, R)\) below:
-    \[\begin{aligned}
-        x &\to \varepsilon \mid ax \mid yba \mid bxb \\
-        y &\to \varepsilon \mid ayy \mid zb \\
-        z &\to yx \mid az \\
-    \end{aligned}\]
-    <ol>
-        <li>What are the variables \(X\)?</li>
-        <li>What is the alphabet \(A\)?</li>
-        <li>Derive 10 differnet words from \(x\) in \(\mathcal G\).</li>
-    </ol>
-</div>
-
-<div class="exercise">
     <b>(Designing Basic Grammars)</b>
     Show that following languages over \(A = \{a,b\}\) are context-free by designing a finite grammar that derives them.
     <ol>
         <li>\(L_1 = \{(ab)^n \mid n \in \mathbb N\}\)</li>
         <li>\(L_2 = \{a^nb^m \mid n < m\}\)</li>
         <li>\(L_3 = \{a^nb^{2n + 1} \mid n \in \mathbb N\}\)</li>
-        <li>\(L_4 = \{w \mid w = w^{\mathrm{op}} \text{(\(w\) is a palindrome)}\}\)</li>
+        <li>\(L_4 = \{w \mid w = w^{\mathrm{op}} \text{ (i.e., \(w\) is a palindrome)}\}\)</li>
     </ol>
 </div>
 

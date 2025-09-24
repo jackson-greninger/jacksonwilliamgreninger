@@ -1,5 +1,5 @@
 <!-- THIS IS A COMPILED FILE 
- Compiled on 2025-09-23 -->
+ Compiled on 2025-09-24 -->
 
 
 
@@ -173,15 +173,44 @@
 
 <div class="example">
     <b>(Arithmetic Expressions)</b>
-    In the following grammar, the variable \(E\) derives the language of <i>arithmetic expressions</i>.
+    In the following grammar, the variable \(E\) derives the language \(\mathit{ArExp}\) of <i>arithmetic expressions</i>.
     \[\begin{aligned}
         E &\to 
             N
-            \mid \mathtt{(}(E \mathtt{+} E\mathtt{)}
-            \mid \mathtt{(}(E \mathtt{times} E\mathtt{)}
-            \mid \mathtt{(}(E \mathtt{-} E\mathtt{)}
-            \mid \mathtt{(}(E \mathtt{/} E\mathtt{)}
+            \mid (E + E)
+            \mid (E \times E)
+            \mid (E - E)
+            \mid (E / E) \\
+        N &\to 0 \mid 1 \mid 2 \mid 3 \mid 4 \mid 5 \mid 6 \mid 7 \mid 8 \mid 9 \mid NN
     \end{aligned}\]
+    Let's call this grammar \(\mathcal G_{\mathbb N} = (X, A, R)\).
+    Above, \[
+        A = \big\{ (, ), +, \times, -, /, 0,1,2,3,4,5,6,7,8,9 \big\}
+    \]
+    because these are all the symbols we needed to form the monomial expressions above.
+    For a first example of an arithmetic expression, let's derive:
+    \[\begin{aligned}
+        E 
+        &\Rightarrow (E + E) \\
+        &\Rightarrow (N + E) \\
+        &\Rightarrow (N + (E \times E)) \\
+        &\Rightarrow (N + (E \times N)) \\
+        &\Rightarrow (N + (N \times N)) \\
+        &\Rightarrow (NN + (N \times N)) \\
+        &\Rightarrow (9N + (N \times N)) \\
+        &\Rightarrow (90 + (N \times N)) \\
+        &\Rightarrow (90 + (NN \times N)) \\
+        &\Rightarrow (90 + (1N \times N)) \\
+        &\Rightarrow (90 + (10 \times N)) \\
+        &\Rightarrow (90 + (10 \times 2)) 
+    \end{aligned}\]
+    This tells us that \((90 + (10 \times 2)) \in \mathit{ArExp}\).
+    But of course, this derivation could have happened in many different ways; we could have changed the first \(N\) to an \(NN\) much earlier, or changed the second \(E\) in the first step to an \((E \times E)\) right away. 
+    The following diagram condenses all of the different ways this expression could be formed into a single tree:
+    <div class="figure">
+        <img src="../imgs/syntax_tree_arithmetic.svg" alt="A parse tree for (90 + (10 \times 2))" />
+        A parse tree for \((90 + (10 \times 2)\).
+    </div>
 </div>
 
 
