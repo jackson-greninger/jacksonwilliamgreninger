@@ -1,0 +1,32 @@
+<h1>Parse Trees</h1>
+
+<p>
+    Last time, we saw how to use context-free grammars to derive least solutions to polynomial systems of equations.
+    One of the exercises we did was a derivation of the grammatical correctness of a few different english sentences.
+    This was the grammar:
+    \[\begin{aligned}
+        S &\to N_P V_P N_P \\
+        N_P &\to BAN \mid BN \\
+        A &\to \texttt{nice} \mid \texttt{mean} \\
+        B &\to \texttt{the} \mid \texttt{a} \\
+        N &\to \texttt{boy} \mid \texttt{girl} \mid \texttt{dog} \\
+        V_P &\to \texttt{likes} \mid \texttt{hates} 
+    \end{aligned}\]
+    In this context-free grammar, the variables all <i>mean something</i>: \(S\) stands for "sentence", \(N_P\) stands for "noun phrase", \(A\) stands for "adjective", \(B\) for "article", \(N\) for "noun", and \(V_P\) for "verb".
+    This makes the derivations a bit opaque, and not really how we build sentences in our heads.
+    The reason they are opaque is that the don't build the sentence in a way that is informed by the <i>semantics</i> of the sentence (what the sentence means).
+    This becomes a little clearer when a notion of <i>evaluation</i> is introduced, like in arithmetic.
+</p>
+
+<div class="example">
+    <b>(Arithmetic Expressions)</b>
+    In the following grammar, the variable \(E\) derives the language of <i>arithmetic expressions</i>.
+    \[\begin{aligned}
+        E &\to 
+            N
+            \mid \mathtt{(}(E \mathtt{+} E\mathtt{)}
+            \mid \mathtt{(}(E \mathtt{times} E\mathtt{)}
+            \mid \mathtt{(}(E \mathtt{-} E\mathtt{)}
+            \mid \mathtt{(}(E \mathtt{/} E\mathtt{)}
+    \end{aligned}\]
+</div>

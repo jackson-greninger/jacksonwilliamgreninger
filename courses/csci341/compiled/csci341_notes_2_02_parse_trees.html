@@ -151,43 +151,38 @@
 
 
 <!-- BEGINNING OF BODY -->
-<h1>Assignments</h1>
+<div style="border: none; margin-bottom: -25px; padding: 0px; text-align: right;"><a href="../compiled/csci341_notes_2_01_polynomial_systems.html"><span class="link"> \(\looparrowleft\) polynomial systems</span></a></div><h1>Parse Trees</h1>
 
-<p>Here you can find the PDFs and other materials for various assignments. 
-    Remember that everything gets submitted to Gradescope.
+<p>
+    Last time, we saw how to use context-free grammars to derive least solutions to polynomial systems of equations.
+    One of the exercises we did was a derivation of the grammatical correctness of a few different english sentences.
+    This was the grammar:
+    \[\begin{aligned}
+        S &\to N_P V_P N_P \\
+        N_P &\to BAN \mid BN \\
+        A &\to \texttt{nice} \mid \texttt{mean} \\
+        B &\to \texttt{the} \mid \texttt{a} \\
+        N &\to \texttt{boy} \mid \texttt{girl} \mid \texttt{dog} \\
+        V_P &\to \texttt{likes} \mid \texttt{hates} 
+    \end{aligned}\]
+    In this context-free grammar, the variables all <i>mean something</i>: \(S\) stands for "sentence", \(N_P\) stands for "noun phrase", \(A\) stands for "adjective", \(B\) for "article", \(N\) for "noun", and \(V_P\) for "verb".
+    This makes the derivations a bit opaque, and not really how we build sentences in our heads.
+    The reason they are opaque is that the don't build the sentence in a way that is informed by the <i>semantics</i> of the sentence (what the sentence means).
+    This becomes a little clearer when a notion of <i>evaluation</i> is introduced, like in arithmetic.
 </p>
 
-<a href="https://www.gradescope.com/courses/1094390" target="_blank"><span class="link">Gradescope</span></a>
-
-<h2>Assignment Resources</h2>
-<ol>
-    <li><a href="../assignments/Salomaa's Axioms.pdf" target="_blank">Salomaa's Axioms</a>, the sheet of rules for doing algebra with regular expressions.</li>
-</ol>
-
-<h2>Problem Sets</h2>
-
-<ol>
-    <li><a href="../assignments/Pset1.pdf" target="_blank">Problem Set 1: Games, Automata, and Reading Words</a>
-         (<a href="../assignments/Pset1.tex" target="_blank">LaTeX Source</a>)</li>
-
-    <li><a href="../assignments/Pset2.pdf" target="_blank">Problem Set 2: Language Acceptance, Finite and Infinite Automata, and Finitely Recognizable Languages</a>
-          (<a href="../assignments/Pset2.tex" target="_blank">LaTeX Source</a>)</li>
-
-    <li><a href="../assignments/Pset3.pdf" target="_blank">Problem Set 3: Determinization, the Structure of \(\mathsf{Fin}\), Regular Expressions, and Antimirov Derivatives</a>
-          (<a href="../assignments/Pset3.tex" target="_blank">LaTeX Source</a>)</li>
-     
-    <li><a href="../assignments/Pset4.pdf" target="_blank">Problem Set 4: Kleene's Theorem and Silent Transitions</a>
-          (<a href="../assignments/Pset4.tex" target="_blank">LaTeX Source</a>)</li>
-</ol>
-
-<h2>Workshops</h2>
-<ol>
-     <li><a href="../assignments/WShop1-Induction.pdf" target="_blank">Workshop 1: Induction</a>
-         (<a href="../assignments/WShop1-Induction.tex" target="_blank">LaTeX Source</a>)</li>
-
-     <li><a href="../assignments/WShop2-Automata-Regex.pdf" target="_blank">Workshop 2: Automata and Regular Expressions</a>
-         (<a href="../assignments/WShop2-Automata-Regex.tex" target="_blank">LaTeX Source</a>)</li>
-</ol>
+<div class="example">
+    <b>(Arithmetic Expressions)</b>
+    In the following grammar, the variable \(E\) derives the language of <i>arithmetic expressions</i>.
+    \[\begin{aligned}
+        E &\to 
+            N
+            \mid \mathtt{(}(E \mathtt{+} E\mathtt{)}
+            \mid \mathtt{(}(E \mathtt{times} E\mathtt{)}
+            \mid \mathtt{(}(E \mathtt{-} E\mathtt{)}
+            \mid \mathtt{(}(E \mathtt{/} E\mathtt{)}
+    \end{aligned}\]
+</div>
 
 
 <!-- END OF BODY -->

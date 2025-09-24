@@ -380,6 +380,53 @@
     </ol>
 </div>
 
+<div class="problem">
+    <b>(Balancing Act)</b>
+    Recall that a string of parentheses is <i>balanced</i> if every left parenthese \(\mathtt{(}\) is eventually followed by a right parenthese \(\mathtt{)}\). 
+    But things get more complicated when there are other alternatives to parentheses: what about square brackets? Or curly ones?
+    If we take \[
+        A = \big\{ \mathtt{(}, \mathtt{)}, \mathtt{[}, \mathtt{]}, \mathtt{\{}, \mathtt{\}}, \mathtt{\langle}, \mathtt{\rangle}  \big\}
+    \]
+    then we say that a string of brackets \(w \in A^*\) is <i>balanced</i> if every left bracket of a given type is eventually followed by a right bracket of the same type, without being interrupted by an unmatched right bracket of a different type. 
+    For example, these are all balanced:
+    \[
+        \mathtt{ 
+            \{()\}()
+            \qquad
+            [] 
+            \qquad
+            [()\langle()\rangle] 
+            \qquad
+            [()\{()\}] 
+        }
+        \hspace{4em}\text{(*)}
+    \]
+    but these are not: 
+    \[
+        \mathtt{ 
+            ([)] \qquad
+            \{()()
+            \qquad
+            ] 
+            \qquad
+            \langle[()()\rangle] 
+            \qquad
+            [()\{(\})] 
+        }
+    \]
+    Let \(L \subseteq A^*\) be the language of balanced strings of brackets.
+    <ol>
+        <li>Write down a grammar \(\mathcal G = (X, A, R)\) with a variable that generates \(L\), i.e., for some \(x \in X\), \(\mathcal L(\mathcal G, x) = L\).</li>
+        <li>Use your grammar to derive each of the words in (*).</li>
+        <li>Describe what prevents each of the words in (**) from being derivable from your grammar \(\mathcal G\).</li>
+    </ol>
+</div>
+
+<p>
+    It was probably mentioned at some point that a lot of the initial developments of the theory of computation we've seen so far was done by linguists.
+    It turns out that context-free grammars are much older than we initially thought: we've been writing language grammars like this <a href="https://en.wikipedia.org/wiki/P%C4%81%E1%B9%87ini" target="_blank">since antiquity</a>.
+</p>
+
 <div class="exercise">
     <b>(Forming Sentences)</b>
     Consider the grammar \(\mathcal G = (X, A, R)\) below. 
@@ -404,6 +451,7 @@
 </div>
 
 <p>
+    Anyway.
     It should hopefully be clear at this point that grammars are precisely the tools we need to understand the least solutions to polynomial systems of equations!
 </p>
 
@@ -424,4 +472,13 @@
         x_n &\to \mu_{n1} \mid \mu_{n2} \mid \cdots \mid \mu_{nn} 
     \end{aligned}\]
     Then \(\mathcal L(\mathcal G, x_1), \mathcal L(\mathcal G, x_2), \dots, \mathcal L(\mathcal G, x_n)\) is the least solution to the polynomial system of equations \((*)\).
+</div>
+
+<div class="exercise">
+    <b>(Conversion to Grammar)</b>
+    Consider the polynomial equation
+    \[
+        x = (\varepsilon + a(x + b)x)b
+    \]
+    Find a grammar with a variable that derives the least solution to this equation.
 </div>
