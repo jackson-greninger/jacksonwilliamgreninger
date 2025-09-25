@@ -481,9 +481,154 @@
     This is important because not every word derived from a grammar has a unique parse tree.
 </p>
 
+<p>
+    Intuitively, in a left-most derivation, only the left-most variable gets rewritten in each step.
+</p>
+
+<div class="definition">
+    <b>(Left-most Derivation)</b>
+    Let \(\mathcal G\) be a grammar with a variable \(x\), .
+    Let \(\mu_0\) be a monomial expression.
+    Then a rewrite \(\mu_0 \Rightarrow \mu_1\) is called a <i>left-most rewrite</i> if there is a word \(w \in A^*\), a monomial expression \(\mu'\), and a rewrite rule \(x \to \nu\) such that 
+    <ol>
+        <li>\(\mu_0 = wx\mu'\)</li>
+        <li>\(\mu_2 = w\nu\mu'\)</li>
+    </ol>
+    Now let \(w \in A^*\) and consider a derivation 
+    \[
+        x = \mu_0 \Rightarrow \mu_1 \Rightarrow \mu_2 \Rightarrow \cdots \Rightarrow \mu_n \Rightarrow w
+    \]
+    in \(\mathcal G\).
+    We say that this derivation is a <i>left-most derivation</i> if every step in the derivation \(\mu_{i} \Rightarrow \mu_{i+1}\) is obtained from a left-most rewrite.
+</div>
+
+<p>
+    Left-most derivations are not necessarily unique, for kind of dumb reasons, but they are close enough.
+</p>
+
+<div class="">
+    <b>(Lefty-Loosey)</b>
+    Consider the following grammar:
+    \[\begin{aligned}
+        x &\to y \mid a \mid \varepsilon \\
+        y &\to x \mid b \mid \varepsilon 
+    \end{aligned}\]
+    Exhibit a word that has two distinct left-most derivations from \(x\) (and write those derivations down).
+</div>
+
+<p>
+    It is worth taking a moment to convince yourself of the following statement.
+</p>
+
+<div class="lemma">
+    <b>(Left-most Derivations)</b>
+    Let \(\mathcal G\) be a grammar with a variable \(x\), and let \(w \in A^*\).
+    If \(w\) has a derivation from \(x\), then \(w\) has a left-most derivation from \(x\).
+</div>
+
+<div class="individual-exercise">
+    <b>(Left On Your Own)</b>
+    Prove the Left-most Derivations lemma.
+    <div class="hint">
+        Consider a derivation \(x \Rightarrow \mu_1 \Rightarrow \mu_2 \Rightarrow \cdots \Rightarrow w\).
+        In each step, you replace a variable with a monomial expression. 
+        Why not just rearrange this so that the left variable substitutions happen first?
+        (Try a proof by induction on the number of rewrites in the derivation.)
+    </div>
+</div>
+
 <div class="proof">
     <b>(of the <a href="#yield">Parsing is Deriving</a> Theorem)</b>
-    Let us start by showing that \(\mathcal L(\mathcal G, x) \subseteq \mathcal L_{yield}(\mathcal G, x)\).
+    Let's start by showing that \(\mathcal L(\mathcal G, x) \subseteq \mathcal L_{yield}(\mathcal G, x)\).
+    Let \(w \in \mathcal L(\mathcal G, x)\). 
+    Then by the Left-most Derivations lemma there is a left-most derivation
+    \[
+        x \Rightarrow \mu_1 \Rightarrow \mu_2 \Rightarrow \cdots \Rightarrow \mu_m \Rightarrow w \hspace{4em}(*)
+    \]
+    We proceed by induction on the length of the derivation \(m\) above. 
+    In the base case, if \(m = 0\), then \(x \Rightarrow w\), meaning that there is a rewrite rule \(x \to w\) in \(\mathcal G\).
+    Then a parse tree for \(w\) in \(\mathcal G\) at \(x\) is 
+    <img src="../imgs/one-step-parsing.svg" />
+    where \(w = a_1\cdots a_k\). 
+    This handles the base case. 
+
+    <p>
+        In the induction step, we assume that every left-most derivation of length strictly less than \(m\) has a corresponding parse tree. 
+        Now let \(\mu_1 = u_0 x_1 u_1 x_2 \cdots u_k x_k\) in \((*)\) for some words \(u_i \in A^*\) and variables \(x_i \in X\).
+        We obtain the first level of our parse tree this way. 
+        Our goal is to obtain the whole parse tree from the following picture:
+        <img src="../imgs/parsing_whole_proof_of_inclusion.svg" />
+        Since the derivation is a left-most derivation, the derivation that picks up after the initial step of \((*)\) is obtained from a left-most derivation \(x_1 \Rightarrow^* v_1\).
+        By the induction hypothesis, we obtain the subtree of the parse tree above rooted at \(x_1\).
+        Now move from left to right in the tree depicted, and use the induction hypothesis to construct the rest of the subtrees representing parse trees from each of \(x_2, \dots x_k\).
+        Above, \(w = u_0v_1 u_1 \cdots v_nu_n\), so we have just built a parse tree for \(w\) at \(x\). 
+        This shows that \(w \in \mathcal L(\mathcal G, x)\).
+    </p>
+
+    <p></p>
+    Now let's show that \(\mathcal L_{yield}(\mathcal G, x) \subseteq \mathcal L(\mathcal G, x)\).
+    We aren't going to start this in the standard way, just because it makes things a lot easier if we have the following fact up our sleeve:
+    <div class="figure">
+        <b>Claim 1.</b>
+        Let \(w \in A^*\), and let \((T, \downarrow, d_0, l)\) be a parse tree for \(w\) in \(\mathcal G\) at \(x\).
+        Then \(w\) is derivable from \(x\) in \(\mathcal G\).
+    </div>
+    <div class="proof">
+        <b>(of Claim 1)</b>
+        We proceed via a strong induction on the <i>height</i> of the tree \((T, \downarrow, d_0)\); that is, the number of nodes in the longest chain of descendent relations \(d_0 \downarrow d_1 \downarrow d_2 \downarrow \cdots \downarrow d_n\) (how many layers the tree has).
+        It is worth noting that there are two base cases: in the forst base case, the height of \((T, \downarrow, d_0)\) is \(1\), because we are not allowing for the empty tree (because \(d_0 \in T\)). 
+        But this would mean that \(l(d_0) = x\), which is not a word. 
+        In this case, the claim is vaccuously true. 
+        In the second base case, the height of the tree is \(2\), which means that the tree consists of two layers:
+        <img src="../imgs/one_layer_tree.svg" />
+        With its labelling, \(l(d_0) = x\) (by definition of parse tree) and \(l(d_i) = a_i \in A\) for each \(i = 1, \dots, m\), because the leaves of the parse tree must be letters.
+        Furthermore, because the tree yields \(w\), we must have \(w = a_1\cdots a_m\).
+        <img src="../imgs/one_layer_tree_labelled.svg" />
+        By definition of parse tree, there is a rewrite rule \(x \to a_1\cdots a_m\) in \(\mathcal G\), and \(w = a_1 \cdots a_m\).
+        Therefore, \(x\) derives \(w\) in \(\mathcal G\), i.e., \(w \in \mathcal L(\mathcal G, x)\).
+
+        <p></p>
+        Now let's do the induction step.
+        Given a number \(n > 2\), assume that Claim 1 is true for any tree with height \(k < n\), and let the height of \((T, \downarrow, d_0, l)\) be \(n\).
+        Since \(n > 2\), there are nodes \(d_i\) with \(d_0 \downarrow (d_1, \dots, d_m)\) corresponding to a derivation rule \(x \to l(d_1)~l(d_2)~\cdots~l(d_m)\).
+        This allows us to consider \(m\) differen subtrees of height strictly less than \(n\): the subtrees rooted at \(d_1\), \(d_2\), up to \(d_n\), respectively.
+        Since the whole tree yields \(w\), each of these subtrees must yield subwords of \(w\), altogether adding up to \(w\) (note that we are allowing \(d_i\) to be a leaf here, in which case it represents a single letter of \(w\)). 
+        That is, if we let \(u_i\) be the subword of \(w\) yielded by the subtree rooted at \(d_i\) for each \(i\), then \(w = u_1 \cdots u_m\).
+        <img src="../imgs/first_induction_hypothesis_parsing.svg" />
+        This is where we use the induction hypothesis. 
+        Let \(l(d_i) = y_i\) for each \(i\).
+        Since the height of the tree rooted at \(d_i\) is strictly less than \(n\) (it doesn't include the root layer), there is a derivation 
+        \[
+            y_i \Rightarrow \mu_{i1} \Rightarrow \cdots \Rightarrow \mu_{ik_i} \Rightarrow u_{i} 
+        \]
+        in \(\mathcal G\) for each \(i\).
+        Putting all of this together for each \(i\), we obtain the following derivation:
+        \[\begin{aligned}
+            x 
+            &\Rightarrow y_1 y_2\cdots y_m && \text{derive \(u_1\) from \(y_1\)}\\
+            &\Rightarrow \mu_{11} y_2\cdots y_m \\
+            &\hspace{2em}\vdots \\
+            &\Rightarrow \mu_{1k_1} y_2\cdots y_m \\
+            &\Rightarrow u_1 y_2\cdots y_m && \text{now derive \(u_2\) from \(y_2\)}\\
+            &\Rightarrow u_1 \mu_{21} \cdots y_m \\
+            &\Rightarrow u_1 \mu_{22} \cdots y_m \\
+            &\hspace{2em}\vdots \\
+            &\Rightarrow u_1 u_2 \cdots y_m && \text{finally, derive \(u_m\) from \(y_m\)}\\
+            &\Rightarrow u_1 u_2 \cdots \mu_{m1} \\
+            &\hspace{2em}\vdots \\
+            &\Rightarrow u_1 u_2 \cdots u_m \\
+            &= w\\
+        \end{aligned}\]
+        We have just derived \(w\) from \(x\), which is what we were trying to do.
+    </div>
+
+    <p>
+        Now let's use Claim 1 to prove that \(\mathcal L_{yield}(\mathcal G, x) \subseteq \mathcal L(\mathcal G, x)\).
+        Let \(w \in \mathcal L_{yield}(\mathcal G, x)\).
+        Then there is a parse tree for \(w\) in \(\mathcal G\) from \(x\) that yields \(w\).
+        By Claim 1, there must also be a derivation of \(w\) from \(x\). 
+        Therefore, \(w \in \mathcal L(\mathcal G, x)\).
+    </p>
 </div>
 
 <h2>Bonus: Evaluation by Parsing</h2>
