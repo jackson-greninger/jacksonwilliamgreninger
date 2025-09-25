@@ -15,6 +15,7 @@
     In this context-free grammar, the variables all <i>mean something</i>: \(S\) stands for "sentence", \(N_P\) stands for "noun phrase", \(A\) stands for "adjective", \(B\) for "article", \(N\) for "noun", and \(V_P\) for "verb".
     This makes the derivations a bit opaque, and not really how we build sentences in our heads.
     The reason they are opaque is that the don't build the sentence in a way that is informed by the <i>semantics</i> of the sentence (what the sentence means).
+    This is more clearly seen in <i>arithmetic expressions</i>, which have their own grammar and meanings.
     This becomes a little clearer when a notion of <i>evaluation</i> is introduced, like in arithmetic.
 </p>
 
@@ -58,10 +59,248 @@
         <img src="../imgs/syntax_tree_arithmetic.svg" alt="A parse tree for (90 + (10 \times 2))" />
         A parse tree for \((90 + (10 \times 2))\).
     </div>
-    This is called a <i>parse tree</i> for the arithmetic expression \((90 + (10 \times 2))\).
+    This is called a <i>parse tree</i> for the arithmetic expression \((90 + (10 \times 2))\), the word "parse" here being used in the literal sense.
     This tree might seem opaque at first, but if you read all of the <i>leaves</i> of the tree left-to-right, then you recover the expression that formed the tree to begin with.
     <div class="figure">
         <img src="../imgs/syntax_tree_arithmetic_complete.svg" alt="How to read the parse tree for \((90 + (10 \times 2))\)." />
         How to read the parse tree for \((90 + (10 \times 2))\).
     </div>
 </div>
+
+<div class="problem">
+    <b>(Arithmetic is Not Regular)</b>
+    Prove that the language of arithmetic expressions \(\mathit{ArExp} \subseteq A^*\), derived from \(E\) in the grammar \(\mathcal G = (X, A, R)\) below
+    \[\begin{aligned}
+        E &\to 
+            N
+            \mid (E + E)
+            \mid (E \times E)
+            \mid (E - E)
+            \mid (E / E) \\
+        N &\to 0 \mid 1 \mid 2 \mid 3 \mid 4 \mid 5 \mid 6 \mid 7 \mid 8 \mid 9 \mid NN
+    \end{aligned}\]
+    where the alphabet is
+    \[
+        A = \big\{ (, ), +, \times, -, /, 0,1,2,3,4,5,6,7,8,9 \big\}
+    \]
+    is not regular. 
+    <div class="hint">
+        Look at the balanced parentheses example again: If you start deriving 
+        \[
+            E \Rightarrow (E + E) \Rightarrow ((E + E) + E) \Rightarrow (((E + E) + E) + E) \Rightarrow \cdots
+        \]
+        what's accumulating on the left-hand side?
+    </div>
+</div>
+
+<p>
+    Here is the formal definition of what a parse tree consists of.
+</p>
+
+<div class="definition">
+    <b>(Parse Tree)</b>
+    A <i>tree</i> \((N, \downarrow, d_0)\) consists of 
+    <ol>
+        <li>a set \(N\) of <i>nodes</i></li>
+        <li>a <i>root node</i> \(d_0 \in N\)</li>
+        <li>a <i>direct-descendent</i> relation that relates nodes to tuples of nodes, i.e., \(d \downarrow (d_1, \dots, d_n)\)</li>
+    </ol>
+    satisfying three extra conditions:
+    If \(d \downarrow (d_1, \dots, d_n)\), we will say that each \(d_i\) is a <i>child</i> of \(d\), and that \(d\) is the <i>parent</i> of \(d_i\).
+    We will also use the notation \(d \downarrow d_i\) (the \(d_i\) is not written as a tuple now) to say that \(d_i\) is a child of \(d\).
+    The three conditions defining a tree are
+    <ol>
+        <li>every node has at most one parent (i.e., if \(d \downarrow d_i\) and \(d' \downarrow d_i\), then \(d = d'\))</li>
+        <li>the root node \(d_0\) has no parent</li>
+        <li>the root node \(d_0\) is an <i>ancestor</i> of every node, i.e., \(d_0 \downarrow^* d\) for all \(d \in N\)</li>
+    </ol>
+    A <i>leaf</i> of \(T\) is a node \(d \in N\) with no children, i.e., such that \(d \downarrow ()\).
+
+    <p>
+        Let \(X\) be a set of variables and \(A\) an alphabet.
+        A <i>labelled tree</i> \((N, \downarrow, d_0, l)\) (<i>with labels in \(\{\varepsilon\} \cup X \cup A\)</i>) consists of a tree \((N, \downarrow, d_0)\) and a function \(l \colon N \to \{\varepsilon\} \cup X \cup A\) that <i>labels the nodes of \(T\)</i>.
+    </p>
+
+    <p>
+        Given a grammar \(\mathcal G = (X, A, R)\), a variable \(x \in X\), and a word \(w \in A^*\), a <i>parse tree for \(w\) in \(\mathcal G\) at \(x\)</i> is a labelled tree \((N, \downarrow, d_0, l)\) where \(l \colon N \to \{\varepsilon\} \cup X \cup A\), and 
+        <ol>
+            <li>the root note is labelled by \(x\), i.e., \(l(d_0) = x\)</li>
+            <li>if the label of a node \(d\) is a letter in \(A\) or \(\varepsilon\), i.e., \(l(d) \in \{\varepsilon\} \cup A\), then \(d\) is a leaf</li>
+                <li>if the label of a node \(d\) is a variable \(y \in X\), i.e., \(l(d) = y \in X\), then there are nodes \(d_1, \dots, d_n \in N\) such that <ol type="a">
+                    <li>\(d \downarrow (d_1, \dots, d_n)\)</li>
+                    <li>there is a rewrite rule \(x \to_R b_1 \cdots b_n\) for some \(b_1,\dots, b_n \in X \cup A\) such that \(l(d_i) = b_i\) for each \(i = 1, \dots, n\)</li>
+                </ol>
+            </li>
+            <li>the labels of the leaves of the tree spell out \(w\) from left to right.</li>
+        </ol>
+        If there is a parse tree for \(w\) in \(\mathcal G\) at \(x\), we say that \(x\) <i>yields \(w\)</i>.
+        The <i>language yielded by \(x\)</i> is the language \(\mathcal L_{yield}(\mathcal G, x) \subseteq A^*\) consisting of all words yileded by \(x\) in \(\mathcal G\).
+    </p>
+</div>
+
+<p>
+    Agonizing over the technical definition of <i>parse tree</i> is not so educational, so I encourage you to forget it for now and focus on the pictures, since those really convey what the technical definition is trying to capture:
+    in the example, the root of the tree, labelled \(E\), branched into \((\), \(E\), \(+\), \(E\), and \()\), in that order. 
+    <div class="figure" style="border: none;">
+        <img src="../imgs/syntax_tree_arithmetic_just_the_top.svg" />
+    </div>
+    The reason this was a valid part of the tree for the grammar and variable deriving arithmetic expressions was because of the rewrite rule 
+    \[
+        E \to (E + E)
+    \]
+    in that grammar.
+</p>
+
+<div class="exercise">
+    <b>(Starting with Abstract Parsing)</b>
+    Consider the grammar below, where \(X = \{x,y\}\) and \(A = \{a,b\}\). 
+    \[\begin{aligned}
+        x &\to xy \mid b \\
+        y &\to ya \mid ab
+    \end{aligned}\]
+    Draw parse trees for the following words in this grammar (from \(x\)):
+    <ol>
+        <li>\(bab\)</li>
+        <li>\(b\)</li>
+        <li>\(babab\)</li>
+        <li>\(baba\)</li>
+    </ol>
+</div>
+
+<div class="exercise">
+    <b>(English Grammar Yet Again)</b>
+    Recall the grammar \(\mathcal G\) below:
+    \[\begin{aligned}
+        S &\to N_P V_P N_P \\
+        N_P &\to BAN \mid BN \\
+        A &\to \texttt{nice} \mid \texttt{mean} \\
+        B &\to \texttt{the} \mid \texttt{a} \\
+        N &\to \texttt{boy} \mid \texttt{girl} \mid \texttt{dog} \\
+        V_P &\to \texttt{likes} \mid \texttt{hates} 
+    \end{aligned}\]
+    Draw parse trees for the sentences you derived last time derivable from the grammar.
+    <ol>
+        <li>\(\texttt{the nice girl likes the mean dog}\)</li>
+        <li>\(\texttt{the boy likes the nice boy}\)</li>
+        <li>\(\texttt{the mean boy hates the dog}\)</li>
+    </ol>
+</div>
+
+<div class="individual-exercise">
+    <b>(Agonizing over the Technical Definition of Tree)</b>
+    Write down the explicit definition of a labelled tree \((N, \downarrow, d_0, l)\) that can be draw to look like the first tree in the Arithmetic Expressions example.
+    In other words, what are \(N, \downarrow, d_0, l\)?
+</div>
+
+<p>
+    Parse trees, thankfully, are enough to determine derivability. 
+</p>
+
+<div class="theorem">
+    <b>(Parsing is Deriving)</b>
+    Let \(\mathcal G\) be a context-free grammar and \(x\) be a variable of \(\mathcal G\).
+    Then for any word \(w \in A^*\), \(w\) is yielded by \(x\) if and only if \(w\) is derived from \(x\).
+    Formally, 
+    \[
+        \mathcal L_{yield}(\mathcal G, x) = \mathcal L(\mathcal G, x)
+    \]
+</div>
+
+<p>
+    A proof can be found at the end of the page.
+</p>
+
+<h2>Coding Languages via Grammars</h2>
+
+<p>
+    Grammars are widely used in the design of programming languages, although they usually appear in <a href="https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form" target="_blank"><i>Backus-Naur Form</i></a>, which is a special format of context-free grammar (we won't be convering it, but it's interesting to read about).
+    You will recognize the next two examples, and we might see the third one later on.
+</p>
+
+<div class="exercise">
+    <b>(Regular Expressions as code)</b>
+    Regular expressions themselves can be derived from a context-free grammar.
+    Starting with a base alphabet, \(A_{base} = \{0, 1\}\) (or \(\{a,b\}\) or whatever), we can set our total alphabet to be 
+    \[
+        A = A_{base} \cup \{~\mathtt{\emptyset}, \mathtt{\varepsilon}, (, ), +, \cdot, ^*~\}
+    \]
+    (here we are using a slightly different font for \(\mathtt{\varepsilon}\) <i>the symbol</i> and \(\varepsilon\) <i>the empty word</i>, and similarly for \(\emptyset\)).
+    Then the following grammar \(\mathcal G_{REGEX}\) derives the language of regular expressions <i>as strings of symbols</i>.
+    \[\begin{aligned}
+        E &\to 0 \mid 1 \mid (E + E) \mid (E \cdot E) \mid (E)^*
+    \end{aligned}\]
+    (Here, you can replace \(0,1\) with whatever other base alphabet you want to use.)
+    <p>
+        Derive and draw a parse tree for each of the following regular expressions from \(E\).
+    </p>
+    <ol>
+        <li>\((\mathtt{\emptyset} + \mathtt{\varepsilon})\)</li>
+        <li>\(((a \cdot b) \cdot (b \cdot a))\)</li>
+        <li>\((a + (a\cdot (a)^*))\)</li>
+    </ol>
+</div>
+
+<div class="exercise">
+    <b>(The WHILE Language)</b>
+    In this exercise, we design a coding language, called \(\mathit{WHILE}\), using a context-free grammar.
+    The alphabet for the language, \(A\), is the entire ASCII table, since all of those symbols might appear in our blocks of code.
+    The grammar for the \(\mathit{WHILE}\) language \(\mathcal G_{WHILE}\) looks like this:
+    \[\begin{aligned}
+        \textit{(programs)} &&
+        P &\to 
+            V = E; 
+            \mid \mathtt{if}~(B)~\{P\}~\mathtt{else}~\{P\}
+            \mid \mathtt{while}~(B)~\{P\}
+            \mid PP
+            \mid \varepsilon \\
+        \textit{(variables)} &&
+        V &\to \mathtt{a} \mid \mathtt{b} \mid \mathtt{c} \mid \cdots \mid \mathtt{z} \mid VV\\
+        \textit{(Boolean tests)} &&
+        B &\to E == E \mid E < E \mid \mathtt{not}~B \mid B~\mathtt{and}~B \mid B~\mathtt{or}~B \\
+        \textit{(arithmetic)} &&
+        E &\to 
+            N
+            \mid V
+            \mid (E + E)
+            \mid (E \times E)
+            \mid (E - E)
+            \mid (E / E) \\
+        \textit{(numbers)} &&
+        N &\to 0 \mid 1 \mid 2 \mid 3 \mid 4 \mid 5 \mid 6 \mid 7 \mid 8 \mid 9 \mid NN
+    \end{aligned}\]
+    The variables of the grammar are \(P, V, B, E, N\), which stand for the different parts of code as they are listed next to the rewrite rules above.
+    <ol>
+        <li>
+            Consider the following parse tree: 
+            <div class="figure">
+                <img src="../imgs/syntax_tree_while_example.svg" />
+            </div>
+            What block of code is this a parse tree for?
+        </li>
+        <li>
+            Use the \(\mathit{WHILE}\) coding language to write a block of code that calculates the sum \(1 + 2 + \cdots + 2025\). 
+            Write down a parse tree for this program.
+        </li>
+    </ol>
+</div>
+
+<div class="exercise">
+    <b>(The Grammar of Lambda Terms)</b>
+
+</div>
+
+<!-- Section -->
+<h2>Proof of <a href="#yield">Parsing is Deriving</a> Theorem</h2>
+
+<p>
+    The proof uses an important idea: <i>left-first derivations</i>.
+    
+</p>
+
+<h2>Bonus: Evaluation by Parsing</h2>
+
+<p>
+    The parse tree for \((90 + (10 \times 2))\) in the Arithmetic Expression example serves an additional purpose: it can be used to <i>evaluate</i> the arithmetic expression.
+    We won't have explicit use for the evaluation procedure in this course, but you might find it interesting anyway.
+    The idea is to start from the leaves of the tree, evaluate basic expressions and replace inner nodes (nodes with children) with the numbers they represent, and repeat this as you move up the tree.
+</p>
