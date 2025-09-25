@@ -1,0 +1,250 @@
+\documentclass[11pt]{article}
+
+\newcommand{\wshop}{
+    3
+}
+\newcommand{\subtitle}{
+    Nonregular Languages
+}
+
+% Page Setup
+\usepackage{geometry}
+\geometry{
+    a4paper,
+    margin={2.5cm}
+}
+
+% Basic Packages
+\usepackage{amssymb}
+\usepackage{stmaryrd}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{mathpartir}
+\usepackage{enumitem}
+\usepackage{mathabx}
+
+% Font
+\usepackage{charter}
+
+% Bibliography and index
+\usepackage[backend=biber, style=numeric]{biblatex}
+\addbibresource{refs.bib}
+\usepackage{makeidx}
+\makeindex
+
+% Colors and Graphics
+\usepackage[dvipsnames, x11names]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{
+    cd,
+    fit,
+    calc,
+    positioning,
+    arrows,
+    automata,
+    shapes
+}
+\tikzset{
+    baseline = (current bounding box.center),
+    every state/.append style = {
+        rectangle,
+        rounded corners=5pt,
+		inner sep = 3pt,
+		minimum size = 18pt,
+		initial text = {},
+        fill=Azure1
+	},
+	every edge/.append style = {
+		->,
+		>=stealth,
+		bend angle=10,
+		thick
+	}
+}
+\usepackage{musicography}
+\usepackage{graphicx}
+\usepackage{svg}
+\graphicspath{../imgs/}
+
+% Hyperlinks
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    linkcolor   = black,
+    filecolor   = RubineRed,
+    urlcolor    = RubineRed,
+    citecolor   = RubineRed,
+    pdftitle    = {Notes on Behavioural PDEs}
+}
+\usepackage[capitalize]{cleveref}
+
+% Environments
+\theoremstyle{theorem} % In Italics
+\newtheorem{theorem}                    {{\color{Purple}Theorem}}[section]
+\newtheorem{lemma}          [theorem]   {{\color{Magenta}Lemma}}
+\newtheorem{proposition}    [theorem]   {Proposition}
+\newtheorem{corollary}      [theorem]   {Corollary}
+\newtheorem{question}                   {{\color{red}Question}}
+
+\theoremstyle{definition} % Not in italics
+\newtheorem{definition}     [theorem]   {{\color{NavyBlue}Definition}}
+\newtheorem{example}        [theorem]   {{\color{ForestGreen}Example}}
+\newtheorem{problem}                    {{\color{BurntOrange}Problem}}
+
+\theoremstyle{remark} % Subdued label
+\newtheorem{remark}[theorem]        {{\color{Gray}Remark}}
+
+% (1), (2), ...
+\renewcommand\labelenumi{(\theenumi)}
+
+% Go nuts with line breaks 
+\allowdisplaybreaks
+
+%%%%%%%%%%
+% MACROS %
+%%%%%%%%%%
+
+\newcommand{\op}{\mathrm{op}}               % Opposite
+\newcommand{\inv}{{-1}}                     % Inverse
+\newcommand{\id}{\mathsf{id}}               % Identity f(x) = x
+\newcommand{\Det}{\mathrm{Det}}             % determinize
+\newcommand{\Lang}{\mathcal{L}}             % Language
+
+\newcommand{\incl}{\mathsf{incl}}           % Inclusion
+\newcommand{\proj}{\mathsf{proj}}           % Projection
+
+% Numbers and Standard notation
+\newcommand{\NN}{\mathbb{N}}                % 0, 1, 2, 3, 4, ...
+\newcommand{\ZZ}{\mathbb{Z}}                % ..., -2, -1, 0, 1, 2, ...
+\newcommand{\QQ}{\mathbb{Q}}                % n/m for n and m in \NN and m > 0
+\newcommand{\RR}{\mathbb{R}}                % real numbers
+\newcommand{\pRR}{\mathbb{R}_{+}}           % positive real numbers
+
+\newcommand{\dom}{\mathrm{dom}}             % Domain
+\newcommand{\cod}{\mathrm{cod}}             % Codomain
+
+\newcommand{\Grph}{\operatorname{Grph}}     % Graph of a function
+
+% Transitions
+\newcommand{\tr}[1]{
+    \mathrel{
+        \raisebox{-1pt}{
+            \(\xrightarrow{#1}\)
+        }
+    }
+}
+\newcommand{\bisim}{\mathrel{\raisebox{1pt}{\(\underline{\leftrightarrow}\)}}}
+
+% Text
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\codeblock}[1]{
+    \begin{center}
+        \parbox{0.8\textwidth}{
+            \ttfamily
+            #1
+        }
+    \end{center}
+}
+
+% Boolean statements
+\newcommand{\OR}{~\mathrm{or}~}
+\newcommand{\AND}{~\mathrm{and}~}
+\newcommand{\NOT}{\mathrm{not}~}
+\newcommand{\IMPLIES}{~\mathrm{implies}~}
+\newcommand{\FORALL}{\mathrm{for\ all}~}
+\newcommand{\EXISTS}{\mathrm{there\ exists}~}
+\newcommand{\SUCHTHAT}{~\mathrm{such\ that}~}
+
+
+
+% Title
+\title{CSCI 341 Workshop \wshop}
+\author{\subtitle}
+\date{
+    \today
+}
+
+\pagestyle{empty}
+
+\begin{document}
+
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% START OF WORK SHOP.                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{problem}[Same Number]
+    Show that the following language is not regular.
+    \[
+        L = \{w \in \{0,1\} \mid \text{\(w\) contains the same number of \(0\)s as it does \(1\)s}\}
+    \] 
+\end{problem}
+
+\vspace{20em}
+
+\begin{problem}[Linear Combination]
+    Show that the following languages are not regular. 
+    \begin{enumerate}
+        \item \(L_1 = \{a^nb^nc^n \mid n \in \mathbb N \}\)
+        
+        \pagebreak
+        
+        \item \(L_2 = \{a^nb^{2n - 1} \mid n \in \mathbb N \}\)
+        \vspace{25em}
+        
+        \item \(L_3 = \{a^{3n+1}b^{2n - 1} \mid n \in \mathbb N \}\)
+        
+        \pagebreak
+
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}[Less Than]
+    Show that the language
+    \[L_4 = \{a^nb^m \mid n,m \in \mathbb N \text{ and } n < m\}\]
+    is not regular.
+\end{problem}
+
+\vspace{15em}
+
+\begin{problem}[Balanced Parentheses]
+    A string of parentheses, i.e., \(\mathtt{)}\) and \(\mathtt{(}\), is called <i>balanced</i> if every left-parenthese \(\mathtt{(}\) is eventually followed by a unique <i>matching</i> right-parenthese \(\mathtt{)}\). 
+    For example, the following strings of parentheses are not balanced:
+    \[
+        \mathtt{(},
+        \qquad \mathtt{))()},
+        \qquad \mathtt{((())()}
+    \]
+    but the following strings of parentheses are:
+    \[
+        \varepsilon,
+        \qquad \mathtt{()},
+        \qquad \mathtt{(())()},
+        \qquad \mathtt{((())())()}
+    \]
+    Let \(A = \{\mathtt{(}, \mathtt{)}\}\). 
+    Prove that the language 
+    \[
+        L = \{w \in A^* \mid \text{\(w\) is balanced}\}
+    \]
+    is nonregular.
+\end{problem}
+
+\pagebreak
+
+\begin{problem}[Palindromes]
+    Now let \(A = \{0,1\}\) and recall that for any word \(w = a_1 a_2 \cdots a_n\), we define \(w^{\op} = a_n a_{n-1} \cdots a_2 a_1\).
+    Consider the language below:
+    \[
+        L_{pal} = \{w \in A^* \mid w = ^{\op}\}
+    \]
+    The words in \(L_{pal}\) are precisely the \emph{palindromes}.
+    Show that \(L_{pal}\) is not regular.
+\end{problem}
+
+
+\end{document}

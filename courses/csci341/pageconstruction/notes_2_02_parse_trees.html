@@ -141,9 +141,7 @@
 <p>
     Agonizing over the technical definition of <i>parse tree</i> is not so educational, so I encourage you to forget it for now and focus on the pictures, since those really convey what the technical definition is trying to capture:
     in the example, the root of the tree, labelled \(E\), branched into \((\), \(E\), \(+\), \(E\), and \()\), in that order. 
-    <div class="figure" style="border: none;">
-        <img src="../imgs/syntax_tree_arithmetic_just_the_top.svg" />
-    </div>
+    <img  src="../imgs/syntax_tree_arithmetic_just_the_top.svg" />
     The reason this was a valid part of the tree for the grammar and variable deriving arithmetic expressions was because of the rewrite rule 
     \[
         E \to (E + E)
@@ -187,6 +185,13 @@
 </div>
 
 <div class="individual-exercise">
+    <b>(Forming More Sentences)</b>
+    Add new nouns, verbs, and variables for verbs (as opposed to verb phrases), adverbs, and plural nouns, and so on, to the sentence grammar \(\mathcal G\) above to derive the sentence \[
+        \texttt{colorless green ideas sleep furiously}
+    \]
+</div>
+
+<div class="individual-exercise">
     <b>(Agonizing over the Technical Definition of Tree)</b>
     Write down the explicit definition of a labelled tree \((N, \downarrow, d_0, l)\) that can be draw to look like the first tree in the Arithmetic Expressions example.
     In other words, what are \(N, \downarrow, d_0, l\)?
@@ -196,7 +201,7 @@
     Parse trees, thankfully, are enough to determine derivability. 
 </p>
 
-<div class="theorem">
+<div class="theorem" id="yield">
     <b>(Parsing is Deriving)</b>
     Let \(\mathcal G\) be a context-free grammar and \(x\) be a variable of \(\mathcal G\).
     Then for any word \(w \in A^*\), \(w\) is yielded by \(x\) if and only if \(w\) is derived from \(x\).
@@ -272,9 +277,7 @@
     <ol>
         <li>
             Consider the following parse tree: 
-            <div class="figure">
-                <img src="../imgs/syntax_tree_while_example.svg" />
-            </div>
+            <img  src="../imgs/syntax_tree_while_example.svg" />
             What block of code is this a parse tree for?
         </li>
         <li>
@@ -284,18 +287,51 @@
     </ol>
 </div>
 
-<div class="exercise">
-    <b>(The Grammar of Lambda Terms)</b>
+<p>
+    The following example is an important historical one, and comes from early papers of <a href="https://en.wikipedia.org/wiki/Alonzo_Church#Influence" target="_blank">Alonzo Church</a>.
+    It deals with blocks of code in a language called the <i>\(\lambda\)-calculus</i>.
+    Most programming languages support \(\lambda\) terms as function abstractions, so you might even be familiar with this kind of program.
+    If not, and if it seems like the example is old, then it's worth noting that it is indeed very old.
+    But don't underestimate it!
+    The \(\lambda\)-calculus is the foundation on which all functional programming languages are built.
+    This example walked so that Haskell could run! Pun intended!
+</p>
 
+<div class="exercise">
+    <b>(The Grammar of \(\lambda\)-Terms)</b>
+    The <i>language of \(\lambda\)-terms</i>, \(\lambda\mathit{Term}\), is derived by the variable \(T\) in the grammar \(\mathcal G_\lambda\) below:
+    \[\begin{aligned}
+        T &\to V \mid (T \circ T) \mid (\lambda V.T) \\
+        V &\to \mathtt{a} \mid \mathtt{b} \mid \mathtt{c} \mid \cdots \mid \mathtt{z} \mid VV\\
+    \end{aligned}\]
+    Derive the following \(\lambda\)-terms from \(T\) in the grammar \(\mathcal G_{\lambda}\) and draw their parse trees.
+    <ol>
+        <li>\((\mathtt{x} \circ \mathtt{a})\)</li>
+        <li>\(((\lambda \mathtt{x}.\mathtt{x}) \circ \mathtt a)\)</li>
+        <li>\((\lambda \mathtt{func}.(\lambda \mathtt{inp}.(\mathtt{func} \circ \mathtt{inp})))\)</li>
+    </ol>
+</div>
+
+<div class="remark">
+    <b>(\(\lambda\)-Notation)</b>
+    I have chosen a slightly different syntax for \(\lambda\)-terms than is usual.
+    Usually, the symbol \(\circ\) is not included, and only single-letter variables are allowed.
+    I've chosen this syntax because I feel that it makes the order of operations clearer. 
+    If you've seen the \(\lambda\)-calculus already, you are welcome to disagree.
 </div>
 
 <!-- Section -->
 <h2>Proof of <a href="#yield">Parsing is Deriving</a> Theorem</h2>
 
 <p>
-    The proof uses an important idea: <i>left-first derivations</i>.
-    
+    The proof uses an important idea, <i>left-first derivations</i>, which are a kind of procedural way of going between parse trees and derivations in an <i>unambiguous manner</i>.
+    This is important because not every word derived from a grammar has a unique parse tree.
 </p>
+
+<div class="proof">
+    <b>(of the <a href="#yield">Parsing is Deriving</a> Theorem)</b>
+    Let us start by showing that \(\mathcal L(\mathcal G, x) \subseteq \mathcal L_{yield}(\mathcal G, x)\).
+</div>
 
 <h2>Bonus: Evaluation by Parsing</h2>
 
