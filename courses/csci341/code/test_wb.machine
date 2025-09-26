@@ -1,0 +1,13 @@
+write 0 
+moveto 1
+write 1
+#
+move left
+move right
+write 13
+moveto 0
+#
+# You can even leave comments, like this!
+if 0 write 1
+if 1 halt
+goto 3
