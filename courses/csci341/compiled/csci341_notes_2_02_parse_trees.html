@@ -1,5 +1,5 @@
 <!-- THIS IS A COMPILED FILE 
- Compiled on 2025-09-25 -->
+ Compiled on 2025-09-26 -->
 
 
 
@@ -151,7 +151,7 @@
 
 
 <!-- BEGINNING OF BODY -->
-<div style="border: none; margin-bottom: -25px; padding: 0px; text-align: right;"><a href="../compiled/csci341_notes_2_01_polynomial_systems.html"><span class="link"> \(\looparrowleft\) polynomial systems</span></a></div><h1>Parse Trees</h1>
+<div style="border: none; margin-bottom: -25px; padding: 0px; text-align: right;"><a href="../compiled/csci341_notes_2_01_polynomial_systems.html"><span class="link"> \(\looparrowleft\) polynomial systems</span></a><a href="../compiled/csci341_notes_2_03_interlude_adding_expressive_power.html"><span class="link">interlude adding expressive power \(\leadsto\)</span></a></div><h1>Parse Trees</h1>
 
 <p>
     Last time, we saw how to use context-free grammars to derive least solutions to polynomial systems of equations.
@@ -506,7 +506,7 @@
     Left-most derivations are not necessarily unique, for kind of dumb reasons, but they are close enough.
 </p>
 
-<div class="">
+<div class="exercise">
     <b>(Lefty-Loosey)</b>
     Consider the following grammar:
     \[\begin{aligned}
@@ -514,6 +514,15 @@
         y &\to x \mid b \mid \varepsilon 
     \end{aligned}\]
     Exhibit a word that has two distinct left-most derivations from \(x\) (and write those derivations down).
+</div>
+
+<div class="remark">
+    <b>(Left-most Derivations are Unique)</b>
+    That being said, every grammar has an equivalent grammar in which left-most derivations <i>are</i> unique. 
+    As you might have noticed, the issue is the rewrite rules of the form \(x \to y\) and \(y \to x\).
+    The basic idea behind finding a grammar where left-derivations are unique is the same as eliminating silent transitions, and for this it helps to see the grammar as a system of equations that we are trying to find the least solution to.
+    It's a bit trickier than that situation, because we are now dealing with polynomials, but the overall idea is really the same.
+    This isn't relevant to us in this class, but it is worth pointing out!
 </div>
 
 <p>
