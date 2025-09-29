@@ -1,0 +1,360 @@
+<!-- THIS IS A COMPILED FILE 
+ Compiled on 2025-09-29 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+
+<head>
+	
+	<meta charset="UTF-8">
+	<meta name="author" content="Todd Schmid">
+	
+	<!-- Renders latex formulas -->
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+	<!-- Renders tikz figures mid page -->
+    <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+    <script src="https://tikzjax.com/v1/tikzjax.js"></script>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="../../../styles.css" />
+	<link rel="stylesheet" href="../../course_styles.css" />
+	<link rel="icon" href="../../../squidab.png" />
+	
+	<!-- * Customize for each course * -->
+	<title>CSCI 341 Theory of Computation</title>
+	<meta name="description" content="Course pages for CSCI 341.">
+	<meta name="keywords" content="bucknell,theory,computer,science,schmid,csci341">
+	<!-- ***************************** -->
+</head>
+
+<body>
+
+<div id="content">
+
+<!-- Header Section -->
+<div id="course_head" style="text-align: left;">
+	<h1 style="margin-bottom: 0; text-align: left;">CSCI 341 Theory of Computation</h1>
+	<i>Fall 2025, with <a href="../../../teaching.html">Schmid</a></i>
+	<div id="links">
+		<!-- * Customize for each course * -->
+		<a href="csci341_index.html"><span class="link">Syllabus</span></a>
+		<a href="csci341_contents.html"><span class="link">Notes</span></a>
+		<a href="csci341_resources.html"><span class="link">Resources</span></a>
+		<a href= "csci341_assignments.html"><span class="link">Assignments</span></a>
+		<!-- ***************************** -->
+	</div>
+</div>
+
+
+
+<div id="stuff">
+
+
+<!-- BEGINNING OF BODY -->
+<div style="border: none; margin-bottom: -25px; padding: 0px; text-align: right;"><a href="../compiled/csci341_notes_2_03_adding_expressive_power.html"><span class="link"> \(\looparrowleft\) adding expressive power</span></a></div><h1>Stack Automata</h1>
+
+<p>
+    You know what's better than a counter?
+    A stack!
+    We have been on the hunt since last lecture to find a way to beef up finite automata to obtain a type of finite automaton that can accept context-free languages. 
+    Again, the reason was algorithmic: automata offer us algorithms for determining membership in a language, which is something a grammar cannot offer.
+    It turns out that the right additions to our finite automata are both <i>silent transitions</i> and a <i>stack</i>.
+</p>
+
+<p>
+    Now, the key ingredient we are missing has to do with the typical stack operations: we need to define a simple programming language, which we will call \(\mathtt{Stk}\). 
+    We need to fix a set ahead of time, the set \(\Sigma\) of <i>stack symbols</i> (\(\Sigma\) is Greek symbol corresponding to "S"), which are the items we can push and pop on our stack.
+    The programs of \(\mathtt{Stk}\) are built from the grammar 
+    \[
+        \mathtt{Stk} \longrightarrow \mathtt{skip} \mid \mathtt{push}~\sigma \mid \mathtt{pop}~\sigma \mid \mathtt{Stk},\mathtt{Stk}
+    \]
+    where \(\sigma\) is any stack symbol \(\sigma \in \Sigma\), although we won't really use this notation (see below).
+</p>
+
+<p>
+    Now that we have the syntax of the \(\mathtt{Stk}\) language, let's define what its programs actually <i>do</i>.
+    For us, a stack is just list of stack symbols \(S = [\sigma_1, \dots, \sigma_n]\) where we understand \(\sigma_n\) to be at the top of the stack (think about how you implemented the stack data structure in prior courses). 
+    This current contents of the stack determines the <i>memory state</i>.
+    We <i>run</i> a \(\mathtt{Stk}\) program <i>on a stack \(S\)</i> as follows: let \(S = [\sigma_1, \dots, \sigma_n]\), then
+    <ul>
+        <li>after running \(S.(\mathtt{skip})\), we have \(S = [\sigma_1, \dots, \sigma_n]\)</li>
+        <li>after running \(S.(\mathtt{push}~\tau)\), we have \(S = [\sigma_1, \dots, \sigma_n, \tau]\)</li>
+        <li>after running \(S.(\mathtt{pop}~\tau)\), one of two things occurs:
+            <ol>
+                <li>If \(n > 0\) and \(\tau = \sigma_n\), then we have \(S = [\sigma_1, \dots, \sigma_{n-1}]\).</li>
+                <li>Otherwise, the program crashes.</li>
+            </ol>
+        </li>
+        <li>running \(S.(p,q)\) for some \(p,q \in \mathtt{Stk}\) is the same as running \(S.(p).(q)\).</li>
+    </ul>
+</p>
+
+<div class="exercise">
+    <b>("First time?"")</b>
+    Let \(S = [~]\) be an <i>empty stack</i> and let \(p\) be the \(\mathtt{Stk}\) program 
+    \[\begin{aligned}
+        p = (
+            \mathtt{skip}, 
+            \mathtt{push}~0,   
+            \mathtt{skip}, 
+            \mathtt{push}~1,   
+            \mathtt{pop}~1,    
+            \mathtt{push}~0,   
+            \mathtt{skip}, 
+            \mathtt{skip}, 
+            \mathtt{pop}~0,    
+            \mathtt{skip}, 
+            \mathtt{pop}~0,    
+            \mathtt{skip}  
+            )
+    \end{aligned}\]
+    What is the result of running \(S.(p)\)?
+</div>
+
+<div class="individual-exercise">
+    <b>(Push<a href="https://youtu.be/KaPSfwUH4LA?si=cTW3g7uW5xgdoeGF" target="_blank">-</a>Pop)</b>
+    Show that for any \(\mathtt{Stk}\) program \(p\), the following equations hold
+    \[
+        (\mathtt{push}~\sigma,\mathtt{pop}~\sigma) = \mathtt{skip}
+        \qquad 
+        (p,\mathtt{skip}) = p
+        \qquad
+        (\mathtt{skip},p) = p
+    \]
+    in the sense that the left-hand program affect every stack \(S\) the same as the right-hand program.
+</div>
+
+<div class="problem">
+    <b>(Pop-Push)</b>
+    By induction on the length of the program, prove that every \(\mathtt{Stk}\) program that does not crash is equivalent to a program in one of the following four forms
+    \[\begin{aligned}
+        \text{Form 1:} &&& \mathtt{skip} \\
+        \text{Form 2:} &&& \mathtt{push}~\sigma \\
+        \text{Form 3:} &&& \mathtt{pop}~\sigma \\
+        \text{Form 4:} &&& \mathtt{pop}~\sigma_1, \mathtt{push}~\sigma_2 \\
+    \end{aligned}
+    \]
+</div>
+
+<div class="definition">
+    <b>(Stack Automaton)</b>
+    Let \(A\) be an alphabet of input symbols. 
+    We also need to fix a set .
+    Given these two pieces of data, a <i>stack automaton</i> \(\mathcal S = (Q, A, \Sigma, \delta, F)\) consists of 
+    <ul>
+        <li>A set \(Q\) of <i>program states</i> </li>
+        <li>A <i>transition relation</i> 
+            \[
+                \delta \subseteq Q \times \big( (A \cup \{\varepsilon\}) \times \mathtt{Stk} \big) \times Q
+            \]
+        </li>
+        <li>A set \(F\) of <i>accepting program states</i>.</li>
+    </ul>
+    Where \(\xi \in A \cup \{\varepsilon\}\), if \((x, (\xi, p), y\) \in \delta\), then we write \(x\xrightarrow{\xi \mid p} y\) and call it a <i>\(\xi\)-transition</i>.
+    If \(\xi = \varepsilon\), then \(x\xrightarrow{\xi \mid p} y\) may also be called a <i>silent transition</i> and written \(x \stackrel{p}{\leadsto} y\).
+
+    <p></p>
+    Given a program state \(x_0 \in Q\), a <i>run of \(\mathcal S\) starting from \(x\)</i> is a path of program-memory state pairs 
+    \[
+        (x_0, S_0) \xrightarrow{\xi_1\mid p_1} (x_1, S_1) \xrightarrow{\xi_2 \mid p_2} \cdots \xrightarrow{\xi_n \mid p_n} (x_n, S_n)
+    \]
+    that satisfies the following additional conditions:
+    <ol>
+        <li>
+            The path below exists in \(\mathcal S\): 
+            \[
+                x_0 \xrightarrow{\xi_1\mid p_1} x_1 \xrightarrow{\xi_2 \mid p_2} \cdots \xrightarrow{\xi_n \mid p_n} x_n
+            \]
+        </li>
+        <li>\(S_0 = [~]\) is the empty stack.</li>
+        <li>For each \(0 < i \le n\), \(S_{i}\) is the stack obtained from running \(S_{i-1}.(p_i)\)</li>
+    </ol>
+    The last condition implicitly requires that \(S_0.(p_1,\dots,p_n)\) does not crash.
+    We call this an <i>accepting run</i> if additionally, 
+    <ol>
+        <li>\(x_n \in F\)</li>
+        <li>\(S_n = [~]\) is the empty stack</li>
+    </ol>
+    in which case we say that <i>\(x\) accepts the word \(\xi_1\cdots \xi_n\)</i>.
+    Note here that \(\xi_i \in A \cup \{\varepsilon\}\), so some of the \(\xi_i\) may be the empty word.
+</div>
+
+<div class="example">
+    <b>(First Time)</b>
+    Consider the stack automaton below.
+    <!-- The gif in the figure depicts a run starting from \(x_0\) that reads \(abbaba\). -->
+    <div class="figure">
+        <img src="../imgs/first_stack_aut.svg" />
+        The stack automaton \(\mathcal S = (Q, A, \Sigma, \delta, F)\), where 
+        \[\begin{aligned}
+            Q &= \{x_0, x_1, x_2\} \\
+            A &= \{a, b\} \\
+            \Sigma &= \{0, 1\} \\
+            \delta &= \{ \\
+                &\hspace{2em} (x_0, (b, {\downarrow}0), x_0), \\
+                &\hspace{2em} (x_0, (a, {\uparrow}0), x_1), \\
+                &\hspace{2em} (x_1, (b, {\uparrow}0), x_2), \\
+                &\hspace{2em} (x_2, (b, \varepsilon), x_0), \\
+                &\hspace{2em} (x_2, (a, \varepsilon), x_1) \\
+                &\} \\
+                F&= \{x_1\}
+        \end{aligned}\]
+    </div>
+    In state diagrams of stack automata, we will usually omit the stack program from transitions if they are equivalent to \(\mathtt{skip}\).
+    In \(\mathcal S\) above, we can read \(abbaba\) from \(x_0\) via the path 
+    \[
+        x_0
+        \xrightarrow{a \mid {\downarrow}0} x_1
+        \xrightarrow{b \mid {\uparrow}0} x_2
+        \xrightarrow{b} x_0
+        \xrightarrow{a \mid {\uparrow}0} x_1
+        \xrightarrow{b \mid {\downarrow}0} x_2
+        \xrightarrow{a} x_1
+    \]
+    This path corresponds to a run of the stack automaton: the program that is run as the transitions are traversed is 
+    \[
+        {\downarrow}0,
+        {\uparrow} 0,
+        \varepsilon,
+        {\uparrow} 0,
+        {\downarrow}0,
+        \varepsilon
+    \]
+    or in our more verbose notation, 
+    \[
+        \mathtt{push}~0,
+        \mathtt{pop}~ 0,
+        \mathtt{skip},
+        \mathtt{pop}~ 0,
+        \mathtt{push}~0,
+        \mathtt{skip}
+    \]
+</div>
+
+<p>
+    <b color="red">Note!</b> Because of the Pop-Push problem, we are going to write
+    <ul>
+        <li>\(\varepsilon\) for any program \(p\) equivalent to \(\mathtt{skip}\)</li>
+        <li>\({\downarrow}\sigma\) for any program \(p\) equivalent to \(\mathtt{push}~\sigma\)</li>
+        <li>\({\uparrow}\sigma\) for any program \(p\) equivalent to \(\mathtt{pop}~\sigma\)</li>
+        <li>\({\uparrow}\sigma_1{\downarrow}\sigma_2\) for any program \(p\) equivalent to \((\mathtt{pop}~\sigma_1,\mathtt{push}~\sigma_2)\)</li>
+    </ul>
+    This is going to be extremely useful notation going forward.
+</p>
+
+<div class="exercise">
+    <b>(Going for a Jog)</b>
+
+</div>
+
+
+<!-- END OF BODY -->
+    <div style="height: 50px;border-top: 1px solid rgb(131, 131, 131);margin-top: 50px; padding: 20px; text-align: right;">
+        <a href=""><span class="link">Top</span></a>
+    </div>
+</div>
+</div>
+</body>
+
+
+</html>
