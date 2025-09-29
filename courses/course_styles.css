@@ -278,8 +278,16 @@ img {
 	font-weight: bold;
 }
 
+.hint a {
+	visibility: hidden;
+}
+
 .hint:hover {
 	color:black;
+}
+
+.hint:hover a {
+	visibility:visible;
 }
 
 .figure table {

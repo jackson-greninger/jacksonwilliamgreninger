@@ -1,4 +1,4 @@
-<h1>Build-your-own: Adding Expressive Power to Automata</h1>
+<h1>Adding Expressive Power to Automata</h1>
 
 <p>
     In the previous two lectures, we got acquainted with the <i>context-free languages</i> (\(\mathsf{CFL}\)).
@@ -18,13 +18,13 @@
 <p>
     What we really need is a <i>program that takes words as input and spits out yes-or-no answers</i>... 
     OK, well we've already been dealing with these: they're called automata. 
-    But we know from the Pumping Lemma that finite automata are not good enough to handle context-free languages. 
+    But we know from the Pumping Lemma that finite automata are not good enough to handle all context-free languages. 
     So how do we proceed?
 </p>
 
 <p>
-    Here's the general idea: finite automata are not enough, but we are never going to be able to write an infinite automaton down as a program in the same way that we've been writing down finite automata.
-    But an infinite automaton doesn't necessarily need an infinite description: we could, for instance, add a bit of memory to the mix. 
+    Here's the general idea: finite automata are not enough.What we really need are infinite automata. 
+    But <i>an infinite automaton doesn't necessarily require an infinite description</i>: we could, for instance, add a bit of memory to the mix. 
     This example from the Finite and Infinite Automata lecture comes to mind.
 </p>
 
@@ -39,20 +39,19 @@
     But I was able to draw the whole game on screen! 
     The whole description of this infinite state space fits into a 350x300 grid of pixels.
     By adding a <i>counter</i>, we were able to take a finite description of a game and turn its state space into an infinite automaton.
-    This is how we are going to develop algorithms for deciding whether a given word is derivable from a variable in a grammar: by adding memory to our automata.
+    This is how we are going to develop algorithms for deciding whether a given word is derivable from a variable in a grammar: by adding memory to finite automata.
 </p>
 
 <p>
     Today is a fun day where we're going to get our hands on some automata that can do things that finite automata cannot. 
-    In particular, we're going to get them to <i>count</i>, <i>return locations</i>, <i>ouput information</i>, and so on. 
-    In fact, part of this will be you getting to invent your own type of automaton!
+    In particular, we're going to get them to <i>count</i>. 
 </p>
 
 <h2>Counting</h2>
 
 <p>
     The simplest kind of memory we can add onto an automaton is a <i>counter</i>, like in the Money Bags game above.
-    The basic idea is behind a <i>counter automaton</i> is that it is like an ordinary automaton, but with every transition \(x \xrightarrow{a} y\) between states, you can add or subtract \(1\) to/from a <i>counter variable</i>, which can be thought of as an external device.
+    The basic idea is behind a <i>counter automaton</i> is that it is like an ordinary automaton, but with every transition \(x \xrightarrow{a} y\) between states, you can add or subtract \(1\) or \(0\) to/from a <i>counter variable</i>, which can be thought of as an external device.
 </p>
 
 <div class="definition">
@@ -183,6 +182,10 @@
     </ol>
 </div>
 
+<p>
+    (Finite) counter automata really are more powerful than finite automata, as you are about to see.
+</p>
+
 <div class="exercise">
     <b>(Counting for Yourself)</b>
     For each of the following languages \(L_i\), find a counter automaton \(\mathcal A^\#\) with a state \(x_0\) such that \(L_i = \mathcal L(\mathcal A^\#, x_i)\).
@@ -194,6 +197,98 @@
     </ol>
 </div>
 
+<div class="problem">
+    <b>(Counting Instances)</b>
+    Let \(A = \{c, a, t, d, o, g\}\). 
+    Design a counter automaton with a state \(x\) that accepts the language \(L_{cat}\) of all words \(w \in A^*\) such that the string "\(cat\)" appears in \(w\) more times than "\(dog\)" appears in \(w\).
+</div>
+
+<h2>Double-Counting</h2>
+
 <p>
-    In a <i>counter automaton</i>, 
+    Adding a counter to our automata is a simple way of increasing its expressive power.
+    But you know what's cooler than a counter? 
+    <i>Two counters</i><a href="https://www.youtube.com/shorts/WdNWfNxds_4" target="_blank">.</a>
 </p>
+
+<div class="exercise">
+    <b>(Two Counters)</b>
+    A <i>two-counter</i> automaton picks up the pace a little bit: instead of transitions of the form 
+    \[
+        x \xrightarrow{a \mid +1} y
+    \] 
+    a two-counter automaton has transitions like
+    \[
+        x \xrightarrow{a \mid +1; -1} y
+    \]
+    where the first \(+1\) increments one counter and \(-1\) decrements the other counter.
+    Transitions with \(-1;+1\) or \(+0;+1\) or \(+1;+0\), and so on, are of course also possible.
+    Remember that a counter automaton can only accept if its counter state is \(0\); the same should be true of two-counter automata (in that both counters should be \(0\)).
+    <p>
+        Where \(A = \{a,b,c, d\}\), design some two-counter automata to recognize the following languages.
+    </p>
+    <ol>
+        <li>
+            \(L_1 = \{a^nb^kc^nd^k \mid n,k \in \mathbb{N}\}\)
+        </li>
+        <li>\(L_2\), consisting of all the words \(w \in A^*\) such that \(w\) has the same numbers of \(a\)s, \(b\)s, and \(c\)s.</li>
+        <li>\(L_3 = \{a^n b^n c^n \in A^* \mid n \in \mathbb N\}\)
+        </li>
+    </ol>
+    <div class="hint">
+        You cannot do either of these with one counter!
+    </div>
+</div>
+
+<h2>A Short Experiment: Integer Counters</h2>
+
+<p>
+    Let's consider a slightly different kind of automaton: an <i>integer-counter automaton</i>.
+    This is the same thing as a counter automaton, with one difference: in a run, the counter is allowed to fall below zero (i.e., be negative).
+</p>
+
+<div class="exercise">
+    <b>(Negativity Helps?)</b>
+    Which of the following languages do you think you could recognize with an integer-counter automaton?
+    <ol>
+        <li>\(L_1 = \{a^nb^n \mid n \in \mathbb N\}\)</li>
+        <li>\(L_2 = \{w \in \{a,b\}^* \mid \text{\(w\) has an equal number of \(a\)s and \(b\)s}\}\)</li>
+        <li>\(L_3 = \{a^nb^kc^{n+k} \mid n,k \in \mathbb N\}\)</li>
+        <li>
+            \(L_4 = \{a^nb^kc^nd^k \mid n,k \in \mathbb{N}\}\)
+        </li>
+        <li>\(L_5\), consisting of all the words \(w \in A^*\) such that \(w\) has the same numbers of \(a\)s, \(b\)s, and \(c\)s.</li>
+        <li>\(L_6 = \{a^n b^n c^n \in A^* \mid n \in \mathbb N\}\)
+        </li>
+    </ol>
+</div>
+
+<h2>Other possibilities?</h2>
+
+<p>
+    Counters are the simplest type of memory to add to an automaton.
+    But what about others?
+</p>
+
+<div class="individual-exercise">
+    <b>(Dreaming Big)</b>
+    In the next lecture, we are going to add a <i>stack</i> to our automata. 
+    Before we do that, though, it is helpful to imagine what this might look like on your own first.
+    What would an automaton with a stack look like?
+    <ol>
+        <li>
+            What would a reasonable kind of transition between states in a <i>stack automaton</i> look like?
+        </li>
+        <li>
+            What would a reasonable definition of "(accepting) run" be for stack automata?
+        </li>
+        <li>
+            What kinds of languages do you think we could recognize with stack automata that we cannot recognize with counter automata?
+        </li>
+    </ol>
+    If you had fun, try repeating this exercise but with a <i>queue</i> instead of a stack.
+    <div class="hint">
+        Adding a queue to our automata dramatically increases the power of the automaton, and <a href="http://pleasingfungus.com/#Manufactoria" target="_blank">makes it more fun</a> too. 
+        Like, you could run Doom II on an automaton with a queue strapped to it.
+    </div>
+</div>
