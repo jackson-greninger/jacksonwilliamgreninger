@@ -1,15 +1,13 @@
 \documentclass[11pt]{article}
 
 \newcommand{\pset}{
-    4
+    5
 }
 \newcommand{\subtitle}{
-    The Algebra of Regular Expressions;
-    Kleene's Theorem;
-    Silent Transitions
+    From Nonregular Languages to Counter Automata
 }
 \newcommand{\duedate}{
-    Friday, September 26
+    Friday, October 10
 }
 
 % Page Setup
@@ -189,5 +187,96 @@ Don't forget to check the webspace for hints and additional context for each pro
 \begin{proof}[Solution.]
     
 \end{proof}
+
+\subsection*{Context-free Grammars}
+
+\begin{problem}
+    [Balancing Act]
+    Recall that a string of parentheses is \emph{balanced} if every left parenthese \(\mathtt{(}\) is eventually followed by a right parenthese \(\mathtt{)}\). 
+    But things get more complicated when there are other alternatives to parentheses: what about square brackets? Or curly ones?
+    If we take \[
+        A = \big\{ \mathtt{(}, \mathtt{)}, \mathtt{[}, \mathtt{]}, \mathtt{\{}, \mathtt{\}}, \mathtt{\langle}, \mathtt{\rangle}  \big\}
+    \]
+    then we say that a string of brackets \(w \in A^*\) is \emph{balanced} if every left bracket of a given type is eventually followed by a right bracket of the same type, without being interrupted by an unmatched right bracket of a different type. 
+    For example, these are all balanced:
+    \[
+        \mathtt{ 
+            \{()\}()
+            \qquad
+            [] 
+            \qquad
+            [()\langle()\rangle] 
+            \qquad
+            [()\{()\}] 
+        }
+        \hspace{4em}\text{(*)}
+    \]
+    but these are not: 
+    \[
+        \mathtt{ 
+            ([)] \qquad
+            \{()()
+            \qquad
+            ] 
+            \qquad
+            \langle[()()\rangle] 
+            \qquad
+            [()\{(\})] 
+        }
+    \]
+    Let \(L \subseteq A^*\) be the language of balanced strings of brackets.
+    \begin{enumerate}
+        \item Write down a grammar \(\mathcal G = (X, A, R)\) with a variable that generates \(L\), i.e., for some \(x \in X\), \(\mathcal L(\mathcal G, x) = L\).
+        \item Use your grammar to derive each of the words in (*).
+        \item Describe what prevents each of the words in (**) from being derivable from your grammar \(\mathcal G\).
+    \end{enumerate}
+\end{problem}
+
+\begin{proof}
+    [Solution.]
+\end{proof}
+
+\begin{problem}
+    [Arithmetic is Not Regular]
+    Prove that the language of arithmetic expressions \(\mathit{ArExp} \subseteq A^*\), derived from \(E\) in the grammar \(\mathcal G = (X, A, R)\) below
+    \[\begin{aligned}
+        E &\to 
+            N
+            \mid (E + E)
+            \mid (E \times E)
+            \mid (E - E)
+            \mid (E / E) \\
+        N &\to 0 \mid 1 \mid 2 \mid 3 \mid 4 \mid 5 \mid 6 \mid 7 \mid 8 \mid 9 \mid NN
+    \end{aligned}\]
+    where the alphabet is
+    \[
+        A = \big\{ (, ), +, \times, -, /, 0,1,2,3,4,5,6,7,8,9 \big\}
+    \]
+    is not regular. 
+\end{problem}
+
+\begin{proof}
+    [Solution.]
+\end{proof}
+
+\subsection*{Parse Trees}
+
+\begin{problem}
+    [Left on Your Own]
+    Let \(\mathcal G\) be a grammar with a variable \(x\), and let \(w \in A^*\).
+    Prove that if \(w\) has a derivation from \(x\), then \(w\) has a left-most derivation from \(x\).
+\end{problem}
+
+\begin{proof}
+    [Solution.]
+\end{proof}
+
+\subsection*{Counter Automata}
+
+\begin{problem}
+    [Cats \(>\) Dogs]
+    Let \(A = \{c, a, t, d, o, g\}\). 
+    Design a counter automaton with a state \(x\) that accepts the language \(L_{cat}\) of all words \(w \in A^*\) such that the string "\(cat\)" appears in \(w\) more times than "\(dog\)" appears in \(w\).
+\end{problem}
 
 \end{document}
