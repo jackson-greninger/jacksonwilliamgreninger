@@ -232,7 +232,7 @@
     (here we are using a slightly different font for \(\mathtt{\varepsilon}\) <i>the symbol</i> and \(\varepsilon\) <i>the empty word</i>, and similarly for \(\emptyset\)).
     Then the following grammar \(\mathcal G_{REGEX}\) derives the language of regular expressions <i>as strings of symbols</i>.
     \[\begin{aligned}
-        E &\to 0 \mid 1 \mid (E + E) \mid (E \cdot E) \mid (E)^*
+        E &\to \emptyset \mid \varepsilon \mid (E + E) \mid (E \cdot E) \mid (E)^*
     \end{aligned}\]
     (Here, you can replace \(0,1\) with whatever other base alphabet you want to use.)
     <p>
