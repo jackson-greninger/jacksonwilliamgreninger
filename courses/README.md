@@ -1,45 +1,66 @@
+The Theory Course Page Formatting Guide
+===
+
+This is a quick guide to writing your own course pages in the style as the ones you find here. Each course is in its own folder, which you should give an alphanumeric name. For eg., the Theory of Computation course pages are in the folder `csci341/`. A course folder in this format consists of the  subfolders `assignments/`, `compiled/`, `imgs/`, and `pageconstruction/`, and two html files, `footer.html` and `header.html`. These last two html files should be customized for each course. Knowing the purpose each of the folders has is crucial for understanding how the automated generation of pages works in this format (later).
+
+The most important thing to note: **never touch the `compiled/` folder**. Don't even look at it. It is entirely written over by the `make.sh` shell script.
+
+## Page Construction and Compiled Pages
+
+The `pageconstruction/` folder is where all of the course pages are constructed. In here, you will write an html document (with MathJax if you need it!) for each page. No header or footer is necessary for these files, simply start each page with `<h1>Title of Page</h1>`. 
+
+### Root pages
+
+You will want to include an `assignments.html`, `contents.html`, `index.html`, and `resources.html` in this folder. You can change the names of these files, but if you do, you will want to also change the `header.html` file as well. The use of `contents.html` in particular is of some importance, because that is how you will link students to the Notes pages.
+
+**Note.** If you are going to link to a course page, do not link it to a page in the `pageconstruction/` folder. That folder is only for designing pages. Link it to the corresponding page name in the `compiled/` folder (which you should not touch). These files will have page names of the form
+`coursename_..._pagename.html`. If you are not sure what the page will be called, make a file for it in the `pageconstruction/` folder and try running `make.sh` (see instructions below).
+
+### Notes pages
+
+Notes pages are a special type of page that are different than the Root pages. They are all tied together with "next topic" and "previous topic" buttons that allow students to skip through the rest of the notes pages in alphabetical order (more on this in a second). In order for the page script to recognize an html document as a Notes page is by its file name: every Notes page is a string of the form 
+`notes_#_##_name_of_topic.html`. The first `#` is intended to be a "chapter" number and the proceeding `##` is intended to be a "section" number. The "next topic" and "previous topic" buttons are built by the `./make.sh` script automatically and the buttons themselves are labelled as `name of topic`, as it is scraped from the name of the html file. See [this csci341 page](./csci341/compiled/csci341_notes_1_03_language_acceptance.html) for an example.
+
+## Assignments
+
+This is a standard kind of folder for course design. It consists of documents written in LaTeX and the PDFs that they generate. The `make.sh` will try to compile these LaTeX documents with `pdflatex` as it is running. If you are worried about a bunch of useless log files making their way into this folder, don't fret---the page generator will annihilate them! These files you need to link to manually from the `pageconstruction/` folder.
+
 Automated Page Generation
 ===
 
-The Python script `compilepages.py` exists so that I don't need to edit the generic parts of every page.
-It's kind of here because you can't run PHP in GitHub Pages...
-
-## What `compilepages.py` does
-Each course gets its own folder, usually just the course numbering in the Bucknell course catalog. 
-Within each folder, there are two html files and three folders:
-    - The first folder is the `pageconstruction/` folder, and this contains all of the main bodies of the course pages. 
-    - The html files are `header.html` and `footer.html`. These are the bits of html that the `compilepages.py` script will tag onto the beginning and end of each course page.
-    - The second folder is the `compiled/` folder. This is the user-facing content.
-    - The third folder is the `imgs/` folder. This is where the html pages will be sourcing its images from.
-
-The script `compilepages.py` stitches the pages in `pageconstruction` together with the header and footer and then dumps the result into the `compiled` folder.
-
-<div style="color:red"><b>Do not edit the files inside `compiled/` directly. They will be overwritten by `compilepages.py`.</b></div>
-
-## Running `compilepages.py`
-To run the `compilepages.py` script so that it gives the correct result, *the course folders must be set up correctly.* Refer to the next section for details.
-
-To run the script, navigate to the `courses/` folder and run 
+Once you have set up the `header.html`, `footer.html`, Root and Notes pages in `pageconstruction/`, it's time to build the website. This is where the `./make.sh` script comes in: you simply navigate to the `courses/` folder in your shell/terminal and run the command 
 ```
-python compilepages.py coursename
+./make.sh coursename
 ```
-with `coursename` the name of the *folder* where the course pages have been set up.
+If you get a permission error, you may need to run 
+```
+chmod +x ./make.sh
+```
+first. 
 
-## Course Setup
-To make proper use of the course structure and the `compilepages.py` script, you should follow these guidelines:
-1. Provide `index.html`, `syllabus.html`, `resources.html`, and `notes.html` files.
-    - `index.html` is a short page. It contains simple logistical information, the course description, and a schedule.
-    - `syllabus.html` is a long page. It contains all logistical information, the guidelines and rules, pointers to campus resources, etc.
-    - `resources.html` contains links to any code, videos, external lecture videos, documentation, etc. that the students might be interested in, that might not fit into the notes neatly. For example, final project ideas might fit here.
-    - `notes.html` contains the table of contents for the course notes.
-2. Style your course notes like in the following example: 
-    ```
-    coursenotes
-        ↳ 1_introduction.html
-        ↳ 2_decisionproblems.html
-        ↳ 3_automata.html
-    ```
-    This style of numbering will help keep things in order.
-    **However**, you will need to update the `notes.html` links yourself if you change the sequencing of the pages. 
+The `make.sh` script scrapes the `pageconstruction/` folder for "bodies", and then runs a python script called `compilepages.py` that straps the `header.html` to the beginning and the `footer.html` to the end of each page, and creates "next topic" and "previous topic" buttons for all the Notes pages, and piles everything into the `compiled/` folder. 
 
-If you would like to minimize the amount of junk in your `compiled/` folder, it is good practice to clear it out before compiling each time.
+Also, because I hate aux files, `make.sh` will attempt to obliterate anything in the `assignments/` folder that is a log file, an aux file, or any other auto-generated file that `pdflatex` produces (other than `.bbl` of course).
+
+You should now be able to preview your web pages by opening the html files in the `compiled` folder in your browser.
+
+### Optional: Running `pdflatex` with the `make.sh` script
+If you add an additional argument to the `make.sh` script, it will also look for a LaTeX file of that name in the `assignments/` folder and run `pdflatex` on it.
+```
+./make.sh coursename assignment1.tex
+```
+
+### Optional: `make_and_push.sh`
+
+For the ultra-lazy, there is also a script called `make_and_push.sh`, which takes two parameters:
+```
+./make_and_push.sh coursename "Commit message for git"
+```
+It's exactly how it sounds: it basically runs 
+```
+./make.sh coursename
+git add *
+git commit -m "Commit message for git"
+git push
+``` 
+Not secure at all, but I use it all the time :D
