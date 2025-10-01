@@ -18,13 +18,15 @@ def create_page(header, footer, body, filename, course_folder = None, next_page_
 
         if prev_page_name and ("notes" in prev_page_name) :
             cleaned_up_name = prev_page_name.replace("_", " ").replace(".html", "")[11:]
-            prev_page_link = f"<a href=\"../compiled/{course_folder}_{prev_page_name}\"><span class=\"link\"> \(\looparrowleft\) {cleaned_up_name}</span></a>"
+            prev_page_link = f"<a href=\"../compiled/{course_folder}_{prev_page_name}\"><span class=\"link\"> &larr; {cleaned_up_name}</span></a>"
+            # prev_page_link = f"<a href=\"../compiled/{course_folder}_{prev_page_name}\"><span class=\"link\"> \(\looparrowleft\) {cleaned_up_name}</span></a>"
         else : 
             prev_page_link = None
 
         if next_page_name and ("notes" in next_page_name) :
             cleaned_up_name = next_page_name.replace("_", " ").replace(".html", "")[11:]
-            next_page_link = f"<a href=\"../compiled/{course_folder}_{next_page_name}\"><span class=\"link\">{cleaned_up_name} \(\leadsto\)</span></a>"
+            next_page_link = f"<a href=\"../compiled/{course_folder}_{next_page_name}\"><span class=\"link\">{cleaned_up_name} &rarr;</span></a>"
+            # next_page_link = f"<a href=\"../compiled/{course_folder}_{next_page_name}\"><span class=\"link\">{cleaned_up_name} \(\leadsto\)</span></a>"
         else : 
             next_page_link = None
 
