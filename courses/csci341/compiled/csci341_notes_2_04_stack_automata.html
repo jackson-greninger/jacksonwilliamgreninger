@@ -226,7 +226,6 @@
         p{.}\mathtt{skip} = p
         \qquad
         \mathtt{skip}{.}p = p
-        \qquad \text{(*)}
     \]
     in the sense that the left-hand sides of the equations are programs that affect every stack \(S\) in the same way as the right-hand side programs.
 </div>
@@ -272,9 +271,10 @@
         \mathtt{pop}~\sigma_1 {.}
         \mathtt{pop}~\sigma_2 \dots
         \mathtt{pop}~\sigma_n {.}
-         \mathtt{push}~\tau_1 {.}
-         \mathtt{push}~\tau_2 \dots
-         \mathtt{push}~\tau_m
+        \mathtt{push}~\tau_1 {.}
+        \mathtt{push}~\tau_2 \dots
+        \mathtt{push}~\tau_m
+        \qquad \text{(*)}
     \]
     for some \(n,m \in \mathbb N\).
     <div class="hint">
