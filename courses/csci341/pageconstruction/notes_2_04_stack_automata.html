@@ -76,11 +76,6 @@
         \qquad \text{(*)}
     \]
     in the sense that the left-hand sides of the equations are programs that affect every stack \(S\) in the same way as the right-hand side programs.
-    <div class="hint">
-        The induction proof looks like this: in your base case (stack programs of length 1!), you want to show that \(\mathtt{skip}\), \(\mathtt{push}~\sigma\), and \(\mathtt{pop}~\sigma\) are valid and of the form (*).
-        For an induction hypothesis, assume that every valid stack program of length \(k\) is equivalent to one of the form (*).
-        The induction step now consists of three cases: you need to show that if \(\mathtt{skip}{.}p\) is a valid stack program of length \(n + 1\), then \(\mathtt{skip}{.}p\) is equivalent to one of the form (*), (2) if \(\mathtt{push}~\sigma{.}p\) is a valid stack program of length \(n + 1\), then \(\mathtt{push}~\sigma{.}p\) is equivalent to one of the form (*), and (3) the same statement for \(\mathtt{pop}~\sigma.p\).
-    </div>
 </div>
 
 <h3>Valid Stack Programs</h3>
@@ -129,6 +124,11 @@
          \mathtt{push}~\tau_m
     \]
     for some \(n,m \in \mathbb N\).
+    <div class="hint">
+        The induction proof looks like this: in your base case (stack programs of length 1!), you want to show that \(\mathtt{skip}\), \(\mathtt{push}~\sigma\), and \(\mathtt{pop}~\sigma\) are valid and of the form (*).
+        For an induction hypothesis, assume that every valid stack program of length \(k\) is equivalent to one of the form (*).
+        The induction step now consists of three cases: you need to show that if \(\mathtt{skip}{.}p\) is a valid stack program of length \(n + 1\), then \(\mathtt{skip}{.}p\) is equivalent to one of the form (*), (2) if \(\mathtt{push}~\sigma{.}p\) is a valid stack program of length \(n + 1\), then \(\mathtt{push}~\sigma{.}p\) is equivalent to one of the form (*), and (3) the same statement for \(\mathtt{pop}~\sigma.p\).
+    </div>
 </div>
 
 
