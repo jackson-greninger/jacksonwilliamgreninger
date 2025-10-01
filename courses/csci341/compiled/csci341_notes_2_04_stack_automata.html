@@ -173,7 +173,7 @@
     We need to fix a set ahead of time, the set \(\Sigma\) of <i>stack symbols</i> (\(\Sigma\) is Greek symbol corresponding to "S"), which are the items we can push and pop on our stack.
     The programs of \(\mathtt{Stk}\) are built from the grammar 
     \[
-        \mathtt{Stk} \longrightarrow \mathtt{skip} \mid \mathtt{push}~\sigma \mid \mathtt{pop}~\sigma \mid \mathtt{Stk},\mathtt{Stk}
+        \mathtt{Stk} \longrightarrow \mathtt{skip} \mid \mathtt{push}~\sigma \mid \mathtt{pop}~\sigma \mid \mathtt{Stk}{.}\mathtt{Stk}
     \]
     where \(\sigma\) is any stack symbol \(\sigma \in \Sigma\), although we won't really use this notation (see below).
 </p>
@@ -282,13 +282,13 @@
 <h2>Stack Automata</h2>
 
 <p>
-    Now that we have a good understanding of stack programs, let's strap one to an automaton.
+    Now that we have a good understanding of stacks, let's strap one to an automaton.
 </p>
 
 <div class="definition">
     <b>(Stack Automaton)</b>
     Let \(A\) be an alphabet of input symbols. 
-    We also need to fix a set .
+    We also need to fix a set \(\Sigma\) of stack symbols.
     Given these two pieces of data, a <i>stack automaton</i> \(\mathcal S = (Q, A, \Sigma, \delta, F)\) consists of 
     <ul>
         <li>A set \(Q\) of <i>program states</i> </li>
@@ -446,6 +446,15 @@
         <img src="../imgs/" />
         \(\mathcal S_3\)
     </div>
+</div>
+
+<div class="exercise">
+    <b>(Stack Party)</b>
+    For each of the languages \(L_i\) below, design a stack automaton \(\mathcal S = (Q, A, \Sigma, \delta, F)\) with a state \(x\in Q\) such that \(L_i = \mathcal L(\mathcal S, x)\).
+    <ol>
+        <li>\(L_1 = \{a^n b a^n \mid n \in \mathcal L\}\)</li>
+        <li>\(L_2 = \{a^n b a^n \mid n \in \mathcal L\}\)</li>
+    </ol>
 </div>
 
 
