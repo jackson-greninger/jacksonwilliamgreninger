@@ -5,11 +5,18 @@
     A stack!
     We have been on the hunt since last lecture to find a way to beef up finite automata to obtain a type of finite automaton that can accept context-free languages. 
     Again, the reason was algorithmic: automata offer us algorithms for determining membership in a language, which is something a grammar cannot offer.
-    It turns out that the right additions to our finite automata are both <i>silent transitions</i> and a <i>stack</i>.
+    It turns out that the right addition to our finite automata is a <i>stack</i>.
+    They are not strictly necessary, but silent transitions also make things quite a bit easier.
 </p>
 
 <p>
-    Now, the key ingredient we are missing has to do with the typical stack operations: we need to define a simple programming language, which we will call \(\mathtt{Stk}\). 
+    Before we get to the definition of stack automaton, we need to have a solid computational understanding of <i>stacks</i>, as we will use them.
+</p>
+
+<h2>Stack Programs</h2>
+<p>
+    Now, the type of stack we need is slightly different than the stacks you know and love: our stacks will have the usual <i>push</i> operation, but the <i>pop</i> operation is going to be a bit more like a <i>pop-and-check</i>.
+    Let's get a bit more formal about this: we need to define a simple programming language, which we will call \(\mathtt{Stk}\). 
     We need to fix a set ahead of time, the set \(\Sigma\) of <i>stack symbols</i> (\(\Sigma\) is Greek symbol corresponding to "S"), which are the items we can push and pop on our stack.
     The programs of \(\mathtt{Stk}\) are built from the grammar 
     \[
@@ -21,18 +28,18 @@
 <p>
     Now that we have the syntax of the \(\mathtt{Stk}\) language, let's define what its programs actually <i>do</i>.
     For us, a stack is just list of stack symbols \(S = [\sigma_1, \dots, \sigma_n]\) where we understand \(\sigma_n\) to be at the top of the stack (think about how you implemented the stack data structure in prior courses). 
-    This current contents of the stack determines the <i>memory state</i>.
+    The current contents of the stack determines the <i>memory state</i>.
     We <i>run</i> a \(\mathtt{Stk}\) program <i>on a stack \(S\)</i> as follows: let \(S = [\sigma_1, \dots, \sigma_n]\), then
     <ul>
-        <li>after running \(S.(\mathtt{skip})\), we have \(S = [\sigma_1, \dots, \sigma_n]\)</li>
-        <li>after running \(S.(\mathtt{push}~\tau)\), we have \(S = [\sigma_1, \dots, \sigma_n, \tau]\)</li>
-        <li>after running \(S.(\mathtt{pop}~\tau)\), one of two things occurs:
+        <li>after running \(S{.}\mathtt{skip}\), we have \(S = [\sigma_1, \dots, \sigma_n]\)</li>
+        <li>after running \(S{.}\mathtt{push}~\tau\), we have \(S = [\sigma_1, \dots, \sigma_n, \tau]\)</li>
+        <li>after running \(S{.}\mathtt{pop}~\tau\), one of two things occurs:
             <ol>
                 <li>If \(n > 0\) and \(\tau = \sigma_n\), then we have \(S = [\sigma_1, \dots, \sigma_{n-1}]\).</li>
                 <li>Otherwise, the program crashes.</li>
             </ol>
         </li>
-        <li>running \(S.(p,q)\) for some \(p,q \in \mathtt{Stk}\) is the same as running \(S.(p).(q)\).</li>
+        <li>running \(S{.}p{.}q\) for some \(p,q \in \mathtt{Stk}\) is the same as running \(S{.}p\) and then \(S{.}q\) after.</li>
     </ul>
 </p>
 
@@ -40,20 +47,19 @@
     <b>("First time?"")</b>
     Let \(S = [~]\) be an <i>empty stack</i> and let \(p\) be the \(\mathtt{Stk}\) program 
     \[\begin{aligned}
-        p = (
-            \mathtt{skip}, 
-            \mathtt{push}~0,   
-            \mathtt{skip}, 
-            \mathtt{push}~1,   
-            \mathtt{pop}~1,    
-            \mathtt{push}~0,   
-            \mathtt{skip}, 
-            \mathtt{skip}, 
-            \mathtt{pop}~0,    
-            \mathtt{skip}, 
-            \mathtt{pop}~0,    
+        p = 
+            \mathtt{skip}{.} 
+            \mathtt{push}~0{.}   
+            \mathtt{skip}{.} 
+            \mathtt{push}~1{.}   
+            \mathtt{pop}~1{.}    
+            \mathtt{push}~0{.}   
+            \mathtt{skip}{.} 
+            \mathtt{skip}{.} 
+            \mathtt{pop}~0{.}    
+            \mathtt{skip}{.} 
+            \mathtt{pop}~0{.}    
             \mathtt{skip}  
-            )
     \end{aligned}\]
     What is the result of running \(S.(p)\)?
 </div>
@@ -62,26 +68,68 @@
     <b>(Push<a href="https://youtu.be/KaPSfwUH4LA?si=cTW3g7uW5xgdoeGF" target="_blank">-</a>Pop)</b>
     Show that for any \(\mathtt{Stk}\) program \(p\), the following equations hold
     \[
-        (\mathtt{push}~\sigma,\mathtt{pop}~\sigma) = \mathtt{skip}
+        \mathtt{push}~\sigma{.}\mathtt{pop}~\sigma = \mathtt{skip}
         \qquad 
-        (p,\mathtt{skip}) = p
+        p{.}\mathtt{skip} = p
         \qquad
-        (\mathtt{skip},p) = p
+        \mathtt{skip}{.}p = p
     \]
     in the sense that the left-hand program affect every stack \(S\) the same as the right-hand program.
 </div>
 
+<h3>Valid Stack Programs</h3>
+
+<p>
+    The only stack programs we would like to include in our definition of the new automata we are going to employ are the <i>valid</i> ones.
+    That is, we want to exclude the stack programs that are always gonna crash no matter the stack on which they are run.
+    There are different characterizations of this phenomenon: for example, one way to show that a stack program is valid is to produce a stack \(S\) such that \(S{.}p\) doesn't crash.
+    But every stack can be obtained from the empty stack, i.e., obtained by running \([~].q\) for some \(q\) (for example, \(q\) can be the program that pushes the items of \(S\) to \([~]\) in order).
+    And every stack can be emptied, i.e., we can obtain \([~]\) from \(S{.}r\) for some \(r \in \mathtt{Stk}\).
+    This allows us to give a purely equational characterization of valid stack programs.
+</p>
+
+<div class="definition">
+    <b>(Valid Stack Program)</b>
+    Let \(p \in \mathtt{Stk}\) be a stack program.
+    We say that \(p\) is <i>valid</i> if there exist stack programs \(q,r \in \mathtt{Stk}\) such that \(q{.}p{.}r = \mathtt{skip}\).
+</div>
+
+<div class="exercise">
+    Show that the following stack programs are valid:
+    <ol>
+        <li>\(\mathtt{pop}~1\)</li>
+        <li>\(\mathtt{pop}~1{.}\mathtt{push}~0\)</li>
+        <li>
+            \(
+                \mathtt{pop}~0{.}
+                \mathtt{pop}~0{.}
+                \mathtt{skip}{.}
+                \mathtt{push}~0{.}
+            \)
+        </li>
+    </ol>
+</div>
+
 <div class="problem">
     <b>(Pop-Push)</b>
-    By induction on the length of the program, prove that every \(\mathtt{Stk}\) program that does not crash is equivalent to a program in one of the following four forms
-    \[\begin{aligned}
-        \text{Form 1:} &&& \mathtt{skip} \\
-        \text{Form 2:} &&& \mathtt{push}~\sigma \\
-        \text{Form 3:} &&& \mathtt{pop}~\sigma \\
-        \text{Form 4:} &&& \mathtt{pop}~\sigma_1, \mathtt{push}~\sigma_2 \\
-    \end{aligned}
+    By induction on the length of the program, prove that every valid stack program is equivalent to either \(\mathtt{skip}\) or a program of the following form:
+    \[
+        \mathtt{pop}~\sigma_1 {.}
+        \mathtt{pop}~\sigma_2 \dots
+        \mathtt{pop}~\sigma_n {.}
+         \mathtt{push}~\tau_1 {.}
+         \mathtt{push}~\tau_2 \dots
+         \mathtt{push}~\tau_m
     \]
+    for some \(n,m \in \mathbb N\).
 </div>
+
+
+<h2>Stack Automata</h2>
+
+<p>
+    Now that we have a good understanding of stack programs, let's strap one to an automaton.
+</p>
 
 <div class="definition">
     <b>(Stack Automaton)</b>
@@ -114,9 +162,9 @@
             \]
         </li>
         <li>\(S_0 = [~]\) is the empty stack.</li>
-        <li>For each \(0 < i \le n\), \(S_{i}\) is the stack obtained from running \(S_{i-1}.(p_i)\)</li>
+        <li>For each \(0 < i \le n\), \(S_{i}\) is the stack obtained from running \(S_{i-1}{.}p_i\)</li>
     </ol>
-    The last condition implicitly requires that \(S_0.(p_1,\dots,p_n)\) does not crash.
+    The last condition implicitly requires that \(S_0{.}p_1\dots p_n\) does not crash.
     We call this an <i>accepting run</i> if additionally, 
     <ol>
         <li>\(x_n \in F\)</li>
@@ -125,6 +173,17 @@
     in which case we say that <i>\(x\) accepts the word \(\xi_1\cdots \xi_n\)</i>.
     Note here that \(\xi_i \in A \cup \{\varepsilon\}\), so some of the \(\xi_i\) may be the empty word.
 </div>
+
+<p>
+    <b color="red">Note!</b> Because of the Pop-Push (not to be confused with the Push-Pop exercise) problem, we are going to write
+    <ul>
+        <li>\(\varepsilon\) for any program \(p\) equivalent to \(\mathtt{skip}\)</li>
+        <li>\({\downarrow}\sigma\) for any program \(p\) equivalent to \(\mathtt{push}~\sigma\)</li>
+        <li>\({\uparrow}\sigma\) for any program \(p\) equivalent to \(\mathtt{pop}~\sigma\)</li>
+        <li>\({\uparrow}\sigma_1{\downarrow}\sigma_2\) for any program \(p\) equivalent to \((\mathtt{pop}~\sigma_1,\mathtt{push}~\sigma_2)\)</li>
+    </ul>
+    This is going to be extremely useful notation going forward.
+</p>
 
 <div class="example">
     <b>(First Time)</b>
@@ -148,48 +207,89 @@
         \end{aligned}\]
     </div>
     In state diagrams of stack automata, we will usually omit the stack program from transitions if they are equivalent to \(\mathtt{skip}\).
-    In \(\mathcal S\) above, we can read \(abbaba\) from \(x_0\) via the path 
+    In \(\mathcal S\) above, we can read \(bbabba\) from \(x_0\) via the path 
     \[
         x_0
-        \xrightarrow{a \mid {\downarrow}0} x_1
+        \xrightarrow{b \mid {\downarrow}0} x_0
+        \xrightarrow{b \mid {\downarrow}0} x_0
+        \xrightarrow{a \mid {\uparrow}0} x_1
         \xrightarrow{b \mid {\uparrow}0} x_2
         \xrightarrow{b} x_0
+        \xrightarrow{b \mid {\downarrow}0} x_0
         \xrightarrow{a \mid {\uparrow}0} x_1
-        \xrightarrow{b \mid {\downarrow}0} x_2
-        \xrightarrow{a} x_1
     \]
     This path corresponds to a run of the stack automaton: the program that is run as the transitions are traversed is 
     \[
-        {\downarrow}0,
-        {\uparrow} 0,
-        \varepsilon,
-        {\uparrow} 0,
-        {\downarrow}0,
-        \varepsilon
+        {\downarrow}0{.}
+        {\downarrow}0{.}
+        {\uparrow}0{.}
+        {\uparrow}0{.}
+        {\varepsilon}{.}
+        {\downarrow}0{.}
+        {\uparrow}0
     \]
     or in our more verbose notation, 
     \[
-        \mathtt{push}~0,
-        \mathtt{pop}~ 0,
-        \mathtt{skip},
-        \mathtt{pop}~ 0,
-        \mathtt{push}~0,
-        \mathtt{skip}
+        \mathtt{push}~0{.}
+        \mathtt{push}~0{.}
+        \mathtt{pop}~0{.}
+        \mathtt{pop}~0{.}
+        \mathtt{skip}{.}
+        \mathtt{push}~0{.}
+        \mathtt{pop}~0
     \]
+    In fact, this run is an <i>accepting run</i>.
+    One of the conditions is clearly met, because the run ends at the state \(x_1\) and \(x_1 \in F\).
+    To see that the other condition is met, we can either draw the memory state changes, or we can simplify the \(\mathtt{Stk}\) program.
+    The first way is something you can verify by drawing the corresponding diagrams.
+    We're going to go with the second method here, since it's a bit more computational.
+    We basically just need the equations in the Push-Pop individual exercise.
+    Using these, we can reason as follows: we identify consecutive push-pop pairs, turn them into skips, and then remove unnecessary skips.
+    For our program, this results in
+    \[\begin{aligned}
+        &\mathtt{push}~0 {.} (\mathtt{push}~0{.} \mathtt{pop}~0) {.} \mathtt{pop}~0 {.} \mathtt{skip} {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
+        &= \mathtt{push}~0 {.} (\mathtt{skip}) {.} \mathtt{pop}~0 {.} \mathtt{skip} {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
+        &= \mathtt{push}~0 {.} \mathtt{pop}~0 {.} \mathtt{skip} {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
+        &= (\mathtt{push}~0 {.} \mathtt{pop}~0) {.} \mathtt{skip} {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
+        &= (\mathtt{skip}) {.} \mathtt{skip} {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
+        &= (\mathtt{skip}) {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
+        &= (\mathtt{push}~0 {.} \mathtt{pop}~0) \\
+        &= \mathtt{skip} \\
+    \end{aligned}\]
+    This calculation tells us that the program (1) does not crash, and (2) that the memory state at the end of the program is an empty stack.
+    This is a proof that the second requirement of being an accepting run is met.
 </div>
 
 <p>
-    <b color="red">Note!</b> Because of the Pop-Push problem, we are going to write
-    <ul>
-        <li>\(\varepsilon\) for any program \(p\) equivalent to \(\mathtt{skip}\)</li>
-        <li>\({\downarrow}\sigma\) for any program \(p\) equivalent to \(\mathtt{push}~\sigma\)</li>
-        <li>\({\uparrow}\sigma\) for any program \(p\) equivalent to \(\mathtt{pop}~\sigma\)</li>
-        <li>\({\uparrow}\sigma_1{\downarrow}\sigma_2\) for any program \(p\) equivalent to \((\mathtt{pop}~\sigma_1,\mathtt{push}~\sigma_2)\)</li>
-    </ul>
-    This is going to be extremely useful notation going forward.
+    In the example, we did the calculation with the program written in verbose form, but the same calculation could have been done with \(\downarrow\)s and \(\uparrow\)s.
 </p>
 
 <div class="exercise">
-    <b>(Going for a Jog)</b>
+    <b>(Stacked ABs)</b>
+    For each of the following words, determine whether they are accepted or rejected by the variable \(x_0\) in the stack automaton in the example.
+    To argue one way or the other, write out the program that corresponds to reading the word in the automaton (starting from \(x_0\)) and simplify using a calculation like in the example.
+    <ol>
+        <li>\(ba\)</li>
+        <li>\(bbabba\)</li>
+        <li>\(bbbababba\)</li>
+    </ol>
+</div>
 
+<div class="exercise">
+    <b>(Familiar Faces)</b>
+    For each stack automaton below, starting from \(x_0\),
+    <ol>
+        <li>write down a path through the automaton that does not correspond to a run,</li>
+        <li>write down a path through the automaton that corresponds to a run, ends with an accepting state, but is not an accepting run,</li>
+        <li>write down a path through the automaton that corresponds to a run, in which the stack begins and ends empty, but is not an accepting run, and</li>
+        <li>determine the language accepted by \(x_0\).</li>
+    </ol>
+    <div class="figure">
+        <img src="../imgs/" />
+        \(\mathcal S_1\)
+        <img src="../imgs/" />
+        \(\mathcal S_2\)
+        <img src="../imgs/" />
+        \(\mathcal S_3\)
+    </div>
 </div>
