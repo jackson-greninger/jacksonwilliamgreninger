@@ -459,8 +459,18 @@
     For each of the languages \(L_i\) below, design a stack automaton \(\mathcal S = (Q, A, \Sigma, \delta, F)\) with a state \(x\in Q\) such that \(L_i = \mathcal L(\mathcal S, x)\).
     <ol>
         <li>\(L_1 = \{a^n b a^n \mid n \in \mathcal L\}\)</li>
-        <li>\(L_2 = \{a^n b a^n \mid n \in \mathcal L\}\)</li>
+        <li>\(L_2 = \{a^n b^{2n + 1} \mid n \in \mathcal L\}\)</li>
+        <li>\(L_3 = \{w \mid w = w^{\op}\}\)</li>
+        <li>\(L_4 = \{a^ib^jc^k \mid i \neq j \text{ or } j \neq k\}\)</li>
     </ol>
+</div>
+
+<div class="problem">
+    <b>(Comes in 3s)</b>
+    Design a stack automaton \(\mathcal S = (Q, A, \Sigma, \delta, F)\) with a state \(x\in Q\) such that \[
+        \mathcal L(\mathcal S, x)
+        = \{a^nb^n \mid n \in \mathbb{N} \text{ and } n = 3k + 1 \text{ for some \(k \in \mathbb N\)}\}
+    \]
 </div>
 
 
