@@ -233,8 +233,8 @@
 <h3>Valid Stack Programs</h3>
 
 <p>
-    The only stack programs we would like to include in our definition of the new automata we are going to employ are the <i>valid</i> ones.
-    That is, we want to exclude the stack programs that are always gonna crash no matter the stack on which they are run.
+    We won't formally require it in definitions, but for practicality's sake, the only stack programs we are going to employ are the <i>valid</i> ones.
+    That is, we want to exclude the stack programs that are fated to crash no matter the stack on which they are run.
     There are different characterizations of this phenomenon: for example, one way to show that a stack program is valid is to produce a stack \(S\) such that \(S{.}p\) doesn't crash.
     But every stack can be obtained from the empty stack, i.e., obtained by running \([~].q\) for some \(q\) (for example, \(q\) can be the program that pushes the items of \(S\) to \([~]\) in order).
     And every stack can be emptied, i.e., we can obtain \([~]\) from \(S{.}r\) for some \(r \in \mathtt{Stk}\).
@@ -467,9 +467,17 @@
     The family of stack recognizable languages is \(\mathsf{Stack}\).
 </div>
 
+<p>
+    It turns out that we will not be using this terminology for long.
+    Remember that our goal is to design a type of automaton for deciding whether a word is in a <i>context-free language</i>.
+    Indeed, the next two lectures are about showing that \(\mathsf{Stack} = \mathsf{CFL}\).
+    Before we formally prove this equality, it could be enlightening to show that some familiar context-free languages are also stack recognizable.
+</p>
+
 <div class="exercise">
     <b>(Stack Party)</b>
-    For each of the languages \(L_i\) below, design a stack automaton \(\mathcal S = (Q, A, \Sigma, \delta, F)\) with a state \(x\in Q\) such that \(L_i = \mathcal L(\mathcal S, x)\).
+    For each of the languages \(L_i\) below, show that \(L_i \in \mathsf{Stack}\).
+    That is, design a stack automaton \(\mathcal S = (Q, A, \Sigma, \delta, F)\) with a state \(x\in Q\) such that \(L_i = \mathcal L(\mathcal S, x)\).
     <ol>
         <li>\(L_1 = \{a^n b a^n \mid n \in \mathcal L\}\)</li>
         <li>\(L_2 = \{a^n b^{2n + 1} \mid n \in \mathcal L\}\)</li>
@@ -486,14 +494,25 @@
     \]
     <ol>
         <li>Design a stack automaton \(\mathcal S = (Q, A, \Sigma, \delta, F)\) with a state \(x\in Q\) such that \(L = \mathcal L(\mathcal S, x)\).</li>
-        <li>Also design a grammar \(\mathcal G = (X, A, R)\) with a variable that derives \(L\).</li>
+        <li>Design a grammar \(\mathcal G = (X, A, R)\) with a variable that derives \(L\).</li>
     </ol>
 </div>
 
-<div class="problem">
+<p>
+    One benefit of distinguishing between \(\mathsf{Stack}\) and \(\mathsf{CFL}\) for now is that it is a bit easier to connect the previous lecture to stacks.
+</p>
+
+<div class="individual-exercise">
     <b>(Compared to Counting)</b>
-    Prove that 
-</div>
+    Let \(\mathcal A = (Q, A, \delta, F)\) be a counter automaton. 
+    Note that in particular, we have 
+    \[
+        \delta \subseteq Q \times (A \times \{{+}1, {+}0, {-}1\}) \times Q
+    \]
+    Find a set of stack symbols \(\Sigma\) and a stack automaton \(\mathcal S = (Q, A, \Sigma, \delta', F)\) such that for any \(x \in Q\), \(\mathcal L(\mathcal A, x) = \mathcal L(\mathcal S, x)\). 
+    
+    Can this also be done with two-counter automata?
+</div><div style="border: none; margin-bottom: -25px; padding: 0px; text-align: right;"><a href="../compiled/csci341_notes_2_03_adding_expressive_power.html"><span class="link"> &larr; adding expressive power</span></a></div>
 
 
 <!-- END OF BODY -->

@@ -42,7 +42,8 @@ def create_page(header, footer, body, filename, course_folder = None, next_page_
         + header \
         + backforwardblock\
         + body \
-        + footer
+        + backforwardblock\
+        + footer\
         # + backforwardblock\
     
     file.write(page_string)
