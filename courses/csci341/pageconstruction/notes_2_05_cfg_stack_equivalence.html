@@ -1,0 +1,17 @@
+<h1>Context-free Languages are Stack Languages</h1>
+
+<p>
+    This lecture is going to be of a familiar nature, I think.
+    We are going to show that two families of languages are equal. 
+</p>
+
+<p>
+    Given an alphabet \(A\) of input letters, recall that a language \(L \subseteq A^*\) is <i>context-free</i> if there is a (context-free) grammar \(\mathcal G = (X, A, R)\) with a variable \(x \in X\) such that \(\mathcal L(\mathcal G, x) = L\). 
+    And also, that the family of context-free languages is written \(\mathsf{CFL}\).
+    Recall that \(L\) is<i>stack recognizable</i> if there is a stack automaton with finitely many states \(\mathcal S = (Q, A, \Sigma, \delta, F)\) with a state \(x\in Q\) such that \(\mathcal L(\mathcal S, x) = L\), and that the family of stack recognizable languages is written \(\mathsf{Stack}\).
+    What we are going to prove is that 
+    \[
+        \mathsf{CFL} = \mathsf{Stack}
+    \]
+    We will do this in the usual way one proves that two sets are equal: (1) we are going to show that \(\mathsf{CFL} \subseteq \mathsf{Stack}\) and then show that \(\mathsf{CFL} \supseteq \mathsf{Stack}\).
+</p>

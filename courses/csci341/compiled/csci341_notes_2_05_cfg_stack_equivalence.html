@@ -1,0 +1,183 @@
+<!-- THIS IS A COMPILED FILE 
+ Compiled on 2025-10-02 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+
+<head>
+	
+	<meta charset="UTF-8">
+	<meta name="author" content="Todd Schmid">
+	
+	<!-- Renders latex formulas -->
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+	<!-- Renders tikz figures mid page -->
+    <link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
+    <script src="https://tikzjax.com/v1/tikzjax.js"></script>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="stylesheet" href="../../../styles.css" />
+	<link rel="stylesheet" href="../../course_styles.css" />
+	<link rel="icon" href="../../../squidab.png" />
+	
+	<!-- * Customize for each course * -->
+	<title>CSCI 341 Theory of Computation</title>
+	<meta name="description" content="Course pages for CSCI 341.">
+	<meta name="keywords" content="bucknell,theory,computer,science,schmid,csci341">
+	<!-- ***************************** -->
+</head>
+
+<body>
+
+<div id="content">
+
+<!-- Header Section -->
+<div id="course_head" style="text-align: left;">
+	<h1 style="margin-bottom: 0; text-align: left;">CSCI 341 Theory of Computation</h1>
+	<i>Fall 2025, with <a href="../../../teaching.html">Schmid</a></i>
+	<div id="links">
+		<!-- * Customize for each course * -->
+		<a href="csci341_index.html"><span class="link">Syllabus</span></a>
+		<a href="csci341_contents.html"><span class="link">Notes</span></a>
+		<a href="csci341_resources.html"><span class="link">Resources</span></a>
+		<a href= "csci341_assignments.html"><span class="link">Assignments</span></a>
+		<!-- ***************************** -->
+	</div>
+</div>
+
+
+
+<div id="stuff">
+
+
+<!-- BEGINNING OF BODY -->
+<div style="border: none; margin-bottom: -25px; padding: 0px; text-align: right;"><a href="../compiled/csci341_notes_2_04_stack_automata.html"><span class="link"> &larr; stack automata</span></a></div><h1>Context-free Languages are Stack Languages</h1>
+
+<p>
+    This lecture is going to be of a familiar nature, I think.
+    We are going to show that two families of languages are equal. 
+</p>
+
+<p>
+    Given an alphabet \(A\) of input letters, recall that a language \(L \subseteq A^*\) is <i>context-free</i> if there is a (context-free) grammar \(\mathcal G = (X, A, R)\) with a variable \(x \in X\) such that \(\mathcal L(\mathcal G, x) = L\). 
+    And also, that the family of context-free languages is written \(\mathsf{CFL}\).
+    Recall that \(L\) is<i>stack recognizable</i> if there is a stack automaton with finitely many states \(\mathcal S = (Q, A, \Sigma, \delta, F)\) with a state \(x\in Q\) such that \(\mathcal L(\mathcal S, x) = L\), and that the family of stack recognizable languages is written \(\mathsf{Stack}\).
+    What we are going to prove is that 
+    \[
+        \mathsf{CFL} = \mathsf{Stack}
+    \]
+    We will do this in the usual way one proves that two sets are equal: (1) we are going to show that \(\mathsf{CFL} \subseteq \mathsf{Stack}\) and then show that \(\mathsf{CFL} \supseteq \mathsf{Stack}\).
+</p>
+<div style="border: none; margin-bottom: -25px; padding: 0px; text-align: right;"><a href="../compiled/csci341_notes_2_04_stack_automata.html"><span class="link"> &larr; stack automata</span></a></div>
+
+
+<!-- END OF BODY -->
+    <div style="height: 50px;border-top: 1px solid rgb(131, 131, 131);margin-top: 50px; padding: 20px; text-align: right;">
+        <a href=""><span class="link">Top</span></a>
+    </div>
+</div>
+</div>
+</body>
+
+
+</html>
