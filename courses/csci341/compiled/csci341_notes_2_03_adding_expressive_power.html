@@ -345,15 +345,17 @@
     <ol>
         <li>\(L_0 = \mathcal L((ab)^*)\)</li>
         <li>\(L_1 = \{a^nb^n \mid n \in \mathbb N\}\)</li>
-        <li>\(L_2 = \{w \in \{a,b\}^* \mid \text{\(w\) has an equal number of \(a\)s and \(b\)s}\}\)</li>
-        <li>\(L_3 = \{a^nb^kc^{n+k} \mid n,k \in \mathbb N\}\)</li>
+        <li>\(L_2 = \{a^nb^kc^{n+k} \mid n,k \in \mathbb N\}\)</li>
     </ol>
 </div>
 
-<div class="problem">
-    <b>(Cats > Dogs)</b>
-    Let \(A = \{c, a, t, d, o, g\}\). 
-    Design a counter automaton with a state \(x\) that accepts the language \(L_{cat}\) of all words \(w \in A^*\) such that the string "\(cat\)" appears in \(w\) more times than "\(dog\)" appears in \(w\)<a href="https://youtu.be/gknobwKAStE?si=p-JjpJrhaeSagtuz" target="_blank">.</a>
+<div class="challenge-exercise">
+    <b>(Butterfly Effect)</b>
+    Is the language 
+    \[
+        L = \{w \in \{a,b\}^* \mid \text{\(w\) has an equal number of \(a\)s and \(b\)s}\}
+    \] 
+    recognizable by a state in a counter automaton?
 </div>
 
 <div class="individual-exercise">
@@ -421,6 +423,12 @@
         <li>\(L_6 = \{a^n b^n c^n \in A^* \mid n \in \mathbb N\}\)
         </li>
     </ol>
+</div>
+
+<div class="problem">
+    <b>(Cats > Dogs)</b>
+    Let \(A = \{c, a, t, d, o, g\}\). 
+    Design an integer counter automaton with a state \(x\) that accepts the language \(L_{cat}\) of all words \(w \in A^*\) such that the string "\(cat\)" appears in \(w\) more times than "\(dog\)" appears in \(w\)<a href="https://youtu.be/gknobwKAStE?si=p-JjpJrhaeSagtuz" target="_blank">.</a>
 </div>
 
 <h2>Other possibilities?</h2>

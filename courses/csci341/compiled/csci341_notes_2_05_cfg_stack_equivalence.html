@@ -235,7 +235,104 @@
     \]
     Using the Grammar-to-Automaton construction, we obtain the following stack automaton \(\mathcal S_x = (Q, A, \{\bot\}\cup X \cup A, \delta, F)\):
     <img src="../imgs/cfg_to_sta_example.svg" />
-
+    To see how the string \(aabb \in \mathcal L(\mathcal G, x)\) is accepted by this stack automaton, consider the path
+    \[\begin{aligned}
+        s_0 
+        &\xrightarrow{{\downarrow}\bot} s_1  
+        \xrightarrow{{\downarrow}x} s_{\circlearrowleft} 
+        \xrightarrow{{\uparrow}x} s_4 
+        \xrightarrow{{\downarrow}b} s_3 
+        \xrightarrow{{\downarrow}x} s_2 \\
+        &\hspace{2em}\xrightarrow{{\downarrow}a} s_{\circlearrowleft} 
+        \xrightarrow{a \mid {\uparrow}a} s_{\circlearrowleft} 
+        \xrightarrow{{\uparrow}x} s_4 
+        \xrightarrow{{\downarrow}b} s_3 
+        \xrightarrow{{\downarrow}x} s_2 \\
+        &\hspace{4em}\xrightarrow{{\downarrow}a} s_{\circlearrowleft} 
+        \xrightarrow{a \mid {\uparrow}a} s_{\circlearrowleft} 
+        \xrightarrow{{\uparrow}x} s_{\circlearrowleft} 
+        \xrightarrow{b \mid {\uparrow}b} s_{\circlearrowleft} 
+        \xrightarrow{b \mid {\uparrow}b} s_{\circlearrowleft} 
+        \xrightarrow{{\uparrow}\bot} s_\checkmark
+    \end{aligned}\]
+    This is a path that reads \(aabb\), so it is a candidate for a successful run of \(aabb\) starting from \(s_0\). 
+    To see that it is a successful run, we need to check that its program starts and ends with an empty stack and doesn't crash, i.e., that it reduces to \(\mathtt{skip}\).
+    Here's the calculation, with brackets around push-pop pairs that are eliminated on the next line:
+    \[\begin{aligned}
+        &{\downarrow}\bot
+        ({\downarrow}x
+        {\uparrow}x)
+        {\downarrow}b
+        {\downarrow}x
+        {\downarrow}a
+        {\uparrow}a
+        {\uparrow}x
+        {\downarrow}b
+        {\downarrow}x
+        {\downarrow}a
+        {\uparrow}a
+        {\uparrow}x
+        {\uparrow}b
+        {\uparrow}b
+        {\uparrow}\bot \\
+        &= {\downarrow}\bot
+        {\downarrow}b
+        {\downarrow}x
+        ({\downarrow}a
+        {\uparrow}a)
+        {\uparrow}x
+        {\downarrow}b
+        {\downarrow}x
+        {\downarrow}a
+        {\uparrow}a
+        {\uparrow}x
+        {\uparrow}b
+        {\uparrow}b
+        {\uparrow}\bot \\
+        &= {\downarrow}\bot
+        {\downarrow}b
+        {\downarrow}x
+        {\uparrow}x
+        {\downarrow}b
+        {\downarrow}x
+        ({\downarrow}a
+        {\uparrow}a)
+        {\uparrow}x
+        {\uparrow}b
+        {\uparrow}b
+        {\uparrow}\bot \\
+        &= {\downarrow}\bot
+        {\downarrow}b
+        ({\downarrow}x
+        {\uparrow}x)
+        {\downarrow}b
+        {\downarrow}x
+        {\uparrow}x
+        {\uparrow}b
+        {\uparrow}b
+        {\uparrow}\bot \\
+        &= {\downarrow}\bot
+        {\downarrow}b
+        {\downarrow}b
+        ({\downarrow}x
+        {\uparrow}x)
+        {\uparrow}b
+        {\uparrow}b
+        {\uparrow}\bot \\
+        &= {\downarrow}\bot
+        {\downarrow}b
+        ({\downarrow}b
+        {\uparrow}b)
+        {\uparrow}b
+        {\uparrow}\bot \\
+        &= {\downarrow}\bot
+        ({\downarrow}b
+        {\uparrow}b)
+        {\uparrow}\bot \\
+        &= ({\downarrow}\bot
+        {\uparrow}\bot) \\
+        &= \varepsilon
+    \end{aligned}\]
 </div>
 
 <div class="individual-exercise">
