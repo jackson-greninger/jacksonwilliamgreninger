@@ -282,6 +282,11 @@
     </ol>
 </div>
 
+<p>
+    One way to understand the stack operations in a stack automaton can be framed in terms of <i>obligations</i>: when a transition in a run pushes a symbol \(\sigma\) to the stack, it is is now obliged to pop \(\sigma\) from the stack later. 
+    The later a symbol gets popped to the stack, the higher the priority of that obligation.
+</p>
+
 <div class="exercise">
     <b>(Familiar Faces)</b>
     For each stack automaton below, starting from \(x_0\),

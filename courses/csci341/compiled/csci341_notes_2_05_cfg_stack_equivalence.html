@@ -1,5 +1,5 @@
 <!-- THIS IS A COMPILED FILE 
- Compiled on 2025-10-02 -->
+ Compiled on 2025-10-03 -->
 
 
 
@@ -151,7 +151,7 @@
 
 
 <!-- BEGINNING OF BODY -->
-<div style="border: none; margin-bottom: -25px; padding: 0px; text-align: right;"><a href="../compiled/csci341_notes_2_04_stack_automata.html"><span class="link"> &larr; stack automata</span></a></div><h1>Context-free Languages are Stack Languages</h1>
+<div style="border: none; margin-bottom: -25px; padding: 0px; text-align: right;"><a href="../compiled/csci341_notes_2_04_stack_automata.html"><span class="link"> &larr; stack automata</span></a></div><h1>Context-free = Stack Recognizable</h1>
 
 <p>
     This lecture is going to be of a familiar nature, I think.
@@ -168,7 +168,87 @@
     \]
     We will do this in the usual way one proves that two sets are equal: (1) we are going to show that \(\mathsf{CFL} \subseteq \mathsf{Stack}\) and then show that \(\mathsf{CFL} \supseteq \mathsf{Stack}\).
 </p>
-<div style="border: none; margin-bottom: -25px; padding: 0px; text-align: right;"><a href="../compiled/csci341_notes_2_04_stack_automata.html"><span class="link"> &larr; stack automata</span></a></div>
+
+<h2>Every Context-free Language is a Stack Recognizable Language</h2>
+
+<p>
+    Let's start by showing (1), that \(\mathsf{CFL} \subseteq \mathsf{Stack}\).
+    As might be expected, this is going to involve a construction that turns a grammar into a finite stack automaton.
+</p>
+
+<p>
+    The basic idea behind the construction can be framed as matching the obligations of a <i>derivation</i>. 
+    Every rewrite rule \(y \to \mu\) is going to correspond to a new obligation that the derivation has to fill.
+    Note that this implies that both \(A\) and \(X\) are going to be contained in our set of stack symbols.
+    This rewrite rule is modelled in the stack automaton with a path that pops \(y\) from the stack and pushes the characters of \(\mu\) to the stack in reverse order (because stacks are last-in-first-out) and pop each letter as it is being read.
+    This captures that every derivation, say \(x_0 \Rightarrow \mu_1 \Rightarrow \cdots \Rightarrow \mu_n \Rightarrow w\), must end with a word \(w \in A^*\) (as opposed to a monomial expression \(\mu \in (X \cup A)^*\)).
+    Every rewrite step, say \(\mu_i \Rightarrow \mu_{i+1}\), eliminates a variable from the previous expression, but it may introduce new ones. 
+    If a rewrite step introduces a variable to the derivation, i.e., \(\mu_{i+1}\) has a variable in it, the deriver is obliged to later remove that variable with a rewrite rule. 
+    Formally, the construction looks like this:
+</p>
+
+<div class="definition">
+    <b>(Grammar-to-Automaton)</b>
+    Let \(\mathcal G = (X, A, R)\) be a context-free grammar with a variable \(x_0\).
+    Then the <i>stack automaton corresponding to \(x_0\)</i>, \(\mathcal S_{x_0} = (Q, A, \Sigma, \delta, F)\), is obtained by adding the collection of cycles, described after the following figure, starting from the state \(s_{\circlearrowleft}\), to the following state diagram:
+    <div class="figure">
+        <img src="../imgs/cfg_to_sta.svg" />
+        The stack automaton \(\mathcal S_{x_0} = (Q, A, \Sigma, \delta, F)\).
+        Here, 
+        \[\begin{aligned}
+            Q &= \{s_0, s_1, s_{\circlearrowleft}, s_\checkmark\} \cup (\text{more states added below}) \\
+            \Sigma &= \{\bot\} \cup X \cup A \\
+            \delta &= \{ \\
+                &\hspace{2em} (s_0, (\varepsilon, \mathtt{push}~\bot), s_1), \\
+                &\hspace{2em} (s_1, (\varepsilon, \mathtt{push}~x_0), s_{\circlearrowleft}), \\
+                &\hspace{2em} (s_\circlearrowleft, (\varepsilon, \mathtt{pop}~\bot), s_{\checkmark}) \\
+                &\} \cup (\text{more transitions added below}) \\
+                F &= \{s_\checkmark\} 
+        \end{aligned}\]
+    </div> 
+    The cycles that get added to the blue box in the figure are of the following form:
+    <ol>
+        <li>
+            For each \(a \in A\), add a self-loop \(s_{\circlearrowleft} \xrightarrow{a \mid {\uparrow} a} s_{\circlearrowleft}\).
+        </li>
+        <li>
+            For each rewrite rule \(y \to b_1b_2\cdots b_{n-1}b_n\), where \(y \in X\) and \(b_i \in X \cup A\) for each \(i\), add a cycle
+            \[
+                s_{\circlearrowleft} 
+                \xrightarrow{{\uparrow} y} s_{n}
+                \xrightarrow{{\downarrow} b_n} s_{n-1}
+                \xrightarrow{{\downarrow} b_{n-1}} s_{n-2}
+                \xrightarrow{{\downarrow} b_{n-2}} \cdots
+                \xrightarrow{{\downarrow} b_{2}} s_1
+                \xrightarrow{{\downarrow} b_{1}} s_{{\circlearrowleft}}
+            \]
+        </li>
+    </ol>
+    It is important to note that in this construction, other than sharing \(s_{\circlearrowleft}\), these cycles are pair-wise distinct.
+</div>
+
+<div class="example">
+    <b>(As vs Bs Again)</b>
+    Recall the grammar \(\mathcal G = (\{x\}, \{a,b\}, \{(x, \varepsilon), (x, axb)\})\), also depicted below:
+    \[
+        x \to \varepsilon \mid axb
+    \]
+    Using the Grammar-to-Automaton construction, we obtain the following stack automaton \(\mathcal S_x = (Q, A, \{\bot\}\cup X \cup A, \delta, F)\):
+    <img src="" />
+</div>
+
+<div class="individual-exercise">
+    <b>(Tight-90)</b>
+</div>
+
+<h2>Every Stack Recognizable Language is a Context-free Language</h2>
+
+<p>
+    Now let's show that \(\mathsf{Stack} \subseteq \mathsf{CFL}\).
+    This is going to involve a construction that turns a stack automaton into a grammar.
+    In fact, as we will see, a stack automaton is kind of already itself a compact representation of a grammar.
+    But be warned, the word "compact" here is an understatement: the grammar corresponding to a stack automaton can be extremely large compared to the original automaton (although still finite).
+</p><div style="border: none; margin-bottom: -25px; padding: 0px; text-align: right;"><a href="../compiled/csci341_notes_2_04_stack_automata.html"><span class="link"> &larr; stack automata</span></a></div>
 
 
 <!-- END OF BODY -->
