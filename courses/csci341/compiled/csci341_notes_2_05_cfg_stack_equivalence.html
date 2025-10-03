@@ -215,11 +215,11 @@
             For each rewrite rule \(y \to b_1b_2\cdots b_{n-1}b_n\), where \(y \in X\) and \(b_i \in X \cup A\) for each \(i\), add a cycle
             \[
                 s_{\circlearrowleft} 
-                \xrightarrow{{\uparrow} y} s_{n}
-                \xrightarrow{{\downarrow} b_n} s_{n-1}
-                \xrightarrow{{\downarrow} b_{n-1}} s_{n-2}
+                \xrightarrow{{\uparrow} y} s_{n+1}
+                \xrightarrow{{\downarrow} b_n} s_{n}
+                \xrightarrow{{\downarrow} b_{n-1}} s_{n-1}
                 \xrightarrow{{\downarrow} b_{n-2}} \cdots
-                \xrightarrow{{\downarrow} b_{2}} s_1
+                \xrightarrow{{\downarrow} b_{2}} s_2
                 \xrightarrow{{\downarrow} b_{1}} s_{{\circlearrowleft}}
             \]
         </li>
@@ -234,7 +234,8 @@
         x \to \varepsilon \mid axb
     \]
     Using the Grammar-to-Automaton construction, we obtain the following stack automaton \(\mathcal S_x = (Q, A, \{\bot\}\cup X \cup A, \delta, F)\):
-    <img src="" />
+    <img src="../imgs/cfg_to_sta_example.svg" />
+
 </div>
 
 <div class="individual-exercise">
