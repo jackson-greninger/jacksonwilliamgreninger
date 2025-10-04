@@ -9,11 +9,20 @@
     Given an alphabet \(A\) of input letters, recall that a language \(L \subseteq A^*\) is <i>context-free</i> if there is a (context-free) grammar \(\mathcal G = (X, A, R)\) with a variable \(x \in X\) such that \(\mathcal L(\mathcal G, x) = L\). 
     And also, that the family of context-free languages is written \(\mathsf{CFL}\).
     Recall that \(L\) is<i>stack recognizable</i> if there is a stack automaton with finitely many states \(\mathcal S = (Q, A, \Sigma, \delta, F)\) with a state \(x\in Q\) such that \(\mathcal L(\mathcal S, x) = L\), and that the family of stack recognizable languages is written \(\mathsf{Stack}\).
-    What we are going to prove is that 
+    What we are going to prove is the following theorem:
+</p>
+
+<div class="theorem">
+    <b>(CFL=Stack)</b>
+    For any language \(L\), \(L\) is context-free if and only if it is stack recognizable. 
+    That is,
     \[
         \mathsf{CFL} = \mathsf{Stack}
     \]
-    We will do this in the usual way one proves that two sets are equal: (1) we are going to show that \(\mathsf{CFL} \subseteq \mathsf{Stack}\) and then show that \(\mathsf{CFL} \supseteq \mathsf{Stack}\).
+</div>
+
+<p>
+    The proof proceeds in the usual way one proves that two sets are equal: (1) we are going to show that \(\mathsf{CFL} \subseteq \mathsf{Stack}\) and then show that \(\mathsf{CFL} \supseteq \mathsf{Stack}\).
 </p>
 
 <h2>Every Context-free Language is a Stack Recognizable Language</h2>
@@ -49,7 +58,7 @@
                 &\hspace{2em} (s_0, (\varepsilon, \mathtt{push}~\bot), s_1), \\
                 &\hspace{2em} (s_1, (\varepsilon, \mathtt{push}~x_0), s_{\circlearrowleft}), \\
                 &\hspace{2em} (s_\circlearrowleft, (\varepsilon, \mathtt{pop}~\bot), s_{\checkmark}) \\
-                &\} \cup (\text{more transitions added below}) \\
+                &\hspace{1em} \} \cup (\text{more transitions added below}) \\
                 F &= \{s_\checkmark\} 
         \end{aligned}\]
     </div> 
@@ -73,6 +82,22 @@
     </ol>
     It is important to note that in this construction, other than sharing \(s_{\circlearrowleft}\), these cycles are pair-wise distinct.
 </div>
+
+<div class="lemma">
+    <b>(Correctness of Grammar-to-Automaton)</b>
+    Let \(\mathcal G = (X, A, R)\) be a context-free grammar with a variable \(x_0\). 
+    Let \(\mathcal S_{x_0}\) be the stack automaton obtained from the Grammat-to-Automaton construction, in particular with the state \(s_0\).
+    Then 
+    \[
+        \mathcal L(\mathcal S_{x_0}, s_0) = \mathcal L(\mathcal G, x_0)
+    \]
+</div>
+
+<p>
+    Note the extra symbol \(\bot\), called "bottom". 
+    The role it plays in the structure of the automaton is going to be a running theme in later types of automata: it is really just there to delineate between two different parts of the program. 
+    In this case, it delineates between states in which the stack can be empty and states where it cannot.
+</p>
 
 <div class="example">
     <b>(As vs Bs Again)</b>
@@ -179,13 +204,45 @@
         {\uparrow}\bot \\
         &= {\color{blue}({\downarrow}\bot
         {\uparrow}\bot)} \\
-        &= \varepsilon
+        &= \mathtt{skip}
     \end{aligned}\]
+    A lot of work for \(aabb\), but at least we know it's correct!
 </div>
 
+<div class="exercise">
+    <b>(Less-Involved)</b>
+    Consider the stack automaton in the As vs Bs Again example again. 
+    Show that \(s_0\) accepts the word \(ab\) by writing down the accepting run that reads \(ab\) starting from \(s_0\) and reducing the stack program in the run to \(\mathtt{skip}\).
+
+</div>
+
+<div class="exercise">
+    <b>(Full-Stack)</b>
+    For each of the words \(w_i\) and grammars \(\mathcal G_i\) below, calculate the stack automaton corresponding to the variable \(x\) and show that the stack automaton's \(s_0\) accepts \(w_i\).
+    <ol>
+        <li>The word is \(w_1 = abc\), and the grammar
+            \[\mathcal G_1 = 
+                \begin{aligned}
+                    x &\to axy \mid \varepsilon \\
+                    y &\to byc \mid \varepsilon 
+                \end{aligned}
+            \]
+        </li>
+        <li>The word is \(w_2 = 0110\), and the grammar
+            \[\mathcal G_2 = 
+                \begin{aligned}
+                    x &\to 0x1 \mid 1 x 0 \mid \varepsilon 
+                \end{aligned}
+            \]
+        </li>
+    </ol>
+</div>
+
+
+<!-- 
 <div class="individual-exercise">
     <b>(Tight-90)</b>
-</div>
+</div> -->
 
 <h2>Every Stack Recognizable Language is a Context-free Language</h2>
 
@@ -195,3 +252,29 @@
     In fact, as we will see, a stack automaton is kind of already itself a compact representation of a grammar.
     But be warned, the word "compact" here is an understatement: the grammar corresponding to a stack automaton can be extremely large compared to the original automaton (although still finite).
 </p>
+
+<h2>Consequences of CFL=Stack</h2>
+
+<p>
+    Knowing that context-free languages are the same as stack recognizable languages opens up our study of context-free languages by allowing us to use automata-theoretic tools to study them.
+    In particular, we can make use of constructions like the <i>product construction</i> from earlier, although it's not as simply applied as before.
+</p>
+
+<div class="theorem">
+    <b>(Intersecting with a Regular Language)</b>
+    The intersection of a <b>regular</b> language and a context-free language is context-free.
+</div>
+
+<div class="proof">
+    (Sketch!)
+    
+</div>
+
+<div class="problem">
+    <b>(Closure Properties)</b>
+    Show that \(\mathsf{CFL}\) is closed under unions in two ways:
+    <ol>
+        <li>Directly show that the union of two context-free languages \(L_1,L_2 \in \mathsf{CFL}\) is context free by constructing a grammar \(\mathcal G\) with a variable that derives their union, \(L_1 \cup L_2\).</li>
+        <li>Use epsilon transitions to show that the union of two languages in \(\mathsf{Stack}\) is also in \(\mathsf{Stack}\). Then refer to the CFL=Stack theorem.</li>
+    </ol>
+</div>
