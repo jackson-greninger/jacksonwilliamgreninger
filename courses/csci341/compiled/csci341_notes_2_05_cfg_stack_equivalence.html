@@ -1,5 +1,5 @@
 <!-- THIS IS A COMPILED FILE 
- Compiled on 2025-10-04 -->
+ Compiled on 2025-10-05 -->
 
 
 
@@ -391,6 +391,20 @@
     </ol>
 </div>
 
+<div class="problem">
+    <b>(Algorithmic Balancing)</b>
+    Let \(L\) be the set of balanced strings of brackets from <a href="csci341_notes_2_01_polynomial_systems.html#balancingact">Balancing Act</a>.
+    In that problem, you designed a grammar with a variable that derives \(L\).
+    <ol>
+        <li>
+            Use the Grammar-to-Automaton construction to design a stack automaton with a state that accepts \(L\).
+        </li>
+        <li>
+            Can you think of a smaller stack automaton with a state that accepts \(L\).
+        </li>
+    </ol>
+</div>
+
 
 <!-- 
 <div class="individual-exercise">
@@ -404,6 +418,130 @@
     This is going to involve a construction that turns a stack automaton into a grammar.
     In fact, as we will see, a stack automaton is kind of already itself a compact representation of a grammar.
     But be warned, the word "compact" here is an understatement: the grammar corresponding to a stack automaton can be extremely large compared to the original automaton (although still finite).
+    In particular, if the stack automaton has \(n\) states, the grammar corresponding to it has \(n^2\) variables (although a smaller grammar may be possible) and \(O(n^3)\) many rules.
+</p>
+
+<div class="definition">
+    <b>(Automaton-to-Grammar)</b>
+    Let \(\mathcal S = (Q, A, \Sigma, \delta, F)\) be a stack automaton. 
+    Then the <i>grammar corresponding to \(\mathcal S\)</i> is the grammar \(\mathcal G = (X, A, R)\) consisting of the following data:
+    <ul>
+        <li>
+            The variables are \(X = \{v_{xy} \mid x,y \in Q\}\).
+            (The variable \(v_{xy}\) is just a formal name for the pair \((x,y)\).)
+        </li>
+        <li>
+            The rules \(R\) of the grammar are of three types:
+            <ol>
+                <li>
+                    For every pair of identical states, we have the rewrite rule 
+                    \[
+                        v_{xx} \to \varepsilon
+                    \]
+                    that lets you eliminate it. 
+                </li>
+                <li>
+                    For every triple of states, \(x,y,z \in Q\), we have the rewrite rule 
+                    \[
+                        v_{xz} \to v_{xy}v_{yz}
+                    \]
+                    that lets you split the variable into "intermediate paths". 
+                </li>
+                <li>
+                    For every pair of transitions \(x \xrightarrow{a \mid p} u\) and \(y \xrightarrow{b \mid q} z\) in \(\mathcal S\) such that \(pq = \mathtt{skip}\), we have the rewrite rule 
+                    \[
+                        v_{xy} \to av_{uz}b
+                    \]
+                </li>
+            </ol>
+        </li>
+    </ul>
+</div>
+
+<p>
+    This might seem a bit opaque at first, so let's start with the <i>idea</i> behind this construction.
+    The main idea behind the construction is that for any states \(x,y \in Q\), if \(y \in F\), i.e., \(y\) is an accepting state of \(\mathcal S\), then 
+    \[
+        \mathcal L(\mathcal S, x) = \mathcal L(\mathcal G, v_{xy})
+    \]
+    Technically, this will require some conditions on \(\mathcal S\) to get working, but for now let's stick to understanding the idea.
+    Every accepting run of the automaton, now, should match a left-most derivation starting with the variable \(v_{xy}\).
+    Let's start from the state \(x \in Q\) and look at such a run of the automaton:
+    \[
+        x \xrightarrow{a_1 \mid p_1} x_1 \xrightarrow{a_2 \mid p_2} \cdots \xrightarrow{a_{n-1} \mid p_n} x_{n-1} \xrightarrow{a_n \mid p_n} y
+    \]
+    We would like to somehow turn this into a derivation in our grammar.
+    The tactic this construction takes is to reduce our derivation to one of several types of shorter derivations (think about how mathematical induction works): 
+    <ol>
+        <li>
+            In the simplest case, \(n = 0\) and \(y = x\).
+            There are no shorter derivations, so this is a kind of "base case" for our reduction to shorter derivations.
+            This situation suggests we include the rewrite rule 
+            \[
+                v_{xx} \to \varepsilon
+            \]
+        </li>
+        <li>
+            In the second case,
+            if the stack is empty at some intermediate step in the run, i.e., \(p_1\cdots p_i = \mathtt{skip}\) for some \(i < n\), then we would like to reduce our current derivation to two shorter derivations that we concatenate afterward: one for the first half of the run and one for the second, as in
+            \[
+                \overbrace{x 
+                \xrightarrow{a_1 \mid p_1} \cdots
+                \xrightarrow{a_{i} \mid p_i}}^{v_{xx_i}}~ x_{i} ~
+                \overbrace{\xrightarrow{a_{i+1} \mid p_{i+1}} \cdots
+                \xrightarrow{a_n \mid p_n} y}^{v_{x_iy}}
+            \]
+            This suggests the rewrite rule 
+            \[
+                    v_{xy} \to v_{xx_i} v_{x_iy}
+            \]
+        </li>
+        <li>
+            In the final case, the stack is only empty at the beginning and the end, never empty in-between (formally, this means that \(p_1\cdots p_i = \mathtt{skip}\) only if \(i = n\)).
+            In this case, <b>we would like it to be true</b> that \(p_1p_n = \mathtt{skip}\) because \(p_n\) is the only stack program that has the opportunity to undo \(p_1\).
+            In this case, <b>we would also like it to be true</b> that \(p_2 \cdots p_{n-1} = \mathtt{skip}\).
+            In such a case, we could add a derivation rule of the form
+            \[
+                v_{xy} \to a_1 v_{x_1 x_{n-1}} a_n
+            \]
+            and reduce our derivation to one that starts with the variable \(v_{x_1 x_{n-1}}\).
+        </li>
+    </ol>
+    This tells us what we need to get this tactic to work.
+    We need the following statement to be true:
+</p>
+
+<div class="claim">
+    <b>(Statement 1)</b>
+    If \(p_1\cdots p_i = \mathtt{skip}\) only if \(i = n\), then 
+    <ol>
+        <li>\(p_1 p_n = \mathtt{skip}\)</li>
+        <li>\(p_2 \cdots p_i = \mathtt{skip}\) only if \(i = n-1\)</li>
+    </ol>
+</div>
+
+<p>
+    Unfortunately, Statement 1 is not always true!
+</p>
+
+
+<div class="exercise">
+    <b>(One of these is not like the other)</b>
+    Find stack programs \(p_1,p_2,p_3 \in \mathtt{Stk}\) such that the following statements are all simultaneously true:
+    <ol>
+        <li>\(p_1p_2p_3 = \mathtt{skip}\)</li>
+        <li>\(p_1 \neq \mathtt{skip}\) and \(p_1p_2 \neq \mathtt{skip}\)</li>
+        <li>\(p_1p_3 \neq \mathtt{skip}\)</li>
+    </ol>
+
+</div>
+
+<p>
+    What do we need to assume about the stack programs \(p_1,\dots,p_n\) to ensure that Statement 1 holds?
+</p>
+
+<p>
+    So, if we think of pushing a symbol to the stack as <i>creating an obligation for ourselves down the line</i>, then this should match introducing variables into the 
 </p>
 
 <h2>Consequences of CFL=Stack</h2>
@@ -420,7 +558,37 @@
 
 <div class="proof">
     (Sketch!)
-    
+    Fix an alphabet \(A\).
+    Let \(L_1 \subseteq A^*\) be a context-free language and \(L_2 \subseteq A^*\) be a regular language.
+    By the CFL=Stack and Kleene theorems, there is a stack automaton \(\mathcal S = (Q_1, A, \Sigma, \delta_1, F_1)\) with a state \(x_0 \in Q_1\) such that \(\mathcal L(\mathcal S, x_0) = L_1\), as well as a finite automaton \(\mathcal A = (Q_2, A, \delta_2, F_2)\) with \(y_0 \in Q_2\) such that \(\mathcal L(\mathcal A, y_0) = L_2\).
+    We use a variation on the product construction to produce a stack automaton \(\mathcal S \otimes \mathcal A\) with a state \(z\) such that \(\mathcal L(\mathcal S \otimes \mathcal A, z) = L_1 \cap L_2\).
+
+    <p>
+        Here is the construction of \(\mathcal S \otimes \mathcal A\): the states of the automaton are 
+        \[
+            Q_1 \times Q_2 = \{(x, y) \mid x \in Q_1 \text{ and } y \in Q_2\}
+        \]
+        The alphabet is \(A\) and the stack symbols are \(\Sigma\).
+        The transition relation is given by the following rule: we have
+        \[
+            (x, y) \xrightarrow{a \mid p} (x', y')
+        \]
+        if and only if 
+        \[
+            x \xrightarrow{a \mid p} x'
+            \text{ and }
+            y \xrightarrow{a} y'
+        \]
+        The final states are
+        \[
+            F = \{(x, y) \mid x \in F_1 \text{ and } y \in F_2\}
+        \]
+        The following claim finishes the proof.
+    </p>
+    <div class="claim">
+        <b>Claim.</b> Let \(\mathcal S \otimes \mathcal A\) be constructed as above. 
+        Then \(\mathcal L(\mathcal S \otimes \mathcal A, (x_0, y_0)) = L_1 \cap L_2\).
+    </div>
 </div>
 
 <div class="problem">
