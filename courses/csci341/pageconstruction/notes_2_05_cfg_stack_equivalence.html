@@ -222,18 +222,20 @@
     For each of the words \(w_i\) and grammars \(\mathcal G_i\) below, calculate the stack automaton corresponding to the variable \(x\) and show that the stack automaton's \(s_0\) accepts \(w_i\).
     <ol>
         <li>The word is \(w_1 = abc\), and the grammar
-            \[\mathcal G_1 = 
+            \[\mathcal G_1 = \left\{
                 \begin{aligned}
                     x &\to axy \mid \varepsilon \\
                     y &\to byc \mid \varepsilon 
                 \end{aligned}
+                \right\}
             \]
         </li>
         <li>The word is \(w_2 = 0110\), and the grammar
-            \[\mathcal G_2 = 
+            \[\mathcal G_2 = \left\{
                 \begin{aligned}
                     x &\to 0x1 \mid 1 x 0 \mid \varepsilon 
                 \end{aligned}
+            \right\}
             \]
         </li>
     </ol>
@@ -248,7 +250,7 @@
             Use the Grammar-to-Automaton construction to design a stack automaton with a state that accepts \(L\).
         </li>
         <li>
-            Can you think of a smaller stack automaton with a state that accepts \(L\).
+            Can you think of a smaller stack automaton with a state that accepts \(L\)?
         </li>
     </ol>
 </div>
@@ -296,7 +298,7 @@
                     that lets you split the variable into "intermediate paths". 
                 </li>
                 <li>
-                    For every pair of transitions \(x \xrightarrow{a \mid p} z\) and \(u \xrightarrow{b \mid q} y\) in \(\mathcal S\) such that \(p.q = \mathtt{skip}\), we have the rewrite rule 
+                    For every pair of transitions \(x \xrightarrow{a \mid p} z\) and \(u \xrightarrow{b \mid q} y\) in \(\mathcal S\) such that \(p{.}q = \mathtt{skip}\), we have the rewrite rule 
                     \[
                         v_{xy} \to av_{zu}b
                     \]
@@ -361,7 +363,7 @@
 
 <div class="claim">
     <b>(Statement 1)</b>
-    If \(p_1\dots p_i = \mathtt{skip}\) if and only if \(i = 0\) or \(i = n\), then \(p_1 p_n = p_2 \cdots p_{n-1} = \mathtt{skip}\).
+    If \(p_1\dots p_i = \mathtt{skip}\) if and only if \(i = 0\) or \(i = n\) (i.e., the stack is only empty at the start and at the end of running \(p_1\dots p_n\)), then \(p_1 p_n = p_2 \cdots p_{n-1} = \mathtt{skip}\).
 </div>
 
 <p>
@@ -406,10 +408,10 @@
     </div>
 </div>
 
-<p>
+<!-- <p>
     But what about the second part of Statement 1?
     It turns out this is a little more difficult to obtain.
-</p>
+</p> -->
 
 <div class="definition">
     Let \(\mathcal S = (Q, A, \Sigma, \delta, F)\) be a stack automaton with a state \(x_0 \in Q\).
@@ -568,6 +570,13 @@
     </ul>
 </div>
 
+<div class="individual-exercise">
+    <b>(Did we Need Uniqueness?)</b>
+    Where was condition 2. in the definition of grammar-ready form used in the proof of the Lemma above?
+    Suppose we got rid of it. 
+    How would the statement of the Lemma change?
+</div>
+
 <p>
     OK, this is all good, but didn't we make some assumptions about \(\mathcal S\)?
     Well, it turns out that every stack automaton is equivalent to one in grammar-ready form.
@@ -577,6 +586,10 @@
     <b>(Converting to Grammar-Ready Form)</b>
     Let \(\mathcal S\) be a stack automaton with a state \(x_0\). 
     Then there is a stack automaton in grammar-ready form \(\mathcal S'\) with a state \(x_0'\) such that \(\mathcal L(\mathcal S', x_0') = \mathcal L(\mathcal S, x_0)\).
+    <div class="hint">
+        You will need to add a bunch of states.
+        For example, if a transition's program is a composite stack program, you will need to break it up into its basic parts.
+    </div>
 </div>
 
 <div class="exercise">
@@ -603,18 +616,8 @@
 </div>
 
 <p>
-    The three lemmas we have seen above prove the main result of this section:
+    The three lemmas we have seen above prove the CFL=Stack theorem stated at the beginning.
 </p>
-
-<div class="theorem">
-    <b>(CFL=Stack)</b>
-    Let \(L \subseteq A^*\) be any language. 
-    Then \(L\) is context-free if and only if it is stack recognizable. 
-    That is, 
-    \[
-        \mathsf{CFL} = \mathsf{Stack}
-    \]
-</div>
 
 <h2>Consequences of CFL=Stack</h2>
 
@@ -676,10 +679,40 @@
         L = \{a^nb^n \mid n \in \mathbb{N} \text{ and } n = 3k + 1 \text{ for some \(k \in \mathbb N\)}\}
     \]
     <ol>
-        <li>Design a stack automaton \(\mathcal S = (Q, A, \Sigma, \delta, F)\) with a state \(x\in Q\) such that \(L = \mathcal L(\mathcal S, x)\).</li>
+        <li>Use the Intersection-Product conctruction to design a stack automaton \(\mathcal S = (Q, A, \Sigma, \delta, F)\) with a state \(x\in Q\) such that \(L = \mathcal L(\mathcal S, x)\).</li>
         <li>Design a grammar \(\mathcal G = (X, A, R)\) with a variable that derives \(L\).</li>
     </ol>
 </div>
+
+<p>
+    We can also make use of closure properties of \(\mathsf{CFL}\) to study \(\mathsf{Stack}\).
+</p>
+
+<div class="exercise">
+    <b>(Union and Concatenation in \(\mathsf{Stack}\))</b>
+    Consider the following two grammars:
+    \[\begin{aligned}
+        \mathcal G_1 = \left\{
+            x &\to yyy \mid z \\
+            y &\to ay \mid z \\
+            z &\to \varepsilon
+            \right\}
+            \\
+        \mathcal G_1 = \left\{
+            x &\to zbz \mid y \\
+            y &\to aya \mid x \\
+            z &\to c
+            \right\}
+    \end{aligned}\]
+    Let \(L_1 = \mathcal L(\mathcal G_1, x)\) and \(L_2 = \mathcal L(\mathcal G_2, x)\).
+    <ol>
+        <li>Write down three words in each of \(L_1\) and \(L_2\).</li>
+        <li>Use the Grammar-to-Automaton construction to turn each of \(\mathcal G_1\) and \(\mathcal G_2\) into stack automata with a state that accepts \(L_1\) and \(L_2\) respectively.</li>
+        <li>Design a grammar \(\mathcal G_3\) with a variable that derives \(L_1 \cup L_2\), and use the Grammar-to-Automaton construction on \(\mathcal G_3\) to build a stack automaton with a state that accepts \(L_1 \cup L_2\).</li>
+        <li>Design a grammar \(\mathcal G_4\) with a variable that derives \(L_1 L_2\), and use the Grammar-to-Automaton construction on \(\mathcal G_4\) to build a stack automaton with a state that accepts \(L_1L_2\).</li>
+    </ol>
+</div>
+
 
 <!-- <div class="problem">
     <b>(Closure Properties)</b>

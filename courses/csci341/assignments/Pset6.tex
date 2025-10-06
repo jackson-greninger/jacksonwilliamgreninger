@@ -174,8 +174,6 @@
 
 Don't forget to check the webspace for hints and additional context for each problem!
 
-\subsection*{Pumping Lengths}
-
 \begin{problem}
     [Pop-Push]
     By induction on the length of the program, prove that every valid stack program is equivalent to either \(\mathtt{skip}\) or a program of the following form:
@@ -210,34 +208,31 @@ Don't forget to check the webspace for hints and additional context for each pro
 \end{proof}
 
 \begin{problem}
-    [Arithmetic is Not Regular]
-    Prove that the language of arithmetic expressions \(\mathit{ArExp} \subseteq A^*\), derived from \(E\) in the grammar \(\mathcal G = (X, A, R)\) below
-    \[\begin{aligned}
-        E &\to 
-            N
-            \mid (E + E)
-            \mid (E \times E)
-            \mid (E - E)
-            \mid (E / E) \\
-        N &\to 0 \mid 1 \mid 2 \mid 3 \mid 4 \mid 5 \mid 6 \mid 7 \mid 8 \mid 9 \mid NN
-    \end{aligned}\]
-    where the alphabet is
-    \[
-        A = \big\{ (, ), +, \times, -, /, 0,1,2,3,4,5,6,7,8,9 \big\}
-    \]
-    is not regular. 
+    [Algorithmic Balancing]
+    Let \(L\) be the set of balanced strings of brackets, where the bracket symbols are \(A = \{\mathtt{(}, \mathtt{)}, \mathtt{[}, \mathtt{]}, \mathtt{\{}, \mathtt{\}}\}\), from Balancing Act.
+    In that problem, you designed a grammar with a variable that derives \(L\).
+    \begin{enumerate}
+        \item
+            Use the Grammar-to-Automaton construction to design a stack automaton with a state that accepts \(L\).
+        \item
+            Can you think of a smaller stack automaton with a state that accepts \(L\)?
+    \end{enumerate}
 \end{problem}
 
 \begin{proof}
     [Solution.]
 \end{proof}
 
-\subsection*{Parse Trees}
-
 \begin{problem}
-    [Left on Your Own]
-    Let \(\mathcal G\) be a grammar with a variable \(x\), and let \(w \in A^*\).
-    Prove that if \(w\) has a derivation from \(x\), then \(w\) has a left-most derivation from \(x\).
+    [Basic Stack Programs Unite]
+    Fix a set of stack symbols \(\Sigma\).
+    Let \(p_1,p_2,\dots, p_n \in \{\mathtt{push}~\sigma, \mathtt{pop}~\sigma \mid \sigma \in \Sigma\}\), i.e., let them be basic stack programs.
+    Assume that \(p_1\dots p_i = \mathtt{skip}\) if and only if \(i = 0\) or \(i = n\). 
+    Now prove that 
+    \begin{enumerate}
+        \item \(p_1 p_n = \mathtt{skip}\)
+        \item \(p_2\dots p_{n-1} = \mathtt{skip}\)
+    \end{enumerate}
 \end{problem}
 
 \begin{proof}
