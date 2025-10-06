@@ -1,19 +1,19 @@
 # Fdb version 4
-["biber Pset6"] 0 "Pset6.bcf" "Pset6.bbl" "Pset6" 1759758220.71657 0
+["biber Pset6"] 0 "Pset6.bcf" "Pset6.bbl" "Pset6" 1759759710.30492 0
   "Pset6.bcf" 0 -1 0 "pdflatex"
   "refs.bib" 0 -1 0 ""
   (generated)
   "Pset6.bbl"
   "Pset6.blg"
   (rewritten before read)
-["makeindex Pset6.idx"] 1759754592.12592 "Pset6.idx" "Pset6.ind" "Pset6" 1759758220.71645 0
-  "Pset6.idx" 1759758219.84519 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex Pset6.idx"] 1759754592.12592 "Pset6.idx" "Pset6.ind" "Pset6" 1759759710.30478 0
+  "Pset6.idx" 1759759709.49159 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "Pset6.ilg"
   "Pset6.ind"
   (rewritten before read)
-["pdflatex"] 1759758219.22837 "/Users/tjws001/Documents/GitHub/toddwayneschmid/courses/csci341/assignments/Pset6.tex" "Pset6.pdf" "Pset6" 1759758220.71685 0
-  "/Users/tjws001/Documents/GitHub/toddwayneschmid/courses/csci341/assignments/Pset6.tex" 1759758218.96648 6554 84409be6003d01bff552533391879492 ""
+["pdflatex"] 1759759708.98837 "/Users/tjws001/Documents/GitHub/toddwayneschmid/courses/csci341/assignments/Pset6.tex" "Pset6.pdf" "Pset6" 1759759710.3052 0
+  "/Users/tjws001/Documents/GitHub/toddwayneschmid/courses/csci341/assignments/Pset6.tex" 1759759708.7509 7154 c4115fca13ca3be4715232acccbec17f ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/bitstrea/charter/bchb7t.tfm" 1136768653 2732 006d846b4d54f9b40899c7c3eecd771a ""
@@ -25,8 +25,10 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1246382020 916 f87d7c45f9c908e672703b83b72241a3 ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm" 1246382020 924 9904cf1d39e9767e7a3622f2a125a565 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm" 1246382020 928 2dc8d444221b7a635bb58038579b861a ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm" 1246382020 908 2921f8a10601f252058503cc6570e581 ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm" 1246382020 940 75ac932a52f80982a9f8ea75d03a34cf ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm" 1246382020 940 228d6584342e91276bf566bcf9716b83 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmex10.tfm" 1136768653 992 662f679a0b3d2d53c1b94050fdaa3f50 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm" 1136768653 1528 abec98dbc43e172678c11b3b9031252a ""
@@ -44,10 +46,12 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm" 1136768653 768 d7b9a2629a0c353102ad947dc9221d49 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/mathabx/matha10.tfm" 1221438877 1372 84a1ef28ab0d13263326e8d7d854aaa0 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/mathabx/matha12.tfm" 1221438877 1380 ceb7b5923e3abb0aafa2e35608b22d77 ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/mathabx/matha5.tfm" 1221438877 1376 3c8e757aef7f6d15ffd501faa8bb2960 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/mathabx/matha6.tfm" 1221438877 1380 5f328d9a92ea6dd75eba04691d285ce9 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/mathabx/matha8.tfm" 1221438877 1380 d3de7fc3f19729dff1005b767ed5d48f ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/mathabx/mathb10.tfm" 1221438877 1384 27aa7639e553886bbde4e93a7f0a21a7 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/mathabx/mathb12.tfm" 1221438877 1384 27aa7639e553886bbde4e93a7f0a21a7 ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/mathabx/mathb5.tfm" 1221438877 1384 0ace1d884f7138b2ff98691743fb6776 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/mathabx/mathb6.tfm" 1221438877 1384 97970db41190afd861da01a22e4035cf ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/mathabx/mathb8.tfm" 1221438877 1384 000e7b0ca0a0b24ccfa273cf5f0bc6ea ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/mathabx/mathx10.tfm" 1221438877 1520 88530e4e46ef1e4a7103f014512c50d2 ""
@@ -55,6 +59,7 @@
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/musixtex-fonts/musix13.tfm" 1320536411 1288 074a3459ca89a552092e00ce9deb3040 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/musixtex-fonts/musix16.tfm" 1320536411 1284 dbaceb55e9a8401bf59af1fb4229f4b3 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/stmaryrd/stmary10.tfm" 1302307949 848 f478e0761563bbc369eca609a1741348 ""
+  "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/stmaryrd/stmary5.tfm" 1302307949 848 e1bc58a31b9ed9c3729ffea165acfaac ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/stmaryrd/stmary6.tfm" 1302307949 848 068dd119e13b75777e62821af7d4f2a6 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/public/stmaryrd/stmary8.tfm" 1302307949 848 6125cdd3627e68d3db8013b98e587508 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/type1/bitstrea/charter/bchb8a.pfb" 1136849748 33799 6c8c18c1e1a138641a52c29f0b878445 ""
@@ -262,12 +267,12 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1721257481.80017 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1721257440 8221420 55780793342b43867148509ad7bdd958 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "Pset6.aux" 1759758220.50771 342 d319a37e5e7a7ebc697840efd320507f "pdflatex"
+  "Pset6.aux" 1759759710.10189 342 0a8b5a74c938e067f1f960881a04c101 "pdflatex"
   "Pset6.bbl" 0 -1 0 "biber Pset6"
   "Pset6.ind" 1759754592.2297 0 d41d8cd98f00b204e9800998ecf8427e "makeindex Pset6.idx"
-  "Pset6.out" 1759758220.33997 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "Pset6.run.xml" 1759758220.50958 2306 5716cd62065bb8c5aea0b5dc8301690a "pdflatex"
-  "Pset6.tex" 1759758218.96648 6554 84409be6003d01bff552533391879492 ""
+  "Pset6.out" 1759759709.93908 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "Pset6.run.xml" 1759759710.10401 2306 5716cd62065bb8c5aea0b5dc8301690a "pdflatex"
+  "Pset6.tex" 1759759708.7509 7154 c4115fca13ca3be4715232acccbec17f ""
   (generated)
   "Pset6.aux"
   "Pset6.bcf"

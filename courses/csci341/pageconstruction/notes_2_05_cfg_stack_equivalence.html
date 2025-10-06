@@ -692,17 +692,17 @@
     <b>(Union and Concatenation in \(\mathsf{Stack}\))</b>
     Consider the following two grammars:
     \[\begin{aligned}
-        \mathcal G_1 = \left\{
+        \mathcal G_1 &= \left\{\begin{aligned}
             x &\to yyy \mid z \\
             y &\to ay \mid z \\
             z &\to \varepsilon
-            \right\}
+            \end{aligned}\right\}
             \\
-        \mathcal G_1 = \left\{
+        \mathcal G_1 &= \left\{\begin{aligned}
             x &\to zbz \mid y \\
             y &\to aya \mid x \\
             z &\to c
-            \right\}
+            \end{aligned}\right\}
     \end{aligned}\]
     Let \(L_1 = \mathcal L(\mathcal G_1, x)\) and \(L_2 = \mathcal L(\mathcal G_2, x)\).
     <ol>
