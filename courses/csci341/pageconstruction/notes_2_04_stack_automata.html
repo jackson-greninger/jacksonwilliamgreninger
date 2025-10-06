@@ -95,6 +95,7 @@
 </div>
 
 <div class="exercise">
+    <b>(That's SO Valid)</b>
     Show that the following stack programs are valid:
     <ol>
         <li>\(\mathtt{pop}~1\)</li>
@@ -184,11 +185,12 @@
 <p>
     <b color="red">Note!</b> Because of the Pop-Push (not to be confused with the Push-Pop exercise) problem, we are going to write
     <ul>
-        <li>\(\varepsilon\) for any program \(p\) equivalent to \(\mathtt{skip}\)</li>
+        <!-- <li>\(\varepsilon\) for any program \(p\) equivalent to \(\mathtt{skip}\)</li> -->
         <li>\({\downarrow}\sigma\) for any program \(p\) equivalent to \(\mathtt{push}~\sigma\)</li>
         <li>\({\uparrow}\sigma\) for any program \(p\) equivalent to \(\mathtt{pop}~\sigma\)</li>
         <li>\({\uparrow}\sigma_1{\downarrow}\sigma_2\) for any program \(p\) equivalent to \(\mathtt{pop}~\sigma_1.\mathtt{push}~\sigma_2\)</li>
     </ul>
+    Transitions where the stack program is equivalent to \(\mathtt{skip}\) are labelled with only their input letter.
     This is going to be extremely useful notation going forward.
 </p>
 
@@ -207,13 +209,13 @@
                 &\hspace{2em} (x_0, (b, {\downarrow}0), x_0), \\
                 &\hspace{2em} (x_0, (a, {\uparrow}0), x_1), \\
                 &\hspace{2em} (x_1, (b, {\uparrow}0), x_2), \\
-                &\hspace{2em} (x_2, (b, \varepsilon), x_0), \\
-                &\hspace{2em} (x_2, (a, \varepsilon), x_1) \\
+                &\hspace{2em} (x_2, (b, \mathtt{skip}), x_0), \\
+                &\hspace{2em} (x_2, (a, \mathtt{skip}), x_1) \\
                 &\} \\
                 F&= \{x_1\}
         \end{aligned}\]
     </div>
-    In state diagrams of stack automata, we will usually omit the stack program from transitions if they are equivalent to \(\mathtt{skip}\).
+    Recall that in state diagrams of stack automata, we will usually omit the stack program from transitions if they are equivalent to \(\mathtt{skip}\).
     In \(\mathcal S\) above, we can read \(bbabba\) from \(x_0\) via the path 
     \[
         x_0
@@ -231,7 +233,7 @@
         {\downarrow}0{.}
         {\uparrow}0{.}
         {\uparrow}0{.}
-        {\varepsilon}{.}
+        \mathtt{skip}{.}
         {\downarrow}0{.}
         {\uparrow}0
     \]
@@ -254,13 +256,12 @@
     Using these, we can reason as follows: we identify consecutive push-pop pairs, turn them into skips, and then remove unnecessary skips.
     For our program, this results in
     \[\begin{aligned}
-        &\mathtt{push}~0 {.} (\mathtt{push}~0{.} \mathtt{pop}~0) {.} \mathtt{pop}~0 {.} \mathtt{skip} {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
-        &= \mathtt{push}~0 {.} (\mathtt{skip}) {.} \mathtt{pop}~0 {.} \mathtt{skip} {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
-        &= \mathtt{push}~0 {.} \mathtt{pop}~0 {.} \mathtt{skip} {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
-        &= (\mathtt{push}~0 {.} \mathtt{pop}~0) {.} \mathtt{skip} {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
-        &= (\mathtt{skip}) {.} \mathtt{skip} {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
-        &= (\mathtt{skip}) {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
-        &= (\mathtt{push}~0 {.} \mathtt{pop}~0) \\
+        &\mathtt{push}~0 {.} {\color{blue}(\mathtt{push}~0{.} \mathtt{pop}~0)} {.} \mathtt{pop}~0 {.} \mathtt{skip} {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
+        &= \mathtt{push}~0 {.} {\color{blue}(\mathtt{skip})} {.} \mathtt{pop}~0 {.} \mathtt{skip} {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
+        &= {\color{blue}(\mathtt{push}~0 {.} \mathtt{pop}~0)} {.} \mathtt{skip} {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
+        &= {\color{blue}(\mathtt{skip})} {.} \mathtt{skip} {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
+        &= {\color{blue}(\mathtt{skip})} {.} \mathtt{push}~0 {.} \mathtt{pop}~0 \\
+        &= {\color{blue}(\mathtt{push}~0 {.} \mathtt{pop}~0)} \\
         &= \mathtt{skip} \\
     \end{aligned}\]
     This calculation tells us that the program (1) does not crash, and (2) that the memory state at the end of the program is an empty stack.
@@ -294,7 +295,7 @@
         <li>write down a path through the automaton that does not correspond to a run,</li>
         <li>write down a path through the automaton that corresponds to a run, ends with an accepting state, but is not an accepting run,</li>
         <li>write down a path through the automaton that corresponds to a run, in which the stack begins and ends empty, but is not an accepting run, and</li>
-        <li>determine the language accepted by \(x_0\).</li>
+        <li>write down a few words in the language accepted by \(x_0\).</li>
     </ol>
     <div class="figure">
         <img src="../imgs/stack_automaton_1.svg" />
