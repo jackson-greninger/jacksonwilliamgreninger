@@ -305,7 +305,7 @@
         </li>
         <li>A set \(F\) of <i>accepting program states</i>.</li>
     </ul>
-    Where \(\xi \in A \cup \{\varepsilon\}\), if \((x, (\xi, p), y\) \in \delta\), then we write \(x\xrightarrow{\xi \mid p} y\) and call it a <i>\(\xi\)-transition</i>.
+    Where \(\xi \in A \cup \{\varepsilon\}\), if \((x, (\xi, p), y) \in \delta\), then we write \(x\xrightarrow{\xi \mid p} y\) and call it a <i>\(\xi\)-transition</i>.
     If \(\xi = \varepsilon\), then \(x\xrightarrow{\xi \mid p} y\) may also be called a <i>silent transition</i> and written \(x \stackrel{p}{\leadsto} y\).
 
     <p></p>
@@ -340,7 +340,7 @@
         <li>\(\varepsilon\) for any program \(p\) equivalent to \(\mathtt{skip}\)</li>
         <li>\({\downarrow}\sigma\) for any program \(p\) equivalent to \(\mathtt{push}~\sigma\)</li>
         <li>\({\uparrow}\sigma\) for any program \(p\) equivalent to \(\mathtt{pop}~\sigma\)</li>
-        <li>\({\uparrow}\sigma_1{\downarrow}\sigma_2\) for any program \(p\) equivalent to \((\mathtt{pop}~\sigma_1,\mathtt{push}~\sigma_2)\)</li>
+        <li>\({\uparrow}\sigma_1{\downarrow}\sigma_2\) for any program \(p\) equivalent to \(\mathtt{pop}~\sigma_1.\mathtt{push}~\sigma_2\)</li>
     </ul>
     This is going to be extremely useful notation going forward.
 </p>
@@ -450,11 +450,11 @@
         <li>determine the language accepted by \(x_0\).</li>
     </ol>
     <div class="figure">
-        <img src="../imgs/" />
+        <img src="../imgs/stack_automaton_1.svg" />
         \(\mathcal S_1\)
-        <img src="../imgs/" />
+        <img src="../imgs/stack_automaton_2.svg" />
         \(\mathcal S_2\)
-        <img src="../imgs/" />
+        <img src="../imgs/stack_automaton_3.svg" />
         \(\mathcal S_3\)
     </div>
 </div>
