@@ -486,7 +486,7 @@
     <ol>
         <li>\(L_1 = \{a^n b a^n \mid n \in \mathcal L\}\)</li>
         <li>\(L_2 = \{a^n b^{2n + 1} \mid n \in \mathcal L\}\)</li>
-        <li>\(L_3 = \{w \mid w = w^{\text{op}}\}\)</li>
+        <li>\(L_3 = \{w \mid w \text{ has the same \(\#\) of \(a\)s and \(b\)s }\}\)</li>
         <li>\(L_4 = \{a^ib^jc^k \mid i \neq j \text{ or } j \neq k\}\)</li>
     </ol>
 </div>
@@ -495,12 +495,10 @@
     <b>(Comes in 3s)</b>
     Consider the language 
     \[
-        L = \{a^nb^n \mid n \in \mathbb{N} \text{ and } n = 3k + 1 \text{ for some \(k \in \mathbb N\)}\}
+        L = \{w \mid w = w^{\text{op}}\}
     \]
-    <ol>
-        <li>Design a stack automaton \(\mathcal S = (Q, A, \Sigma, \delta, F)\) with a state \(x\in Q\) such that \(L = \mathcal L(\mathcal S, x)\).</li>
-        <li>Design a grammar \(\mathcal G = (X, A, R)\) with a variable that derives \(L\).</li>
-    </ol>
+    in the alphabet \(A = \{a, b, c\}\).
+    Design a stack automaton \(\mathcal S = (Q, A, \Sigma, \delta, F)\) with a state \(x\in Q\) such that \(L = \mathcal L(\mathcal S, x)\).
 </div>
 
 <p>
