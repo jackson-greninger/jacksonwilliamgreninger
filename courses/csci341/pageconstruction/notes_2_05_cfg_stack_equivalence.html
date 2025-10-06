@@ -34,7 +34,7 @@
 
 <p>
     The basic idea behind the construction can be framed as matching the obligations of a <i>derivation</i>. 
-    Every rewrite rule \(y \to \mu\) is going to correspond to a new obligation that the derivation has to fill.
+    Every rewrite rule \(y \to \mu\) is going to correspond to a new obligation that the derivation has to fulfill.
     Note that this implies that both \(A\) and \(X\) are going to be contained in our set of stack symbols.
     This rewrite rule is modelled in the stack automaton with a path that pops \(y\) from the stack and pushes the characters of \(\mu\) to the stack in reverse order (because stacks are last-in-first-out) and pop each letter as it is being read.
     This captures that every derivation, say \(x_0 \Rightarrow \mu_1 \Rightarrow \cdots \Rightarrow \mu_n \Rightarrow w\), must end with a word \(w \in A^*\) (as opposed to a monomial expression \(\mu \in (X \cup A)^*\)).

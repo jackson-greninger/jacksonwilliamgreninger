@@ -1,13 +1,13 @@
 \documentclass[11pt]{article}
 
 \newcommand{\pset}{
-    5
+    6
 }
 \newcommand{\subtitle}{
-    From Nonregular Languages to Counter Automata
+    Stack Automata
 }
 \newcommand{\duedate}{
-    Friday, October 10
+    Friday, October 17
 }
 
 % Page Setup
@@ -177,59 +177,32 @@ Don't forget to check the webspace for hints and additional context for each pro
 \subsection*{Pumping Lengths}
 
 \begin{problem}
-    [NOT THE Bs]
-    Show that the following language is not regular. 
+    [Pop-Push]
+    By induction on the length of the program, prove that every valid stack program is equivalent to either \(\mathtt{skip}\) or a program of the following form:
     \[
-        L = \{a^nb^m \mid n \in \mathbb N \text{ and } n > m\}
+        \mathtt{pop}~\sigma_1 {.}
+        \mathtt{pop}~\sigma_2 \dots
+        \mathtt{pop}~\sigma_n {.}
+        \mathtt{push}~\tau_1 {.}
+        \mathtt{push}~\tau_2 \dots
+        \mathtt{push}~\tau_m
+        \qquad \text{(*)}
     \]
+    for some \(n,m \in \mathbb N\).
 \end{problem}
 
 \begin{proof}[Solution.]
     
 \end{proof}
 
-\subsection*{Context-free Grammars}
-
 \begin{problem}
-    [Balancing Act]
-    Recall that a string of parentheses is \emph{balanced} if every left parenthese \(\mathtt{(}\) is eventually followed by a right parenthese \(\mathtt{)}\). 
-    But things get more complicated when there are other alternatives to parentheses: what about square brackets? Or curly ones?
-    If we take \[
-        A = \big\{ \mathtt{(}, \mathtt{)}, \mathtt{[}, \mathtt{]}, \mathtt{\{}, \mathtt{\}}, \mathtt{\langle}, \mathtt{\rangle}  \big\}
-    \]
-    then we say that a string of brackets \(w \in A^*\) is \emph{balanced} if every left bracket of a given type is eventually followed by a right bracket of the same type, without being interrupted by an unmatched right bracket of a different type. 
-    For example, these are all balanced:
+    [2 is better than 1]
+    Consider the language 
     \[
-        \mathtt{ 
-            \{()\}()
-            \qquad
-            [] 
-            \qquad
-            [()\langle()\rangle] 
-            \qquad
-            [()\{()\}] 
-        }
-        \hspace{4em}\text{(*)}
+        L = \{w \mid w = w^{\text{op}}\}
     \]
-    but these are not: 
-    \[
-        \mathtt{ 
-            ([)] \qquad
-            \{()()
-            \qquad
-            ] 
-            \qquad
-            \langle[()()\rangle] 
-            \qquad
-            [()\{(\})] 
-        }
-    \]
-    Let \(L \subseteq A^*\) be the language of balanced strings of brackets.
-    \begin{enumerate}
-        \item Write down a grammar \(\mathcal G = (X, A, R)\) with a variable that generates \(L\), i.e., for some \(x \in X\), \(\mathcal L(\mathcal G, x) = L\).
-        \item Use your grammar to derive each of the words in (*).
-        \item Describe what prevents each of the words in (**) from being derivable from your grammar \(\mathcal G\).
-    \end{enumerate}
+    in the alphabet \(A = \{a, b, c\}\).
+    Design a stack automaton \(\mathcal S = (Q, A, \Sigma, \delta, F)\) with a state \(x\in Q\) such that \(L = \mathcal L(\mathcal S, x)\).
 \end{problem}
 
 \begin{proof}
